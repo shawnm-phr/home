@@ -1,0 +1,1173 @@
+/* intractive-demo - page JS */
+(function(){
+  var tabs=document.querySelectorAll('.module-tab');
+  function go(id){
+    tabs.forEach(function(t){t.classList.remove('active');});
+    document.querySelectorAll('.preview-content').forEach(function(p){p.classList.remove('active');});
+    var t=document.querySelector('.module-tab[data-module="'+id+'"]');
+    if(t) t.classList.add('active');
+    var p=document.getElementById('preview-'+id);
+    if(p) p.classList.add('active');
+  }
+  tabs.forEach(function(tab){
+    tab.addEventListener('click',function(){go(tab.getAttribute('data-module'));});
+  });
+}());
+
+(function(){
+  const track = document.getElementById('testimonial-track');
+  if(!track) return; // guard: element absent on non-homepage pages
+
+  const dots = document.querySelectorAll('.t-dot');
+  const prev = document.getElementById('t-prev');
+  const next = document.getElementById('t-next');
+  const total = dots.length;
+  let current = 0;
+  let autoTimer;
+
+  function goTo(idx) {
+    current = (idx + total) % total;
+    track.style.transform = `translateX(-${current * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+  }
+
+  if(prev) prev.addEventListener('click', () => { goTo(current - 1); resetAuto(); });
+  if(next) next.addEventListener('click', () => { goTo(current + 1); resetAuto(); });
+  dots.forEach((d, i) => d.addEventListener('click', () => { goTo(i); resetAuto(); }));
+
+  let startX = 0;
+  track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, {passive:true});
+  track.addEventListener('touchend', e => {
+    const diff = startX - e.changedTouches[0].clientX;
+    if(Math.abs(diff) > 40) { goTo(diff > 0 ? current + 1 : current - 1); resetAuto(); }
+  });
+
+  function resetAuto() { clearInterval(autoTimer); autoTimer = setInterval(() => goTo(current + 1), 5000); }
+  resetAuto();
+})();
+
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobile-nav');
+if(hamburger && mobileNav){
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileNav.classList.toggle('open');
+    document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+  });
+}
+
+[['mob-customers-toggle','mob-customers-sub'],['mob-learn-toggle','mob-learn-sub'],['mob-company-toggle','mob-company-sub'],['mob-pricing-toggle','mob-pricing-sub']].forEach(([tid, sid]) => {
+  const toggle = document.getElementById(tid);
+  const sub = document.getElementById(sid);
+  if(toggle && sub) toggle.addEventListener('click', () => {
+    toggle.classList.toggle('open');
+    sub.classList.toggle('open');
+  });
+});
+const mobProductToggle = document.getElementById('mob-product-toggle');
+const mobProductSub = document.getElementById('mob-product-sub');
+if(mobProductToggle && mobProductSub){
+  mobProductToggle.addEventListener('click', () => {
+    mobProductToggle.classList.toggle('open');
+    mobProductSub.classList.toggle('open');
+  });
+}
+
+window.addEventListener('resize', () => {
+  if(hamburger && mobileNav && window.innerWidth > 768) {
+    hamburger.classList.remove('open');
+    mobileNav.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+
+const industryLogos = {
+  manufacturing: [
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/bitumix.webp" alt="Bitumix" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/arpico.webp" alt="Arpico" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/acme.webp" alt="Acme" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/Ultratech.webp" alt="Ultratech" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/tropicoir.webp" alt="Tropicoir" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/TokyoCement.webp" alt="Tokyo Cement" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/sunagro.webp" alt="Sunagro" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/specialsteels.webp" alt="Special Steels" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/pyramidwilmar.webp" alt="Pyramid Wilmar" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/prym.webp" alt="Prym" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/phoenix.webp" alt="Phoenix" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/microminerals.webp" alt="Micro Minerals" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/laxapana.webp" alt="Laxapana" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/lankem.webp" alt="Lankem" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/lakro.webp" alt="Lakro" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/kvc.webp" alt="KVC" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/kotagala.webp" alt="Kotagala" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/kiffs.webp" alt="KIFFS" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/Fonterra.webp" alt="Fonterra" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/euorosubstrates.webp" alt="Euro Substrates" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/Delmege.webp" alt="Delmege" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/cwmackie.webp" alt="CW Mackie" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/ceytape.webp" alt="Ceytape" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/ceyflex.webp" alt="Ceyflex" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/CEAT.webp" alt="CEAT" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/brandix.webp" alt="Brandix" loading="lazy"/>',
+  ],
+  hospitality: [
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/Anantara.webp" alt="Anantara" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/avani.webp" alt="Avani" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/ayura-wellness.webp" alt="Ayura Wellness" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/club-palm-bay.webp" alt="Club Palm Bay" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/Galle-Fort-Hotel.webp" alt="Galle Fort Hotel" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/Kings-Pavilion.webp" alt="Kings Pavilion" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/sigiriya-village.webp" alt="Sigiriya Village" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/The-Palms.webp" alt="The Palms" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/Thotagala.webp" alt="Thotagala" loading="lazy"/>',
+  ],
+  banking: [
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/arpico-insurance.webp" alt="Arpico Insurance" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/Beckett-Capital.webp" alt="Beckett Capital" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/first-capital.webp" alt="First Capital" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/lcb-finance.webp" alt="LCB Finance" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/NDB-bank.webp" alt="NDB Bank" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/Orient-Finance.webp" alt="Orient Finance" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/peoplesbank.webp" alt="Peoples Bank" loading="lazy"/>',
+  ],
+  retail: [
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/akbar.webp" alt="Akbar" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/arpico.webp" alt="Arpico" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/Fonterra.webp" alt="Fonterra" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/keells.webp" alt="Keells" loading="lazy"/>',
+  ],
+  healthcare: [
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/ambicaglobal.webp" alt="Ambica Global" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/healthguard.webp" alt="Healthguard" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/sun-pharma.webp" alt="Sun Pharma" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/sunshine.webp" alt="Sunshine" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/UY-Dental.webp" alt="UY Dental" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/visioncare.webp" alt="Visioncare" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/Dispensing-Opticians.webp" alt="Dispensing Opticians" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/Lanka-Hospitals.webp" alt="Lanka Hospitals" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/B-Braun.webp" alt="B Braun" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/Browns-Hospitals.webp" alt="Browns Hospitals" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/Mount-Lotus.webp" alt="Mount Lotus" loading="lazy"/>',
+  ],
+  it: [
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/zillion-e.webp" alt="Zillione" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/Tellda.webp" alt="Tellda" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/nable.webp" alt="Nable" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/inivos.webp" alt="Inivos" loading="lazy"/>',
+  ],
+  logistics: [
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/mclarens-group.webp" alt="McLarens Group" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/oki-oki.webp" alt="Oki Oki" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/sri-lankan-airlines.webp" alt="SriLankan Airlines" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/transmaldivian-airways.webp" alt="Trans Maldivian Airways" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/advantis.webp" alt="Advantis" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/aitkenspence.webp" alt="Aitken Spence" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/ansell.webp" alt="Ansell" loading="lazy"/>',
+    '<img src="https://peopleshr.com/wp-content/uploads/2026/04/efl.webp" alt="EFL" loading="lazy"/>',
+  ],
+};
+
+const logosContainer = document.getElementById('client-logos-container');
+if(logosContainer){ // guard: element absent on non-homepage pages
+
+  function renderLogos(industry) {
+    const logos = industryLogos[industry] || [];
+
+    logosContainer.style.opacity = '0';
+    logosContainer.style.transition = 'opacity 0.2s ease';
+
+    setTimeout(() => {
+      const items = logos.map(l => `<span class="client-logo">${l}</span>`).join('');
+      logosContainer.innerHTML = `<div class="logo-slider-track">${items}${items}</div>`;
+
+      const duration = logos.length * 2.2;
+      const track = logosContainer.querySelector('.logo-slider-track');
+      track.style.animationDuration = duration + 's';
+
+      logosContainer.addEventListener('mouseenter', () => track.style.animationPlayState = 'paused');
+      logosContainer.addEventListener('mouseleave', () => track.style.animationPlayState = 'running');
+
+      logosContainer.style.transition = 'opacity 0.35s ease';
+      logosContainer.style.opacity = '1';
+    }, 200);
+  }
+
+  document.querySelectorAll('.industry-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.industry-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      renderLogos(tab.dataset.industry);
+    });
+  });
+
+  const activeTab = document.querySelector('.industry-tab.active');
+  if(activeTab) renderLogos(activeTab.dataset.industry);
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.module-card, .persona-card, .cs-card, .feature-item, .case-card, .chro-col').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(24px)';
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  observer.observe(el);
+});
+
+(function(){
+  const items = document.querySelectorAll('.pillar-item');
+  if(!items.length) return; // guard: element absent on non-CHRO pages
+
+  items.forEach(item => {
+    item.addEventListener('toggle', function(){
+      if(!this.open) return;
+
+      items.forEach(other => {
+        if(other !== this && other.open) other.removeAttribute('open');
+      });
+
+      const top = this.getBoundingClientRect().top + window.scrollY - 24;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  });
+})();
+
+(function(){
+  if(!('IntersectionObserver' in window)) return;
+  var wbrObserver = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        wbrObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.wbr-agenda-card, .wbr-getting-card').forEach(function(el){
+    requestAnimationFrame(function(){
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      wbrObserver.observe(el);
+    });
+  });
+
+  setTimeout(function(){
+    document.querySelectorAll('.wbr-agenda-card, .wbr-getting-card').forEach(function(el){
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+    });
+  }, 2000);
+})();
+
+(function(){'use strict';var ProductsPage={initFaq:function(){var triggers=document.querySelectorAll('.phr-faq-item__trigger');triggers.forEach(function(btn){btn.addEventListener('click',function(){var item=btn.closest('.phr-faq-item');var body=item.querySelector('.phr-faq-item__body');var isOpen=item.classList.contains('phr-faq-item--open');document.querySelectorAll('.phr-faq-item--open').forEach(function(el){el.classList.remove('phr-faq-item--open');el.querySelector('.phr-faq-item__body').style.maxHeight='0';el.querySelector('.phr-faq-item__trigger').setAttribute('aria-expanded','false')});if(!isOpen){item.classList.add('phr-faq-item--open');body.style.maxHeight=body.scrollHeight+'px';btn.setAttribute('aria-expanded','true')}})})},init:function(){this.initFaq()}};document.addEventListener('DOMContentLoaded',function(){ProductsPage.init()});}());
+
+const LAZY_SECTIONS = {
+  pay:        `      <div class="dg-cat-header">
+        <div class="dg-cat-header-left">
+          <h2 class="dg-section-heading">Accurate payroll. Zero compliance risk.</h2>
+          <p class="dg-cat-desc">From timesheets to final payslips Ã¢â‚¬ÂÃ¢â‚¬Â automate your entire payroll cycle with built-in statutory compliance for Sri Lanka and beyond.</p>
+        </div>
+        <div class="dg-cat-count-box">
+          <div class="dg-cat-count-num">3</div>
+          <div class="dg-cat-count-lbl">Demos available</div>
+        </div>
+      </div>
+      <div class="dg-grid">
+        <div class="dg-card" onclick="gatedDemo('REPLACE_PAY_RUN_ID')">
+          <div class="dg-thumb dg-thumb-timepay">
+            <div class="dg-thumb-ui">
+              <div class="dg-ui-bar"></div>
+              <div class="dg-ui-row"><div class="dg-ui-pill"></div><div class="dg-ui-pill w55"></div></div>
+              <div class="dg-ui-bar s"></div>
+            </div>
+            <div class="dg-thumb-overlay"><div class="dg-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
+            
+          </div>
+          <div class="dg-card-body">
+            <div class="dg-card-tag">Payroll</div>
+            <div class="dg-card-title">Payroll Processing &amp; Monthly Run</div>
+            <div class="dg-card-desc">One-click payroll runs with automatic EPF/ETF, PAYE calculations, and bank file generation for all major Sri Lankan banks.</div>
+            <div class="dg-card-footer">
+              <button class="dg-card-cta">Watch Demo <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </div>
+          </div>
+        </div>
+        <div class="dg-card" onclick="gatedDemo('REPLACE_PAY_LEAVE_ID')">
+          <div class="dg-thumb dg-thumb-timepay">
+            <div class="dg-thumb-ui">
+              <div class="dg-ui-bar"></div>
+              <div class="dg-ui-row"><div class="dg-ui-pill"></div><div class="dg-ui-pill w55"></div></div>
+              <div class="dg-ui-bar s"></div>
+            </div>
+            <div class="dg-thumb-overlay"><div class="dg-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
+            
+          </div>
+          <div class="dg-card-body">
+            <div class="dg-card-tag">Leave</div>
+            <div class="dg-card-title">Leave &amp; Absence Management</div>
+            <div class="dg-card-desc">Configure leave policies, approval workflows, accrual rules, and carry-forward limits Ã¢â‚¬ÂÃ¢â‚¬Â all without IT support.</div>
+            <div class="dg-card-footer">
+              <button class="dg-card-cta">Watch Demo <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </div>
+          </div>
+        </div>
+        <div class="dg-card" onclick="gatedDemo('REPLACE_PAY_EXPENSE_ID')">
+          <div class="dg-thumb dg-thumb-timepay">
+            <div class="dg-thumb-ui">
+              <div class="dg-ui-bar"></div>
+              <div class="dg-ui-row"><div class="dg-ui-pill"></div><div class="dg-ui-pill w55"></div></div>
+              <div class="dg-ui-bar s"></div>
+            </div>
+            <div class="dg-thumb-overlay"><div class="dg-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
+            
+          </div>
+          <div class="dg-card-body">
+            <div class="dg-card-tag">Expenses</div>
+            <div class="dg-card-title">Expense Claims &amp; Reimbursement</div>
+            <div class="dg-card-desc">Mobile receipt capture, multi-level approvals, and direct payroll integration for seamless reimbursements.</div>
+            <div class="dg-card-footer">
+              <button class="dg-card-cta">Watch Demo <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </div>`,
+  time:       `      <div class="dg-cat-header">
+        <div class="dg-cat-header-left">
+          <h2 class="dg-section-heading">Real-time visibility across every hour worked.</h2>
+          <p class="dg-cat-desc">Biometric integrations, shift scheduling, overtime controls, and live attendance dashboards Ã¢â‚¬ÂÃ¢â‚¬Â across every site and shift pattern.</p>
+        </div>
+        <div class="dg-cat-count-box">
+          <div class="dg-cat-count-num">2</div>
+          <div class="dg-cat-count-lbl">Demos available</div>
+        </div>
+      </div>
+      <div class="dg-grid">
+        <div class="dg-card" onclick="gatedDemo('cmov2pgrk05pu9rr9ct8hjufa')">
+          <div class="dg-thumb dg-thumb-timepay">
+            <img src="https://peopleshr.com/wp-content/uploads/2026/05/Manage_Leave_Applications_Approvals.webp" alt="Manage Leave Applications & Approvals" class="dg-thumb-image">
+            <div class="dg-thumb-overlay"><div class="dg-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
+            <div class="dg-thumb-new"><span class="new-tag">NEW</span></div>
+          </div>
+          <div class="dg-card-body">
+            <div class="dg-card-tag">Leave</div>
+            <div class="dg-card-title">Manage Leave Applications &amp; Approvals</div>
+            <div class="dg-card-desc">Request leave, approve pending applications, and review leave analytics Ã¢â‚¬ÂÃ¢â‚¬Â all in one streamlined workflow.</div>
+            <div class="dg-card-footer">
+              <button class="dg-card-cta">Watch Demo <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </div>
+          </div>
+        </div>
+        <div class="dg-card" onclick="gatedDemo('cmovhp1dj13hj9rr9on8k7xga')">
+          <div class="dg-thumb dg-thumb-timepay">
+            <img src="https://peopleshr.com/wp-content/uploads/2026/05/Configure_Employee_Shift_Schedules_Roster_Groups.webp" alt="Configure Employee Shift Schedules & Roster Groups" class="dg-thumb-image">
+            <div class="dg-thumb-overlay"><div class="dg-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
+            
+          </div>
+          <div class="dg-card-body">
+            <div class="dg-card-tag">Attendance</div>
+            <div class="dg-card-title">Configure Employee Shift Schedules &amp; Roster Groups</div>
+            <div class="dg-card-desc">Assign employees to schedules by setting up roster groups, configuring shift parameters with breaks and overtime rules.</div>
+            <div class="dg-card-footer">
+              <button class="dg-card-cta">Watch Demo <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </div>`,
+  talent:     `      <div class="dg-cat-header">
+        <div class="dg-cat-header-left">
+          <h2 class="dg-section-heading">Hire faster. Develop better. Retain longer.</h2>
+          <p class="dg-cat-desc">From the first application to succession planning, build a high-performance talent engine that scales with your business.</p>
+        </div>
+        <div class="dg-cat-count-box">
+          <div class="dg-cat-count-num">6</div>
+          <div class="dg-cat-count-lbl">Demos available</div>
+        </div>
+      </div>
+
+      <div class="dg-subcat">
+        <div class="dg-subcat-header">
+          <span class="dg-subcat-label">Hiring Manager</span>
+          <span class="dg-subcat-pill">4 demos</span>
+        </div>
+        <div class="dg-grid">
+        <div class="dg-card" onclick="gatedDemo('cmkgfw53z0001yg0ihojce4xw')">
+          <div class="dg-thumb dg-thumb-talent">
+            <img src="https://peopleshr.com/wp-content/uploads/2026/05/Job_Requisition.webp" alt="Job Requisitions" class="dg-thumb-image">
+            <div class="dg-thumb-overlay"><div class="dg-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
+            
+          </div>
+          <div class="dg-card-body">
+            <div class="dg-card-tag">Recruitment</div>
+            <div class="dg-card-title">Job Requisitions</div>
+            <div class="dg-card-desc">Create and manage job requisitions, define role requirements, and route approval requests before opening a vacancy.</div>
+            <div class="dg-card-footer">
+              <button class="dg-card-cta">Watch Demo <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </div>
+          </div>
+        </div>
+        <div class="dg-card" onclick="gatedDemo('cmk0rq2ut1l9sgmn87oxiogg8')">
+          <div class="dg-thumb dg-thumb-talent">
+            <img src="https://peopleshr.com/wp-content/uploads/2026/05/Job_Advertisements.webp" alt="Job Advertisements" class="dg-thumb-image">
+            <div class="dg-thumb-overlay"><div class="dg-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
+            
+          </div>
+          <div class="dg-card-body">
+            <div class="dg-card-tag">Recruitment</div>
+            <div class="dg-card-title">Job Advertisements</div>
+            <div class="dg-card-desc">Publish open roles across multiple job boards and channels directly from PeoplesHR with a few clicks.</div>
+            <div class="dg-card-footer">
+              <button class="dg-card-cta">Watch Demo <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </div>
+          </div>
+        </div>
+        <div class="dg-card" onclick="gatedDemo('cmk12fd6t1sr9gmn80bzrju5e')">
+          <div class="dg-thumb dg-thumb-talent">
+            <img src="https://peopleshr.com/wp-content/uploads/2026/05/CV_Ranking.webp" alt="CV Ranking" class="dg-thumb-image">
+            <div class="dg-thumb-overlay"><div class="dg-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
+            
+          </div>
+          <div class="dg-card-body">
+            <div class="dg-card-tag">Recruitment</div>
+            <div class="dg-card-title">CV Ranking</div>
+            <div class="dg-card-desc">Let AI score and rank candidates against your job criteria automatically Ã¢â‚¬ÂÃ¢â‚¬Â so your team focuses on the best-fit applicants first.</div>
+            <div class="dg-card-footer">
+              <button class="dg-card-cta">Watch Demo <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </div>
+          </div>
+        </div>
+        </div>
+
+      <div class="dg-subcat">
+        <div class="dg-subcat-header">
+          <span class="dg-subcat-label">Candidate</span>
+          <span class="dg-subcat-pill">2 demos</span>
+        </div>
+        <div class="dg-grid">
+        <div class="dg-card" onclick="gatedDemo('cmk2d4gcs325agmn8p2684u2s')">
+          <div class="dg-thumb dg-thumb-talent">
+            <img src="https://peopleshr.com/wp-content/uploads/2026/05/Manage_Job_Application.webp" alt="Manage Job Application" class="dg-thumb-image">
+            <div class="dg-thumb-overlay"><div class="dg-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
+            
+          </div>
+          <div class="dg-card-body">
+            <div class="dg-card-tag">Recruitment</div>
+            <div class="dg-card-title">Manage Job Application</div>
+            <div class="dg-card-desc">See how candidates track, manage, and update their applications through the PeoplesHR candidate portal.</div>
+            <div class="dg-card-footer">
+              <button class="dg-card-cta">Watch Demo <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </div>
+          </div>
+        </div>
+        <div class="dg-card" onclick="gatedDemo('cmk0wamcb1n1dgmn8uxzyt7rg')">
+          <div class="dg-thumb dg-thumb-talent">
+            <img src="https://peopleshr.com/wp-content/uploads/2026/05/Candidate_Application.webp" alt="Candidate Application" class="dg-thumb-image">
+            <div class="dg-thumb-overlay"><div class="dg-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
+            
+          </div>
+          <div class="dg-card-body">
+            <div class="dg-card-tag">Recruitment</div>
+            <div class="dg-card-title">Candidate Application</div>
+            <div class="dg-card-desc">Experience the candidate application journey first-hand Ã¢â‚¬ÂÃ¢â‚¬Â from discovering a role to submitting a complete application.</div>
+            <div class="dg-card-footer">
+              <button class="dg-card-cta">Watch Demo <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>`,
+  engagement: `      <div class="dg-cat-header">
+        <div class="dg-cat-header-left">
+          <h2 class="dg-section-heading">Build a culture people don't want to leave.</h2>
+          <p class="dg-cat-desc">Measure, understand, and act on employee sentiment in real time Ã¢â‚¬ÂÃ¢â‚¬Â so you can fix problems before they become attrition.</p>
+        </div>
+        <div class="dg-cat-count-box">
+          <div class="dg-cat-count-num">3</div>
+          <div class="dg-cat-count-lbl">Demos available</div>
+        </div>
+      </div>
+      <div class="dg-grid">
+        <div class="dg-card" onclick="gatedDemo('REPLACE_ENGAGEMENT_SURVEYS_ID')">
+          <div class="dg-thumb dg-thumb-engage">
+            <div class="dg-thumb-ui">
+              <div class="dg-ui-bar"></div>
+              <div class="dg-ui-row"><div class="dg-ui-pill"></div><div class="dg-ui-pill w55"></div></div>
+              <div class="dg-ui-bar s"></div>
+            </div>
+            <div class="dg-thumb-overlay"><div class="dg-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
+            
+          </div>
+          <div class="dg-card-body">
+            <div class="dg-card-tag">Engagement</div>
+            <div class="dg-card-title">Employee Surveys &amp; Pulse Checks</div>
+            <div class="dg-card-desc">Deploy pulse surveys, eNPS, and custom questionnaires Ã¢â‚¬ÂÃ¢â‚¬Â then visualise sentiment trends in real-time dashboards.</div>
+            <div class="dg-card-footer">
+              <button class="dg-card-cta">Watch Demo <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </div>
+          </div>
+        </div>
+        <div class="dg-card" onclick="gatedDemo('REPLACE_ENGAGEMENT_RECOGNITION_ID')">
+          <div class="dg-thumb dg-thumb-engage">
+            <div class="dg-thumb-ui">
+              <div class="dg-ui-bar"></div>
+              <div class="dg-ui-row"><div class="dg-ui-pill"></div><div class="dg-ui-pill w55"></div></div>
+              <div class="dg-ui-bar s"></div>
+            </div>
+            <div class="dg-thumb-overlay"><div class="dg-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
+            <div class="dg-thumb-new"><span class="new-tag">NEW</span></div>
+          </div>
+          <div class="dg-card-body">
+            <div class="dg-card-tag">Recognition</div>
+            <div class="dg-card-title">Recognition &amp; Rewards Programme</div>
+            <div class="dg-card-desc">Peer-to-peer shoutouts, manager nominations, milestone awards, and a points-based reward marketplace Ã¢â‚¬ÂÃ¢â‚¬Â all in-platform.</div>
+            <div class="dg-card-footer">
+              <button class="dg-card-cta">Watch Demo <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </div>
+          </div>
+        </div>
+        <div class="dg-card" onclick="gatedDemo('REPLACE_ENGAGEMENT_MANAGER_ID')">
+          <div class="dg-thumb dg-thumb-engage">
+            <div class="dg-thumb-ui">
+              <div class="dg-ui-bar"></div>
+              <div class="dg-ui-row"><div class="dg-ui-pill"></div><div class="dg-ui-pill w55"></div></div>
+              <div class="dg-ui-bar s"></div>
+            </div>
+            <div class="dg-thumb-overlay"><div class="dg-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
+            
+          </div>
+          <div class="dg-card-body">
+            <div class="dg-card-tag">Manager Intelligence</div>
+            <div class="dg-card-title">Manager Effectiveness Scores</div>
+            <div class="dg-card-desc">Track team-level eNPS, 1:1 completion rates, and upward feedback scores to surface your best Ã¢â‚¬ÂÃ¢â‚¬Â and riskiest Ã¢â‚¬ÂÃ¢â‚¬Â managers.</div>
+            <div class="dg-card-footer">
+              <button class="dg-card-cta">Watch Demo <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </div>`,
+  insight:    `      <div class="dg-cat-header">
+        <div class="dg-cat-header-left">
+          <h2 class="dg-section-heading">Turn your people data into strategic decisions.</h2>
+          <p class="dg-cat-desc">Real-time workforce intelligence Ã¢â‚¬ÂÃ¢â‚¬Â from pre-built dashboards to AI-powered natural language queries with Lexi, your HR copilot.</p>
+          <div class="lexi-powered-badge">
+            <span class="lpb-text">Powered by</span>
+            <img src="https://peopleshr.com/wp-content/uploads/2026/05/lexi-s.png" alt="Lexi" class="lpb-logo-img">
+          </div>
+        </div>
+        <div class="dg-cat-count-box">
+          <div class="dg-cat-count-num">3</div>
+          <div class="dg-cat-count-lbl">Demos available</div>
+        </div>
+      </div>
+      <div class="dg-grid">
+        <div class="dg-card" onclick="gatedDemo('REPLACE_INSIGHT_ANALYTICS_ID')">
+          <div class="dg-thumb dg-thumb-insights">
+            <div class="dg-thumb-ui">
+              <div class="dg-ui-bar"></div>
+              <div class="dg-ui-row"><div class="dg-ui-pill"></div><div class="dg-ui-pill w55"></div></div>
+              <div class="dg-ui-bar s"></div>
+            </div>
+            <div class="dg-thumb-overlay"><div class="dg-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
+            
+          </div>
+          <div class="dg-card-body">
+            <div class="dg-card-tag">Analytics</div>
+            <div class="dg-card-title">Workforce Analytics Dashboard</div>
+            <div class="dg-card-desc">100+ pre-built reports covering attrition, headcount, diversity, time-to-hire, and more Ã¢â‚¬ÂÃ¢â‚¬Â updated in real time.</div>
+            <div class="dg-card-footer">
+              <button class="dg-card-cta">Watch Demo <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </div>
+          </div>
+        </div>
+        <div class="dg-card" onclick="gatedDemo('REPLACE_INSIGHT_LEXI_ID')">
+          <div class="dg-thumb dg-thumb-insights">
+            <div class="dg-thumb-ui">
+              <div class="dg-ui-bar"></div>
+              <div class="dg-ui-row"><div class="dg-ui-pill"></div><div class="dg-ui-pill w55"></div></div>
+              <div class="dg-ui-bar s"></div>
+            </div>
+            <div class="dg-thumb-overlay"><div class="dg-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
+            <div class="dg-thumb-new"><span class="new-tag">NEW</span></div>
+          </div>
+          <div class="dg-card-body">
+            <div class="dg-card-tag">AI</div>
+            <div class="dg-card-title">Lexi Ã¢â‚¬ÂÃ¢â‚¬Â Your HR AI Copilot</div>
+            <div class="dg-card-desc">Ask Lexi anything in plain English. Get instant attrition forecasts, anomaly alerts, and recommended actions Ã¢â‚¬ÂÃ¢â‚¬Â no SQL required.</div>
+            <div class="dg-card-footer">
+              <button class="dg-card-cta">Watch Demo <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </div>
+          </div>
+        </div>
+        <div class="dg-card" onclick="gatedDemo('REPLACE_INSIGHT_REPORTS_ID')">
+          <div class="dg-thumb dg-thumb-insights">
+            <div class="dg-thumb-ui">
+              <div class="dg-ui-bar"></div>
+              <div class="dg-ui-row"><div class="dg-ui-pill"></div><div class="dg-ui-pill w55"></div></div>
+              <div class="dg-ui-bar s"></div>
+            </div>
+            <div class="dg-thumb-overlay"><div class="dg-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
+            
+          </div>
+          <div class="dg-card-body">
+            <div class="dg-card-tag">Reporting</div>
+            <div class="dg-card-title">Custom Report Builder</div>
+            <div class="dg-card-desc">Drag-and-drop report builder with scheduled delivery, role-based access controls, and PDF/Excel export built in.</div>
+            <div class="dg-card-footer">
+              <button class="dg-card-cta">Watch Demo <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </div>`
+};
+
+function ensureLoaded(cat) {
+  var sec = document.getElementById('dg-' + cat);
+  if (!sec || sec.getAttribute('data-loaded') !== 'false') return;
+  sec.innerHTML = LAZY_SECTIONS[cat] || '';
+  sec.setAttribute('data-loaded', 'true');
+}
+
+function activateCat(cat) {
+  var tab = document.querySelector('.industry-tab[data-cat="' + cat + '"]');
+  var sec = document.getElementById('dg-' + cat);
+  if (!tab || !sec) return false;
+  ensureLoaded(cat);
+  document.querySelectorAll('.industry-tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.dg-section').forEach(function(s) { s.classList.remove('visible'); });
+  tab.classList.add('active');
+  sec.classList.add('visible');
+  return true;
+}
+
+var catsWrap;
+var tIndex = 0, tTotal = 4;
+
+function scrollToDemos() {
+  var target = document.getElementById('demos');
+  if (!target || !catsWrap) return;
+  var wpHeader = document.querySelector('header.site-header, .site-header, #masthead, header') || { offsetHeight: 80 };
+  var headerH = wpHeader.offsetHeight || 80;
+  window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - catsWrap.offsetHeight - headerH, behavior: 'smooth' });
+}
+function scrollToContact() {
+  var target = document.getElementById('dg-contact');
+  if (!target) return;
+  window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - 24, behavior: 'smooth' });
+}
+function tGoTo(n) {
+  tIndex = n;
+  var track = document.getElementById('t-track');
+  if (track) track.style.transform = 'translateX(-' + (tIndex * 100) + '%)';
+  document.querySelectorAll('.t-dot').forEach(function(d, i) { d.classList.toggle('active', i === tIndex); });
+}
+function tSlide(dir) { tGoTo((tIndex + dir + tTotal) % tTotal); }
+
+document.addEventListener('DOMContentLoaded', function() {
+  catsWrap = document.querySelector('.dg-cats-wrap');
+
+  document.querySelectorAll('.industry-tab[data-cat]').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      if (tab.classList.contains('dg-tab-disabled')) { showDevToast(); return; }
+      activateCat(tab.dataset.cat);
+      history.replaceState(null, '', '#' + tab.dataset.cat);
+      if (catsWrap) catsWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  var hash = window.location.hash.replace('#', '').toLowerCase();
+  if (hash) activateCat(hash);
+
+  setInterval(function() { tSlide(1); }, 6000);
+
+  var c = document.getElementById('hs-form-container');
+  if (c) {
+    var obs = new MutationObserver(function() {
+      if (document.querySelector('#hs-form-container .hs-form')) {
+        var ph = document.getElementById('hs-placeholder');
+        if (ph) ph.style.display = 'none';
+        obs.disconnect();
+      }
+    });
+    obs.observe(c, { childList: true, subtree: true });
+  }
+
+  window.hsFormsOnReady = window.hsFormsOnReady || [];
+  window.hsFormsOnReady.push(function() {
+    hbspt.forms.create({
+      portalId: "45700506",
+      formId: "e3e8a63f-d050-4a3c-9178-acea4915a7cd",
+      region: "na2",
+      target: "#hs-form-container"
+    });
+  });
+});
+
+window.addEventListener('hashchange', function() {
+  var hash = window.location.hash.replace('#', '').toLowerCase();
+  if (hash) activateCat(hash);
+});
+
+var _pendingDemoId = null;
+var _gateDone = !!sessionStorage.getItem('phr_gate_done');
+
+function gatedDemo(id) {
+  if (_gateDone) { Supademo.open(id); return; }
+  _pendingDemoId = id;
+  _showGate();
+}
+
+function gatedHeroDemo() {
+  if (_gateDone) { _loadHeroIframe(); return; }
+  _pendingDemoId = '__hero__';
+  _showGate();
+}
+
+function _loadHeroIframe() {
+  var iframe = document.getElementById('hero-demo-iframe');
+  if (iframe && iframe.dataset.src && !iframe.getAttribute('src')) {
+    iframe.setAttribute('src', iframe.dataset.src);
+  }
+  var overlay = document.getElementById('hero-gate-overlay');
+  if (overlay) overlay.style.display = 'none';
+}
+
+if (_gateDone) {
+  document.addEventListener('DOMContentLoaded', _loadHeroIframe);
+}
+
+function _showGate() {
+  var overlay = document.getElementById('dg-gate-overlay');
+  if (!overlay) return;
+  /* Move to direct child of <body> to escape any parent stacking context */
+  if (overlay.parentNode !== document.body) {
+    document.body.appendChild(overlay);
+  }
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  _initGateForm();
+}
+
+function _hideGate() {
+  var overlay = document.getElementById('dg-gate-overlay');
+  if (overlay) overlay.classList.remove('active');
+  document.body.style.overflow = '';
+  _pendingDemoId = null;
+}
+
+function _onGateSubmit() {
+  var id = _pendingDemoId;
+  sessionStorage.setItem('phr_gate_done', '1');
+  _gateDone = true;
+  _hideGate();
+  if (id === '__hero__') {
+    setTimeout(_loadHeroIframe, 450);
+  } else if (id) {
+    setTimeout(function() { Supademo.open(id); }, 450);
+  }
+}
+
+function _initGateForm() {
+  var container = document.getElementById('dg-gate-form-container');
+  if (!container || container.querySelector('.hs-form')) return;
+  if (typeof hbspt === 'undefined') { setTimeout(_initGateForm, 250); return; }
+  hbspt.forms.create({
+    portalId:  '45700506',
+    formId:    'e3e8a63f-d050-4a3c-9178-acea4915a7cd',
+    region:    'na2',
+    target:    '#dg-gate-form-container',
+    onFormSubmitted: _onGateSubmit
+  });
+}
+
+window.addEventListener('message', function(e) {
+  if (!e.data || _gateDone) return;
+  if (e.data.type === 'hsFormCallback' &&
+     (e.data.eventName === 'onFormSubmitted' || e.data.eventName === 'onFormSubmit')) {
+    _onGateSubmit();
+  }
+});
+
+/* ==========================================================================
+   smsgt-lexi-ph-page.js
+   Page-specific interactions for SMSGT â€” AI-Powered HR Intelligence (Philippines).
+   Requires: phrhome.js loaded first.
+   ========================================================================== */
+
+(function () {
+  'use strict';
+
+  /* â”€â”€ HubSpot Modal â”€â”€ */
+  var overlay  = document.getElementById('hs-modal-overlay');
+  var closeBtn = document.getElementById('hs-modal-close');
+
+  if (overlay) {
+    function openModal(e) {
+      if (e) e.preventDefault();
+      overlay.classList.add('active');
+      overlay.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      overlay.classList.remove('active');
+      overlay.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('[data-open-hs]').forEach(function (el) {
+      el.addEventListener('click', openModal);
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) closeModal();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && overlay.classList.contains('active')) closeModal();
+    });
+  }
+
+  /* â”€â”€ Scroll Animations (page-specific elements only) â”€â”€
+     phrhome.js handles .module-card, .persona-card, .cs-card, .feature-item.
+     This guard covers the selectors unique to this page.                    */
+  if ('IntersectionObserver' in window) {
+    var pageObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity  = '1';
+          entry.target.style.transform = 'translateY(0)';
+          pageObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.lexi-card, .phr-module-card, .smsgt-cred-item').forEach(function (el) {
+      requestAnimationFrame(function () {
+        el.style.opacity    = '0';
+        el.style.transform  = 'translateY(24px)';
+        el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        pageObserver.observe(el);
+      });
+    });
+
+    /* Fallback: ensure elements are visible after 2 s regardless of observer */
+    setTimeout(function () {
+      document.querySelectorAll('.lexi-card, .phr-module-card, .smsgt-cred-item').forEach(function (el) {
+        el.style.opacity   = '1';
+        el.style.transform = 'translateY(0)';
+      });
+    }, 2000);
+  }
+
+}());
+
+/* ── Webinar Page ─────────────────────────────────────────────────────────── */
+(function () {
+  var body = document.getElementById('wb-body');
+  if (!body) return;
+
+  /* ── Data ── */
+  var DATA = {
+    featured: {
+      title: "The Resource Triangle: Aligning Tech, Finance & People for Real HR ROI",
+      description: "Your HR technology investment is already underway — HRIS selected, budget approved, platform launched. But why is adoption still stagnant and ROI not being achieved? Join a 30-minute live session to discover why alignment between your HCM, workforce planning, and financial cycle is the key that has been overlooked.",
+      date: "2026-06-05T14:00:00+07:00",
+      dateLabel: "5th June, 2026",
+      timeLabel: "2:00 PM WIB · 30 mins",
+      registerUrl: "https://peopleshr.com/webinar-indonesia/",
+      language: "Bahasa",
+      speakers: [
+        { initials: "MW", name: "Marcino Waas", role: "HR Technology Strategy Expert & Digital Employee Journey Architect · Pratesis", photo: "images/marcino_waas.webp", color: "#dbeafe", textColor: "#2563eb" }
+      ]
+    },
+    upcoming: [],
+    recordings: [
+      {
+        category: "Product",
+        categoryColor: "#2563eb",
+        videos: [
+          { id: "rec-0", title: "The AI Intelligence Your C-Suite Needs", date: "19 May 2026", duration: "42:39", views: "new", language: "English", youtubeId: "lBM73hj9Vfg", thumbnailGradient: "linear-gradient(135deg,#1e40af,#3b82f6)", speakers: [{ initials: "SM", name: "Shawn Moses", role: "Product Marketing Manager, PeoplesHR", photo: "images/shawn_moses.webp", color: "#e0f2fe", textColor: "#0369a1" }] },
+          { id: "rec-7", title: "The EverywhereWorkforce: A Live Look at HR Tech Built for Mobility", date: "10 Apr 2026", duration: "", views: "", language: "English", youtubeId: "StNpoZbNjVs", thumbnailGradient: "linear-gradient(135deg,#1e40af,#3b82f6)", speakers: [{ initials: "RS", name: "Riyazi Samsudeen", role: "Director Sales & Partner Management, PeoplesHR", photo: "images/riyazi_samsudeen.webp", color: "#ffedd5", textColor: "#c2410c" }] },
+          { id: "rec-8", title: "AI in HR: From Hype to Everyday Impact", date: "26 Nov 2025", duration: "", views: "", language: "Bahasa", youtubeId: "iCLkCzA_EdE", thumbnailGradient: "linear-gradient(135deg,#312e81,#6d28d9)", speakers: [{ initials: "SD", name: "Sri Rejeki", role: "Head of HR, PT Metrodata Electronics", photo: "images/sri_rejeki.webp", color: "#ccfbf1", textColor: "#0f766e" }] },
+          { id: "rec-11", title: "How to effectively use People Analytics for your People", date: "31 Aug 2023", duration: "", views: "", language: "English", youtubeId: "cAbGKlIRjkQ", thumbnailGradient: "linear-gradient(135deg,#1e40af,#3b82f6)", speakers: [{ initials: "AG", name: "Asitha Goonewardena", role: "Chief Product Owner, PeoplesHR", photo: "images/asitha_goonewardana.webp", color: "#ffedd5", textColor: "#c2410c" }] }
+        ]
+      },
+      {
+        category: "HR & People",
+        categoryColor: "#be185d",
+        videos: [
+          { id: "rec-9", title: "Talent in the Age of AI: How HR Tech Is Transforming Workforce Management", date: "25 Feb 2026", duration: "", views: "", language: "Bahasa", youtubeId: "E3hYTxXqLDQ", thumbnailGradient: "linear-gradient(135deg,#9d174d,#ec4899)", speakers: [{ initials: "RN", name: "Dr. Rully C. Hamdani Nawawi, SP., MBA, CHRP", role: "Director - PT Hutama Mandiri Cipta", color: "#ede9fe", textColor: "#7c3aed" }] },
+          { id: "rec-12", title: "The Future of HR in a Distributed Workforce: Supercharging Global Talent Mobility with Technology", date: "14 Nov 2024", duration: "", views: "", language: "English", youtubeId: "Opnd0QA7Tek", thumbnailGradient: "linear-gradient(135deg,#9d174d,#ec4899)", speakers: [{ initials: "CD", name: "Charlie Dyer", role: "Director, Product - Topia", photo: "images/charlie_dyer.webp", color: "#dbeafe", textColor: "#2563eb" }, { initials: "VW", name: "Vichalya Wijesuriya", role: "Director Marketing, PeoplesHR", color: "#d1fae5", textColor: "#065f46" }] },
+          { id: "rec-13", title: "The Role of AI in HR: Shaping Tomorrow's Workforce", date: "28 Aug 2024", duration: "", views: "", language: "English", youtubeId: "wKQRUktg0Nw", thumbnailGradient: "linear-gradient(135deg,#7c2d12,#f97316)", speakers: [{ initials: "TP", name: "Tarvinder Puri", role: "Human Resources Director, ADP Advisory Services", color: "#fce7f3", textColor: "#be185d" }, { initials: "LL", name: "Luxsho Logan", role: "Vice President, Sales - PeoplesHR", photo: "images/luxsho_logan.webp", color: "#ede9fe", textColor: "#7c3aed" }] },
+          { id: "rec-14", title: "The Influence of AI in HR: Friend or Foe", date: "18 Jun 2024", duration: "", views: "", language: "English", youtubeId: "WZ8jdOzlhnk", thumbnailGradient: "linear-gradient(135deg,#581c87,#a855f7)", speakers: [{ initials: "LL", name: "Luxsho Logan", role: "Vice President, Sales - PeoplesHR", photo: "images/luxsho_logan.webp", color: "#ede9fe", textColor: "#7c3aed" }, { initials: "KA", name: "Dr. Kwame Annor", role: "Senior HR Practitioner", photo: "images/kwame_annor.webp", color: "#fef9c3", textColor: "#854d0e" }] },
+          { id: "rec-15", title: "Beginner's Blueprint: How to Use AI Prompts in HR", date: "19 Sep 2024", duration: "", views: "", language: "English", youtubeId: "3tc7z2Bekps", thumbnailGradient: "linear-gradient(135deg,#064e3b,#34d399)", speakers: [{ initials: "MG", name: "Maheshi Gamage", role: "Asst. Vice President, HR - Nations Trust Bank PLC", photo: "images/maheshi_gamage.webp", color: "#ccfbf1", textColor: "#0f766e" }] },
+          { id: "rec-16", title: "AI's Influence on HR: Navigating the Future of Work in 2024", date: "24 Jul 2024", duration: "", views: "", language: "English", youtubeId: "P0j0D4oUebc", thumbnailGradient: "linear-gradient(135deg,#1e3a8a,#60a5fa)", speakers: [{ initials: "LL", name: "Luxsho Logan", role: "Vice President, Sales - PeoplesHR", photo: "images/luxsho_logan.webp", color: "#ede9fe", textColor: "#7c3aed" }] },
+          { id: "rec-17", title: "How to Search for Talent Skills in Emerging Markets", date: "", duration: "", views: "", language: "English", youtubeId: "ghOShodEj6s", thumbnailGradient: "linear-gradient(135deg,#4c1d95,#8b5cf6)", speakers: [{ initials: "CF", name: "Charles H. Ferguson", role: "General Manager - APAC, Globalization Partners", photo: "images/charles_ferguson.webp", color: "#f0fdf4", textColor: "#15803d" }] }
+        ]
+      },
+      {
+        category: "Finance & Payroll",
+        categoryColor: "#d97706",
+        videos: [
+          { id: "rec-10", title: "Fixing Philippines Payroll: What HR needs to get right in 2026", date: "18 Sep 2025", duration: "", views: "", language: "English", youtubeId: "oVoOESPejnM", thumbnailGradient: "linear-gradient(135deg,#78350f,#f59e0b)", speakers: [{ initials: "GP", name: "Gigs P. Patano", role: "", color: "#fef9c3", textColor: "#854d0e" }, { initials: "RS", name: "Riyazi Samsudeen", role: "Director Sales & Partner Management, PeoplesHR", photo: "images/riyazi_samsudeen.webp", color: "#ffedd5", textColor: "#c2410c" }] },
+          { id: "rec-18", title: "Future-Proof Payroll: Navigating Compliance in the Digital Age", date: "23 Aug 2024", duration: "", views: "", language: "English", youtubeId: "mR7ll4k29h0", thumbnailGradient: "linear-gradient(135deg,#78350f,#f59e0b)", speakers: [{ initials: "AG", name: "Asitha Goonewardena", role: "Chief Product Owner, PeoplesHR", photo: "images/asitha_goonewardana.webp", color: "#ffedd5", textColor: "#c2410c" }, { initials: "RS", name: "Riyazi Samsudeen", role: "Director Sales & Partner Management, PeoplesHR", photo: "images/riyazi_samsudeen.webp", color: "#ffedd5", textColor: "#c2410c" }] }
+        ]
+      }
+    ]
+  };
+
+  /* ── Helpers ── */
+  var LANG_FLAG = { English: '🇬🇧', Bahasa: '🇮🇩' };
+  function langBadge(lang) {
+    if (!lang) return '';
+    return '<span class="wb-lang-badge">' + (LANG_FLAG[lang] || '') + ' ' + lang + '</span>';
+  }
+
+  var IC_CAL  = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="12" height="11" rx="2" fill="none"/><path d="M5 2v2M11 2v2M2 7h12" stroke-linecap="round"/></svg>';
+  var IC_CLK  = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6" fill="none"/><path d="M8 5v3l2 2" stroke-linecap="round"/></svg>';
+  var IC_ARR  = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 7h10M7 2l5 5-5 5"/></svg>';
+  var IC_PLG  = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 4-8 4V4z" fill="#fff"/></svg>';
+  var IC_PLB  = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7 5l9 5-9 5V5z" fill="#2563eb"/></svg>';
+  var IC_EYE  = '<svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M1 5s1.5-3 4-3 4 3 4 3-1.5 3-4 3-4-3-4-3z" fill="none"/><circle cx="5" cy="5" r="1.2" fill="currentColor"/></svg>';
+  var IC_MCK  = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="6" cy="6" r="4.5" fill="none"/><path d="M6 3.5v2.5l1.5 1.5" stroke-linecap="round"/></svg>';
+  var IC_MAR  = '<svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 5h6M5 2l3 3-3 3"/></svg>';
+  var IC_PRV  = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 4l-4 4 4 4"/></svg>';
+  var IC_NXT  = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 4l4 4-4 4"/></svg>';
+  var IC_GRID = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="display:inline;vertical-align:-2px;margin-right:6px;"><rect x="1" y="1" width="5" height="5" rx="1.5" fill="#2563eb"/><rect x="8" y="1" width="5" height="5" rx="1.5" fill="#2563eb" opacity=".5"/><rect x="1" y="8" width="5" height="5" rx="1.5" fill="#2563eb" opacity=".5"/><rect x="8" y="8" width="5" height="5" rx="1.5" fill="#2563eb" opacity=".25"/></svg>';
+
+  function speakerAv(s) {
+    return s.photo
+      ? '<img class="wb-speaker-av wb-rec-sp-photo" src="' + s.photo + '" alt="' + s.name + '">'
+      : '<div class="wb-speaker-av" style="background:' + s.color + ';color:' + s.textColor + ';">' + s.initials + '</div>';
+  }
+  function recSpAv(s) {
+    return s.photo
+      ? '<img class="wb-rec-sp-av wb-rec-sp-photo" src="' + s.photo + '" alt="' + s.name + '">'
+      : '<div class="wb-rec-sp-av" style="background:' + s.color + ';color:' + s.textColor + ';">' + s.initials + '</div>';
+  }
+
+  /* ── Renderers ── */
+  function renderFeatured(f) {
+    var speakersHTML = f.speakers.map(function (s) {
+      return '<div class="wb-speaker">' + speakerAv(s) +
+        '<div><div class="wb-speaker-name">' + s.name + '</div><div class="wb-speaker-role">' + s.role + '</div></div></div>';
+    }).join('');
+    return '<div class="wb-featured-card">' +
+      '<div class="wb-featured-left"><div>' +
+        '<div class="wb-featured-meta"><span class="wb-live-badge"><span class="wb-live-dot"></span>UPCOMING</span></div>' +
+        '<h2 class="wb-featured-title">' + f.title + '</h2>' +
+        langBadge(f.language) +
+        '<p class="wb-featured-desc">' + f.description + '</p>' +
+        '<div class="wb-speakers">' + speakersHTML + '</div>' +
+      '</div><div class="wb-featured-footer">' +
+        '<div class="wb-date-chip">' + IC_CAL + ' ' + f.dateLabel + '</div>' +
+        '<div class="wb-date-chip">' + IC_CLK + ' ' + f.timeLabel + '</div>' +
+        '<a href="' + f.registerUrl + '" class="btn-primary wb-featured-cta">Register Free ' + IC_ARR + '</a>' +
+      '</div></div>' +
+      '<div class="wb-featured-right"><div class="wb-countdown">' +
+        '<div class="wb-countdown-label">Starts in</div>' +
+        '<div class="wb-countdown-tiles">' +
+          '<div class="wb-tile"><div class="wb-tile-num" id="cd-days">--</div><div class="wb-tile-unit">Days</div></div>' +
+          '<div class="wb-sep">:</div>' +
+          '<div class="wb-tile"><div class="wb-tile-num" id="cd-hrs">--</div><div class="wb-tile-unit">Hrs</div></div>' +
+          '<div class="wb-sep">:</div>' +
+          '<div class="wb-tile"><div class="wb-tile-num" id="cd-min">--</div><div class="wb-tile-unit">Min</div></div>' +
+          '<div class="wb-sep">:</div>' +
+          '<div class="wb-tile"><div class="wb-tile-num" id="cd-sec">--</div><div class="wb-tile-unit">Sec</div></div>' +
+        '</div></div></div>' +
+      '</div>';
+  }
+
+  function renderUpcoming(upcoming) {
+    if (!upcoming || !upcoming.length) return '';
+    var cardsHTML = upcoming.map(function (u) {
+      var spHTML = u.speaker ? '<div class="wb-uc-speaker">' + recSpAv(u.speaker) +
+        '<div class="wb-rec-sp-info"><span class="wb-rec-sp-name">' + u.speaker.name + '</span>' +
+        (u.speaker.role ? '<span class="wb-rec-sp-role">' + u.speaker.role + '</span>' : '') +
+        '</div></div>' : '';
+      return '<a class="wb-upcoming-card" href="' + u.registerUrl + '">' +
+        '<div class="wb-uc-thumb">' +
+          (u.date && u.time ? '<span class="wb-uc-date-badge">' + u.date + ' · ' + u.time + '</span>' : '') +
+          '<div class="wb-uc-icon">' + IC_PLG + '</div></div>' +
+        '<div class="wb-uc-body">' +
+          '<div class="wb-uc-cat-row"><div class="wb-uc-cat">' + u.category + '</div>' +
+          '<div class="wb-rec-meta-right">' + langBadge(u.language) + (u.date ? '<span class="wb-rec-date-str">' + u.date + '</span>' : '') + '</div></div>' +
+          '<div class="wb-uc-title">' + u.title + '</div>' + spHTML +
+          '<div class="wb-uc-footer"><div class="wb-uc-time">' + IC_MCK + ' ' + u.duration + '</div>' +
+          '<span class="wb-register-btn">Register ' + IC_MAR + '</span></div>' +
+        '</div></a>';
+    }).join('');
+    return '<div class="wb-section-head">' +
+      '<div class="wb-section-title wb-section-title--dark">More <span>Upcoming</span> Webinars</div>' +
+      '<div class="wb-slider-arrows wb-slider-arrows--dark">' +
+        '<button class="wb-arrow wb-arrow--dark" id="sliderPrev">' + IC_PRV + '</button>' +
+        '<button class="wb-arrow wb-arrow--dark" id="sliderNext">' + IC_NXT + '</button>' +
+      '</div></div>' +
+      '<div class="wb-slider-track-wrap"><div class="wb-slider-track" id="upcomingTrack">' + cardsHTML + '</div></div>';
+  }
+
+  function renderRecordings(recordings) {
+    var total = recordings.reduce(function (n, g) { return n + g.videos.length; }, 0);
+    var groupsHTML = recordings.map(function (group) {
+      var cardsHTML = group.videos.map(function (v) {
+        var spHTML = (v.speakers || []).slice(0, 2).map(function (s) {
+          return '<div class="wb-rec-speaker">' + recSpAv(s) +
+            '<div class="wb-rec-sp-info"><span class="wb-rec-sp-name">' + s.name + '</span>' +
+            (s.role ? '<span class="wb-rec-sp-role">' + s.role + '</span>' : '') + '</div></div>';
+        }).join('');
+        var ytThumb = (v.youtubeId && v.youtubeId !== 'dQw4w9WgXcQ')
+          ? '<img src="https://img.youtube.com/vi/' + v.youtubeId + '/hqdefault.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;" loading="lazy" alt="' + v.title.replace(/"/g, '&quot;') + '">'
+          : '';
+        return '<div class="wb-rec-card" data-ytid="' + v.youtubeId + '" data-title="' + v.title.replace(/"/g, '&quot;') + '">' +
+          '<div class="wb-rec-thumb" style="background:' + v.thumbnailGradient + '">' +
+            ytThumb +
+            '<span class="wb-preview-label">Preview</span>' +
+            '<div class="wb-rec-thumb-inner"><div class="wb-rec-play">' + IC_PLB + '</div></div>' +
+            (v.duration ? '<span class="wb-rec-duration">' + v.duration + '</span>' : '') +
+            (v.views ? '<span class="wb-rec-viewed">' + IC_EYE + ' ' + v.views + ' views</span>' : '') +
+          '</div>' +
+          '<div class="wb-rec-body">' +
+            '<div class="wb-rec-meta"><span class="wb-rec-cat-dot">' +
+              '<span style="width:6px;height:6px;border-radius:50%;background:' + group.categoryColor + ';display:inline-block;"></span> ' + group.category +
+            '</span><div class="wb-rec-meta-right">' + langBadge(v.language) + '<span class="wb-rec-date-str">' + v.date + '</span></div></div>' +
+            '<div class="wb-rec-title">' + v.title + '</div>' +
+            '<div class="wb-rec-footer"><div class="wb-rec-speakers">' + spHTML + '</div>' +
+            '<button class="wb-watch-btn">Watch ' + IC_MAR + '</button></div>' +
+          '</div></div>';
+      }).join('');
+      return '<div class="wb-cat-group">' +
+        '<div class="wb-cat-label"><span class="wb-cat-label-text">' + IC_GRID + ' ' + group.category + '</span><div class="wb-cat-label-line"></div></div>' +
+        '<div class="wb-rec-grid">' + cardsHTML + '</div></div>';
+    }).join('');
+    return '<div class="wb-recordings-wrap">' +
+      '<div class="wb-rec-header"><div class="wb-rec-title-block">' +
+        '<div class="wb-rec-eyebrow">On-Demand</div><div class="wb-rec-h2">Past Recordings</div>' +
+      '</div><div class="wb-rec-count">' + total + ' sessions available</div></div>' +
+      groupsHTML + '</div>';
+  }
+
+  function renderCTA() {
+    return '<div class="wb-cta-strip">' +
+      '<div class="wb-cta-strip-text"><h3>Never miss a webinar</h3>' +
+        '<p>Get notified when new sessions go live. Join 8,000+ HR and finance leaders already subscribed.</p></div>' +
+      '<div class="wb-cta-strip-btns"><a href="#" class="btn-primary" style="font-size:.9rem;padding:12px 24px;">Get Notified ' + IC_ARR + '</a></div>' +
+      '</div>';
+  }
+
+  /* ── Countdown ── */
+  function startCountdown(isoDate) {
+    var target = new Date(isoDate);
+    function pad(n) { return String(Math.floor(n)).padStart(2, '0'); }
+    function tick() {
+      var diff = target - new Date();
+      var vals = { 'cd-days': diff/86400000, 'cd-hrs': (diff%86400000)/3600000, 'cd-min': (diff%3600000)/60000, 'cd-sec': (diff%60000)/1000 };
+      Object.keys(vals).forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.textContent = diff <= 0 ? '00' : pad(vals[id]);
+      });
+    }
+    tick();
+    setInterval(tick, 1000);
+  }
+
+  /* ── Slider ── */
+  var upIdx = 0;
+  function getVisible() { return window.innerWidth <= 1024 ? 2 : 3; }
+  function slideUpcoming(dir) {
+    if (window.innerWidth <= 768) return;
+    var track = document.getElementById('upcomingTrack');
+    if (!track || !track.children.length) return;
+    var max = track.children.length - getVisible();
+    upIdx = Math.max(0, Math.min(upIdx + dir, max));
+    var w = track.children[0].getBoundingClientRect().width + 20;
+    track.style.transform = 'translateX(-' + (upIdx * w) + 'px)';
+    var prev = document.getElementById('sliderPrev');
+    var next = document.getElementById('sliderNext');
+    if (prev) prev.disabled = upIdx === 0;
+    if (next) next.disabled = upIdx >= max;
+  }
+  window.slideUpcoming = slideUpcoming;
+
+  function initSlider() {
+    var track = document.getElementById('upcomingTrack');
+    if (!track) return;
+    if (window.innerWidth <= 768) { track.style.transform = ''; upIdx = 0; return; }
+    track.parentElement.style.overflow = 'hidden';
+    slideUpcoming(0);
+    var prev = document.getElementById('sliderPrev');
+    if (prev) prev.disabled = true;
+  }
+
+  /* ── Scroll reveal ── */
+  function initReveal() {
+    if (!('IntersectionObserver' in window)) return;
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.wb-rec-card,.wb-upcoming-card,.wb-featured-card').forEach(function (el, i) {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+      el.style.transition = 'opacity .5s ease ' + (i * 0.06) + 's, transform .5s ease ' + (i * 0.06) + 's';
+      obs.observe(el);
+    });
+  }
+
+  /* ── Video modal ── */
+  function initModal() {
+    var el = document.createElement('div');
+    el.id = 'wb-video-modal';
+    el.className = 'wb-modal-backdrop';
+    el.innerHTML = '<div class="wb-modal-box">' +
+      '<button class="wb-modal-close" id="wb-modal-close">&#x2715;</button>' +
+      '<div class="wb-modal-iframe-wrap"><iframe id="wb-modal-iframe" frameborder="0" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture"></iframe></div>' +
+      '<div class="wb-modal-title" id="wb-modal-title"></div></div>';
+    document.body.appendChild(el);
+    el.addEventListener('click', function (e) { if (e.target === el) closeModal(); });
+    document.getElementById('wb-modal-close').addEventListener('click', closeModal);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+  }
+  function openModal(ytId, title) {
+    document.getElementById('wb-modal-iframe').src = 'https://www.youtube.com/embed/' + ytId + '?autoplay=1';
+    document.getElementById('wb-modal-title').textContent = title;
+    document.getElementById('wb-video-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    document.getElementById('wb-modal-iframe').src = '';
+    document.getElementById('wb-video-modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  /* ── Init ── */
+  body.innerHTML =
+    renderFeatured(DATA.featured) +
+    renderUpcoming(DATA.upcoming) +
+    renderRecordings(DATA.recordings) +
+    renderCTA();
+
+  initModal();
+  body.addEventListener('click', function (e) {
+    var card = e.target.closest('.wb-rec-card[data-ytid]');
+    if (card) openModal(card.dataset.ytid, card.dataset.title);
+  });
+
+  startCountdown(DATA.featured.date);
+  initSlider();
+  initReveal();
+  window.addEventListener('resize', function () { upIdx = 0; initSlider(); });
+}());
