@@ -7,10 +7,12 @@
 <meta name="description" content="Simplify payroll, performance, and people management with PeoplesHR, The all-in-one HRIS software built to streamline every HR process for modern teams.">
 <!--
   Production (WordPress): phrhome.css loads automatically from the theme
-  (id="phrhome-style-css"). The homepage has no page-specific delta layer
-  on top of it, so this is a direct copy for standalone preview.
+  (id="phrhome-style-css"). style.css below is phrhome.css plus a
+  home-delta.css block (currently empty), same pattern as every other
+  page folder, so the file still previews correctly as a standalone build.
+  <link rel="stylesheet" href="phrhome.css">
 -->
-<link rel="stylesheet" href="phrhome.css">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -604,9 +606,11 @@
 
 <!--
   Production (WordPress): phrhome.js loads automatically from the theme
-  (id="phrhome-script-js"). The homepage has no page-specific delta layer
-  on top of it, so this is a direct copy for standalone preview.
+  (id="phrhome-script-js"). script.js below is phrhome.js plus a
+  home-delta.js block (currently empty), same pattern as every other
+  page folder, so the file still previews correctly as a standalone build.
+  <script src="phrhome.js"></script>
 -->
-<script src="phrhome.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
