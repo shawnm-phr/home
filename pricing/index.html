@@ -301,76 +301,16 @@
 
 <main>
 
-  <section class="pr-hero">
-    <div class="page-wrap">
-      <span class="s-chip">Pricing</span>
-      <h1 class="s-title">Find the PeoplesHR that fits how you run HR</h1>
-      <p class="pr-hero-sub">Three tiers built around HR maturity — not headcount. Start where you are today and move up when you're ready. Every plan is scoped to your organisation and priced to what you actually need.</p>
-      <p class="pr-hero-note">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>
-        No fixed price tags — you build a quote around the modules and scale that fit you.
-      </p>
-    </div>
-  </section>
-
-  <section class="pr-ladder">
-    <div class="page-wrap">
-      <div class="pr-ladder-grid" id="pr-ladder-grid"></div>
-    </div>
-  </section>
-
-  <section class="pr-compare" id="pr-compare">
-    <div class="page-wrap">
-
-      <div class="pr-compare-head">
-        <div>
-          <span class="s-chip">Compare capabilities</span>
-          <h2 class="s-title">Everything each tier includes</h2>
-          <p>Pick a tier for each module — Manage, Grow, or Transform — then step through to the next. Your package builds as you go. Tap any <strong>i</strong> for detail.</p>
-        </div>
-        <div class="pr-compare-controls">
-          <span id="pr-filter-chips"></span>
-          <button class="pr-expandall" id="pr-expand-all" type="button">Expand all</button>
-        </div>
-      </div>
-
-      <div class="pr-tracker" id="pr-tracker">
-        <div class="pr-tracker-head">
-          <span class="pr-tracker-title">Your package</span>
-          <span class="pr-tracker-count" id="pr-tracker-count">0 of 0 modules set</span>
-        </div>
-        <div class="pr-tracker-chips" id="pr-tracker-chips"></div>
-        <a href="#pr-build-quote" class="btn-primary pr-tracker-cta" id="pr-tracker-cta" hidden>Build your custom quote</a>
-      </div>
-
-      <div class="pr-cmp" id="pr-cmp">
-        <div class="pr-cmp-header">
-          <div class="pr-cmp-lead">Capability</div>
-          <div class="pr-th" data-tier="manage"><div class="pr-th-name">Manage</div><div class="pr-th-tag">Run the organisation</div></div>
-          <div class="pr-th" data-tier="grow"><div class="pr-th-name">Grow</div><div class="pr-th-tag">Invest in your people</div></div>
-          <div class="pr-th" data-tier="transform"><div class="pr-th-name">Transform</div><div class="pr-th-tag">Lead with people intelligence</div></div>
-        </div>
-        <div id="pr-modules"></div>
-      </div>
-
-    </div>
-  </section>
-
-  <section class="cta-banner" id="pr-build-quote">
-    <div class="page-wrap">
-      <h2>Ready to see your plan?</h2>
-      <p>Set a tier for each module above and we'll shape a quote around exactly that — modules, scale, and outcomes, no generic price tag.</p>
-      <div class="pr-cta-summary" id="pr-cta-summary"></div>
-      <div class="cta-btns">
-        <a href="#" class="cta-btn-white">Build your custom quote</a>
-      </div>
-      <div class="pr-cta-steps">
-        <span class="pr-cta-step"><b>1.</b> Pick your starting tier</span>
-        <span class="pr-cta-step"><b>2.</b> Add the modules you need</span>
-        <span class="pr-cta-step"><b>3.</b> Get a quote scoped to you</span>
-      </div>
-    </div>
-  </section>
+  <!--
+    Pricing configurator: hero, tier ladder, module-by-module comparison
+    matrix, package tracker, and CTA band all live in configurator.html.
+    It's a fully self-contained document (own base tokens, own component
+    classes with no .pr-/.nv-/.ft- namespacing) so it's embedded via
+    iframe rather than inlined, to guarantee its CSS/JS can never collide
+    with phrhome.css or the shared navbar/footer on this page. Height is
+    synced to content by pricing-delta.js below.
+  -->
+  <iframe src="configurator.html" id="pr-configurator-frame" title="PeoplesHR pricing configurator" style="width:100%;border:0;display:block;"></iframe>
 
 </main>
 

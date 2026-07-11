@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pricing configurator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap"></noscript>
+<style>
+:root{
+  --white:#fff; --ink:#0F1C2E; --ink-2:#334155; --muted:#64748B; --muted-2:#94A3B8;
+  --line:#E7EAF0; --line-2:#EEF1F6; --bg-soft:#F8FAFC;
+  --manage:#059669; --manage-tint:#ECFDF5; --manage-line:#A7F3D0;
+  --grow:#2563EB; --grow-tint:#EFF6FF; --grow-line:#BFDBFE;
+  --transform:#7C3AED; --transform-tint:#F6F3FF; --transform-line:#DDD6FE;
+  --radius:16px; --radius-sm:10px;
+  --shadow:0 1px 2px rgba(15,28,46,.04),0 8px 24px rgba(15,28,46,.06);
+  --shadow-lg:0 2px 6px rgba(15,28,46,.05),0 20px 48px rgba(15,28,46,.10);
+  --sans:'Inter',system-ui,sans-serif; --display:'Plus Jakarta Sans',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--white);-webkit-font-smoothing:antialiased;line-height:1.55}
+h1,h2,h3,h4{font-family:var(--display);color:var(--ink);margin:0;line-height:1.12;letter-spacing:-.02em}
+p{margin:0}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.eyebrow{font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+/* ---- nav ---- */
+.nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.86);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:28px;height:68px}
+.brand{font-family:var(--display);font-weight:800;font-size:20px;letter-spacing:-.02em;color:var(--ink);display:flex;align-items:center;gap:8px}
+.brand .dot{width:11px;height:11px;border-radius:3px;background:linear-gradient(135deg,var(--grow),var(--transform))}
+.nav-links{display:flex;gap:26px;margin-left:8px}
+.nav-links a{font-size:14.5px;font-weight:500;color:var(--ink-2)}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a.active{color:var(--ink);font-weight:600}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:14px}
+.btn{font-family:var(--display);font-weight:700;font-size:14.5px;border-radius:999px;padding:11px 20px;border:1px solid transparent;cursor:pointer;transition:transform .15s ease,box-shadow .2s ease,background .2s ease;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--ink);color:#fff}
+.btn-primary:hover{box-shadow:0 8px 20px rgba(15,28,46,.22)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--muted-2)}
+.btn-lg{padding:15px 28px;font-size:16px}
+.nav-cta{display:inline-flex}
+
+/* ---- hero ---- */
+.hero{padding:76px 0 34px;text-align:center}
+.hero .eyebrow{margin-bottom:18px}
+.hero h1{font-size:clamp(34px,5vw,54px);font-weight:800;max-width:16ch;margin:0 auto}
+.hero .sub{margin:22px auto 0;max-width:56ch;font-size:clamp(16px,2vw,19px);color:var(--ink-2)}
+.hero .note{margin-top:14px;font-size:13.5px;color:var(--muted);display:inline-flex;align-items:center;gap:8px}
+.hero .note svg{width:15px;height:15px;color:var(--manage)}
+
+/* ---- tier ladder ---- */
+.ladder{padding:26px 0 6px}
+.ladder-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
+.tier-card{position:relative;background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px 24px;display:flex;flex-direction:column;box-shadow:var(--shadow);transition:transform .18s ease,box-shadow .22s ease,border-color .18s ease;cursor:pointer}
+.tier-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.tier-card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.tier-card .step{font-family:var(--display);font-weight:800;font-size:12px;letter-spacing:.12em;color:var(--muted-2)}
+.tier-card .tname{font-family:var(--display);font-weight:800;font-size:26px;margin-top:10px;display:flex;align-items:center;gap:10px}
+.tier-card .tname .chip{width:12px;height:12px;border-radius:4px}
+.tier-card .ttag{font-weight:600;font-size:14px;margin-top:4px;font-family:var(--display)}
+.tier-card .tdesc{color:var(--ink-2);font-size:14.5px;margin-top:12px}
+.tier-card ul{list-style:none;padding:0;margin:16px 0 22px;display:flex;flex-direction:column;gap:9px}
+.tier-card li{display:flex;gap:9px;font-size:14px;color:var(--ink-2);align-items:flex-start}
+.tier-card li svg{flex:0 0 auto;width:17px;height:17px;margin-top:1px}
+.tier-card .btn{margin-top:auto;justify-content:center;width:100%}
+.tier-card[data-tier=manage]{border-top:3px solid var(--manage)}
+.tier-card[data-tier=grow]{border-top:3px solid var(--grow)}
+.tier-card[data-tier=transform]{border-top:3px solid var(--transform)}
+.tier-card[data-tier=manage] .chip{background:var(--manage)} .tier-card[data-tier=manage] .ttag{color:var(--manage)} .tier-card[data-tier=manage] li svg{color:var(--manage)}
+.tier-card[data-tier=grow] .chip{background:var(--grow)} .tier-card[data-tier=grow] .ttag{color:var(--grow)} .tier-card[data-tier=grow] li svg{color:var(--grow)}
+.tier-card[data-tier=transform] .chip{background:var(--transform)} .tier-card[data-tier=transform] .ttag{color:var(--transform)} .tier-card[data-tier=transform] li svg{color:var(--transform)}
+.tier-card[data-tier=grow] .btn{background:var(--grow);color:#fff}
+.tier-card[data-tier=grow] .btn:hover{box-shadow:0 8px 20px rgba(37,99,235,.3)}
+.tier-card[data-tier=manage] .btn,.tier-card[data-tier=transform] .btn{background:#fff;border-color:var(--line);color:var(--ink)}
+.tier-card[data-tier=manage] .btn:hover{border-color:var(--manage)}
+.tier-card[data-tier=transform] .btn:hover{border-color:var(--transform)}
+.popular{position:absolute;top:-11px;right:20px;background:var(--grow);color:#fff;font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.06em;padding:5px 11px;border-radius:999px;text-transform:uppercase}
+
+/* ---- compare ---- */
+.compare{padding:56px 0 20px}
+.compare-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:22px}
+.compare-head h2{font-size:clamp(26px,3.4vw,36px);font-weight:800}
+.compare-head p{color:var(--muted);font-size:15px;margin-top:8px;max-width:52ch}
+.controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.chips{display:inline-flex;background:var(--bg-soft);border:1px solid var(--line);border-radius:999px;padding:4px}
+.chip-btn{font-family:var(--display);font-weight:600;font-size:13.5px;color:var(--muted);background:transparent;border:0;border-radius:999px;padding:8px 15px;cursor:pointer;transition:all .16s ease}
+.chip-btn:hover{color:var(--ink)}
+.chip-btn.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(15,28,46,.12)}
+.chip-btn[data-tier=manage].on{color:var(--manage)} .chip-btn[data-tier=grow].on{color:var(--grow)} .chip-btn[data-tier=transform].on{color:var(--transform)}
+.expandall{font-family:var(--display);font-weight:600;font-size:13.5px;color:var(--ink-2);background:none;border:0;cursor:pointer;padding:8px 6px}
+.expandall:hover{color:var(--ink)}
+
+.cmp{border:1px solid var(--line);border-radius:var(--radius);overflow:clip;background:#fff}
+.cmp-header{position:sticky;top:0;z-index:40;display:grid;grid-template-columns:var(--cols);background:#fff;border-bottom:1px solid var(--line)}
+.cmp-header .lead{padding:16px 22px;font-family:var(--display);font-weight:700;font-size:14px;color:var(--muted);display:flex;align-items:center}
+.th{padding:14px 10px;text-align:center;font-family:var(--display);border-left:1px solid var(--line-2)}
+.th .n{font-weight:800;font-size:16px}
+.th .t{font-weight:600;font-size:11.5px;color:var(--muted);margin-top:2px}
+.th[data-tier=manage] .n{color:var(--manage)} .th[data-tier=grow] .n{color:var(--grow)} .th[data-tier=transform] .n{color:var(--transform)}
+
+.mod{border-top:1px solid var(--line)}
+.mod:first-child{border-top:0}
+.mod-bar{width:100%;display:grid;grid-template-columns:var(--cols);align-items:center;background:#fff;border:0;cursor:pointer;text-align:left;font-family:inherit}
+.mod-bar:hover{background:var(--bg-soft)}
+.mod-bar .mlead{padding:15px 22px;display:flex;align-items:center;gap:13px}
+.mod-textwrap{display:flex;flex-direction:column;gap:3px;min-width:0}
+.mod-nameline{display:flex;align-items:center;gap:10px}
+.mod-desc{font-family:var(--sans);font-weight:400;font-size:12.5px;color:var(--muted);line-height:1.3}
+.mod-tag{width:9px;height:26px;border-radius:4px;flex:0 0 auto}
+.mod[data-c=green] .mod-tag{background:var(--manage)} .mod[data-c=blue] .mod-tag{background:var(--grow)} .mod[data-c=purple] .mod-tag{background:var(--transform)}
+.mod-name{font-family:var(--display);font-weight:800;font-size:18px}
+.mod-count{font-size:12.5px;color:var(--muted-2);font-weight:500;margin-left:2px}
+.mod-chev{margin-left:auto;color:var(--muted-2);transition:transform .22s ease}
+.mod-bar[aria-expanded=true] .mod-chev{transform:rotate(180deg)}
+.mod-panel{overflow:hidden}
+.grp{border-top:1px solid var(--line-2)}
+.grp:first-child{border-top:0}
+.grp-name{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border:0;cursor:pointer;font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted-2);padding:14px 22px;text-align:left}
+.grp-name:hover{background:var(--bg-soft);color:var(--muted)}
+.grp-chev{color:var(--muted-2);transition:transform .22s ease;flex:0 0 auto}
+.grp-name[aria-expanded=true]{color:var(--ink-2)}
+.grp-name[aria-expanded=true] .grp-chev{transform:rotate(180deg);color:var(--ink-2)}
+.grp-panel{overflow:hidden}
+.grp-panel .row:first-child{border-top:0}
+.row{display:grid;grid-template-columns:var(--cols);align-items:stretch;border-top:1px solid var(--line-2)}
+.row:hover{background:var(--bg-soft)}
+.row.flag{background:#FFF8EC}
+.row.flag:hover{background:#FDF1DA}
+.row.flag .cell-item{box-shadow:inset 3px 0 0 #E9A23B}
+.cell-item{padding:14px 22px;display:flex;align-items:center;gap:9px;min-width:0}
+.cell-item .lbl{font-size:14.5px;color:var(--ink);font-weight:500}
+.cell{border-left:1px solid var(--line-2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:12px 8px;text-align:center;font-size:12.5px;color:var(--ink-2)}
+.cell .cap{font-weight:500;line-height:1.35;color:var(--ink-2)}
+.cell[data-tier=manage]{--accent:var(--manage);--tint:var(--manage-tint)} .cell[data-tier=grow]{--accent:var(--grow);--tint:var(--grow-tint)} .cell[data-tier=transform]{--accent:var(--transform);--tint:var(--transform-tint)}
+.ic{width:20px;height:20px}
+.ic-yes{color:var(--accent)}
+.dash{color:#CBD5E1;font-weight:600}
+.pill{font-family:var(--display);font-weight:700;font-size:11px;padding:4px 10px;border-radius:999px;background:var(--tint);color:var(--accent);line-height:1.1}
+.pill.sales{background:#F1F5F9;color:var(--ink-2)}
+.tts-cap{margin-bottom:5px;font-weight:600}
+.cell-link{color:var(--accent,#2563EB);font-weight:600;font-size:12.5px;line-height:1.35;text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+.cell-link:hover{text-decoration:none}
+.lbl .cell-link{font-size:inherit;font-weight:500}
+
+/* info button + popover */
+.info{position:relative;flex:0 0 auto}
+.info-btn{width:19px;height:19px;border-radius:50%;border:1.4px solid var(--muted-2);color:var(--muted);background:#fff;font-family:var(--display);font-weight:800;font-size:11px;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:all .15s ease}
+.info-btn:hover{border-color:var(--ink);color:var(--ink)}
+.info-btn[aria-expanded=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.pop{position:absolute;left:0;top:28px;z-index:200;width:340px;max-width:78vw;background:#fff;border:1px solid var(--line);border-radius:var(--radius-sm);box-shadow:var(--shadow-lg);padding:16px 17px;display:none}
+.pop.open{display:block}
+.pop .pt{font-family:var(--display);font-weight:700;font-size:14px;margin-bottom:6px}
+.pop .pd{font-size:13.5px;color:var(--ink-2);line-height:1.5}
+.pop .covers{margin-top:12px;border-top:1px solid var(--line-2);padding-top:11px}
+.pop .covers .ch{font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-2);margin-bottom:7px}
+.pop .covers .tags{display:flex;flex-wrap:wrap;gap:6px}
+.pop .covers .tag{font-size:12px;font-weight:600;color:var(--ink-2);background:var(--bg-soft);border:1px solid var(--line);border-radius:7px;padding:3px 8px}
+.pop .avail{margin-top:11px;font-size:12px;color:var(--muted);font-style:italic}
+
+/* tier focus (desktop dim) */
+.cmp[data-focus=manage] .cell[data-tier=grow],.cmp[data-focus=manage] .cell[data-tier=transform],
+.cmp[data-focus=grow] .cell[data-tier=manage],.cmp[data-focus=grow] .cell[data-tier=transform],
+.cmp[data-focus=transform] .cell[data-tier=manage],.cmp[data-focus=transform] .cell[data-tier=grow]{opacity:.32}
+.cmp[data-focus=manage] .cell[data-tier=manage]{background:var(--manage-tint)}
+.cmp[data-focus=grow] .cell[data-tier=grow]{background:var(--grow-tint)}
+.cmp[data-focus=transform] .cell[data-tier=transform]{background:var(--transform-tint)}
+
+/* ---- cta band ---- */
+.cta{margin:64px 0 0;padding:56px 0}
+.cta-inner{background:linear-gradient(135deg,#0F1C2E 0%,#1b2a44 55%,#3b2a63 100%);border-radius:24px;padding:52px 44px;text-align:center;color:#fff;position:relative;overflow:hidden}
+.cta-inner:before{content:"";position:absolute;inset:0;background:radial-gradient(600px 200px at 80% 0%,rgba(124,58,237,.35),transparent 60%);pointer-events:none}
+.cta-inner h2{color:#fff;font-size:clamp(26px,3.6vw,38px);font-weight:800;position:relative}
+.cta-inner p{color:#C7D0DE;margin-top:14px;font-size:16px;position:relative;max-width:52ch;margin-left:auto;margin-right:auto}
+.cta-inner .btn{margin-top:26px;position:relative;background:#fff;color:var(--ink)}
+.cta-inner .btn:hover{box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.cta-steps{display:flex;justify-content:center;gap:26px;margin-top:30px;flex-wrap:wrap;position:relative}
+.cta-step{display:flex;align-items:center;gap:9px;font-size:13.5px;color:#C7D0DE}
+.cta-step b{color:#fff;font-family:var(--display)}
+
+/* ---- footer ---- */
+.foot{border-top:1px solid var(--line);margin-top:64px;padding:40px 0}
+.foot .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.foot .brand{font-size:17px}
+.foot .muted{color:var(--muted);font-size:13px}
+
+@media(max-width:900px){
+  .ladder-grid{grid-template-columns:1fr;gap:16px}
+  .nav-links{display:none}
+}
+@media(max-width:720px){
+  :root{--cols:minmax(0,1fr) 74px 74px 74px}
+  .hero{padding:52px 0 20px}
+  .cell{padding:11px 4px;font-size:11.5px}
+  .cell-item{padding:13px 14px}
+  .grp-name{padding:12px 14px 6px}
+  .mod-bar .mlead{padding:15px 14px}
+  .chooser{flex-direction:column;align-items:stretch}
+  .chooser-opts{width:100%}
+  .chooser-opts .opt{flex:1}
+  .nextbtn{width:100%;justify-content:center}
+  .cta{padding:40px 0}.cta-inner{padding:38px 22px}
+}
+@media(min-width:721px){:root{--cols:minmax(0,1fr) 138px 138px 138px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+[hidden]{display:none!important}
+
+/* ---- package tracker ---- */
+.pkg{border:1px solid var(--line);border-radius:var(--radius);background:var(--bg-soft);padding:16px 18px;margin-bottom:16px}
+.pkg-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.pkg-title{font-family:var(--display);font-weight:800;font-size:15px;color:var(--ink)}
+.pkg-count{font-size:13px;font-weight:600;color:var(--muted)}
+.pkg-count.done{color:var(--manage)}
+.pkg-chips{display:flex;flex-wrap:wrap;gap:8px}
+.pkg-chip{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 12px 6px 10px;font-size:13px;font-weight:600;color:var(--ink-2);cursor:pointer;transition:all .15s ease}
+.pkg-chip:hover{border-color:var(--muted-2)}
+.pkg-chip .dotc{width:8px;height:8px;border-radius:50%;background:#CBD5E1;flex:0 0 auto}
+.pkg-chip .pt{font-weight:600}
+.pkg-chip .pv{font-family:var(--display);font-weight:700;font-size:12px;color:var(--muted-2)}
+.pkg-chip.set{border-color:transparent}
+.pkg-chip.set[data-tier=manage]{background:var(--manage-tint)} .pkg-chip.set[data-tier=manage] .dotc{background:var(--manage)} .pkg-chip.set[data-tier=manage] .pv{color:var(--manage)}
+.pkg-chip.set[data-tier=grow]{background:var(--grow-tint)} .pkg-chip.set[data-tier=grow] .dotc{background:var(--grow)} .pkg-chip.set[data-tier=grow] .pv{color:var(--grow)}
+.pkg-chip.set[data-tier=transform]{background:var(--transform-tint)} .pkg-chip.set[data-tier=transform] .dotc{background:var(--transform)} .pkg-chip.set[data-tier=transform] .pv{color:var(--transform)}
+.pkg-chip.active{outline:2px solid var(--ink);outline-offset:1px}
+.pkg-cta{margin-top:14px;background:var(--ink);color:#fff;width:100%;justify-content:center}
+.pkg-cta:hover{box-shadow:0 8px 20px rgba(15,28,46,.22)}
+
+/* ---- module pick badge ---- */
+.mod-pick{font-family:var(--display);font-weight:700;font-size:12px;padding:3px 10px;border-radius:999px;margin-left:4px}
+.mod-pick[data-tier=manage]{background:var(--manage-tint);color:var(--manage)}
+.mod-pick[data-tier=grow]{background:var(--grow-tint);color:var(--grow)}
+.mod-pick[data-tier=transform]{background:var(--transform-tint);color:var(--transform)}
+
+/* ---- in-module chooser ---- */
+.chooser{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:16px 22px;background:#fff;border-bottom:1px solid var(--line-2)}
+.chooser-q{font-family:var(--display);font-weight:700;font-size:14px;color:var(--ink)}
+.chooser-opts{display:inline-flex;gap:8px}
+.opt{font-family:var(--display);font-weight:700;font-size:13.5px;border:1.5px solid var(--line);background:#fff;color:var(--ink-2);border-radius:10px;padding:9px 16px;cursor:pointer;transition:all .15s ease}
+.opt:hover{border-color:var(--muted-2)}
+.opt[data-tier=manage]:hover{border-color:var(--manage);color:var(--manage)}
+.opt[data-tier=grow]:hover{border-color:var(--grow);color:var(--grow)}
+.opt[data-tier=transform]:hover{border-color:var(--transform);color:var(--transform)}
+.opt.on{color:#fff}
+.opt.on[data-tier=manage]{background:var(--manage);border-color:var(--manage)}
+.opt.on[data-tier=grow]{background:var(--grow);border-color:var(--grow)}
+.opt.on[data-tier=transform]{background:var(--transform);border-color:var(--transform)}
+.nextbtn{margin-left:auto;font-family:var(--display);font-weight:700;font-size:14px;border-radius:999px;padding:10px 20px;border:0;cursor:pointer;background:var(--ink);color:#fff;display:inline-flex;align-items:center;gap:6px;transition:transform .15s ease,box-shadow .2s ease}
+.nextbtn:hover{box-shadow:0 8px 18px rgba(15,28,46,.2)}
+.nextbtn:active{transform:translateY(1px)}
+
+/* ---- selected column highlight (per module) ---- */
+.mod[data-selected] .cell{transition:opacity .2s ease,background .2s ease}
+.mod[data-selected=manage] .cell[data-tier=grow],.mod[data-selected=manage] .cell[data-tier=transform],
+.mod[data-selected=grow] .cell[data-tier=manage],.mod[data-selected=grow] .cell[data-tier=transform],
+.mod[data-selected=transform] .cell[data-tier=manage],.mod[data-selected=transform] .cell[data-tier=grow]{opacity:.34}
+.mod[data-selected=manage] .cell[data-tier=manage]{background:var(--manage-tint);box-shadow:inset 2px 0 0 var(--manage)}
+.mod[data-selected=grow] .cell[data-tier=grow]{background:var(--grow-tint);box-shadow:inset 2px 0 0 var(--grow)}
+.mod[data-selected=transform] .cell[data-tier=transform]{background:var(--transform-tint);box-shadow:inset 2px 0 0 var(--transform)}
+
+/* ---- cta package summary ---- */
+.pkg-summary{position:relative;margin:22px auto 0;max-width:640px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.pkg-summary .s{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:6px 13px;font-size:13px;color:#fff;font-weight:600}
+.pkg-summary .s b{font-family:var(--display)}
+</style>
+</head>
+<body>
+
+<main>
+<section class="hero">
+ <div class="wrap">
+ <div class="eyebrow">Pricing</div>
+ <h1>Find the PeoplesHR that fits how you run HR</h1>
+ <p class="sub">Three tiers built around HR maturity — not headcount. Start where you are today and move up when you're ready. Every plan is scoped to your organisation and priced to what you actually need.</p>
+ <p class="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg> No fixed price tags — you build a quote around the modules and scale that fit you.</p>
+ </div>
+ </section>
+
+ <section class="ladder">
+ <div class="wrap">
+ <div class="ladder-grid" id="ladder"></div>
+ </div>
+ </section>
+
+ <section class="compare" id="compare">
+ <div class="wrap">
+ <div class="compare-head">
+ <div>
+ <div class="eyebrow" style="margin-bottom:10px">Compare capabilities</div>
+ <h2>Everything each tier includes</h2>
+ <p>Pick a tier for each module — Manage, Grow, or Transform — then step through to the next. Your package builds as you go. Tap any <b>i</b> for detail.</p>
+ </div>
+ </div>
+
+ <div class="pkg" id="pkg">
+ <div class="pkg-head">
+ <span class="pkg-title">Your package</span>
+ <span class="pkg-count" id="pkgCount">0 of 0 modules set</span>
+ </div>
+ <div class="pkg-chips" id="pkgChips"></div>
+ <a href="#build-quote" class="btn pkg-cta" id="pkgCta" hidden>Build your custom quote</a>
+ </div>
+
+ <div class="cmp" id="cmp">
+ <div class="cmp-header">
+ <div class="lead">Capability</div>
+ <div class="th" data-tier="manage"><div class="n">Manage</div><div class="t">Run the organisation</div></div>
+ <div class="th" data-tier="grow"><div class="n">Grow</div><div class="t">Invest in your people</div></div>
+ <div class="th" data-tier="transform"><div class="n">Transform</div><div class="t">Lead with people intelligence</div></div>
+ </div>
+ <div id="modules"></div>
+ </div>
+ </div>
+ </section>
+
+ <section class="cta" id="build-quote">
+ <div class="wrap">
+ <div class="cta-inner">
+ <h2>Ready to see your plan?</h2>
+ <p>Set a tier for each module above and we'll shape a quote around exactly that — modules, scale, and outcomes, no generic price tag.</p>
+ <div class="pkg-summary" id="ctaSummary"></div>
+ <a href="#" class="btn btn-lg">Build your custom quote</a>
+ <div class="cta-steps">
+ <div class="cta-step"><b>1.</b> Pick your starting tier</div>
+ <div class="cta-step"><b>2.</b> Add the modules you need</div>
+ <div class="cta-step"><b>3.</b> Get a quote scoped to you</div>
+ </div>
+ </div>
+ </div>
+ </section>
+</main>
+
+<script id="matrix" type="application/json">{"tiers": {"manage": {"name": "Manage", "tag": "Run the organisation", "color": "green"}, "grow": {"name": "Grow", "tag": "Invest in your people", "color": "blue"}, "transform": {"name": "Transform", "tag": "Lead with people intelligence", "color": "purple"}}, "modules": [{"name": "HR", "color": "green", "groups": [{"name": "Structure Your Organization", "items": [{"label": "Define your company or group structure and hierarchy levels", "info": "Set up your organisation's legal and structural hierarchy — companies, divisions, and levels — as the foundation against which employees, reporting lines, and policies are organised.", "manage": "Upto 3 Company Levels", "grow": "Upto 5 Company Levels", "transform": "Talk to Sales", "children": []}, {"label": "Structure and maintain employee master records", "info": "A single, structured record per employee holding all personal, professional, and statutory information from day one through to separation, extendable with configurable (dynamic) fields.", "manage": "[Standard Information Fields](#)", "grow": "Standard Info. Fields + upto 10 custom info. fields", "transform": "Talk to Sales", "children": []}, {"label": "Automated employee information validation", "info": "Automated checks that validate employee-submitted information and profile changes against defined rules before they are accepted, keeping master data accurate and audit-ready.", "manage": "[Standard info. validations](#)", "grow": "upto 2 custom info. validations", "transform": "Talk to Sales", "children": []}, {"label": "Capture statutory registration details for every employee", "info": "A structured record of each employee's statutory registration identifiers — tax, social security, and other regulatory numbers — held on the profile and applied automatically across payroll and compliance processing.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Store employment documents centrally", "info": "A centralised store for employment contracts, certificates, ID copies, and signed acknowledgements, accessible and auditable at any time.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Easily generate HR and statutory letters", "info": "Templated generation of HR letters — offers, confirmations, transfers, and statutory notices.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Electronic document signing", "info": "Enables e-signature workflows for HR documents (contracts, offer letters, confirmations, etc.) directly within PeoplesHR", "manage": "Talk to Sales", "grow": "Talk to Sales", "transform": "Talk to Sales", "children": []}, {"label": "Flexibility for employees to update their profile information", "info": "Employees can maintain their own contact, banking, and personal details without routing every change through HR.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}]}, {"name": "Run the Employee Lifecycle", "items": [{"label": "Manage employee lifecycle, transfers, promotions and role changes", "info": "Structured approval and documentation for processing employee movements, transfers, promotions, redesignations, and exits, each with its own reasons, eligibility rules, and effective dating, raised individually or in bulk.", "manage": "Upto 5 [life cycle types](#)", "grow": "Upto 10 [life cycle types](#) and 10 [validations](#)", "transform": "Talk to Sales", "children": []}, {"label": "Manage employee exits", "info": "Raise resignations and exits with configurable exit types, capture exit questionnaires and interviews to understand why people leave, and run guided clearance checklists that coordinate asset returns, system access removal, and final documentation across departments.", "manage": "Exits only processed through employee lifecycle", "grow": "yes", "transform": "yes", "children": []}, {"label": "Automate exiting employees clearance process", "manage": "yes", "grow": "yes", "transform": "yes", "children": [], "info": "End-to-end exit and final-payment automation — ensures a departing employee settles all outstanding obligations, returns company assets, and hands over their job duties before their departure, then generates the final pay and relieving documents."}, {"label": "Supervisor approval dashboard for leaves, expense claims and team requests", "info": "A single view for managers to action leave requests, expense claims, and other pending approvals without switching between systems.", "manage": "Standard View", "grow": "Standard View + Dashboards", "transform": "Standard View + Dashboards", "children": []}, {"label": "PeoplesHR Mobile App", "info": "Access to PeoplesHR Android and iOS compatible Mobile Application to keep your workforce always connected.\n\nKey Features : Secure fingerprint login, location verified attendance tracking, access to payslips, policy updates, push notifications.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Alerts", "info": "Automated email and mobile notifications that keep employees and managers informed of pending approvals, requests, and key HR events as they happen.", "manage": "[Standard email alerts](#) + 5 custom alerts", "grow": "[Standard email alerts](#) + 10 custom alerts", "transform": "Talk to Sales", "children": []}, {"label": "Maintain a complete, tamper-evident [audit trail of system activity](#)", "info": "A complete, tamper-evident record of every data import, edit, override, and user action across the system — capturing who changed what, when, and from where — for compliance, security, and dispute resolution.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Connect and exchange data with [external systems via API](#)", "info": "Structured API endpoints that let external systems, devices, and third-party applications securely push data into and pull data out of the platform, enabling real-time integration across your tech stack.", "manage": "Talk to Sales", "grow": "Talk to Sales", "transform": "Talk to Sales", "children": []}]}], "blurb": "Maintain HR records, structure your organisation & run the employee lifecycle"}, {"name": "Time", "color": "green", "groups": [{"name": "Track Attendance & Shifts", "items": [{"label": "Schedule shifts and manage rosters", "info": "Tools to plan, publish, and manage shift schedules across teams, locations, and work patterns. Includes configurable grace periods and lateness thresholds applied consistently across shifts.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Manage multiple shift patterns across teams, departments, and sites", "manage": "yes", "grow": "yes", "transform": "yes", "children": [], "info": "Run different shift patterns side by side across teams, departments, and sites — each with its own timing rules — from one place."}, {"label": "Configure flexi shift and staggered shift", "manage": "yes", "grow": "yes", "transform": "yes", "children": [], "info": "Set flexible clock-in windows and stagger start/end times across teams to match how the business actually runs."}, {"label": "Enable mutual shift swapping between employees", "manage": "yes", "grow": "yes", "transform": "yes", "children": [], "info": "Let employees request and accept shift swaps directly with one another, subject to manager approval — covering scheduling gaps without HR reassigning shifts manually."}, {"label": "Configure and manage employee break periods, grace hours", "manage": "yes", "grow": "yes", "transform": "yes", "children": [], "info": "Define break periods and grace windows for late-in or early-out, so attendance and overtime are calculated fairly and consistently."}, {"label": "Geo-tagged remote mobile & web clock-in/clock-out", "info": "Remote clock in/out from mobile or desktop, capturing or limiting clock-in location per your policy — ideal for field and multi-site teams.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Restrict clock-in to designated location zones (geo-fencing)", "manage": "yes", "grow": "yes", "transform": "yes", "children": [], "info": "Restrict clock-in to one or more approved location zones — employees can only clock in when they're physically inside a designated radius, preventing off-site or proxy check-ins. Optional advanced modes include a live camera photo (no gallery uploads) and face-recognition liveness checks to confirm it's genuinely the employee, on-site."}, {"label": "Real-time team & cross-department attendance analytics", "info": "Live dashboards showing who's in, who's late, and how attendance is trending across teams and departments, without pulling manual reports.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Approve attendance records before payroll is processed", "manage": "yes", "grow": "yes", "transform": "yes", "children": [], "info": "Review and sign off each employee's attendance for the period before it feeds into payroll, so pay is always based on approved hours."}, {"label": "Track late arrivals and early departures", "manage": "yes", "grow": "yes", "transform": "yes", "children": [], "info": "Record when employees arrive late or leave early against their scheduled hours, giving a clear view of attendance exceptions across teams."}, {"label": "Manage and track overtime worked around scheduled shifts", "info": "Automatically captures the extra hours an employee works before a shift starts or after it ends, so time beyond their normal schedule is recognised as overtime.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Approve overtime before or after it is worked", "info": "The process of signing off overtime either way — getting approval before the extra hours are worked, or working them first and then submitting a request to have the additional hours recognised as overtime.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Configure statutory overtime calculations", "info": "Configurable overtime calculation logic that applies your organisation's own rules and multipliers to worked hours, going beyond standard formulas to match custom attendance and pay policies.", "manage": "[Standard calculations](#) only", "grow": "[Standard calculations](#) only", "transform": "TTS:Custom calculations", "children": []}, {"label": "Track project time and calculate project costs with timesheets", "info": "Set up projects and tasks, track the hours team members log against each, and turn utilised time into project costs using configurable per-member billing rates.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Give supervisors a live view of their team's time, attendance & approvals", "manage": "yes", "grow": "yes", "transform": "yes", "children": [], "info": "A single dashboard where supervisors see their team's attendance, leave, and pending approvals — and act on them in one place."}]}, {"name": "Manage Leaves & Compliance", "items": [{"label": "Maintain multiple company-wide and location-specific holiday calendars", "manage": "Single company holiday calendar", "grow": "Multiple holiday calendars", "transform": "TTS:Custom requirements", "children": [], "info": "Define public and company holidays once — including calendars that differ by location or branch — so leave, attendance, and payroll all recognise non-working days automatically."}, {"label": "Track leave balance, accruals & carry-forward", "info": "Simultaneous tracking of all leave categories, annual, sick, emergency, statutory, each with their own rules and balances per employee.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Earned Leave Tracking", "info": "Automatic accrual of earned (annual) leave as employees complete service, with balances updated continuously and available for application or carry-forward.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Set statutory leaves and configure leave rules", "manage": "[Statutory leaves](#) only", "grow": "[Statutory leaves](#) + 3 [org leave types](#)", "transform": "[Statutory leaves](#) + 5 [org leave types](#)", "children": [], "info": "Configure the statutory leave types required in your jurisdiction, then add your own organisation-specific leave types on top."}, {"label": "Plan and coordinate leave on a shared team calendar", "manage": "yes", "grow": "yes", "transform": "yes", "children": [], "info": "Let employees and managers plan time off ahead on a shared calendar — seeing team availability and potential clashes before requests are submitted."}, {"label": "Route leave requests to the right approvers", "manage": "yes", "grow": "yes", "transform": "yes", "children": [], "info": "Send each leave request through the right approval chain automatically, so time off is signed off by the right people before it's confirmed."}, {"label": "Validate leave requests against balances and policy rules", "manage": "[Standard leave validations](#) only", "grow": "[Standard leave validations](#) only", "transform": "TTS:Standard + custom leave validations", "children": [], "info": "Automatically check every leave request against the employee's balance, entitlement, and your policy rules before approval — flagging conflicts up front."}]}], "blurb": "Manage attendance, shifts, overtime & leave"}, {"name": "Pay", "color": "green", "groups": [{"name": "Run Your Payroll Accurately", "items": [{"label": "Run Your Organisation Payroll", "info": "Process end-to-end payroll for your organisation — earnings, deductions, statutory contributions, and net pay — across pay groups and parallel pay-runs using standard or custom payroll formulas.", "manage": "1 Parallel Pay-run", "grow": "2 Parallel Pay-runs, 5 custom formulas", "transform": "Talk to Sales", "children": []}, {"label": "Run multi-currency payroll", "info": "Run independent payrolls across multiple countries, each with local statutory compliance built in . Tax, deductions, filing exports applied automatically per jurisdiction", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Bank payment file generation", "info": "Export ready-to-upload bank files from each payroll run for fast, error-free salary payments.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "General Ledger Mapping", "info": "Map payroll costs to the right GL codes in your accounts and post straight to finance, no manual journals.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Comprehensive pay register", "info": "Capture all pay items per employee including base pay, overtime, night differential, allowances, deductions, and statutory contributions", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Digital payslip generation", "info": "Generate and distribute secure digital payslips employees can access anytime, with a full breakdown of earnings, deductions, and contributions.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Multi-level approval workflows", "info": "Once a payroll run is uploaded, route it through the right approval levels for sign-off before it is finalised — after which the run is locked from any further data changes.", "manage": "yes", "grow": "yes", "transform": "Talk to Sales", "children": []}, {"label": "Flag errors before processing payroll with anomaly detection", "info": "Flag errors in overtime, deductions, and other calculations before processing", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Apply salary revisions with automatic back-pay", "info": "Process increments, promotions, and pay-structure changes from a set effective date, with all dependent pay items, allowances, statutory contributions, and tax, recalculated automatically under the new package.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Apply backdated salary adjustments to correct prior-period pay", "info": "The ability to recalculate and correct prior-period pay when salary changes, corrections, or missed entries are discovered after a payroll run has closed.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Process flexible pay components", "info": "Handle flexible pay components that change from one period to the next, applied automatically in each payroll run.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Settle unused leave as a cash payment (leave encashment)", "manage": "yes", "grow": "yes", "transform": "yes", "children": [], "info": "Convert unused leave balances into a cash payment and settle them through payroll — at separation or at defined encashment windows."}]}, {"name": "Stay Compliant", "items": [{"label": "Apply tax rates automatically", "info": "Maintained tax tables and withholding rules aligned to current statutory rates, applied automatically to each employee's earnings profile.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Automate statutory deductions, rate updates, and compliance reporting.", "info": "Preconfigured contribution tables and remittance report generation for statutory social security, health, and provident fund schemes, updated to reflect regulatory changes.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Issue employee loans and track balances and repayment schedules", "info": "Record company loans against employees, set repayment schedules, and track outstanding balances with installments deducted automatically each payroll cycle.", "manage": "yes", "grow": "Up to 5 Loan Types", "transform": "Talk to Sales", "children": []}, {"label": "Manage non-cash benefits, allowances, and entitlements", "info": "Administration of non-cash benefits such as meal allowances, uniform subsidies, and medical/health coverage, with per-employee eligibility rules.", "manage": "3 [Benefit Types](#)", "grow": "8 [Benefit Types](#)", "transform": "Talk to Sales", "children": []}]}], "blurb": "Run accurate payroll, benefits & statutory compliance"}, {"name": "Talent", "color": "blue", "groups": [{"name": "Set Goals & Improve Performance", "items": [{"label": "Run balanced scorecard appraisals across quantitative and qualitative criteria", "info": "Multi-dimensional performance frameworks that evaluate employees against a defined mix of quantitative targets and qualitative competencies.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Run 180 feedback reviews between employees and managers", "info": "Structured two-way feedback between an employee and their line manager, capturing both self-assessment and manager input to give a balanced view of performance.", "manage": null, "grow": "yes", "transform": "yes", "children": []}, {"label": "Run 360 feedback assessments with input from peers, managers, and reports", "info": "Structured input collection from peers, direct reports, and managers that gives employees a rounded view of their performance beyond the line manager's perspective.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Include external parties in 360 feedback assessments", "manage": "yes", "grow": "yes", "transform": "yes", "children": [], "info": "Extend 360 reviews to external parties — clients, partners, or vendors — for a fuller, outside-in view of performance."}, {"label": "Manage and track goals & OKRs", "info": "A running record of individual and team objectives, with progress visible to both employees and managers throughout the review cycle.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Plan and track how KPIs will be achieved", "manage": "yes", "grow": "yes", "transform": "yes", "children": [], "info": "Set out how each KPI will be achieved and track progress toward the target across the cycle."}, {"label": "Performance appraisals across teams with force ranking", "info": "Calibrate and moderate appraisal outcomes across teams, applying forced-ranking distributions so ratings stay fair and consistent organisation-wide.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Normalise performance scores and mitigate appraisal bias", "manage": "yes", "grow": "yes", "transform": "yes", "children": [], "info": "Normalise appraisal scores across teams and reviewers to keep ratings fair and comparable, reducing individual bias."}, {"label": "Create post-review personal development plans for employees", "manage": "yes", "grow": "yes", "transform": "yes", "children": [], "info": "Turn appraisal outcomes into a personal development plan for each employee, with actions and goals to work on next."}, {"label": "Support employees who miss targets with a structured improvement plan", "manage": "yes", "grow": "yes", "transform": "Talk to Sales", "children": [], "info": "Support employees who fall short of expectations with a structured, time-bound improvement plan and clear milestones."}, {"label": "Award salary increments based on performance and merit", "manage": "yes", "grow": "yes", "transform": "yes", "children": [], "info": "Award salary increments based on performance and merit outcomes, tied directly to appraisal results."}, {"label": "Pay out periodic incentives based on KPI achievement", "manage": "yes", "grow": "yes", "transform": "yes", "children": [], "info": "Pay out periodic incentives linked to KPI achievement, rewarding results against targets."}, {"label": "Track employee probation periods", "info": "Automated timelines and alerts that ensure probationary reviews happen on schedule and outcomes are formally recorded.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}]}, {"name": "Develop & Retain Your Best People", "items": [{"label": "Calibrate performance, potential, and succession readiness using 9-box grids", "info": "A visual tool for calibrating employees across performance and potential dimensions, used to identify high-potentials and inform succession decisions.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Manage succession planning pools for critical roles and leadership pipelines", "info": "Defined shortlists of internal candidates ready to step into critical roles, maintained and reviewed as part of ongoing talent planning.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Identify competency gaps against role requirements and prioritise development priorities", "info": "Side-by-side mapping of an employee's current capabilities against the requirements of their current or target role, surfacing development priorities.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Identify skills gaps and plan employee development", "info": "Pinpoint skills gaps, build personalised development plans against individual goals, and assign training to employees as part of their growth path.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Deliver courses and track learning progress", "info": "Deliver course content through an integrated white-labeled e-learning platform, and track learning journeys, completion, and compliance across the workforce.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Close skill gaps with AI-recommended paths", "info": "Identify individual skill gaps with AI, recommend and deliver targeted courses through an integrated learning platform, and track learning journeys, completion, and compliance across the workforce.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Administer offline and online training programmes", "manage": "yes", "grow": "yes", "transform": "yes", "children": [], "info": "Plan and administer both classroom and online training, and enrol employees, in one place."}, {"label": "Maintain a shared training course calendar", "manage": "yes", "grow": "yes", "transform": "yes", "children": [], "info": "Maintain a shared calendar of upcoming training courses so employees and managers can plan ahead."}, {"label": "Maintain trainer profiles and session history", "manage": "yes", "grow": "yes", "transform": "yes", "children": [], "info": "Maintain trainer profiles, their expertise, and a history of the sessions they have run."}, {"label": "Collect feedback after training to measure impact", "manage": "yes", "grow": "yes", "transform": "yes", "children": [], "info": "Collect feedback from participants after each session to measure how effective the training was."}, {"label": "Evaluate training effectiveness", "manage": "yes", "grow": "yes", "transform": "yes", "children": [], "info": "Evaluate training against its objectives to see what is working and where to improve."}, {"label": "Manage training bonds and recover costs on early exit", "manage": "yes", "grow": "yes", "transform": "yes", "children": [], "info": "Manage training bonds and recover training costs when employees leave before the agreed period."}, {"label": "Approve training requests against available budget", "info": "Route training requests through an approval flow that checks them against the available training budget before they are confirmed.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}]}, {"name": "Plan Your Workforce", "items": [{"label": "Model future workforce growth by hierarchy, department and job level", "manage": "yes", "grow": "yes", "transform": "yes", "children": [], "info": "Model future growth by planning headcount and budgets according to your specific company hierarchy, departments, and job levels."}, {"label": "Plan and maintain headcount across cadres", "info": "Structured headcount planning by cadre, grade, department, and location, setting target staffing levels that serve as the baseline for budgeting, hiring, and workforce decisions.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Optimise headcount and delegate planning", "info": "Deliver course content through an integrated learning platform, and track learning journeys, completion, and compliance across the workforce.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Cross-check job requisitions against your approved organizational budget and headcount", "info": "Check every job requisition against your approved organisational budget and headcount before it is opened, so hiring stays within plan.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Manage and maintain outsourced cadre details and supporting documents", "manage": "yes", "grow": "yes", "transform": "yes", "children": [], "info": "Maintain records and supporting documents for your outsourced or contract workforce alongside your permanent cadre."}, {"label": "Forecast workforce salary cost for the year ahead", "manage": "yes", "grow": "yes", "transform": "yes", "children": [], "info": "Project your total salary cost for the year ahead based on current and planned headcount, giving an early view of workforce spend."}, {"label": "Plan temporary delegation of duties when leaders are away", "manage": "yes", "grow": "yes", "transform": "yes", "children": [], "info": "Set temporary coverage for key employees such as managers and supervisors, so approvals, task decisions, and system permissions are routed to a backup employee when a leader is on leave or unavailable."}]}], "blurb": "Set goals, manage performance, and develop & plan your people"}, {"name": "Engagement", "color": "blue", "groups": [{"name": "Strengthen Engagement", "items": [{"label": "Run targeted employee surveys and pulse checks", "info": "Build and schedule one-time, recurring, or event-based surveys, target them by hierarchy, segment, or specific employees, and control result visibility, collecting structured feedback to track sentiment over time.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Recognise contributions in the moment", "info": "Let managers and peers recognise great work as it happens — award points for specific contributions, celebrate wins in a shared feed, and let employees redeem their points from a catalogue of rewards.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Give employees a direct channel to voice opinions", "info": "A dedicated channel for employees to send suggestions, opinions, and concerns directly to the HR team, so feedback reaches the people who can act on it.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Raise and resolve grievances with appeals", "info": "Employees, managers, and department heads raise grievances against defined grounds, route them through a structured handling and resolution workflow, and escalate to appeal, with the full case history retained.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Disciplinary & Case Management", "manage": "yes", "grow": "yes", "transform": "yes", "children": [], "info": "Log disciplinary incidents and manage structured case tracking against employee profiles, with letter generation at each step."}]}], "blurb": "Listen to employees, recognise contribution & strengthen engagement"}, {"name": "Recruitment", "color": "blue", "groups": [{"name": "Hire the Right People", "items": [{"label": "Create and approve vacancies with the right sign-off", "info": "Raise job requisitions with multi-level approval (line manager — unit head — HR), post internally, externally, or both, and publish to a branded careers portal with vacancy-specific screening questions.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Post job openings once and advertise everywhere", "info": "Publish a vacancy once to 25,000+ external job boards including LinkedIn and Indeed via integration, with applications flowing straight back into PeoplesHR and channel controls preventing mis-posts.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Give candidates an interactive application portal", "manage": "yes", "grow": "yes", "transform": "yes", "children": [], "info": "A branded, self-service portal where candidates browse openings, apply, and track their application status in real time."}, {"label": "Rank and shortlist candidates", "manage": "yes", "grow": "yes", "transform": "yes", "children": [], "info": "Automatically rank applicants against the role and surface the strongest shortlist, so recruiters focus on the best-fit candidates."}, {"label": "Run multi-stage interviews and structured selection", "info": "Schedule multi-stage interviews with per-stage panels, assign scorecards for consistent feedback, and run video interviews through Zoom, Teams, or Google Meet.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Make offers and hand off to onboarding", "info": "Manage offer proposals with acceptance and rejection tracking, capture required documents during application, and pass accepted candidates straight into onboarding.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Capture and store CVs from outside the system", "info": "Capture and store CVs received from outside the system — direct applications, referrals, and agency submissions — into a single candidate pool for screening.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Bulk CV upload and processing with AI", "info": "AI-powered CV parsing that automatically extracts candidate details — contact information, experience, skills, and qualifications — from uploaded resumes into structured profiles.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Track hiring performance and cost", "info": "Report on recruitment channels and pipeline in-system, and set and manage recruitment budgets by company or business-unit hierarchy. Hiring is validated against your budgeted workforce plan, so every vacancy is checked against approved headcount before it's filled.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}]}, {"name": "Onboard New Joiners", "items": [{"label": "Structured onboarding documentation checklist", "info": "A pre-arrival digital environment where incoming employees can complete forms, submit documents, and review policies before their first day.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Assign and track onboarding tasks across teams", "info": "Assigned action lists for HR, IT, line managers, and the new joiner, with each task scheduled relative to the joining date (before, on, or after Day 1) and alerts that keep every stakeholder on track to completion.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Maintain asset assignments checklist for new joiners", "manage": "yes", "grow": "yes", "transform": "yes", "children": [], "info": "Track the assets — laptop, phone, access cards, and more — assigned to each new joiner as part of onboarding."}, {"label": "Plan and track new-hire induction", "info": "Structured first-week or first-month programmes that ensure new hires meet the right people, complete required training, and reach productivity faster.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}]}], "blurb": "Hire the right people and onboard new joiners"}, {"name": "Insights", "color": "purple", "groups": [{"name": "Turn Workforce Data into Decisions", "items": [{"label": "Access a library of [standard reports](#) spanning every module", "info": "A library of pre-built standard reports across every module, available on demand so HR can pull common data views without building them from scratch.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}, {"label": "Create custom reports tailored to the metrics you care about", "info": "Construct custom reports against any combination of employee data fields, without IT involvement.", "manage": "yes", "grow": "Upto 10 custom reports", "transform": "Talk to Sales", "children": []}, {"label": "Schedule automated reports", "info": "Automated report generation and distribution on set frequencies, ensuring the right data reaches the right people on time.", "manage": "yes", "grow": "upto 3 scheduled reports", "transform": "Talk to Sales", "children": []}, {"label": "Analyse workforce data across the enterprise with interactive analytics", "info": "Enterprise-wide analytics that consolidate data from every module into a single analytical layer, giving leadership organisation-level insight across the entire workforce.", "manage": "yes", "grow": "3 standard [dashboards](#)", "transform": "talk to sales", "children": []}, {"label": "Monitor live workforce metrics and connect payroll, performance and engagement data in one view", "info": "Live visualisations of key workforce metrics that update as data changes, combined with indicators that draw from multiple modules at once — connecting payroll cost to headcount, or attrition to engagement scores. Together they give leadership an always-current, joined-up view without waiting for reporting cycles.", "manage": "yes", "grow": "yes", "transform": "yes", "children": []}]}, {"name": "Ask Lexi AI", "items": [{"label": "Lexi Ai Insights", "manage": "Add-on", "grow": "Add-on", "transform": "Add-on", "children": [], "info": "Two AI capabilities, both subject to your enabled modules:<br><br><b>Get instant AI answers to any workforce question, in plain language</b> — pose questions conversationally and get instant, data-backed answers across every HR module, with Lexi asking clarifying follow-ups like an analyst would.<br><br><b>Let AI surface insights and build your reports</b> — Lexi generates reports and charts on demand, drills deeper through follow-up questions while remembering context, and traces every answer back to the source data you can verify."}, {"label": "Lexi Super Agent", "manage": "Add-on", "grow": "yes", "transform": "yes", "children": [], "info": "Let employees self-serve and complete tasks by asking AI — a conversational assistant that answers employees' own HR questions (payslips, leave balances, benefits, policies) and completes tasks like filing leave or applying for benefits, just by asking. (Capabilities are subject to enabled modules.)"}, {"label": "Lexi Smart Navigator", "manage": "yes", "grow": "yes", "transform": "yes", "children": [], "info": "Navigate to any screen by a simple search — jump straight to any screen, feature, or record by typing what you need; Lexi interprets the request and takes you there, removing the need to click through menus."}]}], "blurb": "Turn workforce data into decisions with reports, analytics & Lexi AI"}]}</script>
+<script>
+const DATA = JSON.parse(document.getElementById('matrix').textContent);
+const TIERS = [['manage','Manage'],['grow','Grow'],['transform','Transform']];
+const CARDS = {
+ manage:{step:'Stage 01',tag:'Run the organisation',desc:'Get HR right — accurate records, clean payroll, and statutory compliance across the full hire-to-retire journey.',
+ bullets:['Core HR records & organisation structure','Time, attendance & leave management','Accurate payroll & statutory compliance']},
+ grow:{step:'Stage 02',tag:'Invest in your people',desc:'Develop your people — performance, talent, recruitment and engagement become intentional, not reactive. Built for more complex HR operations and larger workforces.',
+ bullets:['Everything in Manage, plus','Performance, talent & succession','Recruitment, onboarding & engagement'],popular:true},
+ transform:{step:'Stage 03',tag:'Lead with people intelligence',desc:'Put workforce data at the centre of decisions — anticipate attrition and align people strategy with the business.',
+ bullets:['Everything in Grow, plus','Predictive attrition & executive dashboards','Cross-module people intelligence']}
+};
+const svgCheck='<svg class="ic ic-yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+const svgTick='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+const svgChev='<svg class="mod-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>';
+const svgChevSm='<svg class="grp-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>';
+
+/* tier ladder cards */
+const ladder=document.getElementById('ladder');
+TIERS.forEach(([k,name])=>{
+ const c=CARDS[k];
+ const el=document.createElement('div');
+ el.className='tier-card';el.dataset.tier=k;el.tabIndex=0;el.setAttribute('role','button');
+ el.innerHTML=`${c.popular?'<span class="popular">Most chosen</span>':''}
+ <div class="step">${c.step}</div>
+ <div class="tname"><span class="chip"></span>${name}</div>
+ <div class="ttag">${c.tag}</div>
+ <div class="tdesc">${c.desc}</div>
+ <ul>${c.bullets.map(b=>`<li>${svgTick}<span>${b}</span></li>`).join('')}</ul>
+ <a href="#build-quote" class="btn">Build your custom quote</a>`;
+ const goToBuilder=()=>{document.getElementById('compare').scrollIntoView({behavior:'smooth',block:'start'});};
+ el.addEventListener('click',e=>{if(e.target.closest('a'))return;goToBuilder();});
+ el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();goToBuilder();}});
+ ladder.appendChild(el);
+});
+
+/* cell rendering */
+function linkify(s){return String(s).replace(/\[(.+?)\]\((.+?)\)/g,(_,t,u)=>`<a class="cell-link" href="${u}"${u!=='#'?' target="_blank" rel="noopener"':''}>${t}</a>`);}
+function plainify(s){return String(s).replace(/\[(.+?)\]\((.+?)\)/g,'$1');}
+function cellContent(val){
+ const v=(val||'').trim();
+ if(v==='yes') return svgCheck;
+ if(v===''||v==='yes'||v==='-') return '<span class="dash">–</span>';
+ if(v.toLowerCase()==='add-on') return '<span class="pill">Add-on</span>';
+ if(/^tts:/i.test(v)){
+ const label=v.slice(v.indexOf(':')+1).trim();
+ return `<span class="cap tts-cap">${linkify(label)}</span><span class="pill sales">Talk to sales</span>`;
+ }
+ if(v.toLowerCase()==='talk to sales'||v.toLowerCase()==='talk to sale') return '<span class="pill sales">Talk to sales</span>';
+ return `<span class="cap">${linkify(v.replace(/\s{2,}/g,' · '))}</span>`;
+}
+let uid=0;
+function itemRow(it){
+ const row=document.createElement('div');row.className='row'+(it.flag?' flag':'');
+ const hasInfo=it.info||(it.children&&it.children.length);
+ let pop='';
+ if(hasInfo){
+ const id='p'+(uid++);
+ let covers='';
+ if(it.children&&it.children.length){
+ covers=`<div class="covers"><div class="ch">Covers — based on the modules you own</div><div class="tags">${it.children.map(c=>`<span class="tag">${c.module}</span>`).join('')}</div></div><div class="avail">Available as an add-on; what Lexi can answer depends on the modules in your plan.</div>`;
+ }
+ pop=`<span class="info"><button class="info-btn" aria-expanded="false" aria-controls="${id}" aria-label="More information">i</button>
+ <div class="pop" id="${id}" role="dialog"><div class="pt">${plainify(it.label)}</div>${it.info?`<div class="pd">${it.info}</div>`:''}${covers}</div></span>`;
+ }
+ row.innerHTML=`<div class="cell-item"><span class="lbl">${linkify(it.label)}</span>${pop}</div>
+ <div class="cell" data-tier="manage">${cellContent(it.manage)}</div>
+ <div class="cell" data-tier="grow">${cellContent(it.grow)}</div>
+ <div class="cell" data-tier="transform">${cellContent(it.transform)}</div>`;
+ return row;
+}
+
+/* build modules (guided package builder) */
+const modsWrap=document.getElementById('modules');
+const ORDER=DATA.modules.map(m=>m.name);
+const selections={};
+const barByName={}, modByName={};
+const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+
+function collapseMod(b){
+ if(b.getAttribute('aria-expanded')!=='true')return;
+ const p=b.nextElementSibling,inr=p.firstElementChild;
+ b.setAttribute('aria-expanded','false');
+ p.style.maxHeight=inr.scrollHeight+'px';
+ requestAnimationFrame(()=>{p.style.maxHeight='0';});
+}
+function expandMod(b){
+ const p=b.nextElementSibling,inr=p.firstElementChild;
+ b.setAttribute('aria-expanded','true');
+ p.style.maxHeight=inr.scrollHeight+'px';
+ setTimeout(()=>{if(b.getAttribute('aria-expanded')==='true')p.style.maxHeight='none';},260);
+}
+function openOnly(bar){
+ if(bar.getAttribute('aria-expanded')==='true')return;
+ document.querySelectorAll('.mod-bar[aria-expanded=true]').forEach(collapseMod);
+ expandMod(bar);
+}
+function toggleGroup(gh,gpanel,ginner,mpanel,bar){
+ const open=gh.getAttribute('aria-expanded')==='true';
+ gh.setAttribute('aria-expanded',String(!open));
+ if(open){
+ gpanel.style.maxHeight=ginner.scrollHeight+'px';
+ requestAnimationFrame(()=>{gpanel.style.maxHeight='0';});
+ }else{
+ gpanel.style.maxHeight=ginner.scrollHeight+'px';
+ setTimeout(()=>{if(gh.getAttribute('aria-expanded')==='true')gpanel.style.maxHeight='none';},240);
+ }
+ if(bar.getAttribute('aria-expanded')==='true')mpanel.style.maxHeight='none';
+}
+function scrollToBar(bar){
+ const y=bar.getBoundingClientRect().top+window.scrollY-70;
+ window.scrollTo({top:y,behavior:'smooth'});
+}
+
+DATA.modules.forEach((m,mi)=>{
+ const count=m.groups.reduce((a,g)=>a+g.items.length,0);
+ const mod=document.createElement('section');mod.className='mod';mod.dataset.c=m.color;
+ const bar=document.createElement('button');bar.className='mod-bar';bar.setAttribute('aria-expanded', mi===0?'true':'false');
+ bar.innerHTML=`<div class="mlead"><span class="mod-tag"></span><span class="mod-textwrap"><span class="mod-nameline"><span class="mod-name">${m.name}</span><span class="mod-count">${count}</span><span class="mod-pick" hidden></span></span>${m.blurb?`<span class="mod-desc">${m.blurb}</span>`:''}</span></div>
+ <div></div><div></div><div></div>`;
+ bar.querySelector('.mlead').insertAdjacentHTML('beforeend',svgChev);
+ const panel=document.createElement('div');panel.className='mod-panel';
+ const inner=document.createElement('div');
+
+ const chooser=document.createElement('div');chooser.className='chooser';
+ chooser.innerHTML=`<span class="chooser-q">Choose a tier for <b>${m.name}</b></span>
+ <div class="chooser-opts">
+ <button class="opt" data-tier="manage">Manage</button>
+ <button class="opt" data-tier="grow">Grow</button>
+ <button class="opt" data-tier="transform">Transform</button>
+ </div>
+ <button class="nextbtn" hidden></button>`;
+ inner.appendChild(chooser);
+
+ m.groups.forEach(g=>{
+ const grp=document.createElement('div');grp.className='grp';
+ const gh=document.createElement('button');gh.className='grp-name';gh.setAttribute('aria-expanded','false');
+ gh.innerHTML=`<span class="grp-txt">${g.name}</span>`;
+ gh.insertAdjacentHTML('beforeend',svgChevSm);
+ const gpanel=document.createElement('div');gpanel.className='grp-panel';
+ gpanel.style.transition='max-height .24s ease';gpanel.style.maxHeight='0';
+ const ginner=document.createElement('div');
+ g.items.forEach(it=>ginner.appendChild(itemRow(it)));
+ gpanel.appendChild(ginner);
+ gh.addEventListener('click',()=>toggleGroup(gh,gpanel,ginner,panel,bar));
+ grp.appendChild(gh);grp.appendChild(gpanel);
+ inner.appendChild(grp);
+ });
+ panel.appendChild(inner);
+ panel.style.transition='max-height .26s ease';
+ panel.style.maxHeight = mi===0? 'none':'0';
+
+ bar.addEventListener('click',()=>{
+ if(bar.getAttribute('aria-expanded')==='true'){collapseMod(bar);return;}
+ openOnly(bar);
+ });
+
+ const nextBtn=chooser.querySelector('.nextbtn');
+ nextBtn.addEventListener('click',()=>{
+ const idx=ORDER.indexOf(m.name);
+ if(idx<ORDER.length-1){const nb=barByName[ORDER[idx+1]];openOnly(nb);scrollToBar(nb);}
+ else{document.getElementById('build-quote').scrollIntoView({behavior:'smooth',block:'start'});}
+ });
+ chooser.querySelectorAll('.opt').forEach(opt=>{
+ opt.addEventListener('click',()=>selectTier(m.name,opt.dataset.tier));
+ });
+
+ mod._chooser=chooser;mod._next=nextBtn;mod._panel=panel;mod._inner=inner;
+ barByName[m.name]=bar;modByName[m.name]=mod;
+ mod.appendChild(bar);mod.appendChild(panel);modsWrap.appendChild(mod);
+});
+
+function selectTier(name,tier){
+ selections[name]=tier;
+ const mod=modByName[name],bar=barByName[name];
+ mod.dataset.selected=tier;
+ mod._chooser.querySelectorAll('.opt').forEach(o=>o.classList.toggle('on',o.dataset.tier===tier));
+ const pick=bar.querySelector('.mod-pick');
+ pick.textContent=cap(tier);pick.dataset.tier=tier;pick.hidden=false;
+ const idx=ORDER.indexOf(name);
+ mod._next.textContent = idx<ORDER.length-1 ? 'Next: '+ORDER[idx+1]+' →' : 'Review your package →';
+ mod._next.hidden=false;
+ if(bar.getAttribute('aria-expanded')==='true')mod._panel.style.maxHeight='none';
+ updatePkg();
+}
+
+/* package tracker */
+const pkgChips=document.getElementById('pkgChips');
+const pkgCount=document.getElementById('pkgCount');
+const pkgCta=document.getElementById('pkgCta');
+ORDER.forEach(name=>{
+ const c=document.createElement('button');c.className='pkg-chip';c.dataset.name=name;
+ c.innerHTML=`<span class="dotc"></span><span class="pt">${name}</span><span class="pv">–</span>`;
+ c.addEventListener('click',()=>{const b=barByName[name];openOnly(b);scrollToBar(b);});
+ pkgChips.appendChild(c);
+});
+function updatePkg(){
+ const done=Object.keys(selections).length,total=ORDER.length;
+ pkgCount.textContent=`${done} of ${total} modules set`;
+ pkgCount.classList.toggle('done',done===total);
+ ORDER.forEach(name=>{
+ const chip=pkgChips.querySelector(`.pkg-chip[data-name="${name}"]`);
+ const t=selections[name];
+ chip.classList.toggle('set',!!t);
+ if(t){chip.dataset.tier=t;chip.querySelector('.pv').textContent=cap(t);}
+ else{chip.removeAttribute('data-tier');chip.querySelector('.pv').textContent='–';}
+ });
+ pkgCta.hidden = done!==total;
+ renderSummary(done===total);
+}
+function renderSummary(complete){
+ const p=document.getElementById('ctaSummary');
+ if(!complete){p.innerHTML='';return;}
+ p.innerHTML=ORDER.map(n=>`<span class="s">${n} · <b>${cap(selections[n])}</b></span>`).join('');
+}
+updatePkg();
+
+/* active chip mirrors the open module */
+function markActiveChip(){
+ const open=document.querySelector('.mod-bar[aria-expanded=true] .mod-name');
+ const name=open?open.textContent:null;
+ pkgChips.querySelectorAll('.pkg-chip').forEach(c=>c.classList.toggle('active',c.dataset.name===name));
+}
+modsWrap.addEventListener('click',()=>setTimeout(markActiveChip,10));
+markActiveChip();
+
+/* info popovers (fixed-positioned so dropdown overflow can't clip them) */
+let openPop=null, popHandler=null;
+function placePop(pop,btn){
+ const w=Math.min(340, window.innerWidth-24);
+ pop.style.position='fixed';
+ pop.style.width=w+'px';
+ pop.style.maxHeight=(window.innerHeight-24)+'px';
+ pop.style.overflowY='auto';
+ const r=btn.getBoundingClientRect();
+ const ph=pop.offsetHeight;
+ let left=r.left; if(left+w>window.innerWidth-12) left=window.innerWidth-12-w; if(left<12) left=12;
+ let top=r.bottom+8;
+ if(top+ph>window.innerHeight-12){
+ const above=r.top-ph-8;
+ top = above>12 ? above : Math.max(12, window.innerHeight-12-ph);
+ }
+ pop.style.left=left+'px'; pop.style.top=top+'px';
+ const rr=pop.getBoundingClientRect();
+ if(rr.bottom>window.innerHeight-8) pop.style.top=Math.max(8, top-(rr.bottom-(window.innerHeight-8)))+'px';
+ if(rr.right>window.innerWidth-8) pop.style.left=Math.max(8, left-(rr.right-(window.innerWidth-8)))+'px';
+}
+document.addEventListener('click',e=>{
+ const btn=e.target.closest('.info-btn');
+ if(btn){
+ const pop=document.getElementById(btn.getAttribute('aria-controls'));
+ const isOpen=pop.classList.contains('open');
+ closePop();
+ if(!isOpen){
+ pop.classList.add('open');btn.setAttribute('aria-expanded','true');openPop={pop,btn};
+ placePop(pop,btn);
+ popHandler=()=>closePop();
+ window.addEventListener('scroll',popHandler,true);
+ window.addEventListener('resize',popHandler);
+ }
+ return;
+ }
+ if(openPop&&!e.target.closest('.pop'))closePop();
+});
+function closePop(){
+ if(!openPop)return;
+ const {pop,btn}=openPop;
+ pop.classList.remove('open');
+ pop.style.cssText='';
+ btn.setAttribute('aria-expanded','false');
+ openPop=null;
+ if(popHandler){window.removeEventListener('scroll',popHandler,true);window.removeEventListener('resize',popHandler);popHandler=null;}
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closePop();});
+document.addEventListener('click',e=>{const a=e.target.closest('.cell-link');if(a&&a.getAttribute('href')==='#')e.preventDefault();});
+</script>
+</body>
+</html>

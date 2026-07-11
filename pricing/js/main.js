@@ -1172,17 +1172,33 @@ window.addEventListener('message', function(e) {
   window.addEventListener('resize', function () { upIdx = 0; initSlider(); });
 }());
 
-/* pricing-delta.js — page-specific behavior for the Pricing page only */
+/* pricing-delta.js — page-specific behavior for the Pricing page only.
+   The configurator lives in configurator.html, iframed for CSS/JS
+   isolation (see index.html) — this just syncs the iframe's height to
+   its content, since it has no fixed height of its own. */
 (function () {
-  var btn = document.getElementById('pr-expand-all');
-  var cmp = document.getElementById('pr-cmp');
-  if (!btn || !cmp) return; // guard: elements absent on non-pricing pages
+  var frame = document.getElementById('pr-configurator-frame');
+  if (!frame) return; // guard: absent on non-pricing pages
 
-  var expanded = false;
-  btn.addEventListener('click', function () {
-    expanded = !expanded;
-    cmp.classList.toggle('pr-cmp--expanded', expanded);
-    btn.textContent = expanded ? 'Collapse all' : 'Expand all';
+  function resize() {
+    try {
+      var doc = frame.contentDocument;
+      if (!doc) return;
+      frame.style.height = doc.documentElement.scrollHeight + 'px';
+    } catch (e) {}
+  }
+
+  frame.addEventListener('load', function () {
+    resize();
+    try {
+      new ResizeObserver(resize).observe(frame.contentDocument.body);
+    } catch (e) {
+      var ticks = 0;
+      var id = setInterval(function () {
+        resize();
+        if (++ticks > 20) clearInterval(id);
+      }, 250);
+    }
   });
 }());
 /* navbar - new JS additions */
