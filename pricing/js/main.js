@@ -1281,25 +1281,23 @@ window.addEventListener('message', function(e) {
 
     groupsEl.innerHTML = '';
     m.groups.forEach(function (g) {
-      var grp = document.createElement('div'); grp.className = 'pc-grp';
-      var gh = document.createElement('div'); gh.className = 'pc-grp-name';
-      gh.textContent = g.name;
-      grp.appendChild(gh);
+      var grp = document.createElement('div'); grp.className = 'pc-grp'; grp.dataset.name = g.name;
       g.items.forEach(function (it) { grp.appendChild(itemRow(it)); });
       groupsEl.appendChild(grp);
     });
     leadEl.textContent = m.groups[0] ? m.groups[0].name : '';
   }
 
-  /* lead cell mirrors whichever group heading has scrolled up under the
-     sticky Manage/Grow/Transform row — it locks in place there just like
-     the row itself, swapping text as the next group takes its spot. */
+  /* lead cell is the only place the group name shows — it mirrors
+     whichever group has scrolled up under the sticky Manage/Grow/
+     Transform row, swapping text as the next group takes its spot,
+     instead of repeating the name again in the flowing content. */
   function updateActiveGroupLabel() {
     var triggerY = thRow.getBoundingClientRect().bottom;
-    var names = groupsEl.querySelectorAll('.pc-grp-name');
-    for (var i = 0; i < names.length; i++) {
-      if (names[i].getBoundingClientRect().top <= triggerY) {
-        leadEl.textContent = names[i].textContent;
+    var groups = groupsEl.querySelectorAll('.pc-grp');
+    for (var i = 0; i < groups.length; i++) {
+      if (groups[i].getBoundingClientRect().top <= triggerY) {
+        leadEl.textContent = groups[i].dataset.name;
       } else {
         break;
       }

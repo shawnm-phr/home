@@ -7007,7 +7007,6 @@ button.btn-primary {
 
 .pc-grp{border-top:1px solid var(--line-2)}
 .pc-grp:first-child{border-top:0}
-.pc-grp-name{padding:16px 22px 8px;font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted-2)}
 .pc-row{display:grid;grid-template-columns:var(--cols);align-items:stretch;border-top:1px solid var(--line-2)}
 .pc-grp .pc-row:first-child{border-top:0}
 .pc-row:hover{background:var(--bg-soft)}
@@ -7064,7 +7063,6 @@ button.btn-primary {
   .pc-hero{padding:52px 0 20px}
   .pc-cell{padding:11px 4px;font-size:11.5px}
   .pc-cell-item{padding:13px 14px}
-  .pc-grp-name{padding:12px 14px 6px}
   .pc-panel-head{padding:15px 14px}
   .pc-cta{padding:40px 0}.pc-cta-inner{padding:38px 22px}
 }
