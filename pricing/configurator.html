@@ -104,11 +104,7 @@ a{color:inherit;text-decoration:none}
 .cmp-nav button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;font-family:var(--display);font-weight:700;font-size:14px;color:var(--ink-2);background:transparent;border:0;border-radius:10px;padding:11px 12px;cursor:pointer;transition:background .15s ease,color .15s ease}
 .cmp-nav button:hover{background:var(--bg-soft);color:var(--ink)}
 .cmp-nav button.on{background:var(--bg-soft);color:var(--ink)}
-.cmp-nav .navtag{width:8px;height:8px;border-radius:50%;flex:0 0 auto}
-.cmp-nav button[data-c=green] .navtag{background:var(--manage)} .cmp-nav button[data-c=blue] .navtag{background:var(--grow)} .cmp-nav button[data-c=purple] .navtag{background:var(--transform)}
 .cmp-nav .navcount{margin-left:auto;font-size:12px;font-weight:600;color:var(--muted-2)}
-.cmp-nav .navpick{width:8px;height:8px;border-radius:50%;flex:0 0 auto}
-.cmp-nav .navpick[data-tier=manage]{background:var(--manage)} .cmp-nav .navpick[data-tier=grow]{background:var(--grow)} .cmp-nav .navpick[data-tier=transform]{background:var(--transform)}
 @media(max-width:900px){
   .cmp-layout{grid-template-columns:1fr}
   .cmp-nav{flex-direction:row;flex-wrap:wrap;gap:6px}
@@ -416,7 +412,7 @@ DATA.modules.forEach(m=>{
  const count=m.groups.reduce((a,g)=>a+g.items.length,0);
  const btn=document.createElement('button');
  btn.type='button';btn.dataset.c=m.color;
- btn.innerHTML=`<span class="navtag"></span><span>${m.name}</span><span class="navcount">${count}</span><span class="navpick" hidden></span>`;
+ btn.innerHTML=`<span>${m.name}</span><span class="navcount">${count}</span>`;
  btn.addEventListener('click',()=>{selectModule(m.name);document.getElementById('compare').scrollIntoView({behavior:'smooth',block:'start'});});
  navByName[m.name]=btn;
  cmpNav.appendChild(btn);
@@ -494,8 +490,6 @@ function selectModule(name){
 
 function selectTier(name,tier){
  selections[name]=tier;
- const navpick=navByName[name].querySelector('.navpick');
- navpick.dataset.tier=tier;navpick.hidden=false;
  if(name===current){
  const mod=cmpPanel.querySelector('.mod');
  mod.dataset.selected=tier;
