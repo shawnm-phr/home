@@ -1173,33 +1173,177 @@ window.addEventListener('message', function(e) {
 }());
 
 /* pricing-delta.js — page-specific behavior for the Pricing page only.
-   The configurator lives in configurator.html, iframed for CSS/JS
-   isolation (see index.html) — this just syncs the iframe's height to
-   its content, since it has no fixed height of its own. */
+   Renders the tier ladder and the module comparison table from the
+   #pcMatrix JSON payload. All class names are .pc- prefixed and the
+   whole thing is scoped under .pc-scope in the markup, so nothing
+   here can collide with phrhome.css or the shared navbar/footer —
+   see the matching note in pricing-delta.css. */
 (function () {
-  var frame = document.getElementById('pr-configurator-frame');
-  if (!frame) return; // guard: absent on non-pricing pages
+  var scope = document.querySelector('.pc-scope');
+  if (!scope) return; // guard: absent on non-pricing pages
 
-  function resize() {
-    try {
-      var doc = frame.contentDocument;
-      if (!doc) return;
-      frame.style.height = doc.documentElement.scrollHeight + 'px';
-    } catch (e) {}
+  var DATA = JSON.parse(document.getElementById('pcMatrix').textContent);
+  var TIERS = [['manage', 'Manage'], ['grow', 'Grow'], ['transform', 'Transform']];
+  var CARDS = {
+    manage: { step: 'Stage 01', tag: 'Run the organisation', desc: 'Get HR right — accurate records, clean payroll, and statutory compliance across the full hire-to-retire journey.',
+      bullets: ['Core HR records & organisation structure', 'Time, attendance & leave management', 'Accurate payroll & statutory compliance'] },
+    grow: { step: 'Stage 02', tag: 'Invest in your people', desc: 'Develop your people — performance, talent, recruitment and engagement become intentional, not reactive. Built for more complex HR operations and larger workforces.',
+      bullets: ['Everything in Manage, plus', 'Performance, talent & succession', 'Recruitment, onboarding & engagement'], popular: true },
+    transform: { step: 'Stage 03', tag: 'Lead with people intelligence', desc: 'Put workforce data at the centre of decisions — anticipate attrition and align people strategy with the business.',
+      bullets: ['Everything in Grow, plus', 'Predictive attrition & executive dashboards', 'Cross-module people intelligence'] }
+  };
+  var svgCheck = '<svg class="pc-ic pc-ic-yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+  var svgTick = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+
+  /* tier ladder cards */
+  var ladder = document.getElementById('pcLadder');
+  TIERS.forEach(function (pair) {
+    var k = pair[0], name = pair[1], c = CARDS[k];
+    var el = document.createElement('div');
+    el.className = 'pc-tier-card'; el.dataset.tier = k; el.tabIndex = 0; el.setAttribute('role', 'button');
+    el.innerHTML = (c.popular ? '<span class="pc-popular">Most chosen</span>' : '') +
+      '<div class="pc-step">' + c.step + '</div>' +
+      '<div class="pc-tname"><span class="pc-chip"></span>' + name + '</div>' +
+      '<div class="pc-ttag">' + c.tag + '</div>' +
+      '<div class="pc-tdesc">' + c.desc + '</div>' +
+      '<ul>' + c.bullets.map(function (b) { return '<li>' + svgTick + '<span>' + b + '</span></li>'; }).join('') + '</ul>' +
+      '<a href="#pcBuildQuote" class="pc-btn">Build your custom quote</a>';
+    var goToBuilder = function () { document.getElementById('pcCompare').scrollIntoView({ behavior: 'smooth', block: 'start' }); };
+    el.addEventListener('click', function (e) { if (e.target.closest('a')) return; goToBuilder(); });
+    el.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goToBuilder(); } });
+    ladder.appendChild(el);
+  });
+
+  /* cell rendering */
+  function linkify(s) { return String(s).replace(/\[(.+?)\]\((.+?)\)/g, function (_, t, u) { return '<a class="pc-cell-link" href="' + u + '"' + (u !== '#' ? ' target="_blank" rel="noopener"' : '') + '>' + t + '</a>'; }); }
+  function plainify(s) { return String(s).replace(/\[(.+?)\]\((.+?)\)/g, '$1'); }
+  function cellContent(val) {
+    var v = (val || '').trim();
+    if (v === 'yes') return svgCheck;
+    if (v === '' || v === '-') return '<span class="pc-dash">–</span>';
+    if (v.toLowerCase() === 'add-on') return '<span class="pc-pill">Add-on</span>';
+    if (/^tts:/i.test(v)) {
+      var label = v.slice(v.indexOf(':') + 1).trim();
+      return '<span class="pc-cap pc-tts-cap">' + linkify(label) + '</span><span class="pc-pill pc-sales">Talk to sales</span>';
+    }
+    if (v.toLowerCase() === 'talk to sales' || v.toLowerCase() === 'talk to sale') return '<span class="pc-pill pc-sales">Talk to sales</span>';
+    return '<span class="pc-cap">' + linkify(v.replace(/\s{2,}/g, ' · ')) + '</span>';
+  }
+  var uid = 0;
+  function itemRow(it) {
+    var row = document.createElement('div'); row.className = 'pc-row' + (it.flag ? ' pc-flag' : '');
+    var hasInfo = it.info || (it.children && it.children.length);
+    var pop = '';
+    if (hasInfo) {
+      var id = 'pcp' + (uid++);
+      var covers = '';
+      if (it.children && it.children.length) {
+        covers = '<div class="pc-covers"><div class="pc-ch">Covers — based on the modules you own</div><div class="pc-tags">' + it.children.map(function (c) { return '<span class="pc-tag">' + c.module + '</span>'; }).join('') + '</div></div><div class="pc-avail">Available as an add-on; what Lexi can answer depends on the modules in your plan.</div>';
+      }
+      pop = '<span class="pc-info"><button class="pc-info-btn" aria-expanded="false" aria-controls="' + id + '" aria-label="More information">i</button>' +
+        '<div class="pc-pop" id="' + id + '" role="dialog"><div class="pc-pt">' + plainify(it.label) + '</div>' + (it.info ? '<div class="pc-pd">' + it.info + '</div>' : '') + covers + '</div></span>';
+    }
+    row.innerHTML = '<div class="pc-cell-item"><span class="pc-lbl">' + linkify(it.label) + '</span>' + pop + '</div>' +
+      '<div class="pc-cell" data-tier="manage">' + cellContent(it.manage) + '</div>' +
+      '<div class="pc-cell" data-tier="grow">' + cellContent(it.grow) + '</div>' +
+      '<div class="pc-cell" data-tier="transform">' + cellContent(it.transform) + '</div>';
+    return row;
   }
 
-  frame.addEventListener('load', function () {
-    resize();
-    try {
-      new ResizeObserver(resize).observe(frame.contentDocument.body);
-    } catch (e) {
-      var ticks = 0;
-      var id = setInterval(function () {
-        resize();
-        if (++ticks > 20) clearInterval(id);
-      }, 250);
-    }
+  /* module nav (left) + detail panel (right): pick a module on the
+     left, its capability list renders on the right under the one
+     persistent Manage/Grow/Transform header (not re-rendered per
+     module or per group — it's static markup, see pricing-body.html).
+     Groups are always fully expanded, no accordion. */
+  var cmpNav = document.getElementById('pcCmpNav');
+  var panelHead = document.getElementById('pcPanelHead');
+  var groupsEl = document.getElementById('pcGroups');
+  var ORDER = DATA.modules.map(function (m) { return m.name; });
+  var dataByName = {};
+  DATA.modules.forEach(function (m) { dataByName[m.name] = m; });
+  var navByName = {};
+
+  DATA.modules.forEach(function (m) {
+    var btn = document.createElement('button');
+    btn.type = 'button'; btn.dataset.c = m.color;
+    btn.textContent = m.name;
+    btn.addEventListener('click', function () { selectModule(m.name); document.getElementById('pcCompare').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+    navByName[m.name] = btn;
+    cmpNav.appendChild(btn);
   });
+
+  function renderPanel(name) {
+    var m = dataByName[name];
+
+    panelHead.innerHTML = '<span class="pc-mod-textwrap"><span class="pc-mod-nameline"><span class="pc-mod-name">' + m.name + '</span></span>' + (m.blurb ? '<span class="pc-mod-desc">' + m.blurb + '</span>' : '') + '</span>';
+
+    groupsEl.innerHTML = '';
+    m.groups.forEach(function (g) {
+      var grp = document.createElement('div'); grp.className = 'pc-grp';
+      var gh = document.createElement('div'); gh.className = 'pc-grp-name';
+      gh.textContent = g.name;
+      grp.appendChild(gh);
+      g.items.forEach(function (it) { grp.appendChild(itemRow(it)); });
+      groupsEl.appendChild(grp);
+    });
+  }
+
+  function selectModule(name) {
+    Object.keys(navByName).forEach(function (n) { navByName[n].classList.toggle('pc-on', n === name); });
+    renderPanel(name);
+  }
+
+  selectModule(ORDER[0]);
+
+  /* info popovers (fixed-positioned so overflow can't clip them) */
+  var openPop = null, popHandler = null;
+  function placePop(pop, btn) {
+    var w = Math.min(340, window.innerWidth - 24);
+    pop.style.position = 'fixed';
+    pop.style.width = w + 'px';
+    pop.style.maxHeight = (window.innerHeight - 24) + 'px';
+    pop.style.overflowY = 'auto';
+    var r = btn.getBoundingClientRect();
+    var ph = pop.offsetHeight;
+    var left = r.left; if (left + w > window.innerWidth - 12) left = window.innerWidth - 12 - w; if (left < 12) left = 12;
+    var top = r.bottom + 8;
+    if (top + ph > window.innerHeight - 12) {
+      var above = r.top - ph - 8;
+      top = above > 12 ? above : Math.max(12, window.innerHeight - 12 - ph);
+    }
+    pop.style.left = left + 'px'; pop.style.top = top + 'px';
+    var rr = pop.getBoundingClientRect();
+    if (rr.bottom > window.innerHeight - 8) pop.style.top = Math.max(8, top - (rr.bottom - (window.innerHeight - 8))) + 'px';
+    if (rr.right > window.innerWidth - 8) pop.style.left = Math.max(8, left - (rr.right - (window.innerWidth - 8))) + 'px';
+  }
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.pc-info-btn');
+    if (btn) {
+      var pop = document.getElementById(btn.getAttribute('aria-controls'));
+      var isOpen = pop.classList.contains('pc-open');
+      closePop();
+      if (!isOpen) {
+        pop.classList.add('pc-open'); btn.setAttribute('aria-expanded', 'true'); openPop = { pop: pop, btn: btn };
+        placePop(pop, btn);
+        popHandler = function () { closePop(); };
+        window.addEventListener('scroll', popHandler, true);
+        window.addEventListener('resize', popHandler);
+      }
+      return;
+    }
+    if (openPop && !e.target.closest('.pc-pop')) closePop();
+  });
+  function closePop() {
+    if (!openPop) return;
+    var pop = openPop.pop, btn = openPop.btn;
+    pop.classList.remove('pc-open');
+    pop.style.cssText = '';
+    btn.setAttribute('aria-expanded', 'false');
+    openPop = null;
+    if (popHandler) { window.removeEventListener('scroll', popHandler, true); window.removeEventListener('resize', popHandler); popHandler = null; }
+  }
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closePop(); });
+  document.addEventListener('click', function (e) { var a = e.target.closest('.pc-cell-link'); if (a && a.getAttribute('href') === '#') e.preventDefault(); });
 }());
 /* navbar - new JS additions */
 (function(){var bar=document.getElementById('nvBar');var menu=document.getElementById('nvMenu');if(!bar||!menu)return;var onScroll=function(){if(window.scrollY>8)bar.classList.add('is-scrolled');else bar.classList.remove('is-scrolled');};window.addEventListener('scroll',onScroll,{passive:true});onScroll();var items=menu.querySelectorAll('[data-nv="dropdown"]');var openTimer,closeTimer,current=null;function open(item){clearTimeout(closeTimer);if(current&&current!==item)close(current,true);item.classList.add('is-open');var btn=item.querySelector('.nv-link');if(btn)btn.setAttribute('aria-expanded','true');current=item;}
