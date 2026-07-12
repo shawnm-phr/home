@@ -6993,9 +6993,12 @@ button.btn-primary {
 .pc-mod-desc{font-family:var(--sans);font-weight:400;font-size:12.5px;color:var(--muted);line-height:1.3}
 .pc-mod-name{font-family:var(--display);font-weight:800;font-size:24px}
 
-/* single tier-name header, sticky below the site navbar; not repeated
-   per group — stays in place for every group in the module */
-.pc-th-row{position:sticky;top:52px;z-index:30;display:grid;grid-template-columns:var(--cols);background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:var(--radius) var(--radius) 0 0;overflow:hidden}
+/* single tier-name header, sticky to the very top of the viewport; not
+   repeated per group — stays in place for every group in the module.
+   top:0 (not the navbar's height) because .nv-bar's own sticky range
+   ends well before the page has scrolled this far, so by the time this
+   row reaches the top there's no navbar left to clear */
+.pc-th-row{position:sticky;top:0;z-index:30;display:grid;grid-template-columns:var(--cols);background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .pc-th-row .pc-lead{padding:14px 22px;display:flex;align-items:center;font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted-2)}
 .pc-th{padding:14px 10px;text-align:center;font-family:var(--display);border-left:1px solid var(--line-2)}
 .pc-th .pc-n{font-weight:800;font-size:16px}
