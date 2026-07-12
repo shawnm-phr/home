@@ -1258,6 +1258,8 @@ window.addEventListener('message', function(e) {
   var cmpNav = document.getElementById('pcCmpNav');
   var panelHead = document.getElementById('pcPanelHead');
   var groupsEl = document.getElementById('pcGroups');
+  var leadEl = document.getElementById('pcLead');
+  var thRow = document.querySelector('.pc-th-row');
   var ORDER = DATA.modules.map(function (m) { return m.name; });
   var dataByName = {};
   DATA.modules.forEach(function (m) { dataByName[m.name] = m; });
@@ -1286,11 +1288,36 @@ window.addEventListener('message', function(e) {
       g.items.forEach(function (it) { grp.appendChild(itemRow(it)); });
       groupsEl.appendChild(grp);
     });
+    leadEl.textContent = m.groups[0] ? m.groups[0].name : '';
   }
+
+  /* lead cell mirrors whichever group heading has scrolled up under the
+     sticky Manage/Grow/Transform row — it locks in place there just like
+     the row itself, swapping text as the next group takes its spot. */
+  function updateActiveGroupLabel() {
+    var triggerY = thRow.getBoundingClientRect().bottom;
+    var names = groupsEl.querySelectorAll('.pc-grp-name');
+    for (var i = 0; i < names.length; i++) {
+      if (names[i].getBoundingClientRect().top <= triggerY) {
+        leadEl.textContent = names[i].textContent;
+      } else {
+        break;
+      }
+    }
+  }
+  var spyTicking = false;
+  function scheduleSpy() {
+    if (spyTicking) return;
+    spyTicking = true;
+    window.requestAnimationFrame(function () { updateActiveGroupLabel(); spyTicking = false; });
+  }
+  window.addEventListener('scroll', scheduleSpy, { passive: true });
+  window.addEventListener('resize', scheduleSpy);
 
   function selectModule(name) {
     Object.keys(navByName).forEach(function (n) { navByName[n].classList.toggle('pc-on', n === name); });
     renderPanel(name);
+    scheduleSpy();
   }
 
   selectModule(ORDER[0]);
