@@ -7010,7 +7010,7 @@ button.btn-primary {
    from its measured height in main.js) as it scrolls up, and gets
    pushed out of that spot by the next group's heading arriving behind
    it — the classic stacked-sticky-header effect, no JS required */
-.pc-grp-name{position:sticky;top:var(--pc-th-h,64px);z-index:25;background:#fff;padding:14px 22px;font-family:var(--display);font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);border-bottom:1px solid var(--line)}
+.pc-grp-name{position:sticky;top:var(--pc-th-h,64px);z-index:25;background:#fff;padding:14px 22px;font-family:var(--display);font-weight:800;font-size:20px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);border-bottom:1px solid var(--line)}
 .pc-row{display:grid;grid-template-columns:var(--cols);align-items:stretch;border-top:1px solid var(--line-2)}
 .pc-grp .pc-row:first-child{border-top:0}
 .pc-row:hover{background:var(--bg-soft)}
