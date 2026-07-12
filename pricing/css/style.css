@@ -6999,7 +6999,7 @@ button.btn-primary {
    ends well before the page has scrolled this far, so by the time this
    row reaches the top there's no navbar left to clear */
 .pc-th-row{position:sticky;top:0;z-index:30;display:grid;grid-template-columns:var(--cols);background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.pc-th-row .pc-lead{padding:14px 22px;display:flex;align-items:center;font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted-2)}
+.pc-th-row .pc-lead{padding:14px 22px;display:flex;align-items:center;font-family:var(--display);font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
 .pc-th{padding:14px 10px;text-align:center;font-family:var(--display);border-left:1px solid var(--line-2)}
 .pc-th .pc-n{font-weight:800;font-size:16px}
 .pc-th .pc-t{font-weight:600;font-size:11.5px;color:var(--muted);margin-top:2px}
