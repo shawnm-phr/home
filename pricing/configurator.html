@@ -227,7 +227,6 @@ a{color:inherit;text-decoration:none}
 
 /* ---- in-module chooser ---- */
 .chooser{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:16px 22px;background:#fff;border-bottom:1px solid var(--line-2)}
-.chooser-q{font-family:var(--display);font-weight:700;font-size:14px;color:var(--ink)}
 .chooser-opts{display:inline-flex;gap:8px}
 .opt{font-family:var(--display);font-weight:700;font-size:13.5px;border:1.5px solid var(--line);background:#fff;color:var(--ink-2);border-radius:10px;padding:9px 16px;cursor:pointer;transition:all .15s ease}
 .opt:hover{border-color:var(--muted-2)}
@@ -430,8 +429,7 @@ function renderPanel(name){
  mod.appendChild(head);
 
  const chooser=document.createElement('div');chooser.className='chooser';
- chooser.innerHTML=`<span class="chooser-q">Choose a tier for <b>${m.name}</b></span>
- <div class="chooser-opts">
+ chooser.innerHTML=`<div class="chooser-opts">
  <button class="opt" data-tier="manage">Manage</button>
  <button class="opt" data-tier="grow">Grow</button>
  <button class="opt" data-tier="transform">Transform</button>
