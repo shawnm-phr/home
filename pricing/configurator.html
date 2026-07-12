@@ -108,7 +108,7 @@ a{color:inherit;text-decoration:none}
 }
 
 .cmp{border:1px solid var(--line);border-radius:var(--radius);overflow:clip;background:#fff}
-.panel-head{display:flex;align-items:center;gap:13px;padding:20px 22px;border-bottom:1px solid var(--line)}
+.panel-head{display:flex;align-items:center;gap:13px;padding:20px 22px 6px}
 .cmp-header{display:grid;grid-template-columns:var(--cols);background:#fff;border-bottom:1px solid var(--line)}
 .cmp-header .lead{padding:16px 22px;font-family:var(--display);font-weight:700;font-size:14px;color:var(--muted);display:flex;align-items:center}
 .th{padding:14px 10px;text-align:center;font-family:var(--display);border-left:1px solid var(--line-2)}
@@ -121,8 +121,7 @@ a{color:inherit;text-decoration:none}
 .mod-desc{font-family:var(--sans);font-weight:400;font-size:12.5px;color:var(--muted);line-height:1.3}
 .mod-tag{width:9px;height:26px;border-radius:4px;flex:0 0 auto}
 .mod[data-c=green] .mod-tag{background:var(--manage)} .mod[data-c=blue] .mod-tag{background:var(--grow)} .mod[data-c=purple] .mod-tag{background:var(--transform)}
-.mod-name{font-family:var(--display);font-weight:800;font-size:18px}
-.mod-count{font-size:12.5px;color:var(--muted-2);font-weight:500;margin-left:2px}
+.mod-name{font-family:var(--display);font-weight:800;font-size:24px}
 .grp{border-top:1px solid var(--line-2)}
 .grp:first-child{border-top:0}
 .grp-name{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border:0;cursor:pointer;font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted-2);padding:14px 22px;text-align:left}
@@ -406,13 +405,12 @@ DATA.modules.forEach(m=>{
 
 function renderPanel(name){
  const m=dataByName[name];
- const count=m.groups.reduce((a,g)=>a+g.items.length,0);
  cmpPanel.innerHTML='';
  const mod=document.createElement('div');mod.className='mod';mod.dataset.c=m.color;
  if(selections[name])mod.dataset.selected=selections[name];
 
  const head=document.createElement('div');head.className='panel-head';
- head.innerHTML=`<span class="mod-tag"></span><span class="mod-textwrap"><span class="mod-nameline"><span class="mod-name">${m.name}</span><span class="mod-count">${count}</span><span class="mod-pick" hidden></span></span>${m.blurb?`<span class="mod-desc">${m.blurb}</span>`:''}</span>`;
+ head.innerHTML=`<span class="mod-tag"></span><span class="mod-textwrap"><span class="mod-nameline"><span class="mod-name">${m.name}</span><span class="mod-pick" hidden></span></span>${m.blurb?`<span class="mod-desc">${m.blurb}</span>`:''}</span>`;
  mod.appendChild(head);
 
  const chooser=document.createElement('div');chooser.className='chooser';
