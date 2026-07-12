@@ -96,12 +96,11 @@ a{color:inherit;text-decoration:none}
 .expandall:hover{color:var(--ink)}
 
 /* ---- module nav (left) + detail panel (right), HubSpot-style ---- */
-.cmp-layout{display:grid;grid-template-columns:230px 1fr;gap:20px;align-items:start}
-.cmp-nav{display:flex;flex-direction:column;gap:2px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:8px}
-.cmp-nav button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;font-family:var(--display);font-weight:700;font-size:14px;color:var(--ink-2);background:transparent;border:0;border-radius:10px;padding:11px 12px;cursor:pointer;transition:background .15s ease,color .15s ease}
+.cmp-layout{display:grid;grid-template-columns:270px 1fr;gap:20px;align-items:start}
+.cmp-nav{display:flex;flex-direction:column;gap:4px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:10px}
+.cmp-nav button{display:flex;align-items:center;width:100%;text-align:left;font-family:var(--display);font-weight:700;font-size:17px;color:var(--ink-2);background:transparent;border:0;border-radius:12px;padding:16px 18px;cursor:pointer;transition:background .15s ease,color .15s ease}
 .cmp-nav button:hover{background:var(--bg-soft);color:var(--ink)}
 .cmp-nav button.on{background:var(--bg-soft);color:var(--ink)}
-.cmp-nav .navcount{margin-left:auto;font-size:12px;font-weight:600;color:var(--muted-2)}
 @media(max-width:900px){
   .cmp-layout{grid-template-columns:1fr}
   .cmp-nav{flex-direction:row;flex-wrap:wrap;gap:6px}
@@ -397,10 +396,9 @@ function toggleGroup(gh,gpanel,ginner){
 }
 
 DATA.modules.forEach(m=>{
- const count=m.groups.reduce((a,g)=>a+g.items.length,0);
  const btn=document.createElement('button');
  btn.type='button';btn.dataset.c=m.color;
- btn.innerHTML=`<span>${m.name}</span><span class="navcount">${count}</span>`;
+ btn.textContent=m.name;
  btn.addEventListener('click',()=>{selectModule(m.name);document.getElementById('compare').scrollIntoView({behavior:'smooth',block:'start'});});
  navByName[m.name]=btn;
  cmpNav.appendChild(btn);
