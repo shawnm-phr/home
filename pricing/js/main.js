@@ -1299,14 +1299,20 @@ window.addEventListener('message', function(e) {
      stacking below it. Left blank until a group has actually reached
      that point, so the name isn't shown twice at once. */
   function updateActiveGroupLabel() {
-    var triggerY = thRow.getBoundingClientRect().bottom;
-    var groups = groupsEl.querySelectorAll('.pc-grp');
+    var thRect = thRow.getBoundingClientRect();
     var current = '';
-    for (var i = 0; i < groups.length; i++) {
-      if (groups[i].getBoundingClientRect().top <= triggerY) {
-        current = groups[i].dataset.name;
-      } else {
-        break;
+    if (thRect.top <= 0.5) {
+      // only mirror once the tier row is actually pinned to the top —
+      // otherwise the first group's heading is still fully visible in
+      // the flow just below it, and showing its name here too would
+      // duplicate it before anything has really scrolled underneath.
+      var groups = groupsEl.querySelectorAll('.pc-grp');
+      for (var i = 0; i < groups.length; i++) {
+        if (groups[i].getBoundingClientRect().top <= thRect.bottom) {
+          current = groups[i].dataset.name;
+        } else {
+          break;
+        }
       }
     }
     if (leadEl.textContent !== current) leadEl.textContent = current;
