@@ -98,19 +98,32 @@ a{color:inherit;text-decoration:none}
 .expandall{font-family:var(--display);font-weight:600;font-size:13.5px;color:var(--ink-2);background:none;border:0;cursor:pointer;padding:8px 6px}
 .expandall:hover{color:var(--ink)}
 
+/* ---- module nav (left) + detail panel (right), HubSpot-style ---- */
+.cmp-layout{display:grid;grid-template-columns:230px 1fr;gap:20px;align-items:start}
+.cmp-nav{display:flex;flex-direction:column;gap:2px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:8px}
+.cmp-nav button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;font-family:var(--display);font-weight:700;font-size:14px;color:var(--ink-2);background:transparent;border:0;border-radius:10px;padding:11px 12px;cursor:pointer;transition:background .15s ease,color .15s ease}
+.cmp-nav button:hover{background:var(--bg-soft);color:var(--ink)}
+.cmp-nav button.on{background:var(--bg-soft);color:var(--ink)}
+.cmp-nav .navtag{width:8px;height:8px;border-radius:50%;flex:0 0 auto}
+.cmp-nav button[data-c=green] .navtag{background:var(--manage)} .cmp-nav button[data-c=blue] .navtag{background:var(--grow)} .cmp-nav button[data-c=purple] .navtag{background:var(--transform)}
+.cmp-nav .navcount{margin-left:auto;font-size:12px;font-weight:600;color:var(--muted-2)}
+.cmp-nav .navpick{width:8px;height:8px;border-radius:50%;flex:0 0 auto}
+.cmp-nav .navpick[data-tier=manage]{background:var(--manage)} .cmp-nav .navpick[data-tier=grow]{background:var(--grow)} .cmp-nav .navpick[data-tier=transform]{background:var(--transform)}
+@media(max-width:900px){
+  .cmp-layout{grid-template-columns:1fr}
+  .cmp-nav{flex-direction:row;flex-wrap:wrap;gap:6px}
+  .cmp-nav button{width:auto}
+}
+
 .cmp{border:1px solid var(--line);border-radius:var(--radius);overflow:clip;background:#fff}
-.cmp-header{position:sticky;top:0;z-index:40;display:grid;grid-template-columns:var(--cols);background:#fff;border-bottom:1px solid var(--line)}
+.panel-head{display:flex;align-items:center;gap:13px;padding:20px 22px;border-bottom:1px solid var(--line)}
+.cmp-header{display:grid;grid-template-columns:var(--cols);background:#fff;border-bottom:1px solid var(--line)}
 .cmp-header .lead{padding:16px 22px;font-family:var(--display);font-weight:700;font-size:14px;color:var(--muted);display:flex;align-items:center}
 .th{padding:14px 10px;text-align:center;font-family:var(--display);border-left:1px solid var(--line-2)}
 .th .n{font-weight:800;font-size:16px}
 .th .t{font-weight:600;font-size:11.5px;color:var(--muted);margin-top:2px}
 .th[data-tier=manage] .n{color:var(--manage)} .th[data-tier=grow] .n{color:var(--grow)} .th[data-tier=transform] .n{color:var(--transform)}
 
-.mod{border-top:1px solid var(--line)}
-.mod:first-child{border-top:0}
-.mod-bar{width:100%;display:grid;grid-template-columns:var(--cols);align-items:center;background:#fff;border:0;cursor:pointer;text-align:left;font-family:inherit}
-.mod-bar:hover{background:var(--bg-soft)}
-.mod-bar .mlead{padding:15px 22px;display:flex;align-items:center;gap:13px}
 .mod-textwrap{display:flex;flex-direction:column;gap:3px;min-width:0}
 .mod-nameline{display:flex;align-items:center;gap:10px}
 .mod-desc{font-family:var(--sans);font-weight:400;font-size:12.5px;color:var(--muted);line-height:1.3}
@@ -118,9 +131,6 @@ a{color:inherit;text-decoration:none}
 .mod[data-c=green] .mod-tag{background:var(--manage)} .mod[data-c=blue] .mod-tag{background:var(--grow)} .mod[data-c=purple] .mod-tag{background:var(--transform)}
 .mod-name{font-family:var(--display);font-weight:800;font-size:18px}
 .mod-count{font-size:12.5px;color:var(--muted-2);font-weight:500;margin-left:2px}
-.mod-chev{margin-left:auto;color:var(--muted-2);transition:transform .22s ease}
-.mod-bar[aria-expanded=true] .mod-chev{transform:rotate(180deg)}
-.mod-panel{overflow:hidden}
 .grp{border-top:1px solid var(--line-2)}
 .grp:first-child{border-top:0}
 .grp-name{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border:0;cursor:pointer;font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted-2);padding:14px 22px;text-align:left}
@@ -201,7 +211,7 @@ a{color:inherit;text-decoration:none}
   .cell{padding:11px 4px;font-size:11.5px}
   .cell-item{padding:13px 14px}
   .grp-name{padding:12px 14px 6px}
-  .mod-bar .mlead{padding:15px 14px}
+  .panel-head{padding:15px 14px}
   .chooser{flex-direction:column;align-items:stretch}
   .chooser-opts{width:100%}
   .chooser-opts .opt{flex:1}
@@ -308,14 +318,11 @@ a{color:inherit;text-decoration:none}
  <a href="#build-quote" class="btn pkg-cta" id="pkgCta" hidden>Build your custom quote</a>
  </div>
 
+ <div class="cmp-layout">
+ <nav class="cmp-nav" id="cmpNav" aria-label="Module"></nav>
  <div class="cmp" id="cmp">
- <div class="cmp-header">
- <div class="lead">Capability</div>
- <div class="th" data-tier="manage"><div class="n">Manage</div><div class="t">Run the organisation</div></div>
- <div class="th" data-tier="grow"><div class="n">Grow</div><div class="t">Invest in your people</div></div>
- <div class="th" data-tier="transform"><div class="n">Transform</div><div class="t">Lead with people intelligence</div></div>
+ <div class="cmp-panel" id="cmpPanel"></div>
  </div>
- <div id="modules"></div>
  </div>
  </div>
  </section>
@@ -351,7 +358,6 @@ const CARDS = {
 };
 const svgCheck='<svg class="ic ic-yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
 const svgTick='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
-const svgChev='<svg class="mod-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>';
 const svgChevSm='<svg class="grp-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>';
 
 /* tier ladder cards */
@@ -409,32 +415,21 @@ function itemRow(it){
  return row;
 }
 
-/* build modules (guided package builder) */
-const modsWrap=document.getElementById('modules');
+/* module nav (left) + detail panel (right) — HubSpot-style: pick a
+   module on the left, its Manage/Grow/Transform comparison renders
+   on the right. Selections persist across modules regardless of
+   which one is currently showing. */
+const cmpNav=document.getElementById('cmpNav');
+const cmpPanel=document.getElementById('cmpPanel');
 const ORDER=DATA.modules.map(m=>m.name);
+const dataByName={};
+DATA.modules.forEach(m=>{dataByName[m.name]=m;});
 const selections={};
-const barByName={}, modByName={};
+const navByName={};
 const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+let current=ORDER[0];
 
-function collapseMod(b){
- if(b.getAttribute('aria-expanded')!=='true')return;
- const p=b.nextElementSibling,inr=p.firstElementChild;
- b.setAttribute('aria-expanded','false');
- p.style.maxHeight=inr.scrollHeight+'px';
- requestAnimationFrame(()=>{p.style.maxHeight='0';});
-}
-function expandMod(b){
- const p=b.nextElementSibling,inr=p.firstElementChild;
- b.setAttribute('aria-expanded','true');
- p.style.maxHeight=inr.scrollHeight+'px';
- setTimeout(()=>{if(b.getAttribute('aria-expanded')==='true')p.style.maxHeight='none';},260);
-}
-function openOnly(bar){
- if(bar.getAttribute('aria-expanded')==='true')return;
- document.querySelectorAll('.mod-bar[aria-expanded=true]').forEach(collapseMod);
- expandMod(bar);
-}
-function toggleGroup(gh,gpanel,ginner,mpanel,bar){
+function toggleGroup(gh,gpanel,ginner){
  const open=gh.getAttribute('aria-expanded')==='true';
  gh.setAttribute('aria-expanded',String(!open));
  if(open){
@@ -444,22 +439,28 @@ function toggleGroup(gh,gpanel,ginner,mpanel,bar){
  gpanel.style.maxHeight=ginner.scrollHeight+'px';
  setTimeout(()=>{if(gh.getAttribute('aria-expanded')==='true')gpanel.style.maxHeight='none';},240);
  }
- if(bar.getAttribute('aria-expanded')==='true')mpanel.style.maxHeight='none';
-}
-function scrollToBar(bar){
- const y=bar.getBoundingClientRect().top+window.scrollY-70;
- window.scrollTo({top:y,behavior:'smooth'});
 }
 
-DATA.modules.forEach((m,mi)=>{
+DATA.modules.forEach(m=>{
  const count=m.groups.reduce((a,g)=>a+g.items.length,0);
- const mod=document.createElement('section');mod.className='mod';mod.dataset.c=m.color;
- const bar=document.createElement('button');bar.className='mod-bar';bar.setAttribute('aria-expanded', mi===0?'true':'false');
- bar.innerHTML=`<div class="mlead"><span class="mod-tag"></span><span class="mod-textwrap"><span class="mod-nameline"><span class="mod-name">${m.name}</span><span class="mod-count">${count}</span><span class="mod-pick" hidden></span></span>${m.blurb?`<span class="mod-desc">${m.blurb}</span>`:''}</span></div>
- <div></div><div></div><div></div>`;
- bar.querySelector('.mlead').insertAdjacentHTML('beforeend',svgChev);
- const panel=document.createElement('div');panel.className='mod-panel';
- const inner=document.createElement('div');
+ const btn=document.createElement('button');
+ btn.type='button';btn.dataset.c=m.color;
+ btn.innerHTML=`<span class="navtag"></span><span>${m.name}</span><span class="navcount">${count}</span><span class="navpick" hidden></span>`;
+ btn.addEventListener('click',()=>{selectModule(m.name);document.getElementById('compare').scrollIntoView({behavior:'smooth',block:'start'});});
+ navByName[m.name]=btn;
+ cmpNav.appendChild(btn);
+});
+
+function renderPanel(name){
+ const m=dataByName[name];
+ const count=m.groups.reduce((a,g)=>a+g.items.length,0);
+ cmpPanel.innerHTML='';
+ const mod=document.createElement('div');mod.className='mod';mod.dataset.c=m.color;
+ if(selections[name])mod.dataset.selected=selections[name];
+
+ const head=document.createElement('div');head.className='panel-head';
+ head.innerHTML=`<span class="mod-tag"></span><span class="mod-textwrap"><span class="mod-nameline"><span class="mod-name">${m.name}</span><span class="mod-count">${count}</span><span class="mod-pick" hidden></span></span>${m.blurb?`<span class="mod-desc">${m.blurb}</span>`:''}</span>`;
+ mod.appendChild(head);
 
  const chooser=document.createElement('div');chooser.className='chooser';
  chooser.innerHTML=`<span class="chooser-q">Choose a tier for <b>${m.name}</b></span>
@@ -469,57 +470,73 @@ DATA.modules.forEach((m,mi)=>{
  <button class="opt" data-tier="transform">Transform</button>
  </div>
  <button class="nextbtn" hidden></button>`;
- inner.appendChild(chooser);
+ mod.appendChild(chooser);
 
- m.groups.forEach(g=>{
+ const header=document.createElement('div');header.className='cmp-header';
+ header.innerHTML=`<div class="lead">Capability</div>
+ <div class="th" data-tier="manage"><div class="n">Manage</div><div class="t">Run the organisation</div></div>
+ <div class="th" data-tier="grow"><div class="n">Grow</div><div class="t">Invest in your people</div></div>
+ <div class="th" data-tier="transform"><div class="n">Transform</div><div class="t">Lead with people intelligence</div></div>`;
+ mod.appendChild(header);
+
+ m.groups.forEach((g,gi)=>{
  const grp=document.createElement('div');grp.className='grp';
- const gh=document.createElement('button');gh.className='grp-name';gh.setAttribute('aria-expanded','false');
+ const gh=document.createElement('button');gh.className='grp-name';gh.setAttribute('aria-expanded', gi===0?'true':'false');
  gh.innerHTML=`<span class="grp-txt">${g.name}</span>`;
  gh.insertAdjacentHTML('beforeend',svgChevSm);
  const gpanel=document.createElement('div');gpanel.className='grp-panel';
- gpanel.style.transition='max-height .24s ease';gpanel.style.maxHeight='0';
+ gpanel.style.transition='max-height .24s ease';
  const ginner=document.createElement('div');
  g.items.forEach(it=>ginner.appendChild(itemRow(it)));
  gpanel.appendChild(ginner);
- gh.addEventListener('click',()=>toggleGroup(gh,gpanel,ginner,panel,bar));
+ gpanel.style.maxHeight = gi===0 ? 'none' : '0';
+ gh.addEventListener('click',()=>toggleGroup(gh,gpanel,ginner));
  grp.appendChild(gh);grp.appendChild(gpanel);
- inner.appendChild(grp);
- });
- panel.appendChild(inner);
- panel.style.transition='max-height .26s ease';
- panel.style.maxHeight = mi===0? 'none':'0';
-
- bar.addEventListener('click',()=>{
- if(bar.getAttribute('aria-expanded')==='true'){collapseMod(bar);return;}
- openOnly(bar);
+ mod.appendChild(grp);
  });
 
+ cmpPanel.appendChild(mod);
+
+ const idx=ORDER.indexOf(name);
  const nextBtn=chooser.querySelector('.nextbtn');
+ chooser.querySelectorAll('.opt').forEach(opt=>{
+ opt.classList.toggle('on',selections[name]===opt.dataset.tier);
+ opt.addEventListener('click',()=>selectTier(name,opt.dataset.tier));
+ });
  nextBtn.addEventListener('click',()=>{
- const idx=ORDER.indexOf(m.name);
- if(idx<ORDER.length-1){const nb=barByName[ORDER[idx+1]];openOnly(nb);scrollToBar(nb);}
+ if(idx<ORDER.length-1){selectModule(ORDER[idx+1]);document.getElementById('compare').scrollIntoView({behavior:'smooth',block:'start'});}
  else{document.getElementById('build-quote').scrollIntoView({behavior:'smooth',block:'start'});}
  });
- chooser.querySelectorAll('.opt').forEach(opt=>{
- opt.addEventListener('click',()=>selectTier(m.name,opt.dataset.tier));
- });
+ if(selections[name]){
+ nextBtn.hidden=false;
+ nextBtn.textContent = idx<ORDER.length-1 ? 'Next: '+ORDER[idx+1]+' →' : 'Review your package →';
+ const pick=head.querySelector('.mod-pick');
+ pick.textContent=cap(selections[name]);pick.dataset.tier=selections[name];pick.hidden=false;
+ }
+}
 
- mod._chooser=chooser;mod._next=nextBtn;mod._panel=panel;mod._inner=inner;
- barByName[m.name]=bar;modByName[m.name]=mod;
- mod.appendChild(bar);mod.appendChild(panel);modsWrap.appendChild(mod);
-});
+function selectModule(name){
+ current=name;
+ Object.keys(navByName).forEach(n=>navByName[n].classList.toggle('on',n===name));
+ renderPanel(name);
+ markActiveChip();
+}
 
 function selectTier(name,tier){
  selections[name]=tier;
- const mod=modByName[name],bar=barByName[name];
+ const navpick=navByName[name].querySelector('.navpick');
+ navpick.dataset.tier=tier;navpick.hidden=false;
+ if(name===current){
+ const mod=cmpPanel.querySelector('.mod');
  mod.dataset.selected=tier;
- mod._chooser.querySelectorAll('.opt').forEach(o=>o.classList.toggle('on',o.dataset.tier===tier));
- const pick=bar.querySelector('.mod-pick');
- pick.textContent=cap(tier);pick.dataset.tier=tier;pick.hidden=false;
+ mod.querySelectorAll('.chooser .opt').forEach(o=>o.classList.toggle('on',o.dataset.tier===tier));
  const idx=ORDER.indexOf(name);
- mod._next.textContent = idx<ORDER.length-1 ? 'Next: '+ORDER[idx+1]+' →' : 'Review your package →';
- mod._next.hidden=false;
- if(bar.getAttribute('aria-expanded')==='true')mod._panel.style.maxHeight='none';
+ const nextBtn=mod.querySelector('.nextbtn');
+ nextBtn.hidden=false;
+ nextBtn.textContent = idx<ORDER.length-1 ? 'Next: '+ORDER[idx+1]+' →' : 'Review your package →';
+ const pick=mod.querySelector('.panel-head .mod-pick');
+ pick.textContent=cap(tier);pick.dataset.tier=tier;pick.hidden=false;
+ }
  updatePkg();
 }
 
@@ -530,7 +547,7 @@ const pkgCta=document.getElementById('pkgCta');
 ORDER.forEach(name=>{
  const c=document.createElement('button');c.className='pkg-chip';c.dataset.name=name;
  c.innerHTML=`<span class="dotc"></span><span class="pt">${name}</span><span class="pv">–</span>`;
- c.addEventListener('click',()=>{const b=barByName[name];openOnly(b);scrollToBar(b);});
+ c.addEventListener('click',()=>{selectModule(name);document.getElementById('compare').scrollIntoView({behavior:'smooth',block:'start'});});
  pkgChips.appendChild(c);
 });
 function updatePkg(){
@@ -552,16 +569,14 @@ function renderSummary(complete){
  if(!complete){p.innerHTML='';return;}
  p.innerHTML=ORDER.map(n=>`<span class="s">${n} · <b>${cap(selections[n])}</b></span>`).join('');
 }
-updatePkg();
 
-/* active chip mirrors the open module */
+/* active chip mirrors the module currently shown in the panel */
 function markActiveChip(){
- const open=document.querySelector('.mod-bar[aria-expanded=true] .mod-name');
- const name=open?open.textContent:null;
- pkgChips.querySelectorAll('.pkg-chip').forEach(c=>c.classList.toggle('active',c.dataset.name===name));
+ pkgChips.querySelectorAll('.pkg-chip').forEach(c=>c.classList.toggle('active',c.dataset.name===current));
 }
-modsWrap.addEventListener('click',()=>setTimeout(markActiveChip,10));
-markActiveChip();
+
+selectModule(ORDER[0]);
+updatePkg();
 
 /* info popovers (fixed-positioned so dropdown overflow can't clip them) */
 let openPop=null, popHandler=null;
