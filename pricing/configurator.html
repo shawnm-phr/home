@@ -201,10 +201,6 @@ a{color:inherit;text-decoration:none}
   .cell-item{padding:13px 14px}
   .grp-name{padding:12px 14px 6px}
   .panel-head{padding:15px 14px}
-  .chooser{flex-direction:column;align-items:stretch}
-  .chooser-opts{width:100%}
-  .chooser-opts .opt{flex:1}
-  .nextbtn{width:100%;justify-content:center}
   .cta{padding:40px 0}.cta-inner{padding:38px 22px}
 }
 @media(min-width:721px){:root{--cols:minmax(0,1fr) 138px 138px 138px}}
@@ -212,41 +208,6 @@ a{color:inherit;text-decoration:none}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
 [hidden]{display:none!important}
 
-/* ---- module pick badge ---- */
-.mod-pick{font-family:var(--display);font-weight:700;font-size:12px;padding:3px 10px;border-radius:999px;margin-left:4px}
-.mod-pick[data-tier=manage]{background:var(--manage-tint);color:var(--manage)}
-.mod-pick[data-tier=grow]{background:var(--grow-tint);color:var(--grow)}
-.mod-pick[data-tier=transform]{background:var(--transform-tint);color:var(--transform)}
-
-/* ---- in-module chooser ---- */
-.chooser{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:16px 22px;background:#fff;border-bottom:1px solid var(--line-2)}
-.chooser-opts{display:inline-flex;gap:8px}
-.opt{font-family:var(--display);font-weight:700;font-size:13.5px;border:1.5px solid var(--line);background:#fff;color:var(--ink-2);border-radius:10px;padding:9px 16px;cursor:pointer;transition:all .15s ease}
-.opt:hover{border-color:var(--muted-2)}
-.opt[data-tier=manage]:hover{border-color:var(--manage);color:var(--manage)}
-.opt[data-tier=grow]:hover{border-color:var(--grow);color:var(--grow)}
-.opt[data-tier=transform]:hover{border-color:var(--transform);color:var(--transform)}
-.opt.on{color:#fff}
-.opt.on[data-tier=manage]{background:var(--manage);border-color:var(--manage)}
-.opt.on[data-tier=grow]{background:var(--grow);border-color:var(--grow)}
-.opt.on[data-tier=transform]{background:var(--transform);border-color:var(--transform)}
-.nextbtn{margin-left:auto;font-family:var(--display);font-weight:700;font-size:14px;border-radius:999px;padding:10px 20px;border:0;cursor:pointer;background:var(--ink);color:#fff;display:inline-flex;align-items:center;gap:6px;transition:transform .15s ease,box-shadow .2s ease}
-.nextbtn:hover{box-shadow:0 8px 18px rgba(15,28,46,.2)}
-.nextbtn:active{transform:translateY(1px)}
-
-/* ---- selected column highlight (per module) ---- */
-.mod[data-selected] .cell{transition:opacity .2s ease,background .2s ease}
-.mod[data-selected=manage] .cell[data-tier=grow],.mod[data-selected=manage] .cell[data-tier=transform],
-.mod[data-selected=grow] .cell[data-tier=manage],.mod[data-selected=grow] .cell[data-tier=transform],
-.mod[data-selected=transform] .cell[data-tier=manage],.mod[data-selected=transform] .cell[data-tier=grow]{opacity:.34}
-.mod[data-selected=manage] .cell[data-tier=manage]{background:var(--manage-tint);box-shadow:inset 2px 0 0 var(--manage)}
-.mod[data-selected=grow] .cell[data-tier=grow]{background:var(--grow-tint);box-shadow:inset 2px 0 0 var(--grow)}
-.mod[data-selected=transform] .cell[data-tier=transform]{background:var(--transform-tint);box-shadow:inset 2px 0 0 var(--transform)}
-
-/* ---- cta package summary ---- */
-.pkg-summary{position:relative;margin:22px auto 0;max-width:640px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
-.pkg-summary .s{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:6px 13px;font-size:13px;color:#fff;font-weight:600}
-.pkg-summary .s b{font-family:var(--display)}
 </style>
 </head>
 <body>
@@ -283,7 +244,6 @@ a{color:inherit;text-decoration:none}
  <div class="cta-inner">
  <h2>Ready to see your plan?</h2>
  <p>Set a tier for each module above and we'll shape a quote around exactly that — modules, scale, and outcomes, no generic price tag.</p>
- <div class="pkg-summary" id="ctaSummary"></div>
  <a href="#" class="btn btn-lg">Build your custom quote</a>
  <div class="cta-steps">
  <div class="cta-step"><b>1.</b> Pick your starting tier</div>
@@ -375,9 +335,7 @@ const cmpPanel=document.getElementById('cmpPanel');
 const ORDER=DATA.modules.map(m=>m.name);
 const dataByName={};
 DATA.modules.forEach(m=>{dataByName[m.name]=m;});
-const selections={};
 const navByName={};
-const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
 let current=ORDER[0];
 
 function toggleGroup(gh,gpanel,ginner){
@@ -405,20 +363,10 @@ function renderPanel(name){
  const m=dataByName[name];
  cmpPanel.innerHTML='';
  const mod=document.createElement('div');mod.className='mod';mod.dataset.c=m.color;
- if(selections[name])mod.dataset.selected=selections[name];
 
  const head=document.createElement('div');head.className='panel-head';
- head.innerHTML=`<span class="mod-textwrap"><span class="mod-nameline"><span class="mod-name">${m.name}</span><span class="mod-pick" hidden></span></span>${m.blurb?`<span class="mod-desc">${m.blurb}</span>`:''}</span>`;
+ head.innerHTML=`<span class="mod-textwrap"><span class="mod-nameline"><span class="mod-name">${m.name}</span></span>${m.blurb?`<span class="mod-desc">${m.blurb}</span>`:''}</span>`;
  mod.appendChild(head);
-
- const chooser=document.createElement('div');chooser.className='chooser';
- chooser.innerHTML=`<div class="chooser-opts">
- <button class="opt" data-tier="manage">Manage</button>
- <button class="opt" data-tier="grow">Grow</button>
- <button class="opt" data-tier="transform">Transform</button>
- </div>
- <button class="nextbtn" hidden></button>`;
- mod.appendChild(chooser);
 
  const header=document.createElement('div');header.className='cmp-header';
  header.innerHTML=`<div class="lead">Capability</div>
@@ -444,23 +392,6 @@ function renderPanel(name){
  });
 
  cmpPanel.appendChild(mod);
-
- const idx=ORDER.indexOf(name);
- const nextBtn=chooser.querySelector('.nextbtn');
- chooser.querySelectorAll('.opt').forEach(opt=>{
- opt.classList.toggle('on',selections[name]===opt.dataset.tier);
- opt.addEventListener('click',()=>selectTier(name,opt.dataset.tier));
- });
- nextBtn.addEventListener('click',()=>{
- if(idx<ORDER.length-1){selectModule(ORDER[idx+1]);document.getElementById('compare').scrollIntoView({behavior:'smooth',block:'start'});}
- else{document.getElementById('build-quote').scrollIntoView({behavior:'smooth',block:'start'});}
- });
- if(selections[name]){
- nextBtn.hidden=false;
- nextBtn.textContent = idx<ORDER.length-1 ? 'Next: '+ORDER[idx+1]+' →' : 'Review your package →';
- const pick=head.querySelector('.mod-pick');
- pick.textContent=cap(selections[name]);pick.dataset.tier=selections[name];pick.hidden=false;
- }
 }
 
 function selectModule(name){
@@ -469,35 +400,7 @@ function selectModule(name){
  renderPanel(name);
 }
 
-function selectTier(name,tier){
- selections[name]=tier;
- if(name===current){
- const mod=cmpPanel.querySelector('.mod');
- mod.dataset.selected=tier;
- mod.querySelectorAll('.chooser .opt').forEach(o=>o.classList.toggle('on',o.dataset.tier===tier));
- const idx=ORDER.indexOf(name);
- const nextBtn=mod.querySelector('.nextbtn');
- nextBtn.hidden=false;
- nextBtn.textContent = idx<ORDER.length-1 ? 'Next: '+ORDER[idx+1]+' →' : 'Review your package →';
- const pick=mod.querySelector('.panel-head .mod-pick');
- pick.textContent=cap(tier);pick.dataset.tier=tier;pick.hidden=false;
- }
- updatePkg();
-}
-
-/* package summary — feeds the CTA band once every module has a tier set */
-function updatePkg(){
- const done=Object.keys(selections).length,total=ORDER.length;
- renderSummary(done===total);
-}
-function renderSummary(complete){
- const p=document.getElementById('ctaSummary');
- if(!complete){p.innerHTML='';return;}
- p.innerHTML=ORDER.map(n=>`<span class="s">${n} · <b>${cap(selections[n])}</b></span>`).join('');
-}
-
 selectModule(ORDER[0]);
-updatePkg();
 
 /* info popovers (fixed-positioned so dropdown overflow can't clip them) */
 let openPop=null, popHandler=null;
