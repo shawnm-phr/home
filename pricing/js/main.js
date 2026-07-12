@@ -1258,7 +1258,6 @@ window.addEventListener('message', function(e) {
   var cmpNav = document.getElementById('pcCmpNav');
   var panelHead = document.getElementById('pcPanelHead');
   var groupsEl = document.getElementById('pcGroups');
-  var leadEl = document.getElementById('pcLead');
   var thRow = document.querySelector('.pc-th-row');
   var ORDER = DATA.modules.map(function (m) { return m.name; });
   var dataByName = {};
@@ -1281,44 +1280,33 @@ window.addEventListener('message', function(e) {
 
     groupsEl.innerHTML = '';
     m.groups.forEach(function (g) {
-      var grp = document.createElement('div'); grp.className = 'pc-grp'; grp.dataset.name = g.name;
+      var grp = document.createElement('div'); grp.className = 'pc-grp';
+      var gh = document.createElement('div'); gh.className = 'pc-grp-name';
+      gh.textContent = g.name;
+      grp.appendChild(gh);
       g.items.forEach(function (it) { grp.appendChild(itemRow(it)); });
       groupsEl.appendChild(grp);
     });
-    leadEl.textContent = m.groups[0] ? m.groups[0].name : '';
   }
 
-  /* lead cell is the only place the group name shows — it mirrors
-     whichever group has scrolled up under the sticky Manage/Grow/
-     Transform row, swapping text as the next group takes its spot,
-     instead of repeating the name again in the flowing content. */
-  function updateActiveGroupLabel() {
-    var triggerY = thRow.getBoundingClientRect().bottom;
-    var groups = groupsEl.querySelectorAll('.pc-grp');
-    for (var i = 0; i < groups.length; i++) {
-      if (groups[i].getBoundingClientRect().top <= triggerY) {
-        leadEl.textContent = groups[i].dataset.name;
-      } else {
-        break;
-      }
-    }
+  /* each group heading is itself sticky, docking directly under the
+     Manage/Grow/Transform row once it scrolls up to meet it — the next
+     group's heading then takes over that same spot as it arrives, so
+     a heading is always visible as an ordinary row first and only
+     locks in place when it reaches the top. --pc-th-h supplies the
+     dock offset (thRow's own height) so it sits flush beneath it. */
+  function syncStickyOffset() {
+    document.documentElement.style.setProperty('--pc-th-h', thRow.offsetHeight + 'px');
   }
-  var spyTicking = false;
-  function scheduleSpy() {
-    if (spyTicking) return;
-    spyTicking = true;
-    window.requestAnimationFrame(function () { updateActiveGroupLabel(); spyTicking = false; });
-  }
-  window.addEventListener('scroll', scheduleSpy, { passive: true });
-  window.addEventListener('resize', scheduleSpy);
+  window.addEventListener('resize', syncStickyOffset);
 
   function selectModule(name) {
     Object.keys(navByName).forEach(function (n) { navByName[n].classList.toggle('pc-on', n === name); });
     renderPanel(name);
-    scheduleSpy();
   }
 
   selectModule(ORDER[0]);
+  syncStickyOffset();
 
   /* info popovers (fixed-positioned so overflow can't clip them) */
   var openPop = null, popHandler = null;
