@@ -1258,6 +1258,7 @@ window.addEventListener('message', function(e) {
   var cmpNav = document.getElementById('pcCmpNav');
   var panelHead = document.getElementById('pcPanelHead');
   var groupsEl = document.getElementById('pcGroups');
+  var leadEl = document.getElementById('pcLead');
   var thRow = document.querySelector('.pc-th-row');
   var ORDER = DATA.modules.map(function (m) { return m.name; });
   var dataByName = {};
@@ -1279,8 +1280,9 @@ window.addEventListener('message', function(e) {
     panelHead.innerHTML = '<span class="pc-mod-textwrap"><span class="pc-mod-nameline"><span class="pc-mod-name">' + m.name + '</span></span>' + (m.blurb ? '<span class="pc-mod-desc">' + m.blurb + '</span>' : '') + '</span>';
 
     groupsEl.innerHTML = '';
+    leadEl.textContent = '';
     m.groups.forEach(function (g) {
-      var grp = document.createElement('div'); grp.className = 'pc-grp';
+      var grp = document.createElement('div'); grp.className = 'pc-grp'; grp.dataset.name = g.name;
       var gh = document.createElement('div'); gh.className = 'pc-grp-name';
       gh.textContent = g.name;
       grp.appendChild(gh);
@@ -1289,24 +1291,42 @@ window.addEventListener('message', function(e) {
     });
   }
 
-  /* each group heading is itself sticky, docking directly under the
-     Manage/Grow/Transform row once it scrolls up to meet it — the next
-     group's heading then takes over that same spot as it arrives, so
-     a heading is always visible as an ordinary row first and only
-     locks in place when it reaches the top. --pc-th-h supplies the
-     dock offset (thRow's own height) so it sits flush beneath it. */
-  function syncStickyOffset() {
-    document.documentElement.style.setProperty('--pc-th-h', thRow.offsetHeight + 'px');
+  /* group headings are plain, ordinary rows in the flow — you see one
+     coming as you scroll toward it. Once it scrolls up underneath the
+     sticky Manage/Grow/Transform row, its name takes over the lead
+     cell in that SAME row (rather than becoming a second sticky row
+     of its own), so it "locks" into the tier header instead of
+     stacking below it. Left blank until a group has actually reached
+     that point, so the name isn't shown twice at once. */
+  function updateActiveGroupLabel() {
+    var triggerY = thRow.getBoundingClientRect().bottom;
+    var groups = groupsEl.querySelectorAll('.pc-grp');
+    var current = '';
+    for (var i = 0; i < groups.length; i++) {
+      if (groups[i].getBoundingClientRect().top <= triggerY) {
+        current = groups[i].dataset.name;
+      } else {
+        break;
+      }
+    }
+    if (leadEl.textContent !== current) leadEl.textContent = current;
   }
-  window.addEventListener('resize', syncStickyOffset);
+  var spyTicking = false;
+  function scheduleSpy() {
+    if (spyTicking) return;
+    spyTicking = true;
+    window.requestAnimationFrame(function () { updateActiveGroupLabel(); spyTicking = false; });
+  }
+  window.addEventListener('scroll', scheduleSpy, { passive: true });
+  window.addEventListener('resize', scheduleSpy);
 
   function selectModule(name) {
     Object.keys(navByName).forEach(function (n) { navByName[n].classList.toggle('pc-on', n === name); });
     renderPanel(name);
+    scheduleSpy();
   }
 
   selectModule(ORDER[0]);
-  syncStickyOffset();
 
   /* info popovers (fixed-positioned so overflow can't clip them) */
   var openPop = null, popHandler = null;
