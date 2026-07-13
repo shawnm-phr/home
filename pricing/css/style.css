@@ -6943,6 +6943,20 @@ button.btn-primary {
 .pc-hero .pc-note{margin-top:14px;font-size:13.5px;color:var(--muted);display:inline-flex;align-items:center;gap:8px}
 .pc-hero .pc-note svg{width:15px;height:15px;color:var(--manage)}
 
+/* ---- modules ---- */
+.pc-modules{padding:34px 0 6px}
+.pc-modules-head{text-align:center;max-width:56ch;margin:0 auto 32px}
+.pc-modules-head h2{font-size:clamp(24px,3vw,32px);font-weight:800;margin-top:10px}
+.pc-modules-sub{margin-top:12px;font-size:15.5px;color:var(--ink-2)}
+.pc-modules-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.pc-module-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:22px 20px}
+.pc-module-ic{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:11px;background:var(--bg-soft);color:var(--ink)}
+.pc-module-ic svg{width:21px;height:21px}
+.pc-module-card h3{font-size:16.5px;font-weight:800;margin-top:14px}
+.pc-module-card p{font-size:13.5px;color:var(--ink-2);margin-top:6px;line-height:1.45}
+@media(max-width:900px){.pc-modules-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.pc-modules-grid{grid-template-columns:1fr}}
+
 /* ---- tier ladder ---- */
 .pc-ladder{padding:26px 0 6px}
 .pc-ladder-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
