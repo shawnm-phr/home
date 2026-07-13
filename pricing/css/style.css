@@ -6973,7 +6973,7 @@ button.btn-primary {
 
 /* ---- compare ---- */
 .pc-compare{padding:56px 0 20px}
-.pc-compare .pc-wrap{max-width:none;padding:0 clamp(24px,5vw,96px)}
+.pc-compare .pc-wrap{max-width:none;padding:0 clamp(24px,8vw,160px)}
 
 /* ---- module nav (left) + detail panel (right) ---- */
 .pc-cmp-layout{display:grid;grid-template-columns:270px 1fr;gap:20px;align-items:start}
