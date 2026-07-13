@@ -1199,40 +1199,60 @@ window.addEventListener('message', function(e) {
      module has no entry yet. */
   var MODULE_TIERS = {
     HR: {
-      manage: { desc: 'Get your people data right. Build your company structure, hold a single accurate record for every employee, capture statutory details, store documents centrally, and generate HR letters, with self-service updates, mobile access, and a full audit trail behind it.' },
-      grow: { desc: 'Your HR foundation, stretched for a more complex organisation. Deeper hierarchies, custom information fields and validations, more lifecycle types, end-to-end exits, and richer supervisor dashboards, so HR keeps pace as headcount and structure grow.' },
-      transform: { desc: 'HR administration at enterprise scale, shaped to how you actually operate. Structure, fields, lifecycle types, and alerts are configured to your requirements, and employee exits run through a fully automated clearance and final-settlement process.' }
+      manage: { desc: 'Get your people data right. Build your company structure, hold a single accurate record for every employee, capture statutory details, store documents centrally, and generate HR letters, with self-service updates, mobile access, and a full audit trail behind it.',
+        bullets: ['Company structure & single employee record', 'Statutory details & centralised documents', 'HR letters & self-service updates', 'Mobile access & full audit trail'] },
+      grow: { desc: 'Your HR foundation, stretched for a more complex organisation. Deeper hierarchies, custom information fields and validations, more lifecycle types, end-to-end exits, and richer supervisor dashboards, so HR keeps pace as headcount and structure grow.',
+        bullets: ['Deeper hierarchies & custom info fields', 'Custom validations & more lifecycle types', 'End-to-end exits', 'Richer supervisor dashboards'] },
+      transform: { desc: 'HR administration at enterprise scale, shaped to how you actually operate. Structure, fields, lifecycle types, and alerts are configured to your requirements, and employee exits run through a fully automated clearance and final-settlement process.',
+        bullets: ['Structure, fields & lifecycle types configured to you', 'Custom alerts', 'Fully automated exit clearance & final settlement'] }
     },
     Time: {
-      manage: { desc: 'Run attendance and leave accurately. Schedule shifts, capture clock-in from mobile or web, track late arrivals and overtime, approve attendance before payroll, and manage statutory leave with balances, approvals, and validations.' },
-      grow: { desc: 'Tighter control as your workforce spreads out. Adds geo-fenced clock-in, overtime approvals, project timesheets, supervisor dashboards, earned leave, leave planning, and multiple holiday calendars with your own organisational leave types.' },
-      transform: { desc: 'Time and attendance built for complex, multi-site operations. Multiple shift patterns, flexi and staggered shifts, mutual shift swapping, custom overtime calculations, and custom leave rules and validations, all configured around how your business runs.' }
+      manage: { desc: 'Run attendance and leave accurately. Schedule shifts, capture clock-in from mobile or web, track late arrivals and overtime, approve attendance before payroll, and manage statutory leave with balances, approvals, and validations.',
+        bullets: ['Shift scheduling & mobile/web clock-in', 'Late arrival & overtime tracking', 'Attendance approval before payroll', 'Statutory leave balances & approvals'] },
+      grow: { desc: 'Tighter control as your workforce spreads out. Adds geo-fenced clock-in, overtime approvals, project timesheets, supervisor dashboards, earned leave, leave planning, and multiple holiday calendars with your own organisational leave types.',
+        bullets: ['Geo-fenced clock-in & overtime approvals', 'Project timesheets & supervisor dashboards', 'Earned leave & leave planning', 'Multiple holiday calendars & custom leave types'] },
+      transform: { desc: 'Time and attendance built for complex, multi-site operations. Multiple shift patterns, flexi and staggered shifts, mutual shift swapping, custom overtime calculations, and custom leave rules and validations, all configured around how your business runs.',
+        bullets: ['Multiple shift patterns', 'Flexi & staggered shifts, shift swapping', 'Custom overtime calculations', 'Custom leave rules & validations'] }
     },
     Pay: {
-      manage: { desc: 'Pay people accurately and on time. Run your payroll, generate bank files, payslips, and a full pay register, route it through approvals, and stay compliant with automatic tax rates and statutory deductions.' },
-      grow: { desc: 'Payroll for a more complex pay structure. Adds multi-currency payroll, GL mapping, anomaly detection before you process, salary revisions with back-pay, backdated adjustments, employee loans, and a wider set of benefit types.' },
-      transform: { desc: 'Payroll shaped to your organisation. Pay runs, approval workflows, loan types, and benefit structures are all configured to your requirements, with complex, high-volume payroll handled without compromise.' }
+      manage: { desc: 'Pay people accurately and on time. Run your payroll, generate bank files, payslips, and a full pay register, route it through approvals, and stay compliant with automatic tax rates and statutory deductions.',
+        bullets: ['Payroll runs, bank files & payslips', 'Full pay register', 'Approval workflows', 'Automatic tax & statutory deductions'] },
+      grow: { desc: 'Payroll for a more complex pay structure. Adds multi-currency payroll, GL mapping, anomaly detection before you process, salary revisions with back-pay, backdated adjustments, employee loans, and a wider set of benefit types.',
+        bullets: ['Multi-currency payroll & GL mapping', 'Anomaly detection before processing', 'Salary revisions & backdated adjustments', 'Employee loans & wider benefit types'] },
+      transform: { desc: 'Payroll shaped to your organisation. Pay runs, approval workflows, loan types, and benefit structures are all configured to your requirements, with complex, high-volume payroll handled without compromise.',
+        bullets: ['Pay runs & approvals configured to you', 'Custom loan types & benefit structures', 'High-volume payroll handled at scale'] }
     },
     Talent: {
-      grow: { desc: 'Start developing your people deliberately. Run appraisals and 180 reviews, manage goals and OKRs, plan how KPIs will be achieved, track probation, administer training with a course calendar and budget approvals, and model future headcount.' },
-      transform: { desc: 'Lead talent strategically. Adds 360 feedback (including external parties), score normalisation and bias mitigation, succession planning and 9-box calibration, AI-recommended learning paths, merit-based increments and KPI incentives, workforce cost forecasting, and requisition checks against approved budget.' }
+      grow: { desc: 'Start developing your people deliberately. Run appraisals and 180 reviews, manage goals and OKRs, plan how KPIs will be achieved, track probation, administer training with a course calendar and budget approvals, and model future headcount.',
+        bullets: ['Appraisals & 180° reviews', 'Goals, OKRs & KPI planning', 'Probation tracking', 'Training calendar, budgets & headcount modelling'] },
+      transform: { desc: 'Lead talent strategically. Adds 360 feedback (including external parties), score normalisation and bias mitigation, succession planning and 9-box calibration, AI-recommended learning paths, merit-based increments and KPI incentives, workforce cost forecasting, and requisition checks against approved budget.',
+        bullets: ['360° feedback incl. external parties', 'Succession planning & 9-box calibration', 'AI-recommended learning paths', 'Merit increments, incentives & cost forecasting'] }
     },
     Engagement: {
-      manage: { desc: "Give employees a voice and handle issues properly. Employees can raise opinions and grievances with a clear appeals path, and disciplinary incidents are logged and tracked as structured cases with letter generation." },
-      grow: { desc: 'Start listening at scale. Adds targeted employee surveys and pulse checks on top of voice, grievance handling, and disciplinary case management, so you can measure sentiment rather than guess at it.' },
-      transform: { desc: "Build a culture of recognition. Everything in Grow, plus in-the-moment recognition where managers and peers award points for great work, celebrate wins in a shared feed, and employees redeem rewards." }
+      manage: { desc: "Give employees a voice and handle issues properly. Employees can raise opinions and grievances with a clear appeals path, and disciplinary incidents are logged and tracked as structured cases with letter generation.",
+        bullets: ['Employee voice channel', 'Grievances with appeals path', 'Disciplinary case management & letters'] },
+      grow: { desc: 'Start listening at scale. Adds targeted employee surveys and pulse checks on top of voice, grievance handling, and disciplinary case management, so you can measure sentiment rather than guess at it.',
+        bullets: ['Everything in Manage, plus', 'Targeted surveys & pulse checks', 'Sentiment measurement at scale'] },
+      transform: { desc: "Build a culture of recognition. Everything in Grow, plus in-the-moment recognition where managers and peers award points for great work, celebrate wins in a shared feed, and employees redeem rewards.",
+        bullets: ['Everything in Grow, plus', 'In-the-moment peer & manager recognition', 'Shared wins feed', 'Redeemable rewards'] }
     },
     Recruitment: {
-      grow: { desc: 'Hire and onboard properly. Raise and approve vacancies, post once and advertise everywhere, give candidates an interactive portal, rank and shortlist applicants, run structured interviews and offers, then onboard with documentation, task, and asset checklists.' },
-      transform: { desc: 'Recruit at volume, with intelligence. Adds bulk CV upload and AI processing, an external CV pool, and hiring performance and cost tracking validated against your approved workforce budget.' }
+      grow: { desc: 'Hire and onboard properly. Raise and approve vacancies, post once and advertise everywhere, give candidates an interactive portal, rank and shortlist applicants, run structured interviews and offers, then onboard with documentation, task, and asset checklists.',
+        bullets: ['Vacancy approvals & multi-channel posting', 'Candidate portal, ranking & shortlisting', 'Structured interviews & offers', 'Onboarding checklists'] },
+      transform: { desc: 'Recruit at volume, with intelligence. Adds bulk CV upload and AI processing, an external CV pool, and hiring performance and cost tracking validated against your approved workforce budget.',
+        bullets: ['Bulk CV upload & AI processing', 'External CV pool', 'Hiring performance & cost tracking vs. budget'] }
     },
     Insights: {
-      manage: { desc: "See what's happening across your organisation. A library of standard reports spanning every module, live workforce metrics in one connected view, and Lexi Smart Navigator to jump straight to any screen. Lexi AI is available as an add-on." },
-      grow: { desc: 'Answer your own questions. Adds custom reports, scheduled reports, and interactive dashboards, plus Lexi Super Agent, so employees self-serve and complete HR tasks just by asking.' },
-      transform: { desc: 'Lead with people intelligence. Reporting, scheduling, and dashboards configured to your requirements, with a joined-up view connecting payroll, performance, and engagement, and Lexi AI Insights available to answer any workforce question in plain language.' }
+      manage: { desc: "See what's happening across your organisation. A library of standard reports spanning every module, live workforce metrics in one connected view, and Lexi Smart Navigator to jump straight to any screen. Lexi AI is available as an add-on.",
+        bullets: ['Standard report library', 'Live workforce metrics in one view', 'Lexi Smart Navigator', 'Lexi AI available as add-on'] },
+      grow: { desc: 'Answer your own questions. Adds custom reports, scheduled reports, and interactive dashboards, plus Lexi Super Agent, so employees self-serve and complete HR tasks just by asking.',
+        bullets: ['Custom & scheduled reports', 'Interactive dashboards', 'Lexi Super Agent for self-service tasks'] },
+      transform: { desc: 'Lead with people intelligence. Reporting, scheduling, and dashboards configured to your requirements, with a joined-up view connecting payroll, performance, and engagement, and Lexi AI Insights available to answer any workforce question in plain language.',
+        bullets: ['Reporting & dashboards configured to you', 'Joined-up payroll, performance & engagement view', 'Lexi AI Insights answers any workforce question'] }
     }
   };
   var svgCheck = '<svg class="pc-ic pc-ic-yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+  var svgTick = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
 
   /* tier ladder cards — desc/bullets are rewritten per selected module
      by updateLadderForModule() below, so keep a handle on each. */
@@ -1246,11 +1266,12 @@ window.addEventListener('message', function(e) {
       '<div class="pc-tname"><span class="pc-chip"></span>' + name + '</div>' +
       '<div class="pc-ttag">' + c.tag + '</div>' +
       '<div class="pc-tdesc"></div>' +
+      '<ul></ul>' +
       '<a href="#pcBuildQuote" class="pc-btn">Build your quote</a>';
     var goToBuilder = function () { document.getElementById('pcCmp').scrollIntoView({ behavior: 'smooth', block: 'start' }); };
     el.addEventListener('click', function (e) { if (e.target.closest('a')) return; goToBuilder(); });
     el.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goToBuilder(); } });
-    ladderEls[k] = { card: el, desc: el.querySelector('.pc-tdesc'), fallback: c };
+    ladderEls[k] = { card: el, desc: el.querySelector('.pc-tdesc'), list: el.querySelector('ul'), fallback: c };
     ladder.appendChild(el);
   });
 
@@ -1264,6 +1285,7 @@ window.addEventListener('message', function(e) {
       if (k === 'manage' && hideManage) return;
       var c = (copy && copy[k]) || ladderEls[k].fallback;
       ladderEls[k].desc.textContent = c.desc;
+      ladderEls[k].list.innerHTML = (c.bullets || []).map(function (b) { return '<li>' + svgTick + '<span>' + b + '</span></li>'; }).join('');
     });
   }
 
