@@ -1192,11 +1192,75 @@ window.addEventListener('message', function(e) {
     transform: { step: 'Stage 03', tag: 'Lead with people intelligence', desc: 'Put workforce data at the centre of decisions — anticipate attrition and align people strategy with the business.',
       bullets: ['Everything in Grow, plus', 'Predictive attrition & executive dashboards', 'Cross-module people intelligence'] }
   };
+  /* what each tier means for whichever module is currently selected —
+     grounded in that module's actual manage/grow/transform capability
+     data, not generic platform copy. Falls back to CARDS above when a
+     module has no entry yet. */
+  var MODULE_TIERS = {
+    HR: {
+      manage: { desc: 'Get core HR right — accurate records, org structure, and statutory documentation for up to 3 company levels.',
+        bullets: ['Company structure up to 3 levels', 'Standard employee info fields & validations', 'Statutory documents, letters & e-signing'] },
+      grow: { desc: 'Scale HR operations with custom fields, deeper validations, and lifecycle tracking across a larger organisation.',
+        bullets: ['Everything in Manage, plus', 'Up to 5 company levels & 10 custom info fields', 'Up to 10 lifecycle types with validations'] },
+      transform: { desc: 'Fully customised HR records, structure, and lifecycle workflows, scoped and built around your organisation.',
+        bullets: ['Everything in Grow, plus', 'Unlimited company structure & custom fields', 'API integrations with external systems'] }
+    },
+    Time: {
+      manage: { desc: 'Full shift scheduling, geo-fenced attendance, and overtime tracking with a single company holiday calendar.',
+        bullets: ['Shift scheduling & geo-fenced clock-in/out', 'Overtime & timesheet tracking', 'Single company holiday calendar'] },
+      grow: { desc: 'The same complete attendance toolkit, now with multiple holiday calendars and organisation-specific leave types.',
+        bullets: ['Everything in Manage, plus', 'Multiple location-specific holiday calendars', 'Statutory + 3 custom leave types'] },
+      transform: { desc: 'Custom overtime rules, holiday calendars, and leave validations built around how your teams actually work.',
+        bullets: ['Everything in Grow, plus', 'Custom overtime calculations', 'Statutory + 5 custom leave types with custom validations'] }
+    },
+    Pay: {
+      manage: { desc: 'Run one parallel pay-run with multi-currency payroll, digital payslips, and automatic statutory compliance.',
+        bullets: ['1 parallel pay-run', 'Multi-currency payroll & digital payslips', 'Automatic tax & statutory compliance'] },
+      grow: { desc: 'Two parallel pay-runs with custom formulas, more loan types, and expanded benefit structures.',
+        bullets: ['Everything in Manage, plus', '2 parallel pay-runs, 5 custom formulas', 'Up to 5 loan types & 8 benefit types'] },
+      transform: { desc: 'Unlimited pay-runs, approvals, and benefit structures, configured with our payroll team.',
+        bullets: ['Everything in Grow, plus', 'Unlimited parallel pay-runs & formulas', 'Custom loan & benefit structures'] }
+    },
+    Talent: {
+      manage: { desc: 'Full performance appraisals, goal & OKR tracking, succession planning, and workforce planning tools.',
+        bullets: ['Scorecard & 360° appraisals', 'Goals, OKRs & succession planning', 'Skills development & workforce planning'] },
+      grow: { desc: 'Everything in Manage, plus 180-degree feedback reviews between employees and managers.',
+        bullets: ['Everything in Manage, plus', '180° feedback reviews', 'Deeper performance calibration'] },
+      transform: { desc: 'Everything in Grow, with structured improvement plans and succession pipelines scoped by our team.',
+        bullets: ['Everything in Grow, plus', 'Company-wide improvement plans', 'Scoped succession & workforce planning'] }
+    },
+    Engagement: {
+      manage: { desc: 'The full engagement toolkit — pulse surveys, recognition, and grievance & case management — from day one.',
+        bullets: ['Pulse surveys & recognition', 'Employee voice channel', 'Grievance & case management'] },
+      grow: { desc: 'The same complete engagement toolkit, working alongside your growing HR, payroll & talent operations.',
+        bullets: ['Pulse surveys & recognition', 'Employee voice channel', 'Grievance & case management'] },
+      transform: { desc: 'The same complete engagement toolkit, now feeding into predictive people-intelligence dashboards.',
+        bullets: ['Pulse surveys & recognition', 'Employee voice channel', 'Grievance & case management'] }
+    },
+    Recruitment: {
+      manage: { desc: 'Everything you need to hire and onboard — vacancies, job posting, candidate ranking, and structured interviews.',
+        bullets: ['Vacancy creation & job posting', 'Candidate ranking & structured interviews', 'Onboarding task tracking'] },
+      grow: { desc: 'The same complete recruitment toolkit, working alongside deeper performance & talent development tools.',
+        bullets: ['Vacancy creation & job posting', 'Candidate ranking & structured interviews', 'Onboarding task tracking'] },
+      transform: { desc: 'The same complete recruitment toolkit, with hiring data feeding into cross-module people intelligence.',
+        bullets: ['Vacancy creation & job posting', 'Candidate ranking & structured interviews', 'Onboarding task tracking'] }
+    },
+    Insights: {
+      manage: { desc: 'Standard report library and live workforce dashboards; Lexi AI available as an add-on.',
+        bullets: ['Standard report library', 'Live workforce dashboards', 'Lexi AI available as an add-on'] },
+      grow: { desc: 'Everything in Manage, plus custom & scheduled reporting with Lexi Super Agent included.',
+        bullets: ['Everything in Manage, plus', 'Up to 10 custom & 3 scheduled reports', 'Lexi Super Agent included'] },
+      transform: { desc: 'Unlimited custom reporting and analytics, scoped with our team, with the full Lexi AI suite included.',
+        bullets: ['Everything in Grow, plus', 'Unlimited custom & scheduled reporting', 'Full Lexi AI suite included'] }
+    }
+  };
   var svgCheck = '<svg class="pc-ic pc-ic-yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
   var svgTick = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
 
-  /* tier ladder cards */
+  /* tier ladder cards — desc/bullets are rewritten per selected module
+     by updateLadderForModule() below, so keep a handle on each. */
   var ladder = document.getElementById('pcLadder');
+  var ladderEls = {};
   TIERS.forEach(function (pair) {
     var k = pair[0], name = pair[1], c = CARDS[k];
     var el = document.createElement('div');
@@ -1205,14 +1269,25 @@ window.addEventListener('message', function(e) {
       '<div class="pc-step">' + c.step + '</div>' +
       '<div class="pc-tname"><span class="pc-chip"></span>' + name + '</div>' +
       '<div class="pc-ttag">' + c.tag + '</div>' +
-      '<div class="pc-tdesc">' + c.desc + '</div>' +
-      '<ul>' + c.bullets.map(function (b) { return '<li>' + svgTick + '<span>' + b + '</span></li>'; }).join('') + '</ul>' +
+      '<div class="pc-tdesc"></div>' +
+      '<ul></ul>' +
       '<a href="#pcBuildQuote" class="pc-btn">Build your custom quote</a>';
     var goToBuilder = function () { document.getElementById('pcCompare').scrollIntoView({ behavior: 'smooth', block: 'start' }); };
     el.addEventListener('click', function (e) { if (e.target.closest('a')) return; goToBuilder(); });
     el.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goToBuilder(); } });
+    ladderEls[k] = { desc: el.querySelector('.pc-tdesc'), list: el.querySelector('ul'), fallback: c };
     ladder.appendChild(el);
   });
+
+  function updateLadderForModule(name) {
+    var copy = MODULE_TIERS[name];
+    TIERS.forEach(function (pair) {
+      var k = pair[0];
+      var c = (copy && copy[k]) || ladderEls[k].fallback;
+      ladderEls[k].desc.textContent = c.desc;
+      ladderEls[k].list.innerHTML = c.bullets.map(function (b) { return '<li>' + svgTick + '<span>' + b + '</span></li>'; }).join('');
+    });
+  }
 
   /* cell rendering */
   function linkify(s) { return String(s).replace(/\[(.+?)\]\((.+?)\)/g, function (_, t, u) { return '<a class="pc-cell-link" href="' + u + '"' + (u !== '#' ? ' target="_blank" rel="noopener"' : '') + '>' + t + '</a>'; }); }
@@ -1329,6 +1404,7 @@ window.addEventListener('message', function(e) {
   function selectModule(name) {
     Object.keys(navByName).forEach(function (n) { navByName[n].classList.toggle('pc-on', n === name); });
     renderPanel(name);
+    updateLadderForModule(name);
     scheduleSpy();
   }
 
