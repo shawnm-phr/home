@@ -1375,33 +1375,35 @@ window.addEventListener('message', function(e) {
     thManageCol.hidden = hideManage;
 
     groupsEl.innerHTML = '';
-    leadEl.textContent = '';
-    m.groups.forEach(function (g) {
+    m.groups.forEach(function (g, i) {
       var grp = document.createElement('div'); grp.className = 'pc-grp'; grp.dataset.name = g.name;
-      var gh = document.createElement('div'); gh.className = 'pc-grp-name';
-      gh.textContent = g.name;
-      grp.appendChild(gh);
+      // the first group's name lives in the lead cell from the start
+      // (see updateActiveGroupLabel) instead of repeating as its own
+      // row right below it — later groups still get a heading, since
+      // you're meant to see one coming as you scroll toward it.
+      if (i > 0) {
+        var gh = document.createElement('div'); gh.className = 'pc-grp-name';
+        gh.textContent = g.name;
+        grp.appendChild(gh);
+      }
       g.items.forEach(function (it) { grp.appendChild(itemRow(it, hideManage)); });
       groupsEl.appendChild(grp);
     });
+    updateActiveGroupLabel();
   }
 
-  /* group headings are plain, ordinary rows in the flow — you see one
-     coming as you scroll toward it. Once it scrolls up underneath the
-     sticky Manage/Grow/Transform row, its name takes over the lead
-     cell in that SAME row (rather than becoming a second sticky row
-     of its own), so it "locks" into the tier header instead of
-     stacking below it. Left blank until a group has actually reached
-     that point, so the name isn't shown twice at once. */
+  /* lead cell always shows the current group's name — the first
+     group's from the moment a module is picked, then whichever later
+     group has scrolled up underneath the sticky Manage/Grow/Transform
+     row once it's actually pinned to the top. Group headings past the
+     first are plain, ordinary rows in the flow — you see one coming
+     as you scroll toward it — and take over the lead cell instead of
+     stacking a second row below it. */
   function updateActiveGroupLabel() {
+    var groups = groupsEl.querySelectorAll('.pc-grp');
+    var current = groups[0] ? groups[0].dataset.name : '';
     var thRect = thRow.getBoundingClientRect();
-    var current = '';
     if (thRect.top <= 0.5) {
-      // only mirror once the tier row is actually pinned to the top —
-      // otherwise the first group's heading is still fully visible in
-      // the flow just below it, and showing its name here too would
-      // duplicate it before anything has really scrolled underneath.
-      var groups = groupsEl.querySelectorAll('.pc-grp');
       for (var i = 0; i < groups.length; i++) {
         if (groups[i].getBoundingClientRect().top <= thRect.bottom) {
           current = groups[i].dataset.name;
