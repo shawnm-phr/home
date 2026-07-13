@@ -1279,6 +1279,7 @@ window.addEventListener('message', function(e) {
     var hideManage = NO_MANAGE.indexOf(name) !== -1;
     ladderEls.manage.card.hidden = hideManage;
     ladder.classList.toggle('pc-two-tier', hideManage);
+    document.getElementById('pcLadderIc').innerHTML = moduleIcon(name, 'pc-mod-ic pc-mod-ic-lg');
     var copy = MODULE_TIERS[name];
     TIERS.forEach(function (pair) {
       var k = pair[0];
@@ -1345,16 +1346,25 @@ window.addEventListener('message', function(e) {
   /* six of these are the supplied icon images; Recruitment has none,
      so it gets a stroke-SVG in the same style already used in the
      module-overview cards above (pricing/index.html) rather than a
-     mismatched raster icon. */
-  var NAV_ICONS = {
-    HR: '<img class="pc-nav-ic" src="images/module-icons/HR%20Icon.webp" alt="">',
-    Time: '<img class="pc-nav-ic" src="images/module-icons/Time%20Icon.webp" alt="">',
-    Pay: '<img class="pc-nav-ic" src="images/module-icons/Pay%20Icon.webp" alt="">',
-    Talent: '<img class="pc-nav-ic" src="images/module-icons/Talent_Icon.webp" alt="">',
-    Engagement: '<img class="pc-nav-ic" src="images/module-icons/Engagement%20Icon.webp" alt="">',
-    Recruitment: '<span class="pc-nav-ic pc-nav-ic-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="8" r="3.4"/><path d="M3.5 20a6.5 6.5 0 0 1 13 0"/><path d="M19 7v6M16 10h6"/></svg></span>',
-    Insights: '<img class="pc-nav-ic" src="images/module-icons/Insights%20Icon.webp" alt="">'
+     mismatched raster icon. moduleIcon() renders the right markup at
+     whatever size class is passed in, so the same source can appear
+     at nav size, panel-head size, or the ladder heading's size. */
+  var MODULE_ICON_SRC = {
+    HR: 'images/module-icons/HR%20Icon.webp',
+    Time: 'images/module-icons/Time%20Icon.webp',
+    Pay: 'images/module-icons/Pay%20Icon.webp',
+    Talent: 'images/module-icons/Talent_Icon.webp',
+    Engagement: 'images/module-icons/Engagement%20Icon.webp',
+    Insights: 'images/module-icons/Insights%20Icon.webp'
   };
+  var RECRUITMENT_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="8" r="3.4"/><path d="M3.5 20a6.5 6.5 0 0 1 13 0"/><path d="M19 7v6M16 10h6"/></svg>';
+  function moduleIcon(name, sizeClass) {
+    if (name === 'Recruitment') return '<span class="' + sizeClass + ' pc-ic-svg">' + RECRUITMENT_SVG + '</span>';
+    var src = MODULE_ICON_SRC[name];
+    return src ? '<img class="' + sizeClass + '" src="' + src + '" alt="">' : '';
+  }
+  var NAV_ICONS = {};
+  DATA.modules.forEach(function (m) { NAV_ICONS[m.name] = moduleIcon(m.name, 'pc-nav-ic'); });
 
   DATA.modules.forEach(function (m) {
     var btn = document.createElement('button');
@@ -1369,7 +1379,7 @@ window.addEventListener('message', function(e) {
     var m = dataByName[name];
     var hideManage = NO_MANAGE.indexOf(name) !== -1;
 
-    panelHead.innerHTML = '<span class="pc-mod-textwrap"><span class="pc-mod-nameline"><span class="pc-mod-name">' + m.name + '</span></span>' + (m.blurb ? '<span class="pc-mod-desc">' + m.blurb + '</span>' : '') + '</span>';
+    panelHead.innerHTML = '<span class="pc-mod-textwrap"><span class="pc-mod-nameline">' + moduleIcon(m.name, 'pc-mod-ic') + '<span class="pc-mod-name">' + m.name + '</span></span>' + (m.blurb ? '<span class="pc-mod-desc">' + m.blurb + '</span>' : '') + '</span>';
 
     pcCmp.classList.toggle('pc-no-manage', hideManage);
     thManageCol.hidden = hideManage;

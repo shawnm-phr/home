@@ -6957,7 +6957,7 @@ button.btn-primary {
 /* ---- tier ladder ---- */
 .pc-ladder{padding:74px 0 56px;background:var(--bg-soft)}
 .pc-ladder-head{text-align:center;max-width:60ch;margin:0 auto 36px}
-.pc-ladder-head h2{font-size:clamp(24px,3vw,32px);font-weight:800}
+.pc-ladder-head h2{font-size:clamp(24px,3vw,32px);font-weight:800;display:flex;align-items:center;justify-content:center;gap:12px}
 .pc-ladder-sub{margin-top:12px;font-size:15.5px;color:var(--ink-2)}
 .pc-ladder-steps{display:flex;justify-content:center;gap:26px;margin-top:22px;flex-wrap:wrap}
 .pc-ladder-step{display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--ink-2)}
@@ -7015,9 +7015,14 @@ button.btn-primary {
 .pc-cmp-nav button:hover{background:#fff;color:var(--ink)}
 .pc-cmp-nav button.pc-on{background:#fff;color:var(--ink);font-weight:700;border-left-color:var(--ink)}
 .pc-nav-ic{width:28px;height:28px;flex:0 0 auto;border-radius:7px;object-fit:cover}
-.pc-nav-ic-svg{display:flex;align-items:center;justify-content:center;background:var(--bg-soft);color:var(--ink-2)}
-.pc-nav-ic-svg svg{width:16px;height:16px}
-.pc-cmp-nav button.pc-on .pc-nav-ic-svg{color:var(--ink)}
+/* generic svg-icon wrapper — pairs with a size class (.pc-nav-ic,
+   .pc-mod-ic, .pc-mod-ic-lg) which sets the box's own width/height;
+   the svg scales to it via percentage sizing */
+.pc-ic-svg{display:flex;align-items:center;justify-content:center;background:var(--bg-soft);color:var(--ink-2)}
+.pc-ic-svg svg{width:57%;height:57%}
+.pc-cmp-nav button.pc-on .pc-ic-svg{color:var(--ink)}
+.pc-mod-ic{width:32px;height:32px;flex:0 0 auto;border-radius:8px;object-fit:cover}
+.pc-mod-ic-lg{width:40px;height:40px;border-radius:10px}
 @media(max-width:900px){
   .pc-cmp-layout{grid-template-columns:1fr}
   .pc-cmp-layout::before{display:none}
