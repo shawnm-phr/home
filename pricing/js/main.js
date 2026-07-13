@@ -1272,7 +1272,7 @@ window.addEventListener('message', function(e) {
       '<div class="pc-tdesc"></div>' +
       '<ul></ul>' +
       '<a href="#pcBuildQuote" class="pc-btn">Build your custom quote</a>';
-    var goToBuilder = function () { document.getElementById('pcCompare').scrollIntoView({ behavior: 'smooth', block: 'start' }); };
+    var goToBuilder = function () { document.getElementById('pcCmp').scrollIntoView({ behavior: 'smooth', block: 'start' }); };
     el.addEventListener('click', function (e) { if (e.target.closest('a')) return; goToBuilder(); });
     el.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goToBuilder(); } });
     ladderEls[k] = { desc: el.querySelector('.pc-tdesc'), list: el.querySelector('ul'), fallback: c };

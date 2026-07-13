@@ -6989,11 +6989,18 @@ button.btn-primary {
 .pc-popular{position:absolute;top:-11px;right:20px;background:var(--grow);color:#fff;font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.06em;padding:5px 11px;border-radius:999px;text-transform:uppercase}
 
 /* ---- compare ---- */
-.pc-compare{padding:56px 0 20px}
-.pc-compare .pc-wrap,.pc-ladder .pc-wrap{max-width:none;padding:0 clamp(24px,10vw,220px)}
+.pc-ladder .pc-wrap{max-width:none;padding:0 clamp(24px,10vw,220px)}
+.pc-cmp{margin-top:56px}
 
-/* ---- module nav (left) + detail panel (right) ---- */
+/* ---- module nav (left) + tier cards & table (right) ----
+   nav and the right column (tier cards, then the table) share one
+   grid row spanning both, so .pc-cmp-nav's sticky containing block
+   runs the full height of that row: it starts in normal flow beside
+   the tier cards, then locks at top:0 once scrolled — level with
+   .pc-th-row, which sticks at the same offset — and stays locked
+   through the whole table instead of only the short tier-card area. */
 .pc-cmp-layout{display:grid;grid-template-columns:270px 1fr;gap:20px;align-items:start}
+.pc-right-col{min-width:0}
 /* it's a <nav> element, so it also picks up the shared boilerplate's
    bare nav{} rule (sticky, height:64px, border-bottom, etc. — meant
    for the old unprefixed site header) unless every property that rule
