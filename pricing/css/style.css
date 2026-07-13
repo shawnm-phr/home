@@ -6956,6 +6956,12 @@ button.btn-primary {
 
 /* ---- tier ladder ---- */
 .pc-ladder{padding:26px 0 6px}
+.pc-ladder-head{text-align:center;max-width:60ch;margin:0 auto 36px}
+.pc-ladder-head h2{font-size:clamp(24px,3vw,32px);font-weight:800}
+.pc-ladder-sub{margin-top:12px;font-size:15.5px;color:var(--ink-2)}
+.pc-ladder-steps{display:flex;justify-content:center;gap:26px;margin-top:22px;flex-wrap:wrap}
+.pc-ladder-step{display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--ink-2)}
+.pc-ladder-step b{color:var(--ink);font-family:var(--display)}
 .pc-ladder-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
 .pc-tier-card{position:relative;background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px 24px;display:flex;flex-direction:column;box-shadow:var(--shadow);transition:transform .18s ease,box-shadow .22s ease,border-color .18s ease;cursor:pointer}
 .pc-tier-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
