@@ -7025,7 +7025,6 @@ button.btn-primary {
   .pc-cmp-nav button{width:auto}
 }
 
-.pc-cmp{background:#fff}
 .pc-panel-head{display:flex;flex-direction:column;align-items:center;text-align:center;padding:20px 22px 28px}
 .pc-mod-textwrap{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0}
 .pc-mod-nameline{display:flex;align-items:center;gap:10px}
@@ -7042,7 +7041,7 @@ button.btn-primary {
    column too (js hides the manage .pc-th and .pc-cell for each row) */
 .pc-cmp.pc-no-manage{--cols:minmax(0,1fr) 138px 138px}
 @media(max-width:720px){.pc-cmp.pc-no-manage{--cols:minmax(0,1fr) 74px 74px}}
-#pcGroups{border-left:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:0 0 var(--radius) var(--radius);overflow:hidden}
+#pcGroups{background:#fff;border-left:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:0 0 var(--radius) var(--radius);overflow:hidden}
 .pc-th-row .pc-lead{padding:14px 22px;display:flex;align-items:center;font-family:var(--display);font-weight:800;font-size:18px;color:var(--ink)}
 .pc-th{padding:14px 10px;text-align:center;font-family:var(--display);border-left:1px solid var(--line-2)}
 .pc-th .pc-n{font-weight:800;font-size:16px}
