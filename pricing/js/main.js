@@ -1279,7 +1279,6 @@ window.addEventListener('message', function(e) {
     var hideManage = NO_MANAGE.indexOf(name) !== -1;
     ladderEls.manage.card.hidden = hideManage;
     ladder.classList.toggle('pc-two-tier', hideManage);
-    document.getElementById('pcLadderIc').innerHTML = moduleIcon(name, 'pc-mod-ic pc-mod-ic-lg');
     var copy = MODULE_TIERS[name];
     TIERS.forEach(function (pair) {
       var k = pair[0];
