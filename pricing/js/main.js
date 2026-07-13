@@ -1344,7 +1344,7 @@ window.addEventListener('message', function(e) {
     var btn = document.createElement('button');
     btn.type = 'button'; btn.dataset.c = m.color;
     btn.textContent = m.name;
-    btn.addEventListener('click', function () { selectModule(m.name); document.getElementById('pcCompare').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+    btn.addEventListener('click', function () { selectModule(m.name); });
     navByName[m.name] = btn;
     cmpNav.appendChild(btn);
   });

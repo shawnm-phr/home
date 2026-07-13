@@ -357,31 +357,31 @@
     <div class="pc-wrap">
       <div class="pc-ladder-head">
         <h2>Build your custom quote</h2>
-        <p class="pc-ladder-sub">Pick the tier that matches how you run HR today, then fine-tune it with the modules you need in the comparison below.</p>
+        <p class="pc-ladder-sub">Select a module on the left to see what each tier includes for it, then explore the full comparison below.</p>
         <div class="pc-ladder-steps">
           <div class="pc-ladder-step"><b>1.</b> Pick your starting tier</div>
           <div class="pc-ladder-step"><b>2.</b> Add the modules you need</div>
           <div class="pc-ladder-step"><b>3.</b> Get a quote scoped to you</div>
         </div>
       </div>
-      <div class="pc-ladder-grid" id="pcLadder"></div>
+      <div class="pc-cmp-layout">
+        <nav class="pc-cmp-nav" id="pcCmpNav" aria-label="Module"></nav>
+        <div class="pc-ladder-grid" id="pcLadder"></div>
+      </div>
     </div>
   </section>
 
   <section class="pc-compare" id="pcCompare">
     <div class="pc-wrap">
-      <div class="pc-cmp-layout">
-        <nav class="pc-cmp-nav" id="pcCmpNav" aria-label="Module"></nav>
-        <div class="pc-cmp" id="pcCmp">
-          <div class="pc-panel-head" id="pcPanelHead"></div>
-          <div class="pc-th-row">
-            <div class="pc-lead" id="pcLead"></div>
-            <div class="pc-th" data-tier="manage"><div class="pc-n">Manage</div><div class="pc-t">Run the organisation</div></div>
-            <div class="pc-th" data-tier="grow"><div class="pc-n">Grow</div><div class="pc-t">Invest in your people</div></div>
-            <div class="pc-th" data-tier="transform"><div class="pc-n">Transform</div><div class="pc-t">Lead with people intelligence</div></div>
-          </div>
-          <div id="pcGroups"></div>
+      <div class="pc-cmp" id="pcCmp">
+        <div class="pc-panel-head" id="pcPanelHead"></div>
+        <div class="pc-th-row">
+          <div class="pc-lead" id="pcLead"></div>
+          <div class="pc-th" data-tier="manage"><div class="pc-n">Manage</div><div class="pc-t">Run the organisation</div></div>
+          <div class="pc-th" data-tier="grow"><div class="pc-n">Grow</div><div class="pc-t">Invest in your people</div></div>
+          <div class="pc-th" data-tier="transform"><div class="pc-n">Transform</div><div class="pc-t">Lead with people intelligence</div></div>
         </div>
+        <div id="pcGroups"></div>
       </div>
     </div>
   </section>
