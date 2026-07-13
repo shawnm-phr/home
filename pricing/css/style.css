@@ -6938,7 +6938,7 @@ button.btn-primary {
 /* ---- hero ---- */
 .pc-hero{padding:76px 0 34px;text-align:center}
 .pc-hero .pc-eyebrow{margin-bottom:18px}
-.pc-hero h1{font-size:clamp(34px,5vw,54px);font-weight:800;max-width:16ch;margin:0 auto}
+.pc-hero h1{font-size:clamp(34px,5vw,54px);font-weight:800;max-width:21ch;margin:0 auto}
 .pc-hero .pc-sub{margin:22px auto 0;max-width:56ch;font-size:clamp(16px,2vw,19px);color:var(--ink-2)}
 .pc-hero .pc-note{margin-top:14px;font-size:13.5px;color:var(--muted);display:inline-flex;align-items:center;gap:8px}
 .pc-hero .pc-note svg{width:15px;height:15px;color:var(--manage)}
