@@ -7004,7 +7004,7 @@ button.btn-primary {
 /* full-height white panel behind the nav column, independent of the
    nav's own (shorter, sticky) box, with a divider at its edge —
    .pc-cmp-nav itself only spans its button list, not the whole row */
-.pc-cmp-layout::before{content:"";position:absolute;top:0;bottom:0;left:0;width:280px;background:#fff;border-right:1px solid var(--line)}
+.pc-cmp-layout::before{content:"";position:absolute;top:0;bottom:0;left:280px;border-right:1px solid var(--line)}
 .pc-right-col{min-width:0}
 /* it's a <nav> element, so it also picks up the shared boilerplate's
    bare nav{} rule (sticky, height:64px, border-bottom, etc. — meant
