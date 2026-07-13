@@ -1344,7 +1344,7 @@ window.addEventListener('message', function(e) {
     var btn = document.createElement('button');
     btn.type = 'button'; btn.dataset.c = m.color;
     btn.textContent = m.name;
-    btn.addEventListener('click', function () { selectModule(m.name); });
+    btn.addEventListener('click', function () { selectModule(m.name); document.getElementById('pcLadder').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
     navByName[m.name] = btn;
     cmpNav.appendChild(btn);
   });
