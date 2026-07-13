@@ -1189,11 +1189,11 @@ window.addEventListener('message', function(e) {
      entirely for these modules instead of showing a value for it. */
   var NO_MANAGE = ['Talent', 'Recruitment'];
   var CARDS = {
-    manage: { step: 'Stage 01', tag: 'Run the organisation', desc: 'Get HR right — accurate records, clean payroll, and statutory compliance across the full hire-to-retire journey.',
+    manage: { tag: 'Run the organisation', desc: 'Get HR right — accurate records, clean payroll, and statutory compliance across the full hire-to-retire journey.',
       bullets: ['Core HR records & organisation structure', 'Time, attendance & leave management', 'Accurate payroll & statutory compliance'] },
-    grow: { step: 'Stage 02', tag: 'Invest in your people', desc: 'Develop your people — performance, talent, recruitment and engagement become intentional, not reactive. Built for more complex HR operations and larger workforces.',
+    grow: { tag: 'Invest in your people', desc: 'Develop your people — performance, talent, recruitment and engagement become intentional, not reactive. Built for more complex HR operations and larger workforces.',
       bullets: ['Everything in Manage, plus', 'Performance, talent & succession', 'Recruitment, onboarding & engagement'], popular: true },
-    transform: { step: 'Stage 03', tag: 'Lead with people intelligence', desc: 'Put workforce data at the centre of decisions — anticipate attrition and align people strategy with the business.',
+    transform: { tag: 'Lead with people intelligence', desc: 'Put workforce data at the centre of decisions — anticipate attrition and align people strategy with the business.',
       bullets: ['Everything in Grow, plus', 'Predictive attrition & executive dashboards', 'Cross-module people intelligence'] }
   };
   /* what each tier means for whichever module is currently selected —
@@ -1266,12 +1266,11 @@ window.addEventListener('message', function(e) {
     var el = document.createElement('div');
     el.className = 'pc-tier-card'; el.dataset.tier = k; el.tabIndex = 0; el.setAttribute('role', 'button');
     el.innerHTML = (c.popular ? '<span class="pc-popular">Most chosen</span>' : '') +
-      '<div class="pc-step">' + c.step + '</div>' +
       '<div class="pc-tname"><span class="pc-chip"></span>' + name + '</div>' +
       '<div class="pc-ttag">' + c.tag + '</div>' +
       '<div class="pc-tdesc"></div>' +
       '<ul></ul>' +
-      '<a href="#pcBuildQuote" class="pc-btn">Build your custom quote</a>';
+      '<a href="#pcBuildQuote" class="pc-btn">Build your quote</a>';
     var goToBuilder = function () { document.getElementById('pcCmp').scrollIntoView({ behavior: 'smooth', block: 'start' }); };
     el.addEventListener('click', function (e) { if (e.target.closest('a')) return; goToBuilder(); });
     el.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goToBuilder(); } });

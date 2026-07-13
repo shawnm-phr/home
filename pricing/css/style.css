@@ -6968,8 +6968,7 @@ button.btn-primary {
 .pc-tier-card{position:relative;background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px 24px;display:flex;flex-direction:column;box-shadow:var(--shadow);transition:transform .18s ease,box-shadow .22s ease,border-color .18s ease;cursor:pointer}
 .pc-tier-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
 .pc-tier-card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
-.pc-tier-card .pc-step{font-family:var(--display);font-weight:800;font-size:12px;letter-spacing:.12em;color:var(--muted-2)}
-.pc-tier-card .pc-tname{font-family:var(--display);font-weight:800;font-size:26px;margin-top:10px;display:flex;align-items:center;gap:10px}
+.pc-tier-card .pc-tname{font-family:var(--display);font-weight:800;font-size:26px;display:flex;align-items:center;gap:10px}
 .pc-tier-card .pc-tname .pc-chip{width:12px;height:12px;border-radius:4px}
 .pc-tier-card .pc-ttag{font-weight:600;font-size:14px;margin-top:4px;font-family:var(--display)}
 .pc-tier-card .pc-tdesc{color:var(--ink-2);font-size:14.5px;margin-top:12px}
