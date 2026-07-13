@@ -7006,7 +7006,7 @@ button.btn-primary {
 }
 
 .pc-cmp{background:#fff}
-.pc-panel-head{display:flex;flex-direction:column;align-items:center;text-align:center;padding:20px 22px 6px}
+.pc-panel-head{display:flex;flex-direction:column;align-items:center;text-align:center;padding:20px 22px 28px}
 .pc-mod-textwrap{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0}
 .pc-mod-nameline{display:flex;align-items:center;gap:10px}
 .pc-mod-desc{font-family:var(--sans);font-weight:400;font-size:12.5px;color:var(--muted);line-height:1.3}
