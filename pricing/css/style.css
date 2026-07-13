@@ -6963,6 +6963,8 @@ button.btn-primary {
 .pc-ladder-step{display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--ink-2)}
 .pc-ladder-step b{color:var(--ink);font-family:var(--display)}
 .pc-ladder-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
+/* Talent & Recruitment aren't offered on Manage — only 2 cards show */
+.pc-ladder-grid.pc-two-tier{grid-template-columns:repeat(2,1fr)}
 .pc-tier-card{position:relative;background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px 24px;display:flex;flex-direction:column;box-shadow:var(--shadow);transition:transform .18s ease,box-shadow .22s ease,border-color .18s ease;cursor:pointer}
 .pc-tier-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
 .pc-tier-card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
@@ -7028,6 +7030,10 @@ button.btn-primary {
    ends well before the page has scrolled this far, so by the time this
    row reaches the top there's no navbar left to clear */
 .pc-th-row{position:sticky;top:0;z-index:30;display:grid;grid-template-columns:var(--cols);background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);border-left:1px solid var(--line);border-right:1px solid var(--line)}
+/* Talent & Recruitment aren't offered on Manage — table drops that
+   column too (js hides the manage .pc-th and .pc-cell for each row) */
+.pc-cmp.pc-no-manage{--cols:minmax(0,1fr) 138px 138px}
+@media(max-width:720px){.pc-cmp.pc-no-manage{--cols:minmax(0,1fr) 74px 74px}}
 #pcGroups{border-left:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:0 0 var(--radius) var(--radius);overflow:hidden}
 .pc-th-row .pc-lead{padding:14px 22px;display:flex;align-items:center;font-family:var(--display);font-weight:800;font-size:18px;color:var(--ink)}
 .pc-th{padding:14px 10px;text-align:center;font-family:var(--display);border-left:1px solid var(--line-2)}

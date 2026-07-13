@@ -1184,6 +1184,10 @@ window.addEventListener('message', function(e) {
 
   var DATA = JSON.parse(document.getElementById('pcMatrix').textContent);
   var TIERS = [['manage', 'Manage'], ['grow', 'Grow'], ['transform', 'Transform']];
+  /* Talent and Recruitment aren't offered on Manage — only Grow and
+     Transform — so both the tier cards and the table hide that column
+     entirely for these modules instead of showing a value for it. */
+  var NO_MANAGE = ['Talent', 'Recruitment'];
   var CARDS = {
     manage: { step: 'Stage 01', tag: 'Run the organisation', desc: 'Get HR right — accurate records, clean payroll, and statutory compliance across the full hire-to-retire journey.',
       bullets: ['Core HR records & organisation structure', 'Time, attendance & leave management', 'Accurate payroll & statutory compliance'] },
@@ -1222,10 +1226,8 @@ window.addEventListener('message', function(e) {
         bullets: ['Everything in Grow, plus', 'Unlimited parallel pay-runs & formulas', 'Custom loan & benefit structures'] }
     },
     Talent: {
-      manage: { desc: 'Full performance appraisals, goal & OKR tracking, succession planning, and workforce planning tools.',
-        bullets: ['Scorecard & 360° appraisals', 'Goals, OKRs & succession planning', 'Skills development & workforce planning'] },
-      grow: { desc: 'Everything in Manage, plus 180-degree feedback reviews between employees and managers.',
-        bullets: ['Everything in Manage, plus', '180° feedback reviews', 'Deeper performance calibration'] },
+      grow: { desc: 'Full performance appraisals, 360° & 180° feedback, goal & OKR tracking, and succession planning — available from Grow.',
+        bullets: ['Scorecard, 360° & 180° appraisals', 'Goals, OKRs & succession planning', 'Skills development & workforce planning'] },
       transform: { desc: 'Everything in Grow, with structured improvement plans and succession pipelines scoped by our team.',
         bullets: ['Everything in Grow, plus', 'Company-wide improvement plans', 'Scoped succession & workforce planning'] }
     },
@@ -1238,9 +1240,7 @@ window.addEventListener('message', function(e) {
         bullets: ['Pulse surveys & recognition', 'Employee voice channel', 'Grievance & case management'] }
     },
     Recruitment: {
-      manage: { desc: 'Everything you need to hire and onboard — vacancies, job posting, candidate ranking, and structured interviews.',
-        bullets: ['Vacancy creation & job posting', 'Candidate ranking & structured interviews', 'Onboarding task tracking'] },
-      grow: { desc: 'The same complete recruitment toolkit, working alongside deeper performance & talent development tools.',
+      grow: { desc: 'Everything you need to hire and onboard — vacancies, job posting, candidate ranking, and structured interviews — available from Grow.',
         bullets: ['Vacancy creation & job posting', 'Candidate ranking & structured interviews', 'Onboarding task tracking'] },
       transform: { desc: 'The same complete recruitment toolkit, with hiring data feeding into cross-module people intelligence.',
         bullets: ['Vacancy creation & job posting', 'Candidate ranking & structured interviews', 'Onboarding task tracking'] }
@@ -1275,14 +1275,18 @@ window.addEventListener('message', function(e) {
     var goToBuilder = function () { document.getElementById('pcCmp').scrollIntoView({ behavior: 'smooth', block: 'start' }); };
     el.addEventListener('click', function (e) { if (e.target.closest('a')) return; goToBuilder(); });
     el.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goToBuilder(); } });
-    ladderEls[k] = { desc: el.querySelector('.pc-tdesc'), list: el.querySelector('ul'), fallback: c };
+    ladderEls[k] = { card: el, desc: el.querySelector('.pc-tdesc'), list: el.querySelector('ul'), fallback: c };
     ladder.appendChild(el);
   });
 
   function updateLadderForModule(name) {
+    var hideManage = NO_MANAGE.indexOf(name) !== -1;
+    ladderEls.manage.card.hidden = hideManage;
+    ladder.classList.toggle('pc-two-tier', hideManage);
     var copy = MODULE_TIERS[name];
     TIERS.forEach(function (pair) {
       var k = pair[0];
+      if (k === 'manage' && hideManage) return;
       var c = (copy && copy[k]) || ladderEls[k].fallback;
       ladderEls[k].desc.textContent = c.desc;
       ladderEls[k].list.innerHTML = c.bullets.map(function (b) { return '<li>' + svgTick + '<span>' + b + '</span></li>'; }).join('');
@@ -1305,7 +1309,7 @@ window.addEventListener('message', function(e) {
     return '<span class="pc-cap">' + linkify(v.replace(/\s{2,}/g, ' · ')) + '</span>';
   }
   var uid = 0;
-  function itemRow(it) {
+  function itemRow(it, hideManage) {
     var row = document.createElement('div'); row.className = 'pc-row' + (it.flag ? ' pc-flag' : '');
     var hasInfo = it.info || (it.children && it.children.length);
     var pop = '';
@@ -1319,7 +1323,7 @@ window.addEventListener('message', function(e) {
         '<div class="pc-pop" id="' + id + '" role="dialog"><div class="pc-pt">' + plainify(it.label) + '</div>' + (it.info ? '<div class="pc-pd">' + it.info + '</div>' : '') + covers + '</div></span>';
     }
     row.innerHTML = '<div class="pc-cell-item"><span class="pc-lbl">' + linkify(it.label) + '</span>' + pop + '</div>' +
-      '<div class="pc-cell" data-tier="manage">' + cellContent(it.manage) + '</div>' +
+      (hideManage ? '' : '<div class="pc-cell" data-tier="manage">' + cellContent(it.manage) + '</div>') +
       '<div class="pc-cell" data-tier="grow">' + cellContent(it.grow) + '</div>' +
       '<div class="pc-cell" data-tier="transform">' + cellContent(it.transform) + '</div>';
     return row;
@@ -1335,6 +1339,8 @@ window.addEventListener('message', function(e) {
   var groupsEl = document.getElementById('pcGroups');
   var leadEl = document.getElementById('pcLead');
   var thRow = document.querySelector('.pc-th-row');
+  var thManageCol = thRow.querySelector('[data-tier=manage]');
+  var pcCmp = document.getElementById('pcCmp');
   var ORDER = DATA.modules.map(function (m) { return m.name; });
   var dataByName = {};
   DATA.modules.forEach(function (m) { dataByName[m.name] = m; });
@@ -1351,8 +1357,12 @@ window.addEventListener('message', function(e) {
 
   function renderPanel(name) {
     var m = dataByName[name];
+    var hideManage = NO_MANAGE.indexOf(name) !== -1;
 
     panelHead.innerHTML = '<span class="pc-mod-textwrap"><span class="pc-mod-nameline"><span class="pc-mod-name">' + m.name + '</span></span>' + (m.blurb ? '<span class="pc-mod-desc">' + m.blurb + '</span>' : '') + '</span>';
+
+    pcCmp.classList.toggle('pc-no-manage', hideManage);
+    thManageCol.hidden = hideManage;
 
     groupsEl.innerHTML = '';
     leadEl.textContent = '';
@@ -1361,7 +1371,7 @@ window.addEventListener('message', function(e) {
       var gh = document.createElement('div'); gh.className = 'pc-grp-name';
       gh.textContent = g.name;
       grp.appendChild(gh);
-      g.items.forEach(function (it) { grp.appendChild(itemRow(it)); });
+      g.items.forEach(function (it) { grp.appendChild(itemRow(it, hideManage)); });
       groupsEl.appendChild(grp);
     });
   }
