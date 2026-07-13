@@ -1342,10 +1342,24 @@ window.addEventListener('message', function(e) {
   DATA.modules.forEach(function (m) { dataByName[m.name] = m; });
   var navByName = {};
 
+  /* six of these are the supplied icon images; Recruitment has none,
+     so it gets a stroke-SVG in the same style already used in the
+     module-overview cards above (pricing/index.html) rather than a
+     mismatched raster icon. */
+  var NAV_ICONS = {
+    HR: '<img class="pc-nav-ic" src="images/module-icons/HR%20Icon.webp" alt="">',
+    Time: '<img class="pc-nav-ic" src="images/module-icons/Time%20Icon.webp" alt="">',
+    Pay: '<img class="pc-nav-ic" src="images/module-icons/Pay%20Icon.webp" alt="">',
+    Talent: '<img class="pc-nav-ic" src="images/module-icons/Talent_Icon.webp" alt="">',
+    Engagement: '<img class="pc-nav-ic" src="images/module-icons/Engagement%20Icon.webp" alt="">',
+    Recruitment: '<span class="pc-nav-ic pc-nav-ic-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="8" r="3.4"/><path d="M3.5 20a6.5 6.5 0 0 1 13 0"/><path d="M19 7v6M16 10h6"/></svg></span>',
+    Insights: '<img class="pc-nav-ic" src="images/module-icons/Insights%20Icon.webp" alt="">'
+  };
+
   DATA.modules.forEach(function (m) {
     var btn = document.createElement('button');
     btn.type = 'button'; btn.dataset.c = m.color;
-    btn.textContent = m.name;
+    btn.innerHTML = (NAV_ICONS[m.name] || '') + '<span class="pc-nav-label">' + m.name + '</span>';
     btn.addEventListener('click', function () { selectModule(m.name); document.getElementById('pcLadder').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
     navByName[m.name] = btn;
     cmpNav.appendChild(btn);

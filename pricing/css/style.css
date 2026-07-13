@@ -7011,9 +7011,13 @@ button.btn-primary {
    for the old unprefixed site header) unless every property that rule
    sets is overridden here */
 .pc-cmp-nav{position:sticky;top:0;z-index:20;height:auto;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:2px;background:transparent;backdrop-filter:none;border-bottom:0;padding:10px 0}
-.pc-cmp-nav button{display:flex;align-items:center;width:100%;text-align:left;font-family:var(--display);font-weight:600;font-size:15.5px;color:var(--ink-2);background:transparent;border:0;border-left:3px solid transparent;border-radius:0 8px 8px 0;padding:13px 16px;cursor:pointer;transition:background .15s ease,color .15s ease,border-color .15s ease}
+.pc-cmp-nav button{display:flex;align-items:center;gap:11px;width:100%;text-align:left;font-family:var(--display);font-weight:600;font-size:15.5px;color:var(--ink-2);background:transparent;border:0;border-left:3px solid transparent;border-radius:0 8px 8px 0;padding:10px 16px;cursor:pointer;transition:background .15s ease,color .15s ease,border-color .15s ease}
 .pc-cmp-nav button:hover{background:#fff;color:var(--ink)}
 .pc-cmp-nav button.pc-on{background:#fff;color:var(--ink);font-weight:700;border-left-color:var(--ink)}
+.pc-nav-ic{width:28px;height:28px;flex:0 0 auto;border-radius:7px;object-fit:cover}
+.pc-nav-ic-svg{display:flex;align-items:center;justify-content:center;background:var(--bg-soft);color:var(--ink-2)}
+.pc-nav-ic-svg svg{width:16px;height:16px}
+.pc-cmp-nav button.pc-on .pc-nav-ic-svg{color:var(--ink)}
 @media(max-width:900px){
   .pc-cmp-layout{grid-template-columns:1fr}
   .pc-cmp-layout::before{display:none}
