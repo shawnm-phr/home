@@ -7036,12 +7036,12 @@ button.btn-primary {
    top:0 (not the navbar's height) because .nv-bar's own sticky range
    ends well before the page has scrolled this far, so by the time this
    row reaches the top there's no navbar left to clear */
-.pc-th-row{position:sticky;top:0;z-index:30;display:grid;grid-template-columns:var(--cols);background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);border-left:1px solid var(--line);border-right:1px solid var(--line)}
+.pc-th-row{position:sticky;top:0;z-index:30;display:grid;grid-template-columns:var(--cols);background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);border-left:1px solid var(--line);border-right:1px solid var(--line);border-radius:24px 24px 0 0}
 /* Talent & Recruitment aren't offered on Manage — table drops that
    column too (js hides the manage .pc-th and .pc-cell for each row) */
 .pc-cmp.pc-no-manage{--cols:minmax(0,1fr) 138px 138px}
 @media(max-width:720px){.pc-cmp.pc-no-manage{--cols:minmax(0,1fr) 74px 74px}}
-#pcGroups{background:#fff;border-left:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:0 0 var(--radius) var(--radius);overflow:hidden}
+#pcGroups{background:#fff;border-left:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:0 0 24px 24px;overflow:hidden}
 .pc-th-row .pc-lead{padding:14px 22px;display:flex;align-items:center;font-family:var(--display);font-weight:800;font-size:18px;color:var(--ink)}
 .pc-th{padding:14px 10px;text-align:center;font-family:var(--display);border-left:1px solid var(--line-2)}
 .pc-th .pc-n{font-weight:800;font-size:16px}
