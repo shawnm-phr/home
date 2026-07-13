@@ -7000,7 +7000,7 @@ button.btn-primary {
    the tier cards, then locks at top:0 once scrolled — level with
    .pc-th-row, which sticks at the same offset — and stays locked
    through the whole table instead of only the short tier-card area. */
-.pc-cmp-layout{position:relative;display:grid;grid-template-columns:270px 1fr;gap:20px;align-items:start}
+.pc-cmp-layout{position:relative;display:grid;grid-template-columns:200px 1fr;gap:20px;align-items:start}
 /* full-height white panel behind the nav column, independent of the
    nav's own (shorter, sticky) box, with a divider at its edge —
    .pc-cmp-nav itself only spans its button list, not the whole row */
