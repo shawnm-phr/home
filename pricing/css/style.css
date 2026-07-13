@@ -6971,17 +6971,14 @@ button.btn-primary {
 .pc-tier-card .pc-tname{font-family:var(--display);font-weight:800;font-size:26px;display:flex;align-items:center;gap:10px}
 .pc-tier-card .pc-tname .pc-chip{width:12px;height:12px;border-radius:4px}
 .pc-tier-card .pc-ttag{font-weight:600;font-size:14px;margin-top:4px;font-family:var(--display)}
-.pc-tier-card .pc-tdesc{color:var(--ink-2);font-size:14.5px;margin-top:12px}
-.pc-tier-card ul{list-style:none;padding:0;margin:16px 0 22px;display:flex;flex-direction:column;gap:9px}
-.pc-tier-card li{display:flex;gap:9px;font-size:14px;color:var(--ink-2);align-items:flex-start}
-.pc-tier-card li svg{flex:0 0 auto;width:17px;height:17px;margin-top:1px}
+.pc-tier-card .pc-tdesc{color:var(--ink-2);font-size:14.5px;line-height:1.55;margin:12px 0 24px}
 .pc-tier-card .pc-btn{margin-top:auto;justify-content:center;width:100%}
 .pc-tier-card[data-tier=manage]{border-top:3px solid var(--manage)}
 .pc-tier-card[data-tier=grow]{border-top:3px solid var(--grow)}
 .pc-tier-card[data-tier=transform]{border-top:3px solid var(--transform)}
-.pc-tier-card[data-tier=manage] .pc-chip{background:var(--manage)} .pc-tier-card[data-tier=manage] .pc-ttag{color:var(--manage)} .pc-tier-card[data-tier=manage] li svg{color:var(--manage)}
-.pc-tier-card[data-tier=grow] .pc-chip{background:var(--grow)} .pc-tier-card[data-tier=grow] .pc-ttag{color:var(--grow)} .pc-tier-card[data-tier=grow] li svg{color:var(--grow)}
-.pc-tier-card[data-tier=transform] .pc-chip{background:var(--transform)} .pc-tier-card[data-tier=transform] .pc-ttag{color:var(--transform)} .pc-tier-card[data-tier=transform] li svg{color:var(--transform)}
+.pc-tier-card[data-tier=manage] .pc-chip{background:var(--manage)} .pc-tier-card[data-tier=manage] .pc-ttag{color:var(--manage)}
+.pc-tier-card[data-tier=grow] .pc-chip{background:var(--grow)} .pc-tier-card[data-tier=grow] .pc-ttag{color:var(--grow)}
+.pc-tier-card[data-tier=transform] .pc-chip{background:var(--transform)} .pc-tier-card[data-tier=transform] .pc-ttag{color:var(--transform)}
 .pc-tier-card[data-tier=grow] .pc-btn{background:var(--grow);color:#fff}
 .pc-tier-card[data-tier=grow] .pc-btn:hover{box-shadow:0 8px 20px rgba(37,99,235,.3)}
 .pc-tier-card[data-tier=manage] .pc-btn,.pc-tier-card[data-tier=transform] .pc-btn{background:#fff;border-color:var(--line);color:var(--ink)}
