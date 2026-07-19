@@ -1374,6 +1374,87 @@ window.addEventListener('message', function(e) {
     cmpNav.appendChild(btn);
   });
 
+  /* three standout capabilities that cut across every module/tier
+     rather than living in the Manage/Grow/Transform data — a divider
+     separates them from the module list, and picking one swaps in a
+     plain capability-card grid (no tier columns) instead of the
+     comparison table. Copy/descriptions are condensed from the same
+     capability text already used elsewhere on the site (mobile app,
+     employee/manager self-service, and the Ask Lexi AI group), not
+     new claims. */
+  var FEATURE_ICON_MOBILE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="3" width="10" height="18" rx="2.4"/><path d="M11 18h2"/></svg>';
+  var FEATURE_ICON_SELFSERVICE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="8" r="3.4"/><path d="M3.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16.5 15.5l2 2 4-4"/></svg>';
+  var LEXI_LOGO_SRC = 'https://peopleshr.com/wp-content/uploads/2026/05/lexi-s.png';
+  var STANDOUT = {
+    mobile: {
+      name: 'Mobile App', tagline: 'Work happens everywhere.',
+      icon: '<span class="pc-nav-ic pc-ic-svg">' + FEATURE_ICON_MOBILE + '</span>',
+      panelIcon: '<span class="pc-mod-ic pc-ic-svg">' + FEATURE_ICON_MOBILE + '</span>',
+      cards: [
+        { title: 'Secure biometric login', desc: 'Fingerprint sign-in keeps mobile access secure without slowing anyone down.' },
+        { title: 'Location-verified clock-in', desc: 'Remote clock in/out from mobile, capturing or limiting location per your policy — built for field and multi-site teams.' },
+        { title: 'Payslips & policy updates on the go', desc: 'Employees can check payslips and stay current on policy updates from their phone.' },
+        { title: 'Push notifications & alerts', desc: 'Automated alerts keep employees and managers on top of pending approvals, requests, and key HR events as they happen.' }
+      ]
+    },
+    selfservice: {
+      name: 'Self Service Portal', tagline: 'Fewer requests routed through HR.',
+      icon: '<span class="pc-nav-ic pc-ic-svg">' + FEATURE_ICON_SELFSERVICE + '</span>',
+      panelIcon: '<span class="pc-mod-ic pc-ic-svg">' + FEATURE_ICON_SELFSERVICE + '</span>',
+      cards: [
+        { title: 'Employee profile self-service', desc: 'Employees maintain their own contact, banking, and personal details without routing every change through HR.' },
+        { title: 'Manager approval dashboard', desc: 'A single view for managers to action leave requests, expense claims, and other pending approvals without switching between systems.' },
+        { title: 'Digital payslips anytime', desc: 'Secure digital payslips employees can access anytime, with a full breakdown of earnings, deductions, and contributions.' },
+        { title: 'Shared leave calendar', desc: 'Employees and managers plan time off ahead on a shared calendar, seeing team availability before requests are submitted.' }
+      ]
+    },
+    lexi: {
+      name: 'Lexi AI', tagline: 'Turn any HR action into a simple conversation.',
+      icon: '<img class="pc-nav-ic pc-nav-ic-contain" src="' + LEXI_LOGO_SRC + '" alt="">',
+      panelIcon: '<img class="pc-mod-ic pc-nav-ic-contain" src="' + LEXI_LOGO_SRC + '" alt="">',
+      cards: [
+        { title: 'Lexi AI Insights', desc: 'Ask any workforce question in plain language and get instant, data-backed answers — or have Lexi build the report for you.' },
+        { title: 'Lexi Super Agent', desc: 'A conversational assistant employees can ask to check payslips, leave balances, and benefits — or to file leave and apply for benefits, just by asking.' },
+        { title: 'Lexi Smart Navigator', desc: 'Jump straight to any screen, feature, or record with a simple search — no menu-hunting.' }
+      ]
+    }
+  };
+  var featureBtnByKey = {};
+  var featurePanel = document.getElementById('pcFeaturePanel');
+  var featureHead = document.getElementById('pcFeatureHead');
+  var featureGrid = document.getElementById('pcFeatureGrid');
+
+  var navDivider = document.createElement('div');
+  navDivider.className = 'pc-nav-divider';
+  cmpNav.appendChild(navDivider);
+
+  Object.keys(STANDOUT).forEach(function (key) {
+    var f = STANDOUT[key];
+    var btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'pc-nav-feature';
+    btn.innerHTML = f.icon + '<span class="pc-nav-label">' + f.name + '</span>';
+    btn.addEventListener('click', function () { selectFeature(key); document.getElementById('pcLadder').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+    featureBtnByKey[key] = btn;
+    cmpNav.appendChild(btn);
+  });
+
+  function renderFeaturePanel(key) {
+    var f = STANDOUT[key];
+    featureHead.innerHTML = '<span class="pc-mod-textwrap"><span class="pc-mod-nameline">' + f.panelIcon + '<span class="pc-mod-name">' + f.name + '</span></span><span class="pc-mod-desc">' + f.tagline + '</span></span>';
+    featureGrid.innerHTML = f.cards.map(function (c) {
+      return '<div class="pc-feature-card"><h4>' + c.title + '</h4><p>' + c.desc + '</p></div>';
+    }).join('');
+  }
+
+  function selectFeature(key) {
+    Object.keys(navByName).forEach(function (n) { navByName[n].classList.remove('pc-on'); });
+    Object.keys(featureBtnByKey).forEach(function (k) { featureBtnByKey[k].classList.toggle('pc-on', k === key); });
+    ladder.hidden = true;
+    pcCmp.hidden = true;
+    featurePanel.hidden = false;
+    renderFeaturePanel(key);
+  }
+
   function renderPanel(name) {
     var m = dataByName[name];
     var hideManage = NO_MANAGE.indexOf(name) !== -1;
@@ -1434,6 +1515,10 @@ window.addEventListener('message', function(e) {
 
   function selectModule(name) {
     Object.keys(navByName).forEach(function (n) { navByName[n].classList.toggle('pc-on', n === name); });
+    Object.keys(featureBtnByKey).forEach(function (k) { featureBtnByKey[k].classList.remove('pc-on'); });
+    featurePanel.hidden = true;
+    ladder.hidden = false;
+    pcCmp.hidden = false;
     renderPanel(name);
     updateLadderForModule(name);
     scheduleSpy();
