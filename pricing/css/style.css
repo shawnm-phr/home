@@ -7096,10 +7096,6 @@ button.btn-primary {
    capabilities that cut across every module/tier, not part of the
    Manage/Grow/Transform data) */
 .pc-nav-divider{height:1px;background:var(--line);margin:10px 16px 8px}
-/* Lexi's icon is a logo image, not a square photographic tile like the
-   other module icons, so it gets contain-fit + a padded tile instead
-   of .pc-nav-ic/.pc-mod-ic's cover-fit */
-.pc-nav-ic-contain{object-fit:contain;background:var(--bg-soft);padding:4px}
 
 /* ---- standout feature panel (Mobile App / Self Service / Lexi AI) ----
    swaps in for .pc-cmp when a feature button is picked instead of a

@@ -1384,7 +1384,14 @@ window.addEventListener('message', function(e) {
      new claims. */
   var FEATURE_ICON_MOBILE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="3" width="10" height="18" rx="2.4"/><path d="M11 18h2"/></svg>';
   var FEATURE_ICON_SELFSERVICE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="8" r="3.4"/><path d="M3.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16.5 15.5l2 2 4-4"/></svg>';
-  var LEXI_LOGO_SRC = 'https://peopleshr.com/wp-content/uploads/2026/05/lexi-s.png';
+  /* lexi-s.png (used elsewhere on the site, e.g. the interactive-demos
+     Insights tab) is a white "lexi" wordmark meant for a dark banner
+     background — on this light nav tile the white text disappears and
+     only a stray fragment of its icon mark shows, so a sparkle glyph
+     in the same stroke style as the other module icons is used here
+     instead, the same way Recruitment falls back to an inline SVG
+     when there's no matching square icon asset. */
+  var FEATURE_ICON_LEXI = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11 3.5l1.7 4.9 4.9 1.7-4.9 1.7L11 16.7l-1.7-4.9L4.4 10.1l4.9-1.7L11 3.5z"/><path d="M18.5 14l.9 2.6 2.6.9-2.6.9-.9 2.6-.9-2.6-2.6-.9 2.6-.9.9-2.6z"/></svg>';
   var STANDOUT = {
     mobile: {
       name: 'Mobile App', tagline: 'Work happens everywhere.',
@@ -1410,8 +1417,8 @@ window.addEventListener('message', function(e) {
     },
     lexi: {
       name: 'Lexi AI', tagline: 'Turn any HR action into a simple conversation.',
-      icon: '<img class="pc-nav-ic pc-nav-ic-contain" src="' + LEXI_LOGO_SRC + '" alt="">',
-      panelIcon: '<img class="pc-mod-ic pc-nav-ic-contain" src="' + LEXI_LOGO_SRC + '" alt="">',
+      icon: '<span class="pc-nav-ic pc-ic-svg">' + FEATURE_ICON_LEXI + '</span>',
+      panelIcon: '<span class="pc-mod-ic pc-ic-svg">' + FEATURE_ICON_LEXI + '</span>',
       cards: [
         { title: 'Lexi AI Insights', desc: 'Ask any workforce question in plain language and get instant, data-backed answers — or have Lexi build the report for you.' },
         { title: 'Lexi Super Agent', desc: 'A conversational assistant employees can ask to check payslips, leave balances, and benefits — or to file leave and apply for benefits, just by asking.' },
