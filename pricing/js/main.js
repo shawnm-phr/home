@@ -1533,6 +1533,100 @@ window.addEventListener('message', function(e) {
 
   selectModule(ORDER[0]);
 
+  /* capability search — lets people jump straight to whichever module
+     or standout feature holds a term (e.g. "leave encashment",
+     "biometric login") instead of clicking through every module by
+     hand. Matching runs over plain-text search corpora built once
+     from label+info (module items) and title+desc (feature cards);
+     the actual highlight afterwards matches against the *rendered*
+     row/card text, so it stays correct however a label/value ends up
+     formatted on screen (markdown links, tts pills, etc). */
+  function toPlainText(s) { return String(s || '').replace(/^TTS:/i, '').replace(/\[(.+?)\]\((.+?)\)/g, '$1').replace(/<[^>]+>/g, ' ').toLowerCase(); }
+  var MODULE_SEARCH_TEXT = {};
+  DATA.modules.forEach(function (m) {
+    var text = '';
+    m.groups.forEach(function (g) { g.items.forEach(function (it) { text += ' ' + toPlainText(it.label) + ' ' + toPlainText(it.info); }); });
+    MODULE_SEARCH_TEXT[m.name] = text;
+  });
+  var FEATURE_SEARCH_TEXT = {};
+  Object.keys(STANDOUT).forEach(function (key) {
+    var text = STANDOUT[key].name;
+    STANDOUT[key].cards.forEach(function (c) { text += ' ' + c.title + ' ' + c.desc; });
+    FEATURE_SEARCH_TEXT[key] = text.toLowerCase();
+  });
+
+  function escapeHtml(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function destLabel(match) { return match.type === 'module' ? match.name : STANDOUT[match.key].name; }
+
+  function clearSearchHighlights() {
+    document.querySelectorAll('.pc-search-hit').forEach(function (el) { el.classList.remove('pc-search-hit'); });
+  }
+  function highlightMatches(q, type) {
+    clearSearchHighlights();
+    var container = type === 'module' ? groupsEl : featureGrid;
+    var rowSel = type === 'module' ? '.pc-row' : '.pc-feature-card';
+    var first = null;
+    container.querySelectorAll(rowSel).forEach(function (row) {
+      if (row.textContent.toLowerCase().indexOf(q) !== -1) {
+        row.classList.add('pc-search-hit');
+        if (!first) first = row;
+      }
+    });
+    if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  function jumpToMatch(match, q) {
+    if (match.type === 'module') selectModule(match.name); else selectFeature(match.key);
+    highlightMatches(q, match.type);
+  }
+
+  var searchForm = document.getElementById('pcSearchForm');
+  var searchInput = document.getElementById('pcSearchInput');
+  var searchStatus = document.getElementById('pcSearchStatus');
+
+  function renderSearchStatus(query, matches, activeIdx) {
+    if (!matches.length) {
+      searchStatus.hidden = false;
+      searchStatus.innerHTML = '<span class="pc-search-empty">No capabilities found for “' + escapeHtml(query) + '”.</span>';
+      return;
+    }
+    searchStatus.hidden = false;
+    var html = '<span class="pc-search-found">Results for “' + escapeHtml(query) + '” in <b>' + escapeHtml(destLabel(matches[activeIdx])) + '</b></span>';
+    var others = matches.map(function (m, i) { return i; }).filter(function (i) { return i !== activeIdx; });
+    if (others.length) {
+      html += '<span class="pc-search-also">Also in:</span>' + others.map(function (i) {
+        return '<button type="button" class="pc-search-pill" data-idx="' + i + '">' + escapeHtml(destLabel(matches[i])) + '</button>';
+      }).join('');
+    }
+    searchStatus.innerHTML = html;
+    searchStatus.querySelectorAll('.pc-search-pill').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var idx = parseInt(btn.dataset.idx, 10);
+        jumpToMatch(matches[idx], query.toLowerCase());
+        renderSearchStatus(query, matches, idx);
+      });
+    });
+  }
+
+  function runSearch(raw) {
+    var query = (raw || '').trim();
+    clearSearchHighlights();
+    if (!query) { searchStatus.hidden = true; searchStatus.innerHTML = ''; return; }
+    var q = query.toLowerCase();
+    var matches = [];
+    DATA.modules.forEach(function (m) { if (MODULE_SEARCH_TEXT[m.name].indexOf(q) !== -1) matches.push({ type: 'module', name: m.name }); });
+    Object.keys(STANDOUT).forEach(function (k) { if (FEATURE_SEARCH_TEXT[k].indexOf(q) !== -1) matches.push({ type: 'feature', key: k }); });
+    if (!matches.length) { renderSearchStatus(query, [], -1); return; }
+    jumpToMatch(matches[0], q);
+    renderSearchStatus(query, matches, 0);
+  }
+
+  if (searchForm) {
+    searchForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      runSearch(searchInput.value);
+    });
+  }
+
   /* info popovers (fixed-positioned so overflow can't clip them) */
   var openPop = null, popHandler = null;
   function placePop(pop, btn) {
