@@ -1421,10 +1421,49 @@ window.addEventListener('message', function(e) {
       icon: '<span class="pc-nav-ic pc-ic-svg">' + FEATURE_ICON_MOBILE + '</span>',
       panelIcon: '<span class="pc-mod-ic pc-ic-svg">' + FEATURE_ICON_MOBILE + '</span>',
       cards: [
-        { title: 'Secure biometric login', desc: 'Fingerprint sign-in keeps mobile access secure without slowing anyone down.' },
-        { title: 'Location-verified clock-in', desc: 'Remote clock in/out from mobile, capturing or limiting location per your policy — built for field and multi-site teams.' },
-        { title: 'Payslips & policy updates on the go', desc: 'Employees can check payslips and stay current on policy updates from their phone.' },
-        { title: 'Push notifications & alerts', desc: 'Automated alerts keep employees and managers on top of pending approvals, requests, and key HR events as they happen.' }
+        { title: 'Employee Self-Service', items: [
+          'A personalised home screen with at-a-glance widgets for everything you need',
+          'View and update your own profile information',
+          'View and download payslips anytime — no printed copies needed',
+          'Apply for leave, including short and hourly leave',
+          'Check your leave balance and see your team’s availability up to 5 days ahead',
+          'View outstanding loan balances and repayment history',
+          'View your enrolled benefits and entitlements',
+          'Track the status of every request you’ve submitted, in one place',
+          'Request a salary advance anytime, without a trip to HR',
+          'View your attendance history directly in the app',
+          'Take part in company surveys and pulse checks',
+          'Log and track workplace incidents as they happen',
+          'A direct channel to send feedback, suggestions, and concerns to HR'
+        ] },
+        { title: 'Attendance', items: [
+          'Confirm your location automatically when you clock in',
+          'Restrict clock-in to approved site locations',
+          'Get instant notifications on attendance events'
+        ] },
+        { title: 'Manager Capabilities', items: [
+          'Approve or decline leave requests right from a mobile notification',
+          'See your team’s leave and availability up to 5 days ahead',
+          'A dashboard of team attendance and performance analytics',
+          'View attendance across departments, not just your own team',
+          'Oversee shift schedules and rosters on the go'
+        ] },
+        { title: 'Lexi AI-Powered Features', items: [
+          'File leave requests just by asking, by voice or text',
+          'Apply for hourly leave with automatic policy checks and balance updates',
+          'Ask for workforce insights and get instant, AI-generated answers'
+        ] },
+        { title: 'Performance & Talent', items: [
+          'Complete performance evaluations, including multi-stage review templates',
+          'Complete competency assessments against your role',
+          'Track performance progress day to day'
+        ] },
+        { title: 'Personalisation & UX', items: [
+          'Rearrange the app to put what you use most, first',
+          'Customise your dashboard widgets to what matters to you',
+          'Use the app in your preferred language',
+          'Everyday tasks done in 3 taps or fewer'
+        ] }
       ]
     },
     selfservice: {
@@ -1472,7 +1511,10 @@ window.addEventListener('message', function(e) {
     var f = STANDOUT[key];
     featureHead.innerHTML = '<span class="pc-mod-textwrap"><span class="pc-mod-nameline">' + f.panelIcon + '<span class="pc-mod-name">' + f.name + '</span></span><span class="pc-mod-desc">' + f.tagline + '</span></span>';
     featureGrid.innerHTML = f.cards.map(function (c) {
-      return '<div class="pc-feature-card"><h4>' + c.title + '</h4><p>' + c.desc + '</p></div>';
+      var body = c.items
+        ? '<ul class="pc-feature-list">' + c.items.map(function (it) { return '<li>' + svgTick + '<span>' + it + '</span></li>'; }).join('') + '</ul>'
+        : '<p>' + c.desc + '</p>';
+      return '<div class="pc-feature-card"><h4>' + c.title + '</h4>' + body + '</div>';
     }).join('');
   }
 
@@ -1590,7 +1632,7 @@ window.addEventListener('message', function(e) {
   var FEATURE_SEARCH_TEXT = {};
   Object.keys(STANDOUT).forEach(function (key) {
     var text = STANDOUT[key].name;
-    STANDOUT[key].cards.forEach(function (c) { text += ' ' + c.title + ' ' + c.desc; });
+    STANDOUT[key].cards.forEach(function (c) { text += ' ' + c.title + ' ' + (c.desc || (c.items || []).join(' ')); });
     FEATURE_SEARCH_TEXT[key] = text.toLowerCase();
   });
 

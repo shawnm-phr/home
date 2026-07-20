@@ -7129,10 +7129,17 @@ button.btn-primary {
    module — same panel-head style, but a plain capability-card grid
    instead of the tiered comparison table, since these aren't tier-gated */
 .pc-feature-panel{margin-top:56px}
-.pc-feature-grid{background:#fff;border:1px solid var(--line);border-radius:24px;padding:10px;display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.pc-feature-grid{background:#fff;border:1px solid var(--line);border-radius:24px;padding:10px;display:grid;grid-template-columns:repeat(2,1fr);gap:14px;align-items:start}
 .pc-feature-card{border:1px solid var(--line-2);border-radius:var(--radius-sm);padding:20px 22px;background:var(--bg-soft)}
 .pc-feature-card h4{font-family:var(--display);font-weight:800;font-size:15.5px;color:var(--ink);margin:0 0 8px}
 .pc-feature-card p{font-size:13.5px;color:var(--ink-2);line-height:1.55;margin:0}
+/* category cards (e.g. Mobile App) list several capabilities under one
+   heading instead of a single description line — same tick used by
+   the tier-ladder cards above, just neutral here since there's no
+   per-tier colour to tie it to */
+.pc-feature-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.pc-feature-list li{display:flex;gap:8px;align-items:flex-start;font-size:13px;color:var(--ink-2);line-height:1.4}
+.pc-feature-list li svg{flex:0 0 auto;width:15px;height:15px;margin-top:1px;color:var(--manage)}
 @media(max-width:720px){.pc-feature-grid{grid-template-columns:1fr;padding:8px}.pc-feature-card{padding:16px 18px}}
 
 /* ---- all-modules search feed ----
