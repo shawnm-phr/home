@@ -6965,9 +6965,6 @@ button.btn-primary {
 .pc-ladder-head{text-align:center;max-width:60ch;margin:0 auto 36px}
 .pc-ladder-head h2{font-size:clamp(24px,3vw,32px);font-weight:800}
 .pc-ladder-sub{margin-top:12px;font-size:15.5px;color:var(--ink-2)}
-.pc-ladder-steps{display:flex;justify-content:center;gap:26px;margin-top:22px;flex-wrap:wrap}
-.pc-ladder-step{display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--ink-2)}
-.pc-ladder-step b{color:var(--ink);font-family:var(--display)}
 
 /* capability search — jumps straight to the module or standout
    feature holding a match and highlights the matching row(s)/card(s),
