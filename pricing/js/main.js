@@ -1475,10 +1475,57 @@ window.addEventListener('message', function(e) {
       icon: '<span class="pc-nav-ic pc-ic-svg">' + FEATURE_ICON_SELFSERVICE + '</span>',
       panelIcon: '<span class="pc-mod-ic pc-ic-svg">' + FEATURE_ICON_SELFSERVICE + '</span>',
       cards: [
-        { title: 'Employee profile self-service', desc: 'Employees maintain their own contact, banking, and personal details without routing every change through HR.' },
-        { title: 'Manager approval dashboard', desc: 'A single view for managers to action leave requests, expense claims, and other pending approvals without switching between systems.' },
-        { title: 'Digital payslips anytime', desc: 'Secure digital payslips employees can access anytime, with a full breakdown of earnings, deductions, and contributions.' },
-        { title: 'Shared leave calendar', desc: 'Employees and managers plan time off ahead on a shared calendar, seeing team availability before requests are submitted.' }
+        { title: 'Personal Information Management', items: [
+          'View and update personal/employee profile details',
+          'Changes routed through approval workflows before reflecting in the system',
+          'Customisable fields (e.g., country-specific fields like IT numbers in Bangladesh)',
+          'Digital employee file (201 file) management'
+        ] },
+        { title: 'Payroll & Compensation', items: [
+          'On-demand payslip access — no need to request from HR, no printed payslips',
+          'View pay history and compensation records',
+          'Access loan information (company loans, SSS loans in Philippines)',
+          'Salary and benefits visibility'
+        ] },
+        { title: 'Leave Management', items: [
+          'Submit leave requests from anywhere (web or mobile)',
+          'View real-time leave balances',
+          'Track request status end-to-end',
+          'Supervisor receives instant notifications for approval — no chasing required'
+        ] },
+        { title: 'Attendance & Time Tracking', items: [
+          'Clock in/out via mobile app',
+          'Geo-tagging and geo-fencing for location-verified clock-ins',
+          'Geo-blocking to restrict time capture to approved locations',
+          'View personal attendance records',
+          'Offline time capture with sync (recently released)'
+        ] },
+        { title: 'Document & Certificate Management', items: [
+          'Request Certificate of Employment (COE) without HR involvement',
+          'Access and acknowledge policy documents and memos',
+          'Document acknowledgement tracking'
+        ] },
+        { title: 'Performance & Development', items: [
+          'Participate in performance evaluations and KPI management',
+          'Goal proposal and planning',
+          'Access training requests and L&D resources'
+        ] },
+        { title: 'Service Requests & Support', items: [
+          'Raise HR tickets via Service Request Tracker',
+          'Track ticket status in real-time',
+          'Submit advance/loan requests at any time'
+        ] },
+        { title: 'AI-Powered: Lexi', items: [
+          'Lexi Chat — ask HR questions in natural language',
+          'Execute actions on behalf of the user (e.g., apply for leave via chat)',
+          'Smart navigator for system guidance'
+        ] },
+        { title: 'Engagement & Communication', items: [
+          'Access company surveys',
+          'Grievance management',
+          'Internal vacancy/job posting visibility',
+          "Who's on leave / team availability dashboard"
+        ] }
       ]
     },
     lexi: {
