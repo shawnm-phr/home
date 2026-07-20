@@ -1386,7 +1386,7 @@ window.addEventListener('message', function(e) {
     btn.innerHTML = (NAV_ICONS[m.name] || '') + '<span class="pc-nav-label">' + m.name + '</span>';
     btn.addEventListener('click', function () {
       if (!searchFeed.hidden) { jumpToModuleInFeed(m.name); }
-      else { selectModule(m.name); document.getElementById('pcLadder').scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      else { selectModule(m.name); }
     });
     navByName[m.name] = btn;
     cmpNav.appendChild(btn);
@@ -1457,7 +1457,7 @@ window.addEventListener('message', function(e) {
     var btn = document.createElement('button');
     btn.type = 'button'; btn.className = 'pc-nav-feature';
     btn.innerHTML = f.icon + '<span class="pc-nav-label">' + f.name + '</span>';
-    btn.addEventListener('click', function () { selectFeature(key); document.getElementById('pcLadder').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+    btn.addEventListener('click', function () { selectFeature(key); });
     featureBtnByKey[key] = btn;
     cmpNav.appendChild(btn);
   });
@@ -1561,7 +1561,7 @@ window.addEventListener('message', function(e) {
      single-module view. */
   function jumpToModuleInFeed(name) {
     var block = searchFeed.querySelector('.pc-cmp[data-module="' + name + '"]');
-    if (!block) { selectModule(name); document.getElementById('pcLadder').scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
+    if (!block) { selectModule(name); return; }
     Object.keys(navByName).forEach(function (n) { navByName[n].classList.toggle('pc-on', n === name); });
     Object.keys(featureBtnByKey).forEach(function (k) { featureBtnByKey[k].classList.remove('pc-on'); });
     allModulesBtn.classList.remove('pc-on');
