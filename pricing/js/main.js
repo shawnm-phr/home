@@ -1564,6 +1564,22 @@ window.addEventListener('message', function(e) {
       '</div>';
   }
 
+  /* long item lists (Mobile App's especially) made cards wildly uneven
+     heights in the 2-col grid — clamp to the first 3, with the rest
+     tagged .pc-feature-extra and hidden by CSS until the card picks up
+     .is-expanded from the delegated click handler below. */
+  var FEATURE_LIST_VISIBLE = 3;
+  function featureListHtml(items) {
+    var extra = items.length - FEATURE_LIST_VISIBLE;
+    var lis = items.map(function (it, i) {
+      return '<li' + (i >= FEATURE_LIST_VISIBLE ? ' class="pc-feature-extra"' : '') + '>' + svgTick + '<span>' + it + '</span></li>';
+    }).join('');
+    if (extra <= 0) return '<ul class="pc-feature-list">' + lis + '</ul>';
+    var moreLabel = 'View ' + extra + ' more feature' + (extra === 1 ? '' : 's');
+    return '<ul class="pc-feature-list">' + lis + '</ul>' +
+      '<button type="button" class="pc-feature-more" data-more-label="' + moreLabel + '" data-less-label="Show less">' + moreLabel + '</button>';
+  }
+
   function renderFeaturePanel(key) {
     var f = STANDOUT[key];
     featureGrid.className = 'pc-feature-grid' + (f.pricing ? ' pc-lexi-pricing' : '');
@@ -1574,12 +1590,20 @@ window.addEventListener('message', function(e) {
     }
     featureHead.innerHTML = '<span class="pc-mod-textwrap"><span class="pc-mod-nameline">' + f.panelIcon + '<span class="pc-mod-name">' + f.name + '</span></span><span class="pc-mod-desc">' + f.tagline + '</span></span>';
     featureGrid.innerHTML = f.cards.map(function (c) {
-      var body = c.items
-        ? '<ul class="pc-feature-list">' + c.items.map(function (it) { return '<li>' + svgTick + '<span>' + it + '</span></li>'; }).join('') + '</ul>'
-        : '<p>' + c.desc + '</p>';
+      var body = c.items ? featureListHtml(c.items) : '<p>' + c.desc + '</p>';
       return '<div class="pc-feature-card"><h4>' + c.title + '</h4>' + body + '</div>';
     }).join('');
   }
+
+  /* delegated so it keeps working across re-renders (switching between
+     Mobile App / Self Service Portal rebuilds featureGrid's contents
+     each time) without rebinding a listener per button */
+  featureGrid.addEventListener('click', function (e) {
+    var btn = e.target.closest('.pc-feature-more');
+    if (!btn) return;
+    var expanded = btn.closest('.pc-feature-card').classList.toggle('is-expanded');
+    btn.textContent = expanded ? btn.dataset.lessLabel : btn.dataset.moreLabel;
+  });
 
   function selectFeature(key) {
     Object.keys(featureBtnByKey).forEach(function (k) { featureBtnByKey[k].classList.toggle('pc-on', k === key); });
