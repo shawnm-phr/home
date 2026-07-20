@@ -1510,23 +1510,29 @@ window.addEventListener('message', function(e) {
       }
     }
   };
+  /* standout capabilities now live in their own section (#pcStandoutSection,
+     right after the enterprise-guarantees block) rather than sharing the
+     module comparison's nav/panel — they're not scoped to a module or tier,
+     so mixing them into that nav under a divider was misleading. This
+     section reuses the same .pc-cmp-layout nav+panel structure/CSS as the
+     module comparison above (title+subtitle, left nav, detail panel that
+     swaps and scrolls the section into view on click) minus the search bar,
+     which doesn't apply here. */
   var featureBtnByKey = {};
-  var featurePanel = document.getElementById('pcFeaturePanel');
   var featureHead = document.getElementById('pcFeatureHead');
   var featureGrid = document.getElementById('pcFeatureGrid');
-
-  var navDivider = document.createElement('div');
-  navDivider.className = 'pc-nav-divider';
-  cmpNav.appendChild(navDivider);
+  var standoutNav = document.getElementById('pcStandoutNav');
+  var standoutSection = document.getElementById('pcStandoutSection');
+  function scrollToStandoutSection() { standoutSection.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
 
   Object.keys(STANDOUT).forEach(function (key) {
     var f = STANDOUT[key];
     var btn = document.createElement('button');
     btn.type = 'button'; btn.className = 'pc-nav-feature';
     btn.innerHTML = f.icon + '<span class="pc-nav-label">' + f.name + '</span>';
-    btn.addEventListener('click', function () { selectFeature(key); scrollToLadderSection(); });
+    btn.addEventListener('click', function () { selectFeature(key); scrollToStandoutSection(); });
     featureBtnByKey[key] = btn;
-    cmpNav.appendChild(btn);
+    standoutNav.appendChild(btn);
   });
 
   /* reuses .pc-cta-inner (the dark gradient CTA-band card), .pc-mod-
@@ -1576,15 +1582,11 @@ window.addEventListener('message', function(e) {
   }
 
   function selectFeature(key) {
-    Object.keys(navByName).forEach(function (n) { navByName[n].classList.remove('pc-on'); });
     Object.keys(featureBtnByKey).forEach(function (k) { featureBtnByKey[k].classList.toggle('pc-on', k === key); });
-    allModulesBtn.classList.remove('pc-on');
-    ladder.hidden = true;
-    pcCmp.hidden = true;
-    searchFeed.hidden = true;
-    featurePanel.hidden = false;
     renderFeaturePanel(key);
   }
+
+  selectFeature(Object.keys(STANDOUT)[0]);
 
   function renderPanel(name) {
     var m = dataByName[name];
@@ -1646,9 +1648,7 @@ window.addEventListener('message', function(e) {
 
   function selectModule(name) {
     Object.keys(navByName).forEach(function (n) { navByName[n].classList.toggle('pc-on', n === name); });
-    Object.keys(featureBtnByKey).forEach(function (k) { featureBtnByKey[k].classList.remove('pc-on'); });
     allModulesBtn.classList.remove('pc-on');
-    featurePanel.hidden = true;
     searchFeed.hidden = true;
     ladder.hidden = false;
     pcCmp.hidden = false;
@@ -1668,7 +1668,6 @@ window.addEventListener('message', function(e) {
     var block = searchFeed.querySelector('.pc-cmp[data-module="' + name + '"]');
     if (!block) { selectModule(name); scrollToLadderSection(); return; }
     Object.keys(navByName).forEach(function (n) { navByName[n].classList.toggle('pc-on', n === name); });
-    Object.keys(featureBtnByKey).forEach(function (k) { featureBtnByKey[k].classList.remove('pc-on'); });
     allModulesBtn.classList.remove('pc-on');
     block.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
@@ -1779,6 +1778,7 @@ window.addEventListener('message', function(e) {
       btn.addEventListener('click', function () {
         var key = btn.dataset.feature;
         selectFeature(key);
+        scrollToStandoutSection();
         highlightFeatureMatch(key, query.toLowerCase());
       });
     });
@@ -1790,11 +1790,9 @@ window.addEventListener('message', function(e) {
      always has a non-empty query by the time it calls this. */
   function showAllModulesView(rawQuery) {
     Object.keys(navByName).forEach(function (n) { navByName[n].classList.remove('pc-on'); });
-    Object.keys(featureBtnByKey).forEach(function (k) { featureBtnByKey[k].classList.remove('pc-on'); });
     allModulesBtn.classList.add('pc-on');
     ladder.hidden = true;
     pcCmp.hidden = true;
-    featurePanel.hidden = true;
     searchFeed.hidden = false;
 
     var query = (rawQuery || '').trim();
