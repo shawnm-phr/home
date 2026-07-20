@@ -6944,7 +6944,7 @@ button.btn-primary {
 .pc-hero .pc-note svg{width:15px;height:15px;color:var(--manage)}
 
 /* ---- modules ---- */
-.pc-modules{padding:44px 0 6px}
+.pc-modules{padding:44px 0 64px}
 .pc-modules-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:16px}
 .pc-module-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:22px 20px;flex:0 0 calc((100% - 48px)/4);width:calc((100% - 48px)/4)}
 .pc-module-ic{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:11px;background:var(--bg-soft);color:var(--ink)}
