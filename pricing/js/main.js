@@ -1415,6 +1415,10 @@ window.addEventListener('message', function(e) {
      inline sparkle glyph in the same stroke style as the other
      standout-feature icons, same as Recruitment's fallback above. */
   var FEATURE_ICON_LEXI = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11 3.5l1.7 4.9 4.9 1.7-4.9 1.7L11 16.7l-1.7-4.9L4.4 10.1l4.9-1.7L11 3.5z"/><path d="M18.5 14l.9 2.6 2.6.9-2.6.9-.9 2.6-.9-2.6-2.6-.9 2.6-.9.9-2.6z"/></svg>';
+  /* the Lexi wordmark (white text, meant for a dark background) works
+     here since the pricing card itself IS dark blue — unlike the nav
+     tile above, which is why that one uses the sparkle SVG instead. */
+  var LEXI_LOGO_SRC = 'https://peopleshr.com/wp-content/uploads/2026/05/lexi-s.png';
   var STANDOUT = {
     mobile: {
       name: 'Mobile App', tagline: 'Work happens everywhere.',
@@ -1478,14 +1482,32 @@ window.addEventListener('message', function(e) {
       ]
     },
     lexi: {
-      name: 'Lexi AI', tagline: 'Turn any HR action into a simple conversation.',
+      name: 'Lexi AI Insights', tagline: 'Turn any HR action into a simple conversation.',
       icon: '<span class="pc-nav-ic pc-ic-svg">' + FEATURE_ICON_LEXI + '</span>',
       panelIcon: '<span class="pc-mod-ic pc-ic-svg">' + FEATURE_ICON_LEXI + '</span>',
-      cards: [
-        { title: 'Lexi AI Insights', desc: 'Ask any workforce question in plain language and get instant, data-backed answers — or have Lexi build the report for you.' },
-        { title: 'Lexi Super Agent', desc: 'A conversational assistant employees can ask to check payslips, leave balances, and benefits — or to file leave and apply for benefits, just by asking.' },
-        { title: 'Lexi Smart Navigator', desc: 'Jump straight to any screen, feature, or record with a simple search — no menu-hunting.' }
-      ]
+      /* Lexi AI Insights is priced and sold as its own add-on, not a
+         set of tier-scoped capabilities like the other standout
+         features, so its panel is a bespoke pricing-card layout
+         (see renderFeaturePanel's f.pricing branch) instead of the
+         shared title+desc/title+checklist card grid. */
+      pricing: {
+        price: 'US$60', priceUnit: '/ seat / month',
+        tokenNote: 'Includes <b>10 million tokens</b> per seat, per month.',
+        footnote: 'Capabilities and insights available depend on the PeoplesHR modules enabled for your organisation.',
+        includedHeading: "What's Included",
+        included: [
+          'Proactive insights, and recommendations',
+          'Insights grounded in your organisation’s context',
+          'Cross-module workforce planning',
+          'Succession planning and readiness insights',
+          'Payroll & cost-impact modelling',
+          'Attrition & people-risk analysis',
+          'Workforce health & burnout signals',
+          'Multi-turn, follow-up-aware conversations',
+          'Enterprise-grade security & compliance',
+          'Recruitment bottleneck analysis'
+        ]
+      }
     }
   };
   var featureBtnByKey = {};
@@ -1507,8 +1529,36 @@ window.addEventListener('message', function(e) {
     cmpNav.appendChild(btn);
   });
 
+  function renderPricingFeaturePanel(p) {
+    var half = Math.ceil(p.included.length / 2);
+    var leftItems = p.included.slice(0, half);
+    var rightItems = p.included.slice(half);
+    var colHtml = function (items) {
+      return '<ul>' + items.map(function (t) {
+        return '<li><span class="pc-lexi-tick">' + svgTick + '</span><span>' + t + '</span></li>';
+      }).join('') + '</ul>';
+    };
+    featureGrid.innerHTML =
+      '<div class="pc-lexi-card">' +
+        '<div class="pc-lexi-brand"><img src="' + LEXI_LOGO_SRC + '" alt="Lexi"><span class="pc-lexi-ai-badge">Ai</span><span class="pc-lexi-label">Insights</span></div>' +
+        '<div class="pc-lexi-price"><span class="pc-lexi-price-amt">' + p.price + '</span><span class="pc-lexi-price-unit">' + p.priceUnit + '</span></div>' +
+        '<div class="pc-lexi-token-box">' + p.tokenNote + '</div>' +
+        '<p class="pc-lexi-footnote">' + p.footnote + '</p>' +
+      '</div>' +
+      '<div class="pc-lexi-included">' +
+        '<div class="pc-lexi-included-head">' + p.includedHeading + '</div>' +
+        '<div class="pc-lexi-included-cols">' + colHtml(leftItems) + colHtml(rightItems) + '</div>' +
+      '</div>';
+  }
+
   function renderFeaturePanel(key) {
     var f = STANDOUT[key];
+    featureGrid.className = 'pc-feature-grid' + (f.pricing ? ' pc-lexi-pricing' : '');
+    if (f.pricing) {
+      featureHead.innerHTML = '';
+      renderPricingFeaturePanel(f.pricing);
+      return;
+    }
     featureHead.innerHTML = '<span class="pc-mod-textwrap"><span class="pc-mod-nameline">' + f.panelIcon + '<span class="pc-mod-name">' + f.name + '</span></span><span class="pc-mod-desc">' + f.tagline + '</span></span>';
     featureGrid.innerHTML = f.cards.map(function (c) {
       var body = c.items
@@ -1631,8 +1681,10 @@ window.addEventListener('message', function(e) {
   function itemMatches(it, q) { return (toPlainText(it.label) + ' ' + toPlainText(it.info)).indexOf(q) !== -1; }
   var FEATURE_SEARCH_TEXT = {};
   Object.keys(STANDOUT).forEach(function (key) {
-    var text = STANDOUT[key].name;
-    STANDOUT[key].cards.forEach(function (c) { text += ' ' + c.title + ' ' + (c.desc || (c.items || []).join(' ')); });
+    var f = STANDOUT[key];
+    var text = f.name;
+    (f.cards || []).forEach(function (c) { text += ' ' + c.title + ' ' + (c.desc || (c.items || []).join(' ')); });
+    if (f.pricing) { text += ' ' + f.pricing.included.join(' ') + ' ' + toPlainText(f.pricing.tokenNote) + ' ' + f.pricing.footnote; }
     FEATURE_SEARCH_TEXT[key] = text.toLowerCase();
   });
 
