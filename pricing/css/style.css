@@ -6949,6 +6949,12 @@ button.btn-primary {
 .pc-module-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:22px 20px;flex:0 0 calc((100% - 48px)/4);width:calc((100% - 48px)/4)}
 .pc-module-ic{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:11px;background:var(--bg-soft);color:var(--ink)}
 .pc-module-ic svg{width:21px;height:21px}
+/* six modules use the same photographic icons as the comparison
+   table's left nav (see moduleIcon() in js/main.js) — those fill the
+   tile edge-to-edge with no tint, unlike Recruitment's stroke-SVG
+   fallback above which keeps the soft-background tile */
+.pc-module-ic.pc-module-ic-img{background:transparent}
+.pc-module-ic img{width:100%;height:100%;object-fit:cover;border-radius:11px}
 .pc-module-card h3{font-size:16.5px;font-weight:800;margin-top:14px}
 .pc-module-card p{font-size:13.5px;color:var(--ink-2);margin-top:6px;line-height:1.45}
 @media(max-width:900px){.pc-module-card{flex-basis:calc((100% - 16px)/2);width:calc((100% - 16px)/2)}}
