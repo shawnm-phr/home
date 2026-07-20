@@ -6976,6 +6976,13 @@ button.btn-primary {
 .pc-search-ic{width:18px;height:18px;flex:0 0 auto;color:var(--muted)}
 .pc-search-input{flex:1 1 auto;min-width:0;border:0;outline:0;background:transparent;font-family:var(--sans);font-size:14.5px;color:var(--ink);padding:8px 0}
 .pc-search-input::placeholder{color:var(--muted)}
+/* custom clear button instead of the native type=search cancel icon,
+   so it's the same across browsers and has a click handler we control
+   (resets to the default module view, not just an empty input) */
+.pc-search-input::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none}
+.pc-search-clear{flex:0 0 auto;width:26px;height:26px;border-radius:50%;border:0;background:var(--bg-soft);color:var(--muted);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s ease,color .15s ease}
+.pc-search-clear svg{width:12px;height:12px}
+.pc-search-clear:hover{background:var(--line);color:var(--ink)}
 .pc-search-btn{flex:0 0 auto;font-family:var(--display);font-weight:700;font-size:13.5px;color:#fff;background:var(--ink);border:0;border-radius:999px;padding:10px 20px;cursor:pointer;transition:background .15s ease}
 .pc-search-btn:hover{background:#000}
 .pc-search-status{max-width:640px;margin:14px auto 0;text-align:center;font-size:13px;color:var(--ink-2);display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center}
@@ -7037,7 +7044,7 @@ button.btn-primary {
    bare nav{} rule (sticky, height:64px, border-bottom, etc. — meant
    for the old unprefixed site header) unless every property that rule
    sets is overridden here */
-.pc-cmp-nav{position:sticky;top:0;z-index:20;height:auto;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:2px;background:transparent;backdrop-filter:none;border-bottom:0;padding:10px 0}
+.pc-cmp-nav{position:sticky;top:20px;z-index:20;height:auto;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:2px;background:transparent;backdrop-filter:none;border-bottom:0;padding:10px 0}
 .pc-cmp-nav button{display:flex;align-items:center;gap:11px;width:100%;text-align:left;font-family:var(--display);font-weight:600;font-size:15.5px;color:var(--ink-2);background:transparent;border:0;border-left:3px solid transparent;border-radius:0 8px 8px 0;padding:10px 16px;cursor:pointer;transition:background .15s ease,color .15s ease,border-color .15s ease}
 .pc-cmp-nav button:hover{background:#fff;color:var(--ink)}
 .pc-cmp-nav button.pc-on{background:#fff;color:var(--ink);font-weight:700;border-left-color:var(--ink)}
@@ -7062,12 +7069,14 @@ button.btn-primary {
 .pc-mod-desc{font-family:var(--sans);font-weight:400;font-size:12.5px;color:var(--muted);line-height:1.3}
 .pc-mod-name{font-family:var(--display);font-weight:800;font-size:24px}
 
-/* single tier-name header, sticky to the very top of the viewport; not
+/* single tier-name header, sticky near the top of the viewport; not
    repeated per group — stays in place for every group in the module.
-   top:0 (not the navbar's height) because .nv-bar's own sticky range
+   top:20px (not the navbar's height) because .nv-bar's own sticky range
    ends well before the page has scrolled this far, so by the time this
-   row reaches the top there's no navbar left to clear */
-.pc-th-row{position:sticky;top:0;z-index:30;display:grid;grid-template-columns:var(--cols);background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);border-left:1px solid var(--line);border-right:1px solid var(--line);border-radius:24px 24px 0 0}
+   row reaches the top there's no navbar left to clear — the 20px just
+   keeps it off the literal viewport edge, matching .pc-cmp-nav's own
+   top offset so the two stay level with each other once both are stuck */
+.pc-th-row{position:sticky;top:20px;z-index:30;display:grid;grid-template-columns:var(--cols);background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);border-left:1px solid var(--line);border-right:1px solid var(--line);border-radius:24px 24px 0 0}
 /* Talent & Recruitment aren't offered on Manage — table drops that
    column too (js hides the manage .pc-th and .pc-cell for each row) */
 .pc-cmp.pc-no-manage{--cols:minmax(0,1fr) 138px 138px}

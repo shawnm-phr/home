@@ -1372,19 +1372,12 @@ window.addEventListener('message', function(e) {
   var NAV_ICONS = {};
   DATA.modules.forEach(function (m) { NAV_ICONS[m.name] = moduleIcon(m.name, 'pc-nav-ic'); });
 
-  /* "All Modules" — the default way to view search results: a term
-     may live in any module and people often don't know which one, so
-     this searches/shows every module at once (filtered to matches
-     only) instead of guessing a single "best" module. Standout
-     features are deliberately left out of this merged view — their
-     card layout doesn't fit the module table shape — but a feature
-     match still surfaces as a jump-to pill in the status line. */
-  var ALL_MODULES_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>';
-  var allModulesBtn = document.createElement('button');
-  allModulesBtn.type = 'button'; allModulesBtn.className = 'pc-nav-all';
-  allModulesBtn.innerHTML = '<span class="pc-nav-ic pc-ic-svg">' + ALL_MODULES_SVG + '</span><span class="pc-nav-label">All Modules</span>';
-  allModulesBtn.addEventListener('click', function () { showAllModulesView(searchInput.value); });
-  cmpNav.appendChild(allModulesBtn);
+  /* searching already shows every module at once by default (a term may
+     live in any module and people often don't know which one) — there's
+     no separate "All Modules" view to opt into, so no nav button for it.
+     Standout features are deliberately left out of this merged view —
+     their card layout doesn't fit the module table shape — but a
+     feature match still surfaces as a jump-to pill in the status line. */
 
   DATA.modules.forEach(function (m) {
     var btn = document.createElement('button');
@@ -1719,7 +1712,6 @@ window.addEventListener('message', function(e) {
 
   function selectModule(name) {
     Object.keys(navByName).forEach(function (n) { navByName[n].classList.toggle('pc-on', n === name); });
-    allModulesBtn.classList.remove('pc-on');
     searchFeed.hidden = true;
     ladder.hidden = false;
     pcCmp.hidden = false;
@@ -1739,7 +1731,6 @@ window.addEventListener('message', function(e) {
     var block = searchFeed.querySelector('.pc-cmp[data-module="' + name + '"]');
     if (!block) { selectModule(name); scrollToLadderSection(); return; }
     Object.keys(navByName).forEach(function (n) { navByName[n].classList.toggle('pc-on', n === name); });
-    allModulesBtn.classList.remove('pc-on');
     block.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
@@ -1855,24 +1846,13 @@ window.addEventListener('message', function(e) {
     });
   }
 
-  /* the "All Modules" nav button's handler and the search form's
-     submit handler both land here — the button re-runs whatever's
-     currently in the box (or shows a prompt if it's empty), the form
-     always has a non-empty query by the time it calls this. */
-  function showAllModulesView(rawQuery) {
+  /* the search form's submit handler lands here with a query that's
+     already guaranteed non-empty — see runSearch below */
+  function showAllModulesView(query) {
     Object.keys(navByName).forEach(function (n) { navByName[n].classList.remove('pc-on'); });
-    allModulesBtn.classList.add('pc-on');
     ladder.hidden = true;
     pcCmp.hidden = true;
     searchFeed.hidden = false;
-
-    var query = (rawQuery || '').trim();
-    if (!query) {
-      searchFeed.innerHTML = '<div class="pc-search-feed-empty">Search for a capability above to see matching results across every module.</div>';
-      searchStatus.hidden = true;
-      searchStatus.innerHTML = '';
-      return;
-    }
 
     var q = query.toLowerCase();
     var moduleResults = [];
@@ -1910,6 +1890,24 @@ window.addEventListener('message', function(e) {
       runSearch(searchInput.value);
     });
   }
+
+  /* custom clear ("x") button — see the .pc-search-clear CSS comment
+     for why this replaces the native type=search cancel icon. Shows
+     whenever there's text in the box; clicking it wipes the query and
+     drops back to the default (first module) view, same as a fresh
+     page load. */
+  var searchClear = document.getElementById('pcSearchClear');
+  function updateSearchClearVisibility() { searchClear.hidden = !searchInput.value; }
+  searchInput.addEventListener('input', updateSearchClearVisibility);
+  searchClear.addEventListener('click', function () {
+    searchInput.value = '';
+    updateSearchClearVisibility();
+    clearSearchHighlights();
+    searchStatus.hidden = true;
+    searchStatus.innerHTML = '';
+    selectModule(ORDER[0]);
+    searchInput.focus();
+  });
 
   /* info popovers (fixed-positioned so overflow can't clip them) */
   var openPop = null, popHandler = null;
