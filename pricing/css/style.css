@@ -6961,14 +6961,8 @@ button.btn-primary {
 @media(max-width:520px){.pc-module-card{flex-basis:100%;width:100%}}
 
 /* ---- tier ladder ---- */
-.pc-ladder{--nav-w:220px;position:relative;padding:74px 0 56px;background:var(--bg-soft)}
-/* the nav+content divider (below) runs the full section height, so the
-   head above it needs to sit centred on the content column alone —
-   not the nav+content span .pc-wrap covers — or it reads as off-centre
-   against the tier cards/table beneath it. Shifted right by half of
-   nav-w+gap, the same amount the content column is offset by. */
+.pc-ladder{padding:74px 0 56px;background:var(--bg-soft)}
 .pc-ladder-head{text-align:center;max-width:60ch;margin:0 auto 36px}
-@media(min-width:901px){.pc-ladder-head{transform:translateX(calc((var(--nav-w) + 20px)/2))}}
 .pc-ladder-head h2{font-size:clamp(24px,3vw,32px);font-weight:800}
 .pc-ladder-sub{margin-top:12px;font-size:15.5px;color:var(--ink-2)}
 
@@ -7030,14 +7024,11 @@ button.btn-primary {
    the tier cards, then locks at top:0 once scrolled — level with
    .pc-th-row, which sticks at the same offset — and stays locked
    through the whole table instead of only the short tier-card area. */
-.pc-cmp-layout{position:relative;display:grid;grid-template-columns:var(--nav-w) 1fr;gap:40px;align-items:start}
-/* divider between the nav column and the content — runs the full
-   .pc-ladder section height (from above the head through the tier
-   cards and table), not just alongside .pc-cmp-layout, so it reads as
-   a section-wide split rather than something scoped to the table.
-   Sits close to the nav side of the gap, leaving most of the (now
-   wider) 40px gap as breathing room before the tier cards/table start. */
-.pc-ladder::before{content:"";position:absolute;top:0;bottom:0;left:calc(clamp(24px,10vw,220px) + var(--nav-w) + 10px);border-right:1px solid var(--line)}
+.pc-cmp-layout{--nav-w:220px;position:relative;display:grid;grid-template-columns:var(--nav-w) 1fr;gap:20px;align-items:start}
+/* full-height white panel behind the nav column, independent of the
+   nav's own (shorter, sticky) box, with a divider at its edge —
+   .pc-cmp-nav itself only spans its button list, not the whole row */
+.pc-cmp-layout::before{content:"";position:absolute;top:0;bottom:0;left:calc(var(--nav-w) + 10px);border-right:1px solid var(--line)}
 .pc-right-col{min-width:0}
 /* it's a <nav> element, so it also picks up the shared boilerplate's
    bare nav{} rule (sticky, height:64px, border-bottom, etc. — meant
@@ -7057,7 +7048,7 @@ button.btn-primary {
 .pc-mod-ic{width:32px;height:32px;flex:0 0 auto;border-radius:8px;object-fit:cover}
 @media(max-width:900px){
   .pc-cmp-layout{grid-template-columns:1fr}
-  .pc-ladder::before{display:none}
+  .pc-cmp-layout::before{display:none}
   .pc-cmp-nav{flex-direction:row;flex-wrap:wrap;gap:6px}
   .pc-cmp-nav button{width:auto}
 }
