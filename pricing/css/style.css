@@ -7203,9 +7203,6 @@ button.btn-primary {
 .pc-cta-inner p{color:#C7D0DE;margin-top:14px;font-size:16px;position:relative;max-width:52ch;margin-left:auto;margin-right:auto}
 .pc-cta-inner .pc-btn{margin-top:26px;position:relative;background:#fff;color:var(--ink)}
 .pc-cta-inner .pc-btn:hover{box-shadow:0 10px 30px rgba(0,0,0,.35)}
-.pc-cta-steps{display:flex;justify-content:center;gap:26px;margin-top:30px;flex-wrap:wrap;position:relative}
-.pc-cta-step{display:flex;align-items:center;gap:9px;font-size:13.5px;color:#C7D0DE}
-.pc-cta-step b{color:#fff;font-family:var(--display)}
 
 @media(max-width:900px){
   .pc-ladder-grid{grid-template-columns:1fr;gap:16px}
