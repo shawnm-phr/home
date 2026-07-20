@@ -1267,7 +1267,7 @@ window.addEventListener('message', function(e) {
       '<div class="pc-ttag">' + c.tag + '</div>' +
       '<div class="pc-tdesc"></div>' +
       '<ul></ul>' +
-      '<a href="#pcBuildQuote" class="pc-btn">Build your quote</a>';
+      '<a href="#pcBuildQuote" class="pc-btn">Request a Quote</a>';
     var goToBuilder = function () { document.getElementById('pcCmp').scrollIntoView({ behavior: 'smooth', block: 'start' }); };
     el.addEventListener('click', function (e) { if (e.target.closest('a')) return; goToBuilder(); });
     el.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goToBuilder(); } });
