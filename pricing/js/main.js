@@ -1337,6 +1337,7 @@ window.addEventListener('message', function(e) {
   var thRow = document.querySelector('.pc-th-row');
   var thManageCol = thRow.querySelector('[data-tier=manage]');
   var pcCmp = document.getElementById('pcCmp');
+  var searchFeed = document.getElementById('pcSearchFeed');
   var ORDER = DATA.modules.map(function (m) { return m.name; });
   var dataByName = {};
   DATA.modules.forEach(function (m) { dataByName[m.name] = m; });
@@ -1365,11 +1366,28 @@ window.addEventListener('message', function(e) {
   var NAV_ICONS = {};
   DATA.modules.forEach(function (m) { NAV_ICONS[m.name] = moduleIcon(m.name, 'pc-nav-ic'); });
 
+  /* "All Modules" — the default way to view search results: a term
+     may live in any module and people often don't know which one, so
+     this searches/shows every module at once (filtered to matches
+     only) instead of guessing a single "best" module. Standout
+     features are deliberately left out of this merged view — their
+     card layout doesn't fit the module table shape — but a feature
+     match still surfaces as a jump-to pill in the status line. */
+  var ALL_MODULES_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>';
+  var allModulesBtn = document.createElement('button');
+  allModulesBtn.type = 'button'; allModulesBtn.className = 'pc-nav-all';
+  allModulesBtn.innerHTML = '<span class="pc-nav-ic pc-ic-svg">' + ALL_MODULES_SVG + '</span><span class="pc-nav-label">All Modules</span>';
+  allModulesBtn.addEventListener('click', function () { showAllModulesView(searchInput.value); });
+  cmpNav.appendChild(allModulesBtn);
+
   DATA.modules.forEach(function (m) {
     var btn = document.createElement('button');
     btn.type = 'button'; btn.dataset.c = m.color;
     btn.innerHTML = (NAV_ICONS[m.name] || '') + '<span class="pc-nav-label">' + m.name + '</span>';
-    btn.addEventListener('click', function () { selectModule(m.name); document.getElementById('pcLadder').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+    btn.addEventListener('click', function () {
+      if (!searchFeed.hidden) { jumpToModuleInFeed(m.name); }
+      else { selectModule(m.name); document.getElementById('pcLadder').scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
     navByName[m.name] = btn;
     cmpNav.appendChild(btn);
   });
@@ -1455,8 +1473,10 @@ window.addEventListener('message', function(e) {
   function selectFeature(key) {
     Object.keys(navByName).forEach(function (n) { navByName[n].classList.remove('pc-on'); });
     Object.keys(featureBtnByKey).forEach(function (k) { featureBtnByKey[k].classList.toggle('pc-on', k === key); });
+    allModulesBtn.classList.remove('pc-on');
     ladder.hidden = true;
     pcCmp.hidden = true;
+    searchFeed.hidden = true;
     featurePanel.hidden = false;
     renderFeaturePanel(key);
   }
@@ -1522,7 +1542,9 @@ window.addEventListener('message', function(e) {
   function selectModule(name) {
     Object.keys(navByName).forEach(function (n) { navByName[n].classList.toggle('pc-on', n === name); });
     Object.keys(featureBtnByKey).forEach(function (k) { featureBtnByKey[k].classList.remove('pc-on'); });
+    allModulesBtn.classList.remove('pc-on');
     featurePanel.hidden = true;
+    searchFeed.hidden = true;
     ladder.hidden = false;
     pcCmp.hidden = false;
     renderPanel(name);
@@ -1530,23 +1552,35 @@ window.addEventListener('message', function(e) {
     scheduleSpy();
   }
 
+  /* while the all-modules search feed is showing, a module nav click
+     acts like a table-of-contents link into it (scrolls to that
+     module's block, keeping every other matching module visible)
+     instead of replacing the feed with that module's full table —
+     unless that module has no matches in the current feed, in which
+     case there's nothing to jump to and it falls back to the normal
+     single-module view. */
+  function jumpToModuleInFeed(name) {
+    var block = searchFeed.querySelector('.pc-cmp[data-module="' + name + '"]');
+    if (!block) { selectModule(name); document.getElementById('pcLadder').scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
+    Object.keys(navByName).forEach(function (n) { navByName[n].classList.toggle('pc-on', n === name); });
+    Object.keys(featureBtnByKey).forEach(function (k) { featureBtnByKey[k].classList.remove('pc-on'); });
+    allModulesBtn.classList.remove('pc-on');
+    block.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
   selectModule(ORDER[0]);
 
-  /* capability search — lets people jump straight to whichever module
-     or standout feature holds a term (e.g. "leave encashment",
-     "biometric login") instead of clicking through every module by
-     hand. Matching runs over plain-text search corpora built once
-     from label+info (module items) and title+desc (feature cards);
-     the actual highlight afterwards matches against the *rendered*
-     row/card text, so it stays correct however a label/value ends up
-     formatted on screen (markdown links, tts pills, etc). */
+  /* capability search — a term may live in any module and people often
+     don't know which one, so searching renders every matching module
+     at once (filtered down to just the matching groups/items, not the
+     full table) instead of guessing a single "best" module. Standout
+     features are excluded from this merged feed — their card layout
+     doesn't fit the module table shape — but a feature match still
+     surfaces as a jump-to pill in the status line. Matching runs over
+     plain-text label+info (module items) and title+desc (feature
+     cards). */
   function toPlainText(s) { return String(s || '').replace(/^TTS:/i, '').replace(/\[(.+?)\]\((.+?)\)/g, '$1').replace(/<[^>]+>/g, ' ').toLowerCase(); }
-  var MODULE_SEARCH_TEXT = {};
-  DATA.modules.forEach(function (m) {
-    var text = '';
-    m.groups.forEach(function (g) { g.items.forEach(function (it) { text += ' ' + toPlainText(it.label) + ' ' + toPlainText(it.info); }); });
-    MODULE_SEARCH_TEXT[m.name] = text;
-  });
+  function itemMatches(it, q) { return (toPlainText(it.label) + ' ' + toPlainText(it.info)).indexOf(q) !== -1; }
   var FEATURE_SEARCH_TEXT = {};
   Object.keys(STANDOUT).forEach(function (key) {
     var text = STANDOUT[key].name;
@@ -1555,68 +1589,143 @@ window.addEventListener('message', function(e) {
   });
 
   function escapeHtml(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
-  function destLabel(match) { return match.type === 'module' ? match.name : STANDOUT[match.key].name; }
 
   function clearSearchHighlights() {
     document.querySelectorAll('.pc-search-hit').forEach(function (el) { el.classList.remove('pc-search-hit'); });
   }
-  function highlightMatches(q, type) {
+  function highlightFeatureMatch(key, q) {
     clearSearchHighlights();
-    var container = type === 'module' ? groupsEl : featureGrid;
-    var rowSel = type === 'module' ? '.pc-row' : '.pc-feature-card';
     var first = null;
-    container.querySelectorAll(rowSel).forEach(function (row) {
-      if (row.textContent.toLowerCase().indexOf(q) !== -1) {
-        row.classList.add('pc-search-hit');
-        if (!first) first = row;
+    featureGrid.querySelectorAll('.pc-feature-card').forEach(function (card) {
+      if (card.textContent.toLowerCase().indexOf(q) !== -1) {
+        card.classList.add('pc-search-hit');
+        if (!first) first = card;
       }
     });
     if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
-  function jumpToMatch(match, q) {
-    if (match.type === 'module') selectModule(match.name); else selectFeature(match.key);
-    highlightMatches(q, match.type);
+
+  /* builds one module's block for the merged feed: same panel-head +
+     Manage/Grow/Transform header + group/item markup as the single-
+     module view (renderPanel), just restricted to the groups/items
+     that matched and rendered fresh each time rather than reusing the
+     shared #pcCmp singleton, since several of these sit on the page
+     at once. */
+  function buildModuleBlock(m, groups) {
+    var hideManage = NO_MANAGE.indexOf(m.name) !== -1;
+    var block = document.createElement('div');
+    block.className = 'pc-cmp' + (hideManage ? ' pc-no-manage' : '');
+    block.dataset.module = m.name;
+
+    var head = document.createElement('div');
+    head.className = 'pc-panel-head';
+    head.innerHTML = '<span class="pc-mod-textwrap"><span class="pc-mod-nameline">' + moduleIcon(m.name, 'pc-mod-ic') + '<span class="pc-mod-name">' + m.name + '</span></span>' + (m.blurb ? '<span class="pc-mod-desc">' + m.blurb + '</span>' : '') + '</span>';
+    block.appendChild(head);
+
+    var thRowEl = document.createElement('div');
+    thRowEl.className = 'pc-th-row';
+    thRowEl.innerHTML = '<div class="pc-lead">' + escapeHtml(groups[0].name) + '</div>' +
+      (hideManage ? '' : '<div class="pc-th" data-tier="manage"><div class="pc-n">Manage</div><div class="pc-t">Run the organisation</div></div>') +
+      '<div class="pc-th" data-tier="grow"><div class="pc-n">Grow</div><div class="pc-t">Invest in your people</div></div>' +
+      '<div class="pc-th" data-tier="transform"><div class="pc-n">Transform</div><div class="pc-t">Lead with people intelligence</div></div>';
+    block.appendChild(thRowEl);
+
+    var groupsWrap = document.createElement('div');
+    groupsWrap.className = 'pc-groups';
+    groups.forEach(function (g, i) {
+      var grp = document.createElement('div');
+      grp.className = 'pc-grp';
+      if (i > 0) {
+        var gh = document.createElement('div');
+        gh.className = 'pc-grp-name';
+        gh.textContent = g.name;
+        grp.appendChild(gh);
+      }
+      g.items.forEach(function (it) { grp.appendChild(itemRow(it, hideManage)); });
+      groupsWrap.appendChild(grp);
+    });
+    block.appendChild(groupsWrap);
+    return block;
   }
 
   var searchForm = document.getElementById('pcSearchForm');
   var searchInput = document.getElementById('pcSearchInput');
   var searchStatus = document.getElementById('pcSearchStatus');
 
-  function renderSearchStatus(query, matches, activeIdx) {
-    if (!matches.length) {
+  function renderAllModulesStatus(query, totalCount, moduleCount, featureKeys) {
+    if (!totalCount && !featureKeys.length) {
       searchStatus.hidden = false;
       searchStatus.innerHTML = '<span class="pc-search-empty">No capabilities found for “' + escapeHtml(query) + '”.</span>';
       return;
     }
     searchStatus.hidden = false;
-    var html = '<span class="pc-search-found">Results for “' + escapeHtml(query) + '” in <b>' + escapeHtml(destLabel(matches[activeIdx])) + '</b></span>';
-    var others = matches.map(function (m, i) { return i; }).filter(function (i) { return i !== activeIdx; });
-    if (others.length) {
-      html += '<span class="pc-search-also">Also in:</span>' + others.map(function (i) {
-        return '<button type="button" class="pc-search-pill" data-idx="' + i + '">' + escapeHtml(destLabel(matches[i])) + '</button>';
+    var html = totalCount
+      ? '<span class="pc-search-found">' + totalCount + ' result' + (totalCount === 1 ? '' : 's') + ' for “' + escapeHtml(query) + '” across ' + moduleCount + ' module' + (moduleCount === 1 ? '' : 's') + '</span>'
+      : '<span class="pc-search-found">No module results for “' + escapeHtml(query) + '”</span>';
+    if (featureKeys.length) {
+      html += '<span class="pc-search-also">Also in:</span>' + featureKeys.map(function (k) {
+        return '<button type="button" class="pc-search-pill" data-feature="' + k + '">' + escapeHtml(STANDOUT[k].name) + '</button>';
       }).join('');
     }
     searchStatus.innerHTML = html;
     searchStatus.querySelectorAll('.pc-search-pill').forEach(function (btn) {
       btn.addEventListener('click', function () {
-        var idx = parseInt(btn.dataset.idx, 10);
-        jumpToMatch(matches[idx], query.toLowerCase());
-        renderSearchStatus(query, matches, idx);
+        var key = btn.dataset.feature;
+        selectFeature(key);
+        highlightFeatureMatch(key, query.toLowerCase());
       });
     });
+  }
+
+  /* the "All Modules" nav button's handler and the search form's
+     submit handler both land here — the button re-runs whatever's
+     currently in the box (or shows a prompt if it's empty), the form
+     always has a non-empty query by the time it calls this. */
+  function showAllModulesView(rawQuery) {
+    Object.keys(navByName).forEach(function (n) { navByName[n].classList.remove('pc-on'); });
+    Object.keys(featureBtnByKey).forEach(function (k) { featureBtnByKey[k].classList.remove('pc-on'); });
+    allModulesBtn.classList.add('pc-on');
+    ladder.hidden = true;
+    pcCmp.hidden = true;
+    featurePanel.hidden = true;
+    searchFeed.hidden = false;
+
+    var query = (rawQuery || '').trim();
+    if (!query) {
+      searchFeed.innerHTML = '<div class="pc-search-feed-empty">Search for a capability above to see matching results across every module.</div>';
+      searchStatus.hidden = true;
+      searchStatus.innerHTML = '';
+      return;
+    }
+
+    var q = query.toLowerCase();
+    var moduleResults = [];
+    var totalCount = 0;
+    DATA.modules.forEach(function (m) {
+      var groups = [];
+      m.groups.forEach(function (g) {
+        var items = g.items.filter(function (it) { return itemMatches(it, q); });
+        if (items.length) { groups.push({ name: g.name, items: items }); totalCount += items.length; }
+      });
+      if (groups.length) moduleResults.push({ module: m, groups: groups });
+    });
+
+    searchFeed.innerHTML = '';
+    if (moduleResults.length) {
+      moduleResults.forEach(function (r) { searchFeed.appendChild(buildModuleBlock(r.module, r.groups)); });
+    } else {
+      searchFeed.innerHTML = '<div class="pc-search-feed-empty">No capabilities found for “' + escapeHtml(query) + '” in any module.</div>';
+    }
+
+    var featureKeys = Object.keys(STANDOUT).filter(function (k) { return FEATURE_SEARCH_TEXT[k].indexOf(q) !== -1; });
+    renderAllModulesStatus(query, totalCount, moduleResults.length, featureKeys);
   }
 
   function runSearch(raw) {
     var query = (raw || '').trim();
     clearSearchHighlights();
     if (!query) { searchStatus.hidden = true; searchStatus.innerHTML = ''; return; }
-    var q = query.toLowerCase();
-    var matches = [];
-    DATA.modules.forEach(function (m) { if (MODULE_SEARCH_TEXT[m.name].indexOf(q) !== -1) matches.push({ type: 'module', name: m.name }); });
-    Object.keys(STANDOUT).forEach(function (k) { if (FEATURE_SEARCH_TEXT[k].indexOf(q) !== -1) matches.push({ type: 'feature', key: k }); });
-    if (!matches.length) { renderSearchStatus(query, [], -1); return; }
-    jumpToMatch(matches[0], q);
-    renderSearchStatus(query, matches, 0);
+    showAllModulesView(query);
   }
 
   if (searchForm) {

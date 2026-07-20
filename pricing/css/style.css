@@ -7066,7 +7066,7 @@ button.btn-primary {
    column too (js hides the manage .pc-th and .pc-cell for each row) */
 .pc-cmp.pc-no-manage{--cols:minmax(0,1fr) 138px 138px}
 @media(max-width:720px){.pc-cmp.pc-no-manage{--cols:minmax(0,1fr) 74px 74px}}
-#pcGroups{background:#fff;border-left:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:0 0 24px 24px;overflow:hidden}
+#pcGroups, .pc-groups{background:#fff;border-left:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:0 0 24px 24px;overflow:hidden}
 .pc-th-row .pc-lead{padding:14px 22px;display:flex;align-items:center;font-family:var(--display);font-weight:800;font-size:18px;color:var(--ink)}
 .pc-th{padding:14px 10px;text-align:center;font-family:var(--display);border-left:1px solid var(--line-2)}
 .pc-th .pc-n{font-weight:800;font-size:16px}
@@ -7128,6 +7128,16 @@ button.btn-primary {
 .pc-feature-card h4{font-family:var(--display);font-weight:800;font-size:15.5px;color:var(--ink);margin:0 0 8px}
 .pc-feature-card p{font-size:13.5px;color:var(--ink-2);line-height:1.55;margin:0}
 @media(max-width:720px){.pc-feature-grid{grid-template-columns:1fr;padding:8px}.pc-feature-card{padding:16px 18px}}
+
+/* ---- all-modules search feed ----
+   one .pc-cmp block per matching module, stacked; each reuses the
+   single-module view's exact markup/styles (panel-head, sticky tier
+   header, groups) but pre-filtered to only the matching groups/items,
+   so .pc-cmp's own margin-top:56px already spaces the feed correctly
+   under the ladder — only the gap *between* stacked blocks needs a
+   rule of its own here. */
+.pc-search-feed .pc-cmp + .pc-cmp{margin-top:32px}
+.pc-search-feed-empty{margin-top:56px;background:#fff;border:1px solid var(--line);border-radius:24px;padding:48px 24px;text-align:center;color:var(--ink-2);font-size:14.5px}
 
 /* ---- cta band ---- */
 .pc-cta{margin:64px 0 0;padding:56px 0}
