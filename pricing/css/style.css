@@ -7143,31 +7143,25 @@ button.btn-primary {
 @media(max-width:720px){.pc-feature-grid{grid-template-columns:1fr;padding:8px}.pc-feature-card{padding:16px 18px}}
 
 /* ---- Lexi AI Insights pricing card ----
-   Lexi Insights is sold as its own priced add-on, not a set of tier-
-   scoped capabilities, so it gets a bespoke two-panel layout (dark
-   pricing card + white "what's included" checklist) instead of the
-   shared feature-card grid above — .pc-feature-grid itself becomes a
-   plain unstyled two-column wrapper for these two panels */
+   the two panels reuse existing components wholesale — .pc-cta-inner
+   for the dark gradient card (incl. its h2/p text styling), .pc-mod-
+   nameline for the brand row, .pc-pill for the "Ai" badge (fed its
+   own --tint/--accent instead of a tier's), .pc-eyebrow for both
+   small-caps labels, .pc-module-card for the white card, and
+   .pc-feature-list for the tick columns — only the grid glue and the
+   handful of Lexi-specific bits below (price line, token box) are new. */
 .pc-feature-grid.pc-lexi-pricing{background:transparent;border:0;padding:0;display:grid;grid-template-columns:minmax(280px,340px) 1fr;align-items:stretch;gap:20px}
 @media(max-width:820px){.pc-feature-grid.pc-lexi-pricing{grid-template-columns:1fr}}
-.pc-lexi-card{background:linear-gradient(135deg,#2563eb 0%,#1e3a8a 100%);border-radius:24px;padding:32px 28px;color:#fff;display:flex;flex-direction:column}
-.pc-lexi-brand{display:flex;align-items:center;gap:8px}
-.pc-lexi-brand img{height:18px;width:auto;display:block}
-.pc-lexi-ai-badge{background:#fff;color:#1d4ed8;font-family:var(--display);font-weight:800;font-size:12px;padding:2px 6px;border-radius:5px;line-height:1.3}
-.pc-lexi-label{font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.8)}
-.pc-lexi-price{margin-top:36px}
-.pc-lexi-price-amt{font-family:var(--display);font-weight:800;font-size:42px;line-height:1}
-.pc-lexi-price-unit{font-size:14.5px;color:rgba(255,255,255,.75);margin-left:5px}
+.pc-lexi-card{text-align:left;display:flex;flex-direction:column}
+.pc-lexi-card .pc-eyebrow{color:#fff}
+.pc-lexi-card h2{margin:32px 0 0}
+.pc-lexi-price-unit{font-size:14.5px;font-weight:400;color:#C7D0DE;margin-left:4px}
 .pc-lexi-token-box{margin-top:20px;background:rgba(255,255,255,.14);border-radius:12px;padding:14px 16px;font-size:13.5px;line-height:1.45}
 .pc-lexi-token-box b{font-weight:800}
-.pc-lexi-footnote{margin-top:auto;padding-top:20px;font-size:12px;color:rgba(255,255,255,.68);line-height:1.5}
-.pc-lexi-included{background:#fff;border:1px solid var(--line);border-radius:24px;padding:30px 32px}
-.pc-lexi-included-head{font-family:var(--display);font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--grow)}
+.pc-lexi-card p{margin:auto 0 0;max-width:none;padding-top:20px}
+.pc-lexi-included{width:auto}
+.pc-lexi-included .pc-eyebrow{color:var(--grow)}
 .pc-lexi-included-cols{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:6px 32px}
-.pc-lexi-included-cols ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:18px}
-.pc-lexi-included-cols li{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--ink);line-height:1.4}
-.pc-lexi-tick{flex:0 0 auto;width:20px;height:20px;border-radius:50%;background:var(--manage-tint);display:inline-flex;align-items:center;justify-content:center;margin-top:1px}
-.pc-lexi-tick svg{width:11px;height:11px;color:var(--manage)}
 @media(max-width:560px){.pc-lexi-included-cols{grid-template-columns:1fr}}
 
 /* ---- all-modules search feed ----

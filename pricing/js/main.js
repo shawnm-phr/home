@@ -1529,24 +1529,31 @@ window.addEventListener('message', function(e) {
     cmpNav.appendChild(btn);
   });
 
+  /* reuses .pc-cta-inner (the dark gradient CTA-band card), .pc-mod-
+     nameline (the module panel-head's icon+name row), .pc-pill (the
+     comparison table's Add-on/Talk-to-sales pills — colour supplied
+     via the same --tint/--accent custom properties it already reads),
+     .pc-eyebrow, .pc-module-card, and .pc-feature-list (Mobile App's
+     tick list) rather than introducing a parallel set of one-off
+     classes — only the layout glue below is new. */
   function renderPricingFeaturePanel(p) {
     var half = Math.ceil(p.included.length / 2);
     var leftItems = p.included.slice(0, half);
     var rightItems = p.included.slice(half);
     var colHtml = function (items) {
-      return '<ul>' + items.map(function (t) {
-        return '<li><span class="pc-lexi-tick">' + svgTick + '</span><span>' + t + '</span></li>';
+      return '<ul class="pc-feature-list">' + items.map(function (t) {
+        return '<li>' + svgTick + '<span>' + t + '</span></li>';
       }).join('') + '</ul>';
     };
     featureGrid.innerHTML =
-      '<div class="pc-lexi-card">' +
-        '<div class="pc-lexi-brand"><img src="' + LEXI_LOGO_SRC + '" alt="Lexi"><span class="pc-lexi-ai-badge">Ai</span><span class="pc-lexi-label">Insights</span></div>' +
-        '<div class="pc-lexi-price"><span class="pc-lexi-price-amt">' + p.price + '</span><span class="pc-lexi-price-unit">' + p.priceUnit + '</span></div>' +
+      '<div class="pc-cta-inner pc-lexi-card">' +
+        '<div class="pc-mod-nameline"><img src="' + LEXI_LOGO_SRC + '" alt="Lexi" height="18"><span class="pc-pill" style="--tint:#fff;--accent:#1d4ed8">Ai</span><span class="pc-eyebrow">Insights</span></div>' +
+        '<h2>' + p.price + '<span class="pc-lexi-price-unit">' + p.priceUnit + '</span></h2>' +
         '<div class="pc-lexi-token-box">' + p.tokenNote + '</div>' +
-        '<p class="pc-lexi-footnote">' + p.footnote + '</p>' +
+        '<p>' + p.footnote + '</p>' +
       '</div>' +
-      '<div class="pc-lexi-included">' +
-        '<div class="pc-lexi-included-head">' + p.includedHeading + '</div>' +
+      '<div class="pc-module-card pc-lexi-included">' +
+        '<div class="pc-eyebrow">' + p.includedHeading + '</div>' +
         '<div class="pc-lexi-included-cols">' + colHtml(leftItems) + colHtml(rightItems) + '</div>' +
       '</div>';
   }
