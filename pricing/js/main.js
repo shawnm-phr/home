@@ -1338,6 +1338,12 @@ window.addEventListener('message', function(e) {
   var thManageCol = thRow.querySelector('[data-tier=manage]');
   var pcCmp = document.getElementById('pcCmp');
   var searchFeed = document.getElementById('pcSearchFeed');
+  var ladderSection = document.getElementById('pcLadderSection');
+  /* scrolls to the top of the light-grey .pc-ladder section itself
+     (above the "Explore PeoplesHR" heading), not just the tier-card
+     grid further down inside it — used whenever picking a module or
+     standout feature from the left nav. */
+  function scrollToLadderSection() { ladderSection.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
   var ORDER = DATA.modules.map(function (m) { return m.name; });
   var dataByName = {};
   DATA.modules.forEach(function (m) { dataByName[m.name] = m; });
@@ -1386,7 +1392,7 @@ window.addEventListener('message', function(e) {
     btn.innerHTML = (NAV_ICONS[m.name] || '') + '<span class="pc-nav-label">' + m.name + '</span>';
     btn.addEventListener('click', function () {
       if (!searchFeed.hidden) { jumpToModuleInFeed(m.name); }
-      else { selectModule(m.name); }
+      else { selectModule(m.name); scrollToLadderSection(); }
     });
     navByName[m.name] = btn;
     cmpNav.appendChild(btn);
@@ -1457,7 +1463,7 @@ window.addEventListener('message', function(e) {
     var btn = document.createElement('button');
     btn.type = 'button'; btn.className = 'pc-nav-feature';
     btn.innerHTML = f.icon + '<span class="pc-nav-label">' + f.name + '</span>';
-    btn.addEventListener('click', function () { selectFeature(key); });
+    btn.addEventListener('click', function () { selectFeature(key); scrollToLadderSection(); });
     featureBtnByKey[key] = btn;
     cmpNav.appendChild(btn);
   });
@@ -1561,7 +1567,7 @@ window.addEventListener('message', function(e) {
      single-module view. */
   function jumpToModuleInFeed(name) {
     var block = searchFeed.querySelector('.pc-cmp[data-module="' + name + '"]');
-    if (!block) { selectModule(name); return; }
+    if (!block) { selectModule(name); scrollToLadderSection(); return; }
     Object.keys(navByName).forEach(function (n) { navByName[n].classList.toggle('pc-on', n === name); });
     Object.keys(featureBtnByKey).forEach(function (k) { featureBtnByKey[k].classList.remove('pc-on'); });
     allModulesBtn.classList.remove('pc-on');
