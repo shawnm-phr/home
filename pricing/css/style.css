@@ -6973,14 +6973,8 @@ button.btn-primary {
 .pc-search-ic{width:18px;height:18px;flex:0 0 auto;color:var(--muted)}
 .pc-search-input{flex:1 1 auto;min-width:0;border:0;outline:0;background:transparent;font-family:var(--sans);font-size:14.5px;color:var(--ink);padding:8px 0}
 .pc-search-input::placeholder{color:var(--muted)}
-/* the browser's native type=search cancel icon duplicates our own
-   .pc-search-clear "x" button, so it's hidden in favour of that one */
-.pc-search-input::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none}
 .pc-search-btn{flex:0 0 auto;font-family:var(--display);font-weight:700;font-size:13.5px;color:#fff;background:var(--ink);border:0;border-radius:999px;padding:10px 20px;cursor:pointer;transition:background .15s ease}
 .pc-search-btn:hover{background:#000}
-.pc-search-clear{flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;border:0;background:var(--bg-soft);color:var(--ink-2);cursor:pointer;transition:background .15s ease,color .15s ease}
-.pc-search-clear svg{width:14px;height:14px}
-.pc-search-clear:hover{background:var(--line);color:var(--ink)}
 .pc-search-status{max-width:640px;margin:14px auto 0;text-align:center;font-size:13px;color:var(--ink-2);display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center}
 .pc-search-status .pc-search-empty{color:var(--muted)}
 .pc-search-status b{color:var(--ink);font-family:var(--display)}
@@ -7029,21 +7023,13 @@ button.btn-primary {
    runs the full height of that row: it starts in normal flow beside
    the tier cards, then locks at top:0 once scrolled — level with
    .pc-th-row, which sticks at the same offset — and stays locked
-   through the whole table instead of only the short tier-card area.
-   Shared by both the module comparison (#pcLadderSection) and the
-   standout-capabilities section (#pcStandoutSection) below. */
+   through the whole table instead of only the short tier-card area. */
 .pc-cmp-layout{--nav-w:220px;position:relative;display:grid;grid-template-columns:var(--nav-w) 1fr;gap:20px;align-items:start}
 /* full-height white panel behind the nav column, independent of the
    nav's own (shorter, sticky) box, with a divider at its edge —
    .pc-cmp-nav itself only spans its button list, not the whole row */
 .pc-cmp-layout::before{content:"";position:absolute;top:0;bottom:0;left:calc(var(--nav-w) + 10px);border-right:1px solid var(--line)}
 .pc-right-col{min-width:0}
-/* the module comparison section has no nav (search always covers
-   every module, so there's no per-module picker) — collapse it to a
-   single full-width column and drop the divider that .pc-cmp-layout
-   otherwise draws for the nav edge. */
-#pcLadderSection .pc-cmp-layout{grid-template-columns:1fr}
-#pcLadderSection .pc-cmp-layout::before{display:none}
 /* it's a <nav> element, so it also picks up the shared boilerplate's
    bare nav{} rule (sticky, height:64px, border-bottom, etc. — meant
    for the old unprefixed site header) unless every property that rule
