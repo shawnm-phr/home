@@ -1552,7 +1552,7 @@ window.addEventListener('message', function(e) {
           badge: 'Super Agent',
           accent: 'blue',
           includedIn: ['Grow', 'Transform'],
-          tagline: 'Employees self-serve HR tasks just by asking.',
+          tagline: 'A conversational AI layer that handles requests across HR, payroll, and time in one chat. Built to let employees, managers, and admins get things done without navigating separate modules.',
           includedHeading: "What's Included",
           groups: [
             { name: 'For Employees', items: [
