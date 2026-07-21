@@ -1349,23 +1349,19 @@ window.addEventListener('message', function(e) {
   DATA.modules.forEach(function (m) { dataByName[m.name] = m; });
   var navByName = {};
 
-  /* six of these are the supplied icon images; Recruitment has none,
-     so it gets a stroke-SVG in the same style already used in the
-     module-overview cards above (pricing/index.html) rather than a
-     mismatched raster icon. moduleIcon() renders the right markup at
-     whatever size class is passed in, so the same source can appear
-     at nav size, panel-head size, or the ladder heading's size. */
+  /* moduleIcon() renders the right markup at whatever size class is
+     passed in, so the same source can appear at nav size, panel-head
+     size, or the ladder heading's size. */
   var MODULE_ICON_SRC = {
-    HR: 'images/module-icons/HR%20Icon.png',
-    Time: 'images/module-icons/Time%20Icon.png',
-    Pay: 'images/module-icons/Pay%20Icon.png',
-    Talent: 'images/module-icons/Talent%20Icon.png',
-    Engagement: 'images/module-icons/Engagement%20Icon.png',
-    Insights: 'images/module-icons/Insights%20Icon.png'
+    HR: 'images/module-icons/HR%20Icon.webp',
+    Time: 'images/module-icons/Time%20Icon.webp',
+    Pay: 'images/module-icons/Pay%20Icon.webp',
+    Talent: 'images/module-icons/Talent%20Icon.webp',
+    Engagement: 'images/module-icons/Engagement%20Icon.webp',
+    Recruitment: 'images/module-icons/Recruitment.webp',
+    Insights: 'images/module-icons/Insights%20Icon.webp'
   };
-  var RECRUITMENT_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="8" r="3.4"/><path d="M3.5 20a6.5 6.5 0 0 1 13 0"/><path d="M19 7v6M16 10h6"/></svg>';
   function moduleIcon(name, sizeClass) {
-    if (name === 'Recruitment') return '<span class="' + sizeClass + ' pc-ic-svg">' + RECRUITMENT_SVG + '</span>';
     var src = MODULE_ICON_SRC[name];
     return src ? '<img class="' + sizeClass + '" src="' + src + '" alt="">' : '';
   }
