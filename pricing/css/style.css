@@ -7041,7 +7041,7 @@ button.btn-primary {
    bare nav{} rule (sticky, height:64px, border-bottom, etc. — meant
    for the old unprefixed site header) unless every property that rule
    sets is overridden here */
-.pc-cmp-nav{position:sticky;top:70px;z-index:20;height:auto;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:2px;background:transparent;backdrop-filter:none;border-bottom:0;padding:10px 0}
+.pc-cmp-nav{position:sticky;top:75px;z-index:20;height:auto;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:2px;background:transparent;backdrop-filter:none;border-bottom:0;padding:10px 0}
 .pc-cmp-nav button{display:flex;align-items:center;gap:11px;width:100%;text-align:left;font-family:var(--display);font-weight:600;font-size:15.5px;color:var(--ink-2);background:transparent;border:0;border-left:3px solid transparent;border-radius:0 8px 8px 0;padding:10px 16px;cursor:pointer;transition:background .15s ease,color .15s ease,border-color .15s ease}
 .pc-cmp-nav button:hover{background:#fff;color:var(--ink)}
 .pc-cmp-nav button.pc-on{background:#fff;color:var(--ink);font-weight:700;border-left-color:var(--ink)}
