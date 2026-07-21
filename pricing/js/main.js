@@ -1817,6 +1817,7 @@ window.addEventListener('message', function(e) {
   var searchForm = document.getElementById('pcSearchForm');
   var searchInput = document.getElementById('pcSearchInput');
   var searchStatus = document.getElementById('pcSearchStatus');
+  var searchClear = document.getElementById('pcSearchClear');
 
   function renderAllModulesStatus(query, totalCount, moduleCount, featureKeys) {
     if (!totalCount && !featureKeys.length) {
@@ -1897,6 +1898,25 @@ window.addEventListener('message', function(e) {
     searchForm.addEventListener('submit', function (e) {
       e.preventDefault();
       runSearch(searchInput.value);
+    });
+  }
+
+  /* the "x" — cancels the current search result and returns to the
+     default (first-module) view, same as a fresh page load. Also
+     toggles itself on/off as the box empties/fills so it only shows
+     up once there's something to clear. */
+  if (searchInput && searchClear) {
+    searchInput.addEventListener('input', function () {
+      searchClear.hidden = !searchInput.value;
+    });
+    searchClear.addEventListener('click', function () {
+      searchInput.value = '';
+      searchClear.hidden = true;
+      searchStatus.hidden = true;
+      searchStatus.innerHTML = '';
+      clearSearchHighlights();
+      selectModule(ORDER[0]);
+      searchInput.focus();
     });
   }
 
