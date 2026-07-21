@@ -1516,7 +1516,7 @@ window.addEventListener('message', function(e) {
       ]
     },
     lexi: {
-      name: 'Lexi AI Insights', tagline: 'Turn any HR action into a simple conversation.',
+      name: 'Lexi Ai', tagline: 'Turn any HR action into a simple conversation.',
       icon: '<span class="pc-nav-ic pc-ic-svg">' + FEATURE_ICON_LEXI + '</span>',
       panelIcon: '<span class="pc-mod-ic pc-ic-svg">' + FEATURE_ICON_LEXI + '</span>',
       /* Lexi AI Insights is priced and sold as its own add-on, not a
