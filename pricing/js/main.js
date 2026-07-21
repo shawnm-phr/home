@@ -1519,29 +1519,77 @@ window.addEventListener('message', function(e) {
       name: 'Lexi Ai', tagline: 'Turn any HR action into a simple conversation.',
       icon: '<span class="pc-nav-ic pc-ic-svg">' + FEATURE_ICON_LEXI + '</span>',
       panelIcon: '<span class="pc-mod-ic pc-ic-svg">' + FEATURE_ICON_LEXI + '</span>',
-      /* Lexi AI Insights is priced and sold as its own add-on, not a
-         set of tier-scoped capabilities like the other standout
-         features, so its panel is a bespoke pricing-card layout
-         (see renderFeaturePanel's f.pricing branch) instead of the
-         shared title+desc/title+checklist card grid. */
-      pricing: {
-        price: 'US$60', priceUnit: '/ seat / month',
-        tokenNote: 'Includes <b>10 million tokens</b> per seat, per month.',
-        footnote: 'Capabilities and insights available depend on the PeoplesHR modules enabled for your organisation.',
-        includedHeading: "What's Included",
-        included: [
-          'Proactive insights, and recommendations',
-          'Insights grounded in your organisation’s context',
-          'Cross-module workforce planning',
-          'Succession planning and readiness insights',
-          'Payroll & cost-impact modelling',
-          'Attrition & people-risk analysis',
-          'Workforce health & burnout signals',
-          'Multi-turn, follow-up-aware conversations',
-          'Enterprise-grade security & compliance',
-          'Recruitment bottleneck analysis'
-        ]
-      }
+      /* Lexi is three separate products, each rendered as its own
+         bespoke pricing-card row (see renderFeaturePanel's
+         f.pricingCards branch) instead of the shared title+desc/
+         title+checklist card grid — none of them are tier-scoped
+         capabilities like the other standout features. Insights is
+         priced and sold as its own add-on; Super Agent and Smart
+         Navigator are bundled into existing tiers (see their
+         includedIn), so they show which tiers include them instead
+         of a price. */
+      pricingCards: [
+        {
+          badge: 'Insights',
+          price: 'US$60', priceUnit: '/ seat / month',
+          tokenNote: 'Includes <b>10 million tokens</b> per seat, per month.',
+          footnote: 'Capabilities and insights available depend on the PeoplesHR modules enabled for your organisation.',
+          includedHeading: "What's Included",
+          included: [
+            'Proactive insights, and recommendations',
+            'Insights grounded in your organisation’s context',
+            'Cross-module workforce planning',
+            'Succession planning and readiness insights',
+            'Payroll & cost-impact modelling',
+            'Attrition & people-risk analysis',
+            'Workforce health & burnout signals',
+            'Multi-turn, follow-up-aware conversations',
+            'Enterprise-grade security & compliance',
+            'Recruitment bottleneck analysis'
+          ]
+        },
+        {
+          badge: 'Super Agent',
+          includedIn: ['Grow', 'Transform'],
+          tagline: 'Employees self-serve HR tasks just by asking.',
+          includedHeading: "What's Included",
+          groups: [
+            { name: 'For Employees', items: [
+              'Apply or cancel leave',
+              'Check leave balances and history',
+              'Retrieve pay-slips (including off-cycle/unscheduled payments)',
+              'Ask about company policies',
+              'View available benefits',
+              'Access or update permitted profile information',
+              'Ask about tax, insurance, statutory deductions, and projected income'
+            ] },
+            { name: 'For Managers', items: [
+              'Review team attendance and absences',
+              'Check shift information',
+              'View pending approvals — leave, overtime, swipes, manual attendance entries, and shift adjustments'
+            ] },
+            { name: 'For HR and Administrators', items: [
+              'Manage employee and organisational records',
+              'Maintain structures, locations, cost centers, salary grades, and designations',
+              'Update attendance and benefit configurations',
+              'Generate job descriptions and goal plans',
+              'Review recruitment information'
+            ] }
+          ]
+        },
+        {
+          badge: 'Smart Navigator',
+          includedIn: ['Manage', 'Grow', 'Transform'],
+          tagline: 'A centralised search layer that cuts navigation time across the platform.',
+          footnote: 'Highlighted as a key differentiator alongside Lexi Ai — built to significantly reduce the time HR users and employees spend navigating a complex system.',
+          includedHeading: 'Key Capabilities',
+          included: [
+            'Intelligent Navigation — quickly locate and jump to any menu, module, or function without manually browsing the interface',
+            'AI-Powered — uses AI to interpret user intent and surface the most relevant results',
+            'Universal Access — acts as a centralised search layer across the entire PeoplesHR platform'
+          ]
+        }
+      ]
     }
   };
   /* standout capabilities now live in their own section (#pcStandoutSection,
@@ -1575,27 +1623,48 @@ window.addEventListener('message', function(e) {
      via the same --tint/--accent custom properties it already reads),
      .pc-eyebrow, .pc-module-card, and .pc-feature-list (Mobile App's
      tick list) rather than introducing a parallel set of one-off
-     classes — only the layout glue below is new. */
-  function renderPricingFeaturePanel(p) {
+     classes — only the layout glue below is new. Renders one row per
+     pricing card (Insights, Super Agent, Smart Navigator, ...),
+     stacked vertically. */
+  function colHtml(items) {
+    return '<ul class="pc-feature-list">' + items.map(function (t) {
+      return '<li>' + svgTick + '<span>' + t + '</span></li>';
+    }).join('') + '</ul>';
+  }
+  /* Insights' flat list splits evenly into two columns; Super Agent's
+     list is naturally grouped by audience (Employees/Managers/HR) at
+     very uneven sizes, so it renders as stacked named groups instead
+     of an even split that would cut a group in half. */
+  function includedBodyHtml(p) {
+    if (p.groups) {
+      return '<div class="pc-lexi-included-groups">' + p.groups.map(function (g) {
+        return '<div class="pc-lexi-group"><div class="pc-lexi-group-name">' + g.name + '</div>' + colHtml(g.items) + '</div>';
+      }).join('') + '</div>';
+    }
     var half = Math.ceil(p.included.length / 2);
-    var leftItems = p.included.slice(0, half);
-    var rightItems = p.included.slice(half);
-    var colHtml = function (items) {
-      return '<ul class="pc-feature-list">' + items.map(function (t) {
-        return '<li>' + svgTick + '<span>' + t + '</span></li>';
-      }).join('') + '</ul>';
-    };
-    featureGrid.innerHTML =
+    return '<div class="pc-lexi-included-cols">' + colHtml(p.included.slice(0, half)) + colHtml(p.included.slice(half)) + '</div>';
+  }
+  function pricingCardHtml(p) {
+    var priceHtml = p.price
+      ? '<h2>' + p.price + '<span class="pc-lexi-price-unit">' + p.priceUnit + '</span></h2>' +
+        (p.tokenNote ? '<div class="pc-lexi-token-box">' + p.tokenNote + '</div>' : '')
+      : '<div class="pc-lexi-includedin"><span class="pc-lexi-includedin-label">Included in</span><div class="pc-lexi-tier-tags">' +
+          p.includedIn.map(function (t) { return '<span class="pc-lexi-tier-tag" style="--accent:var(--' + t.toLowerCase() + ')">' + t + '</span>'; }).join('') +
+        '</div></div>';
+    return '<div class="pc-lexi-row">' +
       '<div class="pc-cta-inner pc-lexi-card">' +
-        '<div class="pc-mod-nameline"><img src="' + LEXI_LOGO_SRC + '" alt="Lexi" height="18"><span class="pc-pill" style="--tint:#fff;--accent:#1d4ed8">Ai</span><span class="pc-eyebrow">Insights</span></div>' +
-        '<h2>' + p.price + '<span class="pc-lexi-price-unit">' + p.priceUnit + '</span></h2>' +
-        '<div class="pc-lexi-token-box">' + p.tokenNote + '</div>' +
-        '<p>' + p.footnote + '</p>' +
+        '<div class="pc-mod-nameline"><img src="' + LEXI_LOGO_SRC + '" alt="Lexi" height="18"><span class="pc-pill" style="--tint:#fff;--accent:#1d4ed8">Ai</span><span class="pc-eyebrow">' + p.badge + '</span></div>' +
+        priceHtml +
+        '<p>' + (p.tagline ? p.tagline + (p.footnote ? ' ' + p.footnote : '') : (p.footnote || '')) + '</p>' +
       '</div>' +
       '<div class="pc-module-card pc-lexi-included">' +
         '<div class="pc-eyebrow">' + p.includedHeading + '</div>' +
-        '<div class="pc-lexi-included-cols">' + colHtml(leftItems) + colHtml(rightItems) + '</div>' +
-      '</div>';
+        includedBodyHtml(p) +
+      '</div>' +
+    '</div>';
+  }
+  function renderPricingFeaturePanel(cards) {
+    featureGrid.innerHTML = cards.map(pricingCardHtml).join('');
   }
 
   /* long item lists (Mobile App's especially) made cards wildly uneven
@@ -1616,10 +1685,10 @@ window.addEventListener('message', function(e) {
 
   function renderFeaturePanel(key) {
     var f = STANDOUT[key];
-    featureGrid.className = 'pc-feature-grid' + (f.pricing ? ' pc-lexi-pricing' : '');
-    if (f.pricing) {
+    featureGrid.className = 'pc-feature-grid' + (f.pricingCards ? ' pc-lexi-pricing' : '');
+    if (f.pricingCards) {
       featureHead.innerHTML = '';
-      renderPricingFeaturePanel(f.pricing);
+      renderPricingFeaturePanel(f.pricingCards);
       return;
     }
     featureHead.innerHTML = '<span class="pc-mod-textwrap"><span class="pc-mod-nameline">' + f.panelIcon + '<span class="pc-mod-name">' + f.name + '</span></span><span class="pc-mod-desc">' + f.tagline + '</span></span>';
@@ -1746,7 +1815,11 @@ window.addEventListener('message', function(e) {
     var f = STANDOUT[key];
     var text = f.name;
     (f.cards || []).forEach(function (c) { text += ' ' + c.title + ' ' + (c.desc || (c.items || []).join(' ')); });
-    if (f.pricing) { text += ' ' + f.pricing.included.join(' ') + ' ' + toPlainText(f.pricing.tokenNote) + ' ' + f.pricing.footnote; }
+    (f.pricingCards || []).forEach(function (p) {
+      text += ' ' + p.badge + ' ' + (p.tagline || '') + ' ' + (p.footnote || '') + ' ' + toPlainText(p.tokenNote);
+      text += ' ' + (p.included || []).join(' ');
+      (p.groups || []).forEach(function (g) { text += ' ' + g.name + ' ' + g.items.join(' '); });
+    });
     FEATURE_SEARCH_TEXT[key] = text.toLowerCase();
   });
 
