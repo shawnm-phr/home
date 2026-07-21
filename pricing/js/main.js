@@ -1639,8 +1639,12 @@ window.addEventListener('message', function(e) {
      of an even split that would cut a group in half. */
   function includedBodyHtml(p) {
     if (p.groups) {
+      /* each group clamps to the first 3 items with its own "view N
+         more" toggle (same collapse mechanism as Self Service
+         Portal's cards, see featureListHtml/is-expanded below) rather
+         than dumping every item — Employees alone has 7. */
       return '<div class="pc-lexi-included-groups">' + p.groups.map(function (g) {
-        return '<div class="pc-lexi-group"><div class="pc-lexi-group-name">' + g.name + '</div>' + colHtml(g.items) + '</div>';
+        return '<div class="pc-lexi-group"><div class="pc-lexi-group-name">' + g.name + '</div>' + featureListHtml(g.items) + '</div>';
       }).join('') + '</div>';
     }
     var half = Math.ceil(p.included.length / 2);
@@ -1706,7 +1710,7 @@ window.addEventListener('message', function(e) {
   featureGrid.addEventListener('click', function (e) {
     var btn = e.target.closest('.pc-feature-more');
     if (!btn) return;
-    var expanded = btn.closest('.pc-feature-card').classList.toggle('is-expanded');
+    var expanded = btn.closest('.pc-feature-card, .pc-lexi-group').classList.toggle('is-expanded');
     btn.textContent = expanded ? btn.dataset.lessLabel : btn.dataset.moreLabel;
   });
 

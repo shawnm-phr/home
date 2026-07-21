@@ -7144,7 +7144,8 @@ button.btn-primary {
 /* items past the first 3 (see FEATURE_LIST_VISIBLE in main.js) stay in
    the DOM but hidden until .pc-feature-more's delegated click handler
    toggles .is-expanded on the card */
-.pc-feature-card:not(.is-expanded) .pc-feature-extra{display:none}
+.pc-feature-card:not(.is-expanded) .pc-feature-extra,
+.pc-lexi-group:not(.is-expanded) .pc-feature-extra{display:none}
 .pc-feature-more{margin-top:auto;padding-top:12px;align-self:flex-start;background:transparent;border:0;font-family:var(--display);font-weight:700;font-size:12.5px;color:var(--blue);cursor:pointer}
 .pc-feature-more:hover{text-decoration:underline}
 @media(max-width:720px){.pc-feature-grid{grid-template-columns:1fr;padding:8px}.pc-feature-card{padding:16px 18px}}
