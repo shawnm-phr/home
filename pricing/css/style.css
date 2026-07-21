@@ -7027,12 +7027,11 @@ button.btn-primary {
    nav and the right column (tier cards, then the table) share one
    grid row spanning both, so .pc-cmp-nav's sticky containing block
    runs the full height of that row: it starts in normal flow beside
-   the tier cards, then locks at top:var(--sticky-gap) once scrolled —
-   level with .pc-th-row, which sticks at the same offset — and stays
-   locked through the whole table instead of only the short tier-card
-   area. The gap keeps both off the very edge of the viewport once
-   stuck, instead of sitting flush against it. */
-.pc-cmp-layout{--nav-w:220px;--sticky-gap:16px;position:relative;display:grid;grid-template-columns:var(--nav-w) 1fr;gap:20px;align-items:start}
+   the tier cards, then locks a short gap below the top of the
+   viewport once scrolled (see .pc-cmp-nav's own top offset), and
+   stays locked through the whole table instead of only the short
+   tier-card area. */
+.pc-cmp-layout{--nav-w:220px;position:relative;display:grid;grid-template-columns:var(--nav-w) 1fr;gap:20px;align-items:start}
 /* full-height white panel behind the nav column, independent of the
    nav's own (shorter, sticky) box, with a divider at its edge —
    .pc-cmp-nav itself only spans its button list, not the whole row */
@@ -7042,7 +7041,7 @@ button.btn-primary {
    bare nav{} rule (sticky, height:64px, border-bottom, etc. — meant
    for the old unprefixed site header) unless every property that rule
    sets is overridden here */
-.pc-cmp-nav{position:sticky;top:var(--sticky-gap);z-index:20;height:auto;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:2px;background:transparent;backdrop-filter:none;border-bottom:0;padding:10px 0}
+.pc-cmp-nav{position:sticky;top:16px;z-index:20;height:auto;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:2px;background:transparent;backdrop-filter:none;border-bottom:0;padding:10px 0}
 .pc-cmp-nav button{display:flex;align-items:center;gap:11px;width:100%;text-align:left;font-family:var(--display);font-weight:600;font-size:15.5px;color:var(--ink-2);background:transparent;border:0;border-left:3px solid transparent;border-radius:0 8px 8px 0;padding:10px 16px;cursor:pointer;transition:background .15s ease,color .15s ease,border-color .15s ease}
 .pc-cmp-nav button:hover{background:#fff;color:var(--ink)}
 .pc-cmp-nav button.pc-on{background:#fff;color:var(--ink);font-weight:700;border-left-color:var(--ink)}
@@ -7067,12 +7066,12 @@ button.btn-primary {
 .pc-mod-desc{font-family:var(--sans);font-weight:400;font-size:12.5px;color:var(--muted);line-height:1.3}
 .pc-mod-name{font-family:var(--display);font-weight:800;font-size:24px}
 
-/* single tier-name header, sticky near the top of the viewport (offset
-   by --sticky-gap, not the navbar's height) — .nv-bar's own sticky
-   range ends well before the page has scrolled this far, so by the
-   time this row reaches the top there's no navbar left to clear. Not
-   repeated per group — stays in place for every group in the module. */
-.pc-th-row{position:sticky;top:var(--sticky-gap,0);z-index:30;display:grid;grid-template-columns:var(--cols);background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);border-left:1px solid var(--line);border-right:1px solid var(--line);border-radius:24px 24px 0 0}
+/* single tier-name header, sticky to the very top of the viewport; not
+   repeated per group — stays in place for every group in the module.
+   top:0 (not the navbar's height) because .nv-bar's own sticky range
+   ends well before the page has scrolled this far, so by the time this
+   row reaches the top there's no navbar left to clear */
+.pc-th-row{position:sticky;top:0;z-index:30;display:grid;grid-template-columns:var(--cols);background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);border-left:1px solid var(--line);border-right:1px solid var(--line);border-radius:24px 24px 0 0}
 /* Talent & Recruitment aren't offered on Manage — table drops that
    column too (js hides the manage .pc-th and .pc-cell for each row) */
 .pc-cmp.pc-no-manage{--cols:minmax(0,1fr) 138px 138px}
