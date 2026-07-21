@@ -7168,7 +7168,7 @@ button.btn-primary {
 /* bundled Lexi features (Super Agent, Smart Navigator) get a blue
    gradient instead of Insights' purple, so the priced add-on reads as
    visually distinct from what's already included in a tier */
-.pc-cta-inner.pc-lexi-card-blue{background:linear-gradient(135deg,#0F1C2E 0%,#1b2a44 55%,#2563EB 100%)}
+.pc-cta-inner.pc-lexi-card-blue{background:linear-gradient(135deg,#0A1B3D 0%,#1D4ED8 55%,#60A5FA 100%)}
 .pc-lexi-card .pc-eyebrow{color:#fff;font-size:16px;letter-spacing:.08em}
 /* logo + "Ai" pill sit centered above the card's own name (Insights,
    Super Agent, Smart Navigator) instead of sharing one row with it */
