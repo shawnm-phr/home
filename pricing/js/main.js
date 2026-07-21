@@ -1372,20 +1372,11 @@ window.addEventListener('message', function(e) {
   var NAV_ICONS = {};
   DATA.modules.forEach(function (m) { NAV_ICONS[m.name] = moduleIcon(m.name, 'pc-nav-ic'); });
 
-  /* "All Modules" — the default way to view search results: a term
-     may live in any module and people often don't know which one, so
-     this searches/shows every module at once (filtered to matches
-     only) instead of guessing a single "best" module. Standout
-     features are deliberately left out of this merged view — their
-     card layout doesn't fit the module table shape — but a feature
-     match still surfaces as a jump-to pill in the status line. */
-  var ALL_MODULES_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>';
-  var allModulesBtn = document.createElement('button');
-  allModulesBtn.type = 'button'; allModulesBtn.className = 'pc-nav-all';
-  allModulesBtn.innerHTML = '<span class="pc-nav-ic pc-ic-svg">' + ALL_MODULES_SVG + '</span><span class="pc-nav-label">All Modules</span>';
-  allModulesBtn.addEventListener('click', function () { showAllModulesView(searchInput.value); });
-  cmpNav.appendChild(allModulesBtn);
-
+  /* the module nav has no "All Modules" entry — searching (via the
+     search bar) already covers every module at once regardless of
+     which module button is selected (see showAllModulesView below);
+     the per-module buttons here are just for browsing one module's
+     full table directly. */
   DATA.modules.forEach(function (m) {
     var btn = document.createElement('button');
     btn.type = 'button'; btn.dataset.c = m.color;
@@ -1719,7 +1710,6 @@ window.addEventListener('message', function(e) {
 
   function selectModule(name) {
     Object.keys(navByName).forEach(function (n) { navByName[n].classList.toggle('pc-on', n === name); });
-    allModulesBtn.classList.remove('pc-on');
     searchFeed.hidden = true;
     ladder.hidden = false;
     pcCmp.hidden = false;
@@ -1739,7 +1729,6 @@ window.addEventListener('message', function(e) {
     var block = searchFeed.querySelector('.pc-cmp[data-module="' + name + '"]');
     if (!block) { selectModule(name); scrollToLadderSection(); return; }
     Object.keys(navByName).forEach(function (n) { navByName[n].classList.toggle('pc-on', n === name); });
-    allModulesBtn.classList.remove('pc-on');
     block.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
@@ -1855,13 +1844,13 @@ window.addEventListener('message', function(e) {
     });
   }
 
-  /* the "All Modules" nav button's handler and the search form's
-     submit handler both land here — the button re-runs whatever's
-     currently in the box (or shows a prompt if it's empty), the form
-     always has a non-empty query by the time it calls this. */
+  /* the search form's submit handler lands here — search always
+     covers every module at once (there's no "All Modules" nav button
+     any more), so a query renders every matching module's filtered
+     block into the feed in place of the single-module ladder/table
+     view. The form only calls this with a non-empty query. */
   function showAllModulesView(rawQuery) {
     Object.keys(navByName).forEach(function (n) { navByName[n].classList.remove('pc-on'); });
-    allModulesBtn.classList.add('pc-on');
     ladder.hidden = true;
     pcCmp.hidden = true;
     searchFeed.hidden = false;
