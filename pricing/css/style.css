@@ -6936,7 +6936,7 @@ button.btn-primary {
 .pc-btn-lg{padding:15px 28px;font-size:16px}
 
 /* ---- hero ---- */
-.pc-hero{padding:76px 0 150px;text-align:center}
+.pc-hero{padding:76px 0 34px;text-align:center}
 .pc-hero .pc-eyebrow{margin-bottom:18px}
 .pc-hero h1{font-size:clamp(34px,5vw,54px);font-weight:800;max-width:21ch;margin:0 auto}
 .pc-hero .pc-sub{margin:22px auto 0;max-width:56ch;font-size:clamp(16px,2vw,19px);color:var(--ink-2)}
@@ -6944,7 +6944,7 @@ button.btn-primary {
 .pc-hero .pc-note svg{width:15px;height:15px;color:var(--manage)}
 
 /* ---- modules ---- */
-.pc-modules{padding:0 0 64px}
+.pc-modules{padding:44px 0 64px}
 .pc-modules-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:16px}
 .pc-module-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:22px 20px;flex:0 0 calc((100% - 48px)/4);width:calc((100% - 48px)/4)}
 .pc-module-ic{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:11px;background:var(--bg-soft);color:var(--ink)}
@@ -7189,7 +7189,7 @@ button.btn-primary {
    per-module colour, to read as "a different category" rather than
    an eighth module. */
 .pc-enterprise{padding:64px 0}
-.pc-enterprise-head{text-align:center;max-width:800px;margin:0 auto 36px}
+.pc-enterprise-head{text-align:center;max-width:800px;margin:0 auto 75px}
 .pc-enterprise-head .pc-eyebrow{color:var(--transform)}
 .pc-enterprise-head h2{font-size:clamp(22px,2.6vw,30px);font-weight:800;margin-top:8px}
 .pc-enterprise-head .pc-enterprise-sub{margin-top:16px;font-size:15px;color:var(--ink-2)}
