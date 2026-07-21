@@ -1655,7 +1655,7 @@ window.addEventListener('message', function(e) {
         '</div></div>';
     return '<div class="pc-lexi-row">' +
       '<div class="pc-cta-inner pc-lexi-card' + (p.accent === 'blue' ? ' pc-lexi-card-blue' : '') + '">' +
-        '<div class="pc-mod-nameline"><img src="' + LEXI_LOGO_SRC + '" alt="Lexi" height="18"><span class="pc-pill" style="--tint:#fff;--accent:#1d4ed8">Ai</span><span class="pc-eyebrow">' + p.badge + '</span></div>' +
+        '<div class="pc-lexi-brand"><div class="pc-lexi-brand-logo"><img src="' + LEXI_LOGO_SRC + '" alt="Lexi" height="20"><span class="pc-pill" style="--tint:#fff;--accent:#1d4ed8">Ai</span></div><div class="pc-eyebrow">' + p.badge + '</div></div>' +
         priceHtml +
         '<p>' + (p.tagline ? p.tagline + (p.footnote ? ' ' + p.footnote : '') : (p.footnote || '')) + '</p>' +
       '</div>' +
