@@ -7192,7 +7192,7 @@ button.btn-primary {
 .pc-enterprise-head{text-align:center;max-width:800px;margin:0 auto 36px}
 .pc-enterprise-head .pc-eyebrow{color:var(--transform)}
 .pc-enterprise-head h2{font-size:clamp(22px,2.6vw,30px);font-weight:800;margin-top:8px}
-.pc-enterprise-sub{margin-top:10px;font-size:15px;color:var(--ink-2)}
+.pc-enterprise-sub{margin-top:16px;font-size:15px;color:var(--ink-2)}
 .pc-enterprise-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:16px}
 .pc-enterprise-card{background:var(--white);border:1px solid var(--line);border-top:3px solid var(--transform);border-radius:var(--radius);padding:22px 20px;flex:0 0 calc((100% - 32px)/3);width:calc((100% - 32px)/3)}
 .pc-enterprise-ic{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:11px;background:var(--transform-tint);color:var(--transform)}
