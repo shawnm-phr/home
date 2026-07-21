@@ -1916,6 +1916,11 @@ window.addEventListener('message', function(e) {
       searchStatus.innerHTML = '';
       clearSearchHighlights();
       selectModule(ORDER[0]);
+      /* the search feed can be much taller than the default single-
+         module view, so collapsing it without scrolling back up can
+         leave the page sitting well past the now-shorter content —
+         jump back to the search bar so the reset is visible. */
+      scrollToLadderSection();
       searchInput.focus();
     });
   }
