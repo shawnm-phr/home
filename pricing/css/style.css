@@ -6936,7 +6936,7 @@ button.btn-primary {
 .pc-btn-lg{padding:15px 28px;font-size:16px}
 
 /* ---- hero ---- */
-.pc-hero{padding:76px 0 75px;text-align:center}
+.pc-hero{padding:76px 0 150px;text-align:center}
 .pc-hero .pc-eyebrow{margin-bottom:18px}
 .pc-hero h1{font-size:clamp(34px,5vw,54px);font-weight:800;max-width:21ch;margin:0 auto}
 .pc-hero .pc-sub{margin:22px auto 0;max-width:56ch;font-size:clamp(16px,2vw,19px);color:var(--ink-2)}
