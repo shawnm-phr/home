@@ -1395,16 +1395,10 @@ window.addEventListener('message', function(e) {
      new claims. */
   var FEATURE_ICON_MOBILE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="3" width="10" height="18" rx="2.4"/><path d="M11 18h2"/></svg>';
   var FEATURE_ICON_SELFSERVICE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="8" r="3.4"/><path d="M3.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16.5 15.5l2 2 4-4"/></svg>';
-  /* no dedicated Lexi icon asset exists — the file that looked like
-     one turned out to be a transparent re-export of the Insights icon
-     (same gradient-circle-with-"X" artwork, confirmed pixel-for-pixel
-     against the old Insights Icon.webp), so Lexi AI falls back to an
-     inline sparkle glyph in the same stroke style as the other
-     standout-feature icons, same as Recruitment's fallback above. */
-  var FEATURE_ICON_LEXI = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11 3.5l1.7 4.9 4.9 1.7-4.9 1.7L11 16.7l-1.7-4.9L4.4 10.1l4.9-1.7L11 3.5z"/><path d="M18.5 14l.9 2.6 2.6.9-2.6.9-.9 2.6-.9-2.6-2.6-.9 2.6-.9.9-2.6z"/></svg>';
-  /* the Lexi wordmark (white text, meant for a dark background) works
-     here since the pricing card itself IS dark blue — unlike the nav
-     tile above, which is why that one uses the sparkle SVG instead. */
+  /* the wordmark's lettering is white, made for a dark background —
+     works bare on the pricing card (itself dark), but needs its own
+     small dark chip everywhere else (nav tile) to stay legible; see
+     .pc-nav-lexi-chip. */
   var LEXI_LOGO_SRC = 'https://peopleshr.com/wp-content/uploads/2026/05/lexi-s.png';
   var STANDOUT = {
     mobile: {
@@ -1517,8 +1511,8 @@ window.addEventListener('message', function(e) {
     },
     lexi: {
       name: 'Lexi Ai', tagline: 'Turn any HR action into a simple conversation.',
-      icon: '<span class="pc-nav-ic pc-ic-svg">' + FEATURE_ICON_LEXI + '</span>',
-      panelIcon: '<span class="pc-mod-ic pc-ic-svg">' + FEATURE_ICON_LEXI + '</span>',
+      icon: '<span class="pc-nav-lexi-chip"><img src="' + LEXI_LOGO_SRC + '" alt="Lexi" class="pc-nav-lexi-logo"></span>',
+      panelIcon: '<span class="pc-nav-lexi-chip pc-mod-lexi-chip"><img src="' + LEXI_LOGO_SRC + '" alt="Lexi" class="pc-nav-lexi-logo pc-mod-lexi-logo"></span>',
       /* Lexi is three separate products, each rendered as its own
          bespoke pricing-card row (see renderFeaturePanel's
          f.pricingCards branch) instead of the shared title+desc/

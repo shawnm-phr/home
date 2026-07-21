@@ -7053,6 +7053,15 @@ button.btn-primary {
 .pc-ic-svg svg{width:57%;height:57%}
 .pc-cmp-nav button.pc-on .pc-ic-svg{color:var(--ink)}
 .pc-mod-ic{width:32px;height:32px;flex:0 0 auto;border-radius:8px;object-fit:cover}
+/* Lexi's wordmark logo isn't a square icon like the module icons, so
+   it skips the .pc-nav-ic/.pc-mod-ic square-box treatment and sizes by
+   height instead. Its lettering is white/light (made for the dark
+   gradient card) — near-invisible on the nav's light background, so
+   it gets a small dark chip behind it here instead of sitting bare. */
+.pc-nav-lexi-chip{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;background:#0F1C2E;border-radius:7px;padding:6px 8px}
+.pc-nav-lexi-logo{height:16px;width:auto;display:block}
+.pc-mod-lexi-chip{padding:8px 10px;border-radius:8px}
+.pc-mod-lexi-logo{height:19px}
 @media(max-width:900px){
   .pc-cmp-layout{grid-template-columns:1fr}
   .pc-cmp-layout::before{display:none}
@@ -7168,7 +7177,7 @@ button.btn-primary {
 /* bundled Lexi features (Super Agent, Smart Navigator) get a blue
    gradient instead of Insights' purple, so the priced add-on reads as
    visually distinct from what's already included in a tier */
-.pc-cta-inner.pc-lexi-card-blue{background:linear-gradient(135deg,#0A1B3D 0%,#1D4ED8 55%,#60A5FA 100%)}
+.pc-cta-inner.pc-lexi-card-blue{background:linear-gradient(135deg,#7DD8A8 0%,#2DD4BF 35%,#2563EB 70%,#93C5FD 100%)}
 .pc-lexi-card .pc-eyebrow{color:#fff;font-size:16px;letter-spacing:.08em}
 /* logo + "Ai" pill sit centered above the card's own name (Insights,
    Super Agent, Smart Navigator) instead of sharing one row with it */
