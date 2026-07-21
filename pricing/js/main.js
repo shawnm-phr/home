@@ -1550,6 +1550,7 @@ window.addEventListener('message', function(e) {
         },
         {
           badge: 'Super Agent',
+          accent: 'blue',
           includedIn: ['Grow', 'Transform'],
           tagline: 'Employees self-serve HR tasks just by asking.',
           includedHeading: "What's Included",
@@ -1579,6 +1580,7 @@ window.addEventListener('message', function(e) {
         },
         {
           badge: 'Smart Navigator',
+          accent: 'blue',
           includedIn: ['Manage', 'Grow', 'Transform'],
           tagline: 'A centralised search layer that cuts navigation time across the platform.',
           footnote: 'Highlighted as a key differentiator alongside Lexi Ai — built to significantly reduce the time HR users and employees spend navigating a complex system.',
@@ -1652,7 +1654,7 @@ window.addEventListener('message', function(e) {
           p.includedIn.map(function (t) { return '<span class="pc-lexi-tier-tag" style="--accent:var(--' + t.toLowerCase() + ')">' + t + '</span>'; }).join('') +
         '</div></div>';
     return '<div class="pc-lexi-row">' +
-      '<div class="pc-cta-inner pc-lexi-card">' +
+      '<div class="pc-cta-inner pc-lexi-card' + (p.accent === 'blue' ? ' pc-lexi-card-blue' : '') + '">' +
         '<div class="pc-mod-nameline"><img src="' + LEXI_LOGO_SRC + '" alt="Lexi" height="18"><span class="pc-pill" style="--tint:#fff;--accent:#1d4ed8">Ai</span><span class="pc-eyebrow">' + p.badge + '</span></div>' +
         priceHtml +
         '<p>' + (p.tagline ? p.tagline + (p.footnote ? ' ' + p.footnote : '') : (p.footnote || '')) + '</p>' +
