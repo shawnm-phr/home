@@ -7085,7 +7085,7 @@ button.btn-primary {
 
 .pc-grp{border-top:1px solid var(--line-2)}
 .pc-grp:first-child{border-top:0}
-.pc-grp-name{padding:14px 22px;font-family:var(--display);font-weight:800;font-size:18px;color:var(--ink)}
+.pc-grp-name{padding:22px 22px;font-family:var(--display);font-weight:800;font-size:18px;color:var(--ink)}
 .pc-row{display:grid;grid-template-columns:var(--cols);align-items:stretch;border-top:1px solid var(--line-2)}
 .pc-grp .pc-row:first-child{border-top:0}
 .pc-row:hover{background:var(--bg-soft)}
