@@ -1545,7 +1545,8 @@ window.addEventListener('message', function(e) {
             'Workforce health & burnout signals',
             'Multi-turn, follow-up-aware conversations',
             'Enterprise-grade security & compliance',
-            'Recruitment bottleneck analysis'
+            'Recruitment bottleneck analysis',
+            'Unrestricted visibility into HR records for HR Leaders'
           ]
         },
         {
