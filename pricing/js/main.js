@@ -1325,12 +1325,12 @@ window.addEventListener('message', function(e) {
     return row;
   }
 
-  /* module nav (left) + detail panel (right): pick a module on the
-     left, its capability list renders on the right under the one
-     persistent Manage/Grow/Transform header (not re-rendered per
-     module or per group — it's static markup, see pricing-body.html).
-     Groups are always fully expanded, no accordion. */
-  var cmpNav = document.getElementById('pcCmpNav');
+  /* detail panel: capability list renders under the one persistent
+     Manage/Grow/Transform header (not re-rendered per module or per
+     group — it's static markup, see pricing-body.html). Groups are
+     always fully expanded, no accordion. There's no module picker —
+     search always covers every module at once (see showAllModulesView
+     below); the panel below just shows the first module by default. */
   var panelHead = document.getElementById('pcPanelHead');
   var groupsEl = document.getElementById('pcGroups');
   var leadEl = document.getElementById('pcLead');
@@ -1338,23 +1338,16 @@ window.addEventListener('message', function(e) {
   var thManageCol = thRow.querySelector('[data-tier=manage]');
   var pcCmp = document.getElementById('pcCmp');
   var searchFeed = document.getElementById('pcSearchFeed');
-  var ladderSection = document.getElementById('pcLadderSection');
-  /* scrolls to the top of the light-grey .pc-ladder section itself
-     (above the "Explore PeoplesHR" heading), not just the tier-card
-     grid further down inside it — used whenever picking a module or
-     standout feature from the left nav. */
-  function scrollToLadderSection() { ladderSection.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
   var ORDER = DATA.modules.map(function (m) { return m.name; });
   var dataByName = {};
   DATA.modules.forEach(function (m) { dataByName[m.name] = m; });
-  var navByName = {};
 
   /* six of these are the supplied icon images; Recruitment has none,
      so it gets a stroke-SVG in the same style already used in the
      module-overview cards above (pricing/index.html) rather than a
      mismatched raster icon. moduleIcon() renders the right markup at
      whatever size class is passed in, so the same source can appear
-     at nav size, panel-head size, or the ladder heading's size. */
+     at panel-head size or the ladder heading's size. */
   var MODULE_ICON_SRC = {
     HR: 'images/module-icons/HR%20Icon.png',
     Time: 'images/module-icons/Time%20Icon.png',
@@ -1369,34 +1362,6 @@ window.addEventListener('message', function(e) {
     var src = MODULE_ICON_SRC[name];
     return src ? '<img class="' + sizeClass + '" src="' + src + '" alt="">' : '';
   }
-  var NAV_ICONS = {};
-  DATA.modules.forEach(function (m) { NAV_ICONS[m.name] = moduleIcon(m.name, 'pc-nav-ic'); });
-
-  /* "All Modules" — the default way to view search results: a term
-     may live in any module and people often don't know which one, so
-     this searches/shows every module at once (filtered to matches
-     only) instead of guessing a single "best" module. Standout
-     features are deliberately left out of this merged view — their
-     card layout doesn't fit the module table shape — but a feature
-     match still surfaces as a jump-to pill in the status line. */
-  var ALL_MODULES_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>';
-  var allModulesBtn = document.createElement('button');
-  allModulesBtn.type = 'button'; allModulesBtn.className = 'pc-nav-all';
-  allModulesBtn.innerHTML = '<span class="pc-nav-ic pc-ic-svg">' + ALL_MODULES_SVG + '</span><span class="pc-nav-label">All Modules</span>';
-  allModulesBtn.addEventListener('click', function () { showAllModulesView(searchInput.value); });
-  cmpNav.appendChild(allModulesBtn);
-
-  DATA.modules.forEach(function (m) {
-    var btn = document.createElement('button');
-    btn.type = 'button'; btn.dataset.c = m.color;
-    btn.innerHTML = (NAV_ICONS[m.name] || '') + '<span class="pc-nav-label">' + m.name + '</span>';
-    btn.addEventListener('click', function () {
-      if (!searchFeed.hidden) { jumpToModuleInFeed(m.name); }
-      else { selectModule(m.name); scrollToLadderSection(); }
-    });
-    navByName[m.name] = btn;
-    cmpNav.appendChild(btn);
-  });
 
   /* three standout capabilities that cut across every module/tier
      rather than living in the Manage/Grow/Transform data — a divider
@@ -1718,29 +1683,12 @@ window.addEventListener('message', function(e) {
   window.addEventListener('resize', scheduleSpy);
 
   function selectModule(name) {
-    Object.keys(navByName).forEach(function (n) { navByName[n].classList.toggle('pc-on', n === name); });
-    allModulesBtn.classList.remove('pc-on');
     searchFeed.hidden = true;
     ladder.hidden = false;
     pcCmp.hidden = false;
     renderPanel(name);
     updateLadderForModule(name);
     scheduleSpy();
-  }
-
-  /* while the all-modules search feed is showing, a module nav click
-     acts like a table-of-contents link into it (scrolls to that
-     module's block, keeping every other matching module visible)
-     instead of replacing the feed with that module's full table —
-     unless that module has no matches in the current feed, in which
-     case there's nothing to jump to and it falls back to the normal
-     single-module view. */
-  function jumpToModuleInFeed(name) {
-    var block = searchFeed.querySelector('.pc-cmp[data-module="' + name + '"]');
-    if (!block) { selectModule(name); scrollToLadderSection(); return; }
-    Object.keys(navByName).forEach(function (n) { navByName[n].classList.toggle('pc-on', n === name); });
-    allModulesBtn.classList.remove('pc-on');
-    block.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   selectModule(ORDER[0]);
@@ -1828,6 +1776,7 @@ window.addEventListener('message', function(e) {
   var searchForm = document.getElementById('pcSearchForm');
   var searchInput = document.getElementById('pcSearchInput');
   var searchStatus = document.getElementById('pcSearchStatus');
+  var searchClear = document.getElementById('pcSearchClear');
 
   function renderAllModulesStatus(query, totalCount, moduleCount, featureKeys) {
     if (!totalCount && !featureKeys.length) {
@@ -1855,13 +1804,11 @@ window.addEventListener('message', function(e) {
     });
   }
 
-  /* the "All Modules" nav button's handler and the search form's
-     submit handler both land here — the button re-runs whatever's
-     currently in the box (or shows a prompt if it's empty), the form
-     always has a non-empty query by the time it calls this. */
+  /* the search form's submit handler lands here — search always
+     covers every module at once (there's no per-module picker), so a
+     query renders every matching module's filtered block into the
+     feed in place of the single-module ladder/table view. */
   function showAllModulesView(rawQuery) {
-    Object.keys(navByName).forEach(function (n) { navByName[n].classList.remove('pc-on'); });
-    allModulesBtn.classList.add('pc-on');
     ladder.hidden = true;
     pcCmp.hidden = true;
     searchFeed.hidden = false;
@@ -1908,6 +1855,25 @@ window.addEventListener('message', function(e) {
     searchForm.addEventListener('submit', function (e) {
       e.preventDefault();
       runSearch(searchInput.value);
+    });
+  }
+
+  /* the "x" — cancels the current search result and returns to the
+     default (first-module) view, same as a fresh page load. Also
+     toggles itself on/off as the box empties/fills so it only shows
+     up once there's something to clear. */
+  if (searchInput && searchClear) {
+    searchInput.addEventListener('input', function () {
+      searchClear.hidden = !searchInput.value;
+    });
+    searchClear.addEventListener('click', function () {
+      searchInput.value = '';
+      searchClear.hidden = true;
+      searchStatus.hidden = true;
+      searchStatus.innerHTML = '';
+      clearSearchHighlights();
+      selectModule(ORDER[0]);
+      searchInput.focus();
     });
   }
 
