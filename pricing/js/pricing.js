@@ -543,6 +543,18 @@
     btn.textContent = expanded ? btn.dataset.lessLabel : btn.dataset.moreLabel;
   });
 
+  /* mobile-only "View 6 more features" toggle for the Transform
+     inclusions grid — same is-expanded pattern as pc-feature-more
+     above, just toggling whole cards instead of list items */
+  var enterpriseMore = document.getElementById('pcEnterpriseMore');
+  var enterpriseGrid = document.getElementById('pcEnterpriseGrid');
+  if (enterpriseMore && enterpriseGrid) {
+    enterpriseMore.addEventListener('click', function () {
+      var expanded = enterpriseGrid.classList.toggle('is-expanded');
+      enterpriseMore.textContent = expanded ? enterpriseMore.dataset.lessLabel : enterpriseMore.dataset.moreLabel;
+    });
+  }
+
   function selectFeature(key) {
     Object.keys(featureBtnByKey).forEach(function (k) { featureBtnByKey[k].classList.toggle('pc-on', k === key); });
     renderFeaturePanel(key);

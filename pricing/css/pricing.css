@@ -163,6 +163,19 @@
   .pc-cmp-nav{flex-direction:row;flex-wrap:wrap;gap:6px}
   .pc-cmp-nav button{width:auto}
 }
+/* ---- mobile: capability comparison table is too dense to use on a
+   phone screen (7-module nav + 3-column table), so below this width
+   only the 3 tier cards show — the module nav, search (which only
+   searches the table), and the table itself all drop out, leaving
+   just #pcLadder's cards as a simple plan-comparison summary.
+   .pc-ladder-grid itself already stacks to 1fr at 900px (below); the
+   higher-specificity .pc-two-tier variant (Talent/Recruitment, which
+   drop the Manage card) still needs its own override here to stack
+   too instead of staying 2-up. */
+@media(max-width:768px){
+  .pc-ladder-grid.pc-two-tier{grid-template-columns:1fr}
+  #pcSearchForm,#pcSearchStatus,#pcCmpNav,#pcCmp,#pcSearchFeed{display:none}
+}
 
 .pc-panel-head{display:flex;flex-direction:column;align-items:center;text-align:center;padding:20px 22px 28px}
 .pc-mod-textwrap{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0}
@@ -340,6 +353,16 @@
 .pc-enterprise-card p{font-size:13px;color:var(--ink-2);margin-top:6px;line-height:1.45}
 @media(max-width:1000px){.pc-enterprise-card{flex-basis:calc((100% - 16px)/2);width:calc((100% - 16px)/2)}}
 @media(max-width:560px){.pc-enterprise-card{flex-basis:100%;width:100%}}
+/* mobile: 9 cards stacked full-width reads as a wall of scrolling — show
+   the first 3 and collapse the rest behind a "View N more" button (same
+   is-expanded toggle pattern as .pc-feature-more's card lists) */
+.pc-enterprise-more{display:none;width:max-content;margin:22px auto 0;background:transparent;border:1px solid var(--transform-line);color:var(--transform);font-family:var(--display);font-weight:700;font-size:13.5px;padding:10px 22px;border-radius:999px;cursor:pointer;transition:background .15s ease,border-color .15s ease}
+.pc-enterprise-more:hover{background:var(--transform-tint)}
+@media(max-width:560px){
+  .pc-enterprise-card:nth-child(n+4){display:none}
+  .pc-enterprise-grid.is-expanded .pc-enterprise-card{display:block}
+  .pc-enterprise-more{display:block}
+}
 
 /* ---- cta band ---- */
 .pc-cta{margin:64px 0 0;padding:56px 0}
