@@ -7099,6 +7099,11 @@ button.btn-primary {
 .pc-row.pc-flag .pc-cell-item{box-shadow:inset 3px 0 0 #E9A23B}
 .pc-cell-item{padding:22px 22px;display:flex;align-items:center;gap:9px;min-width:0}
 .pc-cell-item .pc-lbl{font-size:14.5px;color:var(--ink);font-weight:500;line-height:1.5}
+/* small status badge next to a capability's label — New (recently
+   shipped) vs Coming Soon (on the roadmap, not yet available) */
+.pc-label-badge{flex:0 0 auto;font-family:var(--display);font-weight:700;font-size:10px;letter-spacing:.04em;text-transform:uppercase;padding:3px 8px;border-radius:999px;line-height:1.3}
+.pc-label-badge-new{background:var(--grow);color:#fff}
+.pc-label-badge-soon{background:var(--bg-soft);color:var(--muted);border:1px solid var(--line)}
 .pc-cell{border-left:1px solid var(--line-2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:20px 8px;text-align:center;font-size:12.5px;color:var(--ink-2)}
 .pc-cell .pc-cap{font-weight:500;line-height:1.35;color:var(--ink-2)}
 .pc-cell[data-tier=manage]{--accent:var(--manage);--tint:var(--manage-tint)} .pc-cell[data-tier=grow]{--accent:var(--grow);--tint:var(--grow-tint)} .pc-cell[data-tier=transform]{--accent:var(--transform);--tint:var(--transform-tint)}

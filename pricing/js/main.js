@@ -1318,7 +1318,9 @@ window.addEventListener('message', function(e) {
       pop = '<span class="pc-info"><button class="pc-info-btn" aria-expanded="false" aria-controls="' + id + '" aria-label="More information">i</button>' +
         '<div class="pc-pop" id="' + id + '" role="dialog"><div class="pc-pt">' + plainify(it.label) + '</div>' + (it.info ? '<div class="pc-pd">' + it.info + '</div>' : '') + covers + '</div></span>';
     }
-    row.innerHTML = '<div class="pc-cell-item"><span class="pc-lbl">' + linkify(it.label) + '</span>' + pop + '</div>' +
+    var badge = it.tag === 'new' ? '<span class="pc-label-badge pc-label-badge-new">New</span>'
+      : it.tag === 'soon' ? '<span class="pc-label-badge pc-label-badge-soon">Coming Soon</span>' : '';
+    row.innerHTML = '<div class="pc-cell-item"><span class="pc-lbl">' + linkify(it.label) + '</span>' + badge + pop + '</div>' +
       (hideManage ? '' : '<div class="pc-cell" data-tier="manage">' + cellContent(it.manage) + '</div>') +
       '<div class="pc-cell" data-tier="grow">' + cellContent(it.grow) + '</div>' +
       '<div class="pc-cell" data-tier="transform">' + cellContent(it.transform) + '</div>';
