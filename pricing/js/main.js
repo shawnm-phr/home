@@ -1694,12 +1694,11 @@ window.addEventListener('message', function(e) {
   function renderFeaturePanel(key) {
     var f = STANDOUT[key];
     featureGrid.className = 'pc-feature-grid' + (f.pricingCards ? ' pc-lexi-pricing' : '');
+    featureHead.innerHTML = '<span class="pc-mod-textwrap"><span class="pc-mod-nameline">' + f.panelIcon + '<span class="pc-mod-name">' + f.name + '</span></span><span class="pc-mod-desc">' + f.tagline + '</span></span>';
     if (f.pricingCards) {
-      featureHead.innerHTML = '';
       renderPricingFeaturePanel(f.pricingCards);
       return;
     }
-    featureHead.innerHTML = '<span class="pc-mod-textwrap"><span class="pc-mod-nameline">' + f.panelIcon + '<span class="pc-mod-name">' + f.name + '</span></span><span class="pc-mod-desc">' + f.tagline + '</span></span>';
     featureGrid.innerHTML = f.cards.map(function (c) {
       var body = c.items ? featureListHtml(c.items) : '<p>' + c.desc + '</p>';
       return '<div class="pc-feature-card"><h4>' + c.title + '</h4>' + body + '</div>';
