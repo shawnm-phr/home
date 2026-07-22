@@ -1402,6 +1402,85 @@ window.addEventListener('message', function(e) {
   var LEXI_LOGO_SRC = 'https://peopleshr.com/wp-content/uploads/2026/05/lexi-s.png';
   var LEXI_X_ICON_SRC = 'images/module-icons/lexi_x_icon.svg';
   var STANDOUT = {
+    lexi: {
+      name: 'Lexi Ai', tagline: 'Turn any HR action into a simple conversation.',
+      icon: '<img class="pc-nav-ic" src="' + LEXI_X_ICON_SRC + '" alt="Lexi">',
+      panelIcon: '<img class="pc-mod-ic" src="' + LEXI_X_ICON_SRC + '" alt="Lexi">',
+      /* Lexi is three separate products, each rendered as its own
+         bespoke pricing-card row (see renderFeaturePanel's
+         f.pricingCards branch) instead of the shared title+desc/
+         title+checklist card grid — none of them are tier-scoped
+         capabilities like the other standout features. Insights is
+         priced and sold as its own add-on; Super Agent and Smart
+         Navigator are bundled into existing tiers (see their
+         includedIn), so they show which tiers include them instead
+         of a price. */
+      pricingCards: [
+        {
+          badge: 'Insights',
+          price: 'US$60', priceUnit: '/ seat / month',
+          tokenNote: 'Includes <b>10 million tokens</b> per seat, per month.',
+          footnote: 'Capabilities and insights available depend on the PeoplesHR modules enabled for your organisation.',
+          includedHeading: "What's Included",
+          included: [
+            'Proactive insights, and recommendations',
+            'Insights grounded in your organisation’s context',
+            'Cross-module workforce planning',
+            'Succession planning and readiness insights',
+            'Payroll & cost-impact modelling',
+            'Attrition & people-risk analysis',
+            'Workforce health & burnout signals',
+            'Multi-turn, follow-up-aware conversations',
+            'Enterprise-grade security & compliance',
+            'Recruitment bottleneck analysis',
+            'Unrestricted visibility into HR records for HR Leaders'
+          ]
+        },
+        {
+          badge: 'Super Agent',
+          accent: 'blue',
+          includedIn: ['Grow', 'Transform'],
+          tagline: 'A conversational AI layer that handles requests across HR, payroll, and time in one chat. Built to let employees, managers, and admins get things done without navigating separate modules.',
+          includedHeading: "What's Included",
+          groups: [
+            { name: 'For Employees', items: [
+              'Apply or cancel leave',
+              'Check leave balances and history',
+              'Retrieve pay-slips (including off-cycle/unscheduled payments)',
+              'Ask about company policies',
+              'View available benefits',
+              'Access or update permitted profile information',
+              'Ask about tax, insurance, statutory deductions, and projected income'
+            ] },
+            { name: 'For Managers', items: [
+              'Review team attendance and absences',
+              'Check shift information',
+              'View pending approvals — leave, overtime, swipes, manual attendance entries, and shift adjustments'
+            ] },
+            { name: 'For HR and Administrators', items: [
+              'Manage employee and organisational records',
+              'Maintain structures, locations, cost centers, salary grades, and designations',
+              'Update attendance and benefit configurations',
+              'Generate job descriptions and goal plans',
+              'Review recruitment information'
+            ] }
+          ]
+        },
+        {
+          badge: 'Smart Navigator',
+          accent: 'blue',
+          includedIn: ['Manage', 'Grow', 'Transform'],
+          tagline: 'A centralised search layer that cuts navigation time across the platform.',
+          footnote: 'Highlighted as a key differentiator alongside Lexi Ai — built to significantly reduce the time HR users and employees spend navigating a complex system.',
+          includedHeading: 'Key Capabilities',
+          included: [
+            'Intelligent Navigation — quickly locate and jump to any menu, module, or function without manually browsing the interface',
+            'AI-Powered — uses AI to interpret user intent and surface the most relevant results',
+            'Universal Access — acts as a centralised search layer across the entire PeoplesHR platform'
+          ]
+        }
+      ]
+    },
     mobile: {
       name: 'Mobile App', tagline: 'Work happens everywhere.',
       icon: '<img class="pc-nav-ic" src="' + MOBILE_APP_LOGO_SRC + '" alt="Mobile App">',
@@ -1510,85 +1589,6 @@ window.addEventListener('message', function(e) {
         ] }
       ]
     },
-    lexi: {
-      name: 'Lexi Ai', tagline: 'Turn any HR action into a simple conversation.',
-      icon: '<img class="pc-nav-ic" src="' + LEXI_X_ICON_SRC + '" alt="Lexi">',
-      panelIcon: '<img class="pc-mod-ic" src="' + LEXI_X_ICON_SRC + '" alt="Lexi">',
-      /* Lexi is three separate products, each rendered as its own
-         bespoke pricing-card row (see renderFeaturePanel's
-         f.pricingCards branch) instead of the shared title+desc/
-         title+checklist card grid — none of them are tier-scoped
-         capabilities like the other standout features. Insights is
-         priced and sold as its own add-on; Super Agent and Smart
-         Navigator are bundled into existing tiers (see their
-         includedIn), so they show which tiers include them instead
-         of a price. */
-      pricingCards: [
-        {
-          badge: 'Insights',
-          price: 'US$60', priceUnit: '/ seat / month',
-          tokenNote: 'Includes <b>10 million tokens</b> per seat, per month.',
-          footnote: 'Capabilities and insights available depend on the PeoplesHR modules enabled for your organisation.',
-          includedHeading: "What's Included",
-          included: [
-            'Proactive insights, and recommendations',
-            'Insights grounded in your organisation’s context',
-            'Cross-module workforce planning',
-            'Succession planning and readiness insights',
-            'Payroll & cost-impact modelling',
-            'Attrition & people-risk analysis',
-            'Workforce health & burnout signals',
-            'Multi-turn, follow-up-aware conversations',
-            'Enterprise-grade security & compliance',
-            'Recruitment bottleneck analysis',
-            'Unrestricted visibility into HR records for HR Leaders'
-          ]
-        },
-        {
-          badge: 'Super Agent',
-          accent: 'blue',
-          includedIn: ['Grow', 'Transform'],
-          tagline: 'A conversational AI layer that handles requests across HR, payroll, and time in one chat. Built to let employees, managers, and admins get things done without navigating separate modules.',
-          includedHeading: "What's Included",
-          groups: [
-            { name: 'For Employees', items: [
-              'Apply or cancel leave',
-              'Check leave balances and history',
-              'Retrieve pay-slips (including off-cycle/unscheduled payments)',
-              'Ask about company policies',
-              'View available benefits',
-              'Access or update permitted profile information',
-              'Ask about tax, insurance, statutory deductions, and projected income'
-            ] },
-            { name: 'For Managers', items: [
-              'Review team attendance and absences',
-              'Check shift information',
-              'View pending approvals — leave, overtime, swipes, manual attendance entries, and shift adjustments'
-            ] },
-            { name: 'For HR and Administrators', items: [
-              'Manage employee and organisational records',
-              'Maintain structures, locations, cost centers, salary grades, and designations',
-              'Update attendance and benefit configurations',
-              'Generate job descriptions and goal plans',
-              'Review recruitment information'
-            ] }
-          ]
-        },
-        {
-          badge: 'Smart Navigator',
-          accent: 'blue',
-          includedIn: ['Manage', 'Grow', 'Transform'],
-          tagline: 'A centralised search layer that cuts navigation time across the platform.',
-          footnote: 'Highlighted as a key differentiator alongside Lexi Ai — built to significantly reduce the time HR users and employees spend navigating a complex system.',
-          includedHeading: 'Key Capabilities',
-          included: [
-            'Intelligent Navigation — quickly locate and jump to any menu, module, or function without manually browsing the interface',
-            'AI-Powered — uses AI to interpret user intent and surface the most relevant results',
-            'Universal Access — acts as a centralised search layer across the entire PeoplesHR platform'
-          ]
-        }
-      ]
-    }
   };
   /* standout capabilities now live in their own section (#pcStandoutSection,
      right after the enterprise-guarantees block) rather than sharing the
