@@ -5,14 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pricing — PeoplesHR</title>
 <meta name="description" content="Three tiers built around HR maturity, not headcount. Compare Manage, Grow, and Transform, and build a quote scoped to the modules you need.">
-<!--
-  Production (WordPress): phrhome.css loads automatically from the theme.
-  style.css below only contains the page-specific delta rules plus the
-  small set of base tokens/components this page depends on, so the file
-  still previews correctly as a standalone build.
-  <link rel="stylesheet" href="phrhome.css">
--->
-<link rel="stylesheet" href="css/style.css">
+<!-- Sitewide styles, shared with every other page -->
+<link rel="stylesheet" href="../phrhome.css">
+<!-- Pricing-page-only styles (.pc- prefixed, scoped under .pc-scope) -->
+<link rel="stylesheet" href="css/pricing.css">
 </head>
 <body>
 
@@ -203,10 +199,9 @@
 
 
 
-<!--
-  Production (WordPress): phrhome.js loads automatically from the theme.
-  <script src="phrhome.js"></script>
--->
-<script src="js/main.js"></script>
+<!-- Sitewide behavior, shared with every other page -->
+<script src="../phrhome.js"></script>
+<!-- Pricing-page-only behavior (renders the tier ladder and comparison table) -->
+<script src="js/pricing.js"></script>
 </body>
 </html>
