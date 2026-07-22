@@ -93,7 +93,7 @@
       '<div class="pc-ttag">' + c.tag + '</div>' +
       '<div class="pc-tdesc"></div>' +
       '<ul></ul>' +
-      '<a href="#pcBuildQuote" class="pc-btn">Contact Us</a>';
+      '<a href="#" class="pc-btn" data-open-hs>Contact Us</a>';
     var goToBuilder = function () { document.getElementById('pcCmp').scrollIntoView({ behavior: 'smooth', block: 'start' }); };
     el.addEventListener('click', function (e) { if (e.target.closest('a')) return; goToBuilder(); });
     el.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goToBuilder(); } });
@@ -878,4 +878,56 @@
   }
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closePop(); });
   document.addEventListener('click', function (e) { var a = e.target.closest('.pc-cell-link'); if (a && a.getAttribute('href') === '#') e.preventDefault(); });
+
+  /* "Contact Us" modal — same .hs-modal-overlay/.hs-modal shell used
+     sitewide for HubSpot-embedded lead forms (see phrhome.js), just
+     wired to this page's own form instance. The embed script and the
+     form itself are both built lazily on first open, not on page
+     load, since most visitors never click Contact Us. */
+  var hsModal = document.getElementById('pcContactModal');
+  if (hsModal) {
+    var hsClose = document.getElementById('pcContactModalClose');
+    var hsFormBuilt = false;
+
+    function ensureHsScript(cb) {
+      if (window.hbspt) { cb(); return; }
+      var existing = document.querySelector('script[src*="hsforms.net/forms/embed/v2.js"]');
+      if (existing) { existing.addEventListener('load', cb); return; }
+      var s = document.createElement('script');
+      s.src = '//js-na2.hsforms.net/forms/embed/v2.js';
+      s.charset = 'utf-8';
+      s.onload = cb;
+      document.body.appendChild(s);
+    }
+    function buildHsForm() {
+      if (hsFormBuilt) return;
+      hsFormBuilt = true;
+      ensureHsScript(function () {
+        hbspt.forms.create({
+          portalId: '45700506',
+          formId: 'c1e9629d-3a39-4f1f-9a54-4644eb3304b9',
+          region: 'na2',
+          target: '#pcContactFormContainer'
+        });
+      });
+    }
+    function openHsModal(e) {
+      if (e) e.preventDefault();
+      hsModal.classList.add('active');
+      hsModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      buildHsForm();
+    }
+    function closeHsModal() {
+      hsModal.classList.remove('active');
+      hsModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    document.querySelectorAll('[data-open-hs]').forEach(function (el) {
+      el.addEventListener('click', openHsModal);
+    });
+    if (hsClose) hsClose.addEventListener('click', closeHsModal);
+    hsModal.addEventListener('click', function (e) { if (e.target === hsModal) closeHsModal(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && hsModal.classList.contains('active')) closeHsModal(); });
+  }
 }());
