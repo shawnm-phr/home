@@ -162,6 +162,10 @@
   .pc-cmp-layout::before{display:none}
   .pc-cmp-nav{flex-direction:row;flex-wrap:wrap;gap:6px}
   .pc-cmp-nav button{width:auto}
+  /* #pcStandoutNav's 110px padding only makes sense centering a short
+     nav beside a much taller sticky desktop panel — once the layout
+     collapses to one column it's just dead space above/below the row */
+  #pcStandoutNav{padding:10px 0}
 }
 /* ---- mobile: capability comparison table is too dense to use on a
    phone screen (7-module nav + 3-column table), so below this width
