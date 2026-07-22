@@ -171,13 +171,8 @@
    phone screen (7-module nav + 3-column table), so below this width
    only the 3 tier cards show — the module nav, search (which only
    searches the table), and the table itself all drop out, leaving
-   just #pcLadder's cards as a simple plan-comparison summary.
-   .pc-ladder-grid itself already stacks to 1fr at 900px (below); the
-   higher-specificity .pc-two-tier variant (Talent/Recruitment, which
-   drop the Manage card) still needs its own override here to stack
-   too instead of staying 2-up. */
+   just #pcLadder's cards as a simple plan-comparison summary. */
 @media(max-width:768px){
-  .pc-ladder-grid.pc-two-tier{grid-template-columns:1fr}
   #pcSearchForm,#pcSearchStatus,#pcCmpNav,#pcCmp,#pcSearchFeed{display:none}
 }
 
@@ -378,7 +373,26 @@
 .pc-cta-inner .pc-btn:hover{background:#1d4ed8;box-shadow:0 12px 26px -10px rgba(37,99,235,.8)}
 
 @media(max-width:900px){
-  .pc-ladder-grid{grid-template-columns:1fr;gap:16px}
+  /* swipeable horizontal carousel instead of a vertical stack — cards
+     scroll-snap one at a time (2-card .pc-two-tier included, since
+     grid-template-columns has no effect once this is a flex row), with
+     the next card peeking in at the edge to hint there's more to swipe
+     to. Narrowing .pc-ladder .pc-wrap's padding here (its desktop value
+     is a wide clamp() sized for the nav+table layout that's already
+     hidden by 768px) gives the cards more width to peek with. */
+  .pc-ladder .pc-wrap{padding:0 20px}
+  .pc-ladder-grid{
+    display:flex;
+    gap:14px;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    padding-bottom:4px;
+    margin-bottom:-4px;
+  }
+  .pc-ladder-grid::-webkit-scrollbar{display:none}
+  .pc-ladder-grid .pc-tier-card{scroll-snap-align:start;flex:0 0 auto;width:min(84%,400px)}
 }
 @media(max-width:720px){
   .pc-scope{--cols:minmax(0,1fr) 74px 74px 74px}
