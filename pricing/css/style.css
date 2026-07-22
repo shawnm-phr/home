@@ -7230,12 +7230,12 @@ button.btn-primary {
 
 /* ---- cta band ---- */
 .pc-cta{margin:64px 0 0;padding:56px 0}
-.pc-cta-inner{background:linear-gradient(135deg,#0F1C2E 0%,#1b2a44 55%,#3b2a63 100%);border-radius:24px;padding:52px 44px;text-align:center;color:#fff;position:relative;overflow:hidden}
-.pc-cta-inner:before{content:"";position:absolute;inset:0;background:radial-gradient(600px 200px at 80% 0%,rgba(124,58,237,.35),transparent 60%);pointer-events:none}
-.pc-cta-inner h2{color:#fff;font-size:clamp(26px,3.6vw,38px);font-weight:800;position:relative}
-.pc-cta-inner p{color:#C7D0DE;margin-top:14px;font-size:16px;position:relative;max-width:52ch;margin-left:auto;margin-right:auto}
-.pc-cta-inner .pc-btn{margin-top:26px;position:relative;background:#fff;color:var(--ink)}
-.pc-cta-inner .pc-btn:hover{box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.pc-cta-inner{text-align:center}
+.pc-cta-inner h2{color:var(--ink);font-size:clamp(26px,3.6vw,38px);font-weight:800}
+.pc-cta-inner p{color:var(--ink-2);margin-top:14px;font-size:16px;max-width:52ch;margin-left:auto;margin-right:auto}
+/* same blue CTA styling as the navbar's "Request a Demo" button */
+.pc-cta-inner .pc-btn{margin-top:26px;background:var(--grow);color:#fff;box-shadow:0 8px 20px -10px rgba(37,99,235,.7)}
+.pc-cta-inner .pc-btn:hover{background:#1d4ed8;box-shadow:0 12px 26px -10px rgba(37,99,235,.8)}
 
 @media(max-width:900px){
   .pc-ladder-grid{grid-template-columns:1fr;gap:16px}
@@ -7247,7 +7247,7 @@ button.btn-primary {
   .pc-cell-item{padding:13px 14px}
   .pc-grp-name{padding:12px 14px}
   .pc-panel-head{padding:15px 14px}
-  .pc-cta{padding:40px 0}.pc-cta-inner{padding:38px 22px}
+  .pc-cta{padding:40px 0}
 }
 @media(prefers-reduced-motion:reduce){.pc-scope,.pc-scope *{transition:none!important}}
 .pc-scope [hidden]{display:none!important}
