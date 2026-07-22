@@ -1393,18 +1393,19 @@ window.addEventListener('message', function(e) {
      capability text already used elsewhere on the site (mobile app,
      employee/manager self-service, and the Ask Lexi AI group), not
      new claims. */
-  var FEATURE_ICON_MOBILE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="3" width="10" height="18" rx="2.4"/><path d="M11 18h2"/></svg>';
+  var MOBILE_APP_LOGO_SRC = 'images/module-icons/phr_mobile_app_logo.svg';
   var FEATURE_ICON_SELFSERVICE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="8" r="3.4"/><path d="M3.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16.5 15.5l2 2 4-4"/></svg>';
-  /* the wordmark's lettering is white, made for a dark background —
-     works bare on the pricing card (itself dark), but needs its own
-     small dark chip everywhere else (nav tile) to stay legible; see
-     .pc-nav-lexi-chip. */
+  /* the wordmark (white lettering, made for a dark background) is used
+     on the pricing card's own brand row (itself dark); the square X
+     glyph is used everywhere the icon needs to stand alone, like the
+     nav tile and panel head, same square treatment as module icons. */
   var LEXI_LOGO_SRC = 'https://peopleshr.com/wp-content/uploads/2026/05/lexi-s.png';
+  var LEXI_X_ICON_SRC = 'images/module-icons/lexi_x_icon.svg';
   var STANDOUT = {
     mobile: {
       name: 'Mobile App', tagline: 'Work happens everywhere.',
-      icon: '<span class="pc-nav-ic pc-ic-svg">' + FEATURE_ICON_MOBILE + '</span>',
-      panelIcon: '<span class="pc-mod-ic pc-ic-svg">' + FEATURE_ICON_MOBILE + '</span>',
+      icon: '<img class="pc-nav-ic" src="' + MOBILE_APP_LOGO_SRC + '" alt="Mobile App">',
+      panelIcon: '<img class="pc-mod-ic" src="' + MOBILE_APP_LOGO_SRC + '" alt="Mobile App">',
       cards: [
         { title: 'Employee Self-Service', items: [
           'A personalised home screen with at-a-glance widgets for everything you need',
@@ -1511,8 +1512,8 @@ window.addEventListener('message', function(e) {
     },
     lexi: {
       name: 'Lexi Ai', tagline: 'Turn any HR action into a simple conversation.',
-      icon: '<span class="pc-nav-lexi-chip"><img src="' + LEXI_LOGO_SRC + '" alt="Lexi" class="pc-nav-lexi-logo"></span>',
-      panelIcon: '<span class="pc-nav-lexi-chip pc-mod-lexi-chip"><img src="' + LEXI_LOGO_SRC + '" alt="Lexi" class="pc-nav-lexi-logo pc-mod-lexi-logo"></span>',
+      icon: '<img class="pc-nav-ic" src="' + LEXI_X_ICON_SRC + '" alt="Lexi">',
+      panelIcon: '<img class="pc-mod-ic" src="' + LEXI_X_ICON_SRC + '" alt="Lexi">',
       /* Lexi is three separate products, each rendered as its own
          bespoke pricing-card row (see renderFeaturePanel's
          f.pricingCards branch) instead of the shared title+desc/
@@ -1623,9 +1624,15 @@ window.addEventListener('message', function(e) {
      classes — only the layout glue below is new. Renders one row per
      pricing card (Insights, Super Agent, Smart Navigator, ...),
      stacked vertically. */
+  /* items phrased as "Label — explanation" (e.g. Smart Navigator's
+     capabilities) get the label bolded on its own line with the
+     explanation below, instead of running both together as one plain
+     sentence — easier to scan a short list of named capabilities. */
   function colHtml(items) {
     return '<ul class="pc-feature-list">' + items.map(function (t) {
-      return '<li>' + svgTick + '<span>' + t + '</span></li>';
+      var dash = t.indexOf(' — ');
+      var body = dash === -1 ? t : '<b>' + t.slice(0, dash) + '</b><br>' + t.slice(dash + 3);
+      return '<li>' + svgTick + '<span>' + body + '</span></li>';
     }).join('') + '</ul>';
   }
   /* Insights' flat list splits evenly into two columns; Super Agent's
