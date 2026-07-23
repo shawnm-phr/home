@@ -175,8 +175,12 @@
   .pc-cmp-nav button{width:auto}
   /* #pcStandoutNav's 110px padding only makes sense centering a short
      nav beside a much taller sticky desktop panel — once the layout
-     collapses to one column it's just dead space above/below the row */
-  #pcStandoutNav{padding:10px 0}
+     collapses to one column it's just dead space above/below the row.
+     Its sticky lock goes too — pinned to top:75px in a single-column
+     layout, it just sits on top of and overlaps the feature panel
+     content as you scroll past it, instead of staying out of the way
+     beside a much taller sticky desktop panel. */
+  #pcStandoutNav{padding:10px 0;position:static}
 }
 /* ---- mobile: capability comparison table is too dense to use on a
    phone screen (7-module nav + 3-column table), so below this width
