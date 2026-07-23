@@ -261,7 +261,7 @@
      employee/manager self-service, and the Ask Lexi AI group), not
      new claims. */
   var MOBILE_APP_LOGO_SRC = 'images/module-icons/phr_mobile_app_logo.svg';
-  var FEATURE_ICON_SELFSERVICE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="8" r="3.4"/><path d="M3.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16.5 15.5l2 2 4-4"/></svg>';
+  var SELF_SERVICE_ICON_SRC = 'images/module-icons/self_service.svg';
   /* the wordmark (white lettering, made for a dark background) is used
      on the pricing card's own brand row (itself dark); the square X
      glyph is used everywhere the icon needs to stand alone, like the
@@ -400,8 +400,8 @@
     },
     selfservice: {
       name: 'Self Service Portal', tagline: 'Fewer requests routed through HR.',
-      icon: '<span class="pc-nav-ic pc-ic-svg">' + FEATURE_ICON_SELFSERVICE + '</span>',
-      panelIcon: '<span class="pc-mod-ic pc-ic-svg">' + FEATURE_ICON_SELFSERVICE + '</span>',
+      icon: '<img class="pc-nav-ic" src="' + SELF_SERVICE_ICON_SRC + '" alt="Self Service Portal">',
+      panelIcon: '<img class="pc-mod-ic" src="' + SELF_SERVICE_ICON_SRC + '" alt="Self Service Portal">',
       cards: [
         { title: 'Personal Information Management', items: [
           'View and update personal/employee profile details',
