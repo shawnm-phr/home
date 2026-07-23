@@ -151,7 +151,7 @@
    bare nav{} rule (sticky, height:64px, border-bottom, etc. — meant
    for the old unprefixed site header) unless every property that rule
    sets is overridden here */
-.pc-cmp-nav{position:sticky;top:75px;z-index:20;height:auto;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:2px;background:transparent;backdrop-filter:none;border-bottom:0}
+.pc-cmp-nav{position:sticky;top:90px;z-index:20;height:auto;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:2px;background:transparent;backdrop-filter:none;border-bottom:0}
 /* module nav (HR, Pay, Time...) and the standout-capability nav
    (Lexi Ai, Mobile App...) share .pc-cmp-nav's sticky/layout base but
    can have independent top/bottom padding via their own ids */
@@ -176,7 +176,7 @@
   /* #pcStandoutNav's 110px padding only makes sense centering a short
      nav beside a much taller sticky desktop panel — once the layout
      collapses to one column it's just dead space above/below the row.
-     Its sticky lock goes too — pinned to top:75px in a single-column
+     Its sticky lock goes too — pinned to top:90px in a single-column
      layout, it just sits on top of and overlaps the feature panel
      content as you scroll past it, instead of staying out of the way
      beside a much taller sticky desktop panel. */
