@@ -169,11 +169,15 @@
 }
 /* ---- mobile: capability comparison table is too dense to use on a
    phone screen (7-module nav + 3-column table), so below this width
-   only the 3 tier cards show — the module nav, search (which only
-   searches the table), and the table itself all drop out, leaving
-   just #pcLadder's cards as a simple plan-comparison summary. */
+   the search and table drop out, leaving just #pcLadder's cards as a
+   simple plan-comparison summary. The module nav (HR, Pay, Time...)
+   stays — it's still useful for switching which tier cards/blurbs are
+   shown — but loses its sticky lock, since that was there to keep it
+   in view alongside the (now hidden) tall table as you scrolled past
+   it; sitting above the cards in normal flow, it doesn't need it. */
 @media(max-width:768px){
-  #pcSearchForm,#pcSearchStatus,#pcCmpNav,#pcCmp,#pcSearchFeed{display:none}
+  #pcSearchForm,#pcSearchStatus,#pcCmp,#pcSearchFeed{display:none}
+  #pcCmpNav{position:static}
 }
 
 .pc-panel-head{display:flex;flex-direction:column;align-items:center;text-align:center;padding:20px 22px 28px}
