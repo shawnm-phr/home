@@ -100,11 +100,50 @@
     ladderEls[k] = { card: el, desc: el.querySelector('.pc-tdesc'), list: el.querySelector('ul'), fallback: c };
     ladder.appendChild(el);
   });
+  /* trailing spacer so the last card can scroll-snap flush in the
+     mobile carousel too — see .pc-ladder-spacer in pricing.css */
+  var ladderSpacer = document.createElement('div');
+  ladderSpacer.className = 'pc-ladder-spacer';
+  ladderSpacer.setAttribute('aria-hidden', 'true');
+  ladder.appendChild(ladderSpacer);
+
+  /* mobile-only tier tabs — the ladder cards become a swipeable
+     horizontal carousel below 900px (see .pc-ladder-grid in
+     pricing.css), and swipe alone isn't a discoverable or reliable way
+     for everyone to reach Grow/Transform, so these give an explicit tap
+     target that scrolls the carousel to the matching card. Hidden by
+     CSS above 900px, where all three cards already sit side by side. */
+  var tierTabs = document.getElementById('pcTierTabs');
+  var tabEls = {};
+  if (tierTabs) {
+    TIERS.forEach(function (pair) {
+      var k = pair[0], name = pair[1];
+      var btn = document.createElement('button');
+      btn.type = 'button'; btn.className = 'pc-tier-tab'; btn.dataset.tier = k; btn.textContent = name;
+      btn.addEventListener('click', function () {
+        ladderEls[k].card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+      });
+      tabEls[k] = btn;
+      tierTabs.appendChild(btn);
+    });
+    /* highlight whichever card is currently most in view as the user
+       swipes, so the tabs track the carousel instead of going stale */
+    var tabObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
+          var k = entry.target.dataset.tier;
+          TIERS.forEach(function (pair) { tabEls[pair[0]].classList.toggle('pc-on', pair[0] === k); });
+        }
+      });
+    }, { root: ladder, threshold: [0.6] });
+    TIERS.forEach(function (pair) { tabObserver.observe(ladderEls[pair[0]].card); });
+  }
 
   function updateLadderForModule(name) {
     var hideManage = NO_MANAGE.indexOf(name) !== -1;
     ladderEls.manage.card.hidden = hideManage;
     ladder.classList.toggle('pc-two-tier', hideManage);
+    if (tabEls.manage) tabEls.manage.hidden = hideManage;
     var copy = MODULE_TIERS[name];
     TIERS.forEach(function (pair) {
       var k = pair[0];

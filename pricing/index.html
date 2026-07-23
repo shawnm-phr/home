@@ -85,6 +85,11 @@
       <div class="pc-cmp-layout">
         <nav class="pc-cmp-nav" id="pcCmpNav" aria-label="Module"></nav>
         <div class="pc-right-col">
+          <!-- mobile-only: explicit tap targets for jumping to a tier
+               card in the swipe carousel below, since the module nav
+               up top switches modules, not tiers — see pc-tier-tabs in
+               pricing.css and its setup in pricing.js -->
+          <div class="pc-tier-tabs" id="pcTierTabs"></div>
           <div class="pc-ladder-grid" id="pcLadder"></div>
           <div class="pc-cmp" id="pcCmp">
             <div class="pc-panel-head" id="pcPanelHead"></div>

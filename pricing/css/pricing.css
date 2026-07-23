@@ -94,6 +94,17 @@
 .pc-ladder-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
 /* Talent & Recruitment aren't offered on Manage — only 2 cards show */
 .pc-ladder-grid.pc-two-tier{grid-template-columns:repeat(2,1fr)}
+/* mobile-carousel-only trailing spacer — see its sizing in the
+   max-width:900px media query further down */
+.pc-ladder-spacer{display:none}
+/* mobile-only tier tabs (Manage/Grow/Transform), an explicit way to
+   jump to a card in the swipe carousel below 900px — see the matching
+   media query further down and pcTierTabs' setup in pricing.js. Hidden
+   here since above 900px all three cards already sit side by side. */
+.pc-tier-tabs{display:none}
+.pc-tier-tab{font-family:var(--display);font-weight:700;font-size:13.5px;color:var(--ink-2);background:var(--bg-soft);border:1px solid var(--line);border-radius:999px;padding:8px 16px;cursor:pointer;transition:background .15s ease,border-color .15s ease,color .15s ease}
+.pc-tier-tab:hover{border-color:var(--muted-2)}
+.pc-tier-tab.pc-on{background:var(--ink);color:#fff;border-color:var(--ink)}
 .pc-tier-card{position:relative;background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px 24px;display:flex;flex-direction:column;box-shadow:var(--shadow);transition:transform .18s ease,box-shadow .22s ease,border-color .18s ease;cursor:pointer}
 .pc-tier-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
 .pc-tier-card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
@@ -397,6 +408,16 @@
   }
   .pc-ladder-grid::-webkit-scrollbar{display:none}
   .pc-ladder-grid .pc-tier-card{scroll-snap-align:start;flex:0 0 auto;width:min(84%,400px)}
+  /* without this, the last card can never reach scroll-snap-align:start
+     — there's no scrollable track left after it once you've scrolled as
+     far as the browser allows, so it stalls partway in. This invisible
+     spacer is that missing track. (A padding-right on .pc-ladder-grid
+     itself would do the same job, but percentage widths on flex items
+     resolve against the container's content box *after* its own
+     padding, so the cards' own 84% would shrink to chase a padding
+     that's chasing them right back — a real element sidesteps that.) */
+  .pc-ladder-spacer{display:block;flex:0 0 auto;width:calc(100% - min(84%,400px) - 14px)}
+  .pc-tier-tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:16px}
 }
 @media(max-width:720px){
   .pc-scope{--cols:minmax(0,1fr) 74px 74px 74px}
