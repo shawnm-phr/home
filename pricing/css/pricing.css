@@ -425,7 +425,7 @@
      padding, so the cards' own 84% would shrink to chase a padding
      that's chasing them right back — a real element sidesteps that.) */
   .pc-ladder-spacer{display:block;flex:0 0 auto;width:calc(100% - min(84%,400px) - 14px)}
-  .pc-tier-tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:16px}
+  .pc-tier-tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:25px}
 }
 @media(max-width:720px){
   .pc-scope{--cols:minmax(0,1fr) 74px 74px 74px}
