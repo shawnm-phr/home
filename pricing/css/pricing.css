@@ -155,7 +155,7 @@
 /* module nav (HR, Pay, Time...) and the standout-capability nav
    (Lexi Ai, Mobile App...) share .pc-cmp-nav's sticky/layout base but
    can have independent top/bottom padding via their own ids */
-#pcCmpNav{padding:10px 0}
+#pcCmpNav{padding:110px 0}
 #pcStandoutNav{padding:110px 0}
 .pc-cmp-nav button{display:flex;align-items:center;gap:11px;width:100%;text-align:left;font-family:var(--display);font-weight:600;font-size:15.5px;color:var(--ink-2);background:transparent;border:0;border-left:3px solid transparent;border-radius:0 8px 8px 0;padding:10px 16px;cursor:pointer;transition:background .15s ease,color .15s ease,border-color .15s ease}
 .pc-cmp-nav button:hover{background:#fff;color:var(--ink)}
@@ -173,14 +173,14 @@
   .pc-cmp-layout::before{display:none}
   .pc-cmp-nav{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:6px}
   .pc-cmp-nav button{width:auto}
-  /* #pcStandoutNav's 110px padding only makes sense centering a short
-     nav beside a much taller sticky desktop panel — once the layout
-     collapses to one column it's just dead space above/below the row.
-     Its sticky lock goes too — pinned to top:90px in a single-column
-     layout, it just sits on top of and overlaps the feature panel
+  /* #pcCmpNav/#pcStandoutNav's 110px padding only makes sense centering
+     a short nav beside a much taller sticky desktop panel — once the
+     layout collapses to one column it's just dead space above/below the
+     row. Their sticky lock goes too — pinned to top:90px in a
+     single-column layout, it just sits on top of and overlaps the panel
      content as you scroll past it, instead of staying out of the way
      beside a much taller sticky desktop panel. */
-  #pcStandoutNav{padding:10px 0;position:static}
+  #pcCmpNav,#pcStandoutNav{padding:10px 0;position:static}
 }
 /* ---- mobile: capability comparison table is too dense to use on a
    phone screen (7-module nav + 3-column table), so below this width
