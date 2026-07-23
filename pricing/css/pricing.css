@@ -304,7 +304,27 @@
    rows; each row keeps the original card+checklist grid. */
 .pc-feature-grid.pc-lexi-pricing{background:transparent;border:0;padding:0;display:flex;flex-direction:column;gap:36px}
 .pc-lexi-row{display:grid;grid-template-columns:minmax(320px,420px) 1fr;align-items:stretch;gap:20px}
-@media(max-width:820px){.pc-lexi-row{grid-template-columns:1fr}}
+@media(max-width:820px){
+  .pc-lexi-row{grid-template-columns:1fr}
+  /* mobile: swipeable horizontal carousel instead of a vertical stack —
+     one row (colored pricing card + its "what's included" box) fills
+     the screen at a time, scroll-snapped, swipe for the next. Lexi Ai
+     only — Mobile App/Self Service Portal's plain .pc-feature-grid
+     (no .pc-lexi-pricing) is untouched. Each row is full width with no
+     .pc-tier-card-style peek, since unlike the tier cards these rows
+     are dense/tall (a full pricing card plus a checklist) rather than
+     compact, so a partial peek would just look like clutter. */
+  .pc-feature-grid.pc-lexi-pricing{
+    flex-direction:row;
+    gap:16px;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .pc-feature-grid.pc-lexi-pricing::-webkit-scrollbar{display:none}
+  .pc-feature-grid.pc-lexi-pricing .pc-lexi-row{scroll-snap-align:start;flex:0 0 100%;width:100%}
+}
 .pc-lexi-card{text-align:center;display:flex;flex-direction:column;position:relative;overflow:hidden;color:#fff;border-radius:24px;padding:52px 44px}
 /* Insights' purple gradient, with a bright magenta glow in the top
    corner (same radial-glow technique the old CTA band used) */
