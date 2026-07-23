@@ -539,7 +539,9 @@
     '</div>';
   }
   function renderPricingFeaturePanel(cards) {
-    featureGrid.innerHTML = cards.map(pricingCardHtml).join('');
+    /* trailing spacer so the last row can scroll-snap flush in the
+       mobile carousel too — see .pc-lexi-row-spacer in pricing.css */
+    featureGrid.innerHTML = cards.map(pricingCardHtml).join('') + '<div class="pc-lexi-row-spacer" aria-hidden="true"></div>';
   }
 
   /* long item lists (Mobile App's especially) made cards wildly uneven
