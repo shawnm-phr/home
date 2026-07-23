@@ -403,6 +403,14 @@
     scroll-snap-type:x mandatory;
     -webkit-overflow-scrolling:touch;
     scrollbar-width:none;
+    /* overflow-x:auto with no overflow-y set forces overflow-y to
+       compute as auto too (same non-visible/visible pairing rule as
+       elsewhere in this file), which clips .pc-popular's "Most chosen"
+       badge — it pokes 11px above the card via top:-11px. Reserve that
+       space as padding (inside the scrollport, so nothing clips) and
+       cancel the visual push with a matching negative margin. */
+    padding-top:16px;
+    margin-top:-16px;
     padding-bottom:4px;
     margin-bottom:-4px;
   }
