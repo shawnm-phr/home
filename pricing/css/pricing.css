@@ -316,6 +316,13 @@
      is untouched. */
   .pc-feature-grid.pc-lexi-pricing{
     flex-direction:row;
+    /* default (stretch) would stretch every row to match the tallest
+       row's *total* height (card+box combined), which then leaks into
+       .pc-lexi-row's own default grid align-content:stretch and
+       inflates both the card and the box to fill it — fighting the
+       JS-driven card-only height match below. flex-start avoids that:
+       each row keeps its own natural total height. */
+    align-items:flex-start;
     gap:16px;
     overflow-x:auto;
     scroll-snap-type:x mandatory;
@@ -323,7 +330,7 @@
     scrollbar-width:none;
   }
   .pc-feature-grid.pc-lexi-pricing::-webkit-scrollbar{display:none}
-  .pc-feature-grid.pc-lexi-pricing .pc-lexi-row{scroll-snap-align:start;flex:0 0 auto;width:min(84%,420px)}
+  .pc-feature-grid.pc-lexi-pricing .pc-lexi-row{scroll-snap-align:start;flex:0 0 auto;width:min(84%,420px);align-content:start}
   /* same last-card-can't-reach-flush problem as the tier carousel, same
      fix: an invisible trailing spacer sized to match every other row's
      peek (see pcLexiRowSpacer in pricing.js) */

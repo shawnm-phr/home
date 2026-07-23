@@ -560,12 +560,38 @@
       '<button type="button" class="pc-feature-more" data-more-label="' + moreLabel + '" data-less-label="Show less">' + moreLabel + '</button>';
   }
 
+  /* mobile carousel only: the colored pricing cards (Insights/Super
+     Agent/Smart Navigator) sit side by side while swiping (this slide's
+     card peeking against the next), so their heights being naturally
+     uneven — driven entirely by how much copy/tags each one has — reads
+     as a visible misalignment there in a way it never did stacked
+     vertically on desktop. Match every card to the tallest one; any
+     resulting slack stays inside the (already centered, flex-column)
+     card rather than forcing the white "what's included" box beneath
+     it to grow or shift to compensate. */
+  function equalizeLexiCardHeights() {
+    var cards = featureGrid.querySelectorAll('.pc-lexi-card');
+    if (!cards.length) return;
+    cards.forEach(function (c) { c.style.minHeight = ''; });
+    if (!window.matchMedia('(max-width:820px)').matches) return;
+    var max = 0;
+    cards.forEach(function (c) { max = Math.max(max, c.getBoundingClientRect().height); });
+    cards.forEach(function (c) { c.style.minHeight = max + 'px'; });
+  }
+  var lexiHeightResizeTimer;
+  window.addEventListener('resize', function () {
+    if (!featureGrid.classList.contains('pc-lexi-pricing')) return;
+    clearTimeout(lexiHeightResizeTimer);
+    lexiHeightResizeTimer = setTimeout(equalizeLexiCardHeights, 150);
+  });
+
   function renderFeaturePanel(key) {
     var f = STANDOUT[key];
     featureGrid.className = 'pc-feature-grid' + (f.pricingCards ? ' pc-lexi-pricing' : '');
     featureHead.innerHTML = '<span class="pc-mod-textwrap"><span class="pc-mod-nameline">' + f.panelIcon + '<span class="pc-mod-name">' + f.name + '</span></span><span class="pc-mod-desc">' + f.tagline + '</span></span>';
     if (f.pricingCards) {
       renderPricingFeaturePanel(f.pricingCards);
+      equalizeLexiCardHeights();
       return;
     }
     featureGrid.innerHTML = f.cards.map(function (c) {
