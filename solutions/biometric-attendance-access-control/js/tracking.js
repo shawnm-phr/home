@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════════════════════
    tracking.js — delta script for the Tracking page
-   (Access & Attendance Devices — /solutions/peopleshr-tracking/)
+   (Access & Attendance Devices — /solutions/biometric-attendance-access-control/)
 
    Loaded AFTER the shared ../phrhome.js. Two things live here:
 
