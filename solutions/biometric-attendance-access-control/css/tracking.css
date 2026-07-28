@@ -162,17 +162,32 @@
 .tk-device h3{font-size:15.5px;font-weight:700;margin:0 0 8px;}
 .tk-device p{font-size:13.5px;line-height:1.6;color:var(--tk-muted);margin:0;}
 
-/* --- Checklists (Partner trust / Access control deep dive) ---------- */
+/* --- Checklist (Partner trust) --------------------------------------- */
 .tk-checklist{
   max-width:760px;margin:0 auto;padding:0;list-style:none;
   display:grid;grid-template-columns:1fr;gap:14px;
 }
-.tk-checklist-2col{max-width:900px;grid-template-columns:1fr 1fr;}
 .tk-checklist li{
   position:relative;padding-left:34px;font-size:14.5px;line-height:1.55;color:var(--tk-text);
 }
 .tk-checklist li::before{
   content:"";position:absolute;left:0;top:1px;width:22px;height:22px;border-radius:50%;
+  background:var(--tk-blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='5 13 10 18 19 7'/%3E%3C/svg%3E") center/13px no-repeat;
+}
+
+/* --- Access control deep dive (text left / list-cards right) -------- */
+.tk-access-grid{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
+.tk-access-text{text-align:left;}
+.tk-access-text h2{font-size:clamp(24px,3vw,34px);font-weight:800;line-height:1.2;letter-spacing:-.01em;margin:0 0 14px;}
+.tk-access-text p{font-size:15.5px;line-height:1.65;color:var(--tk-text);margin:0;}
+.tk-access-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;}
+.tk-access-list li{
+  display:flex;align-items:center;gap:12px;
+  background:#fff;border:1px solid var(--tk-border);border-radius:12px;padding:14px 16px;
+  font-size:14px;font-weight:600;color:var(--tk-ink);
+}
+.tk-access-check{
+  flex:0 0 auto;width:22px;height:22px;border-radius:50%;
   background:var(--tk-blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='5 13 10 18 19 7'/%3E%3C/svg%3E") center/13px no-repeat;
 }
 
@@ -229,7 +244,8 @@
 }
 @media (max-width:900px){
   .tk-integration-grid{grid-template-columns:1fr;}
-  .tk-checklist-2col{grid-template-columns:1fr;}
+  .tk-access-grid{grid-template-columns:1fr;gap:32px;}
+  .tk-access-text{text-align:center;}
   .tk-switch-layout{grid-template-columns:1fr;gap:28px;}
   .tk-switch-img-wrap{height:240px;}
   .tk-hero{grid-template-columns:1fr;min-height:0;gap:36px;padding:48px 20px;}
