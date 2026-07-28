@@ -109,7 +109,8 @@
 }
 .tk-stat-ic svg{width:22px;height:22px;}
 .tk-stats strong{font-size:19px;font-weight:800;color:var(--tk-ink);line-height:1.2;}
-.tk-stats span{font-size:12.5px;font-weight:500;color:var(--tk-muted);}
+.tk-stats span{font-size:12.5px;font-weight:600;color:var(--tk-muted);}
+.tk-stats p{font-size:12px;line-height:1.5;color:var(--tk-muted);margin:6px 0 0;opacity:.8;}
 
 /* --- Generic content section --------------------------------------- */
 .tk-section{max-width:1240px;margin:0 auto;padding:80px 24px;}
