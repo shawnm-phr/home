@@ -65,12 +65,6 @@
 .tk-hero{
   max-width:1240px;margin:0 auto;padding:72px 24px 48px;text-align:center;
 }
-.tk-eyebrow{
-  display:inline-flex;align-items:center;gap:8px;
-  font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--tk-blue);background:var(--tk-blue-soft);border-radius:999px;
-  padding:6px 14px;margin:0 0 20px;
-}
 .tk-hero h1{
   font-size:clamp(32px,4.5vw,52px);
   font-weight:800;line-height:1.12;letter-spacing:-.01em;
