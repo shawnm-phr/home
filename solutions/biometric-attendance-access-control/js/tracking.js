@@ -87,27 +87,52 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
   switchTo(0);
 }());
 
-/* tracking - device-type carousel (same pattern as home-page testimonials) */
+/* tracking - device-type carousel (vertical cards, 3+ visible at a time) */
 (function(){
+  var wrap = document.querySelector('.tk-devtype-track-wrap');
   var track = document.getElementById('tkDevtypeTrack');
-  if(!track) return; // guard: absent on non-tracking pages
+  if(!track || !wrap) return; // guard: absent on non-tracking pages
 
-  var dots = document.querySelectorAll('#tkDevtypeDots .tk-devtype-dot');
+  var slides = track.children;
+  var total = slides.length;
+  var dotsWrap = document.getElementById('tkDevtypeDots');
   var prev = document.getElementById('tkDevtypePrev');
   var next = document.getElementById('tkDevtypeNext');
-  var total = dots.length;
   var current = 0;
   var autoTimer;
 
+  function cardStep(){
+    var gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+    return slides[0].getBoundingClientRect().width + gap;
+  }
+
+  function maxIndex(){
+    var visible = Math.max(1, Math.round(wrap.clientWidth / cardStep()));
+    return Math.max(0, total - visible);
+  }
+
+  function buildDots(){
+    var m = maxIndex();
+    dotsWrap.innerHTML = '';
+    for(var i = 0; i <= m; i++){
+      var b = document.createElement('button');
+      b.className = 'tk-devtype-dot' + (i === current ? ' active' : '');
+      b.setAttribute('aria-label', 'Go to card ' + (i + 1));
+      b.addEventListener('click', (function(idx){ return function(){ goTo(idx); resetAuto(); }; }(i)));
+      dotsWrap.appendChild(b);
+    }
+  }
+
   function goTo(idx){
-    current = (idx + total) % total;
-    track.style.transform = 'translateX(-' + (current * 100) + '%)';
-    dots.forEach(function(d, i){ d.classList.toggle('active', i === current); });
+    var m = maxIndex();
+    current = Math.max(0, Math.min(idx, m));
+    track.style.transform = 'translateX(-' + (current * cardStep()) + 'px)';
+    var dots = dotsWrap.children;
+    for(var i = 0; i < dots.length; i++){ dots[i].classList.toggle('active', i === current); }
   }
 
   if(prev) prev.addEventListener('click', function(){ goTo(current - 1); resetAuto(); });
-  if(next) next.addEventListener('click', function(){ goTo(current + 1); resetAuto(); });
-  dots.forEach(function(d, i){ d.addEventListener('click', function(){ goTo(i); resetAuto(); }); });
+  if(next) next.addEventListener('click', function(){ goTo(current + 1 > maxIndex() ? 0 : current + 1); resetAuto(); });
 
   var startX = 0;
   track.addEventListener('touchstart', function(e){ startX = e.touches[0].clientX; }, {passive:true});
@@ -116,6 +141,18 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
     if(Math.abs(diff) > 40){ goTo(diff > 0 ? current + 1 : current - 1); resetAuto(); }
   });
 
-  function resetAuto(){ clearInterval(autoTimer); autoTimer = setInterval(function(){ goTo(current + 1); }, 5000); }
+  var resizeTimer;
+  window.addEventListener('resize', function(){
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function(){ buildDots(); goTo(current); }, 150);
+  });
+
+  function resetAuto(){
+    clearInterval(autoTimer);
+    autoTimer = setInterval(function(){ goTo(current + 1 > maxIndex() ? 0 : current + 1); }, 5000);
+  }
+
+  buildDots();
+  goTo(0);
   resetAuto();
 }());
