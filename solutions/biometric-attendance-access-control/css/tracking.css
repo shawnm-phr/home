@@ -112,7 +112,7 @@
 .tk-section-head p{font-size:15.5px;line-height:1.65;color:var(--tk-text);margin:0;}
 
 /* --- Pillar switcher (Attendance / Access / Payroll) ----------------- */
-.tk-switch{max-width:1080px;margin:0 auto;}
+.tk-switch{max-width:1080px;margin:28px auto 0;}
 .tk-switch-layout{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;min-height:300px;}
 .tk-switch-content{transition:opacity .22s ease,transform .22s ease;}
 .tk-switch-content.tk-switch-out{opacity:0;transform:translateY(-10px);pointer-events:none;}
@@ -127,7 +127,7 @@
 .tk-switch-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease,opacity .3s ease;}
 .tk-switch-img.tk-switch-img-out{opacity:0;transform:scale(1.04);}
 .tk-switch-tint{position:absolute;inset:0;opacity:.28;transition:background .4s ease;pointer-events:none;}
-.tk-switch-tabs{display:flex;border-top:1px solid var(--tk-border);margin-top:36px;}
+.tk-switch-tabs{display:flex;border-bottom:1px solid var(--tk-border);margin-bottom:36px;}
 .tk-switch-tab{
   flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
   padding:20px 10px;background:none;border:none;cursor:pointer;font-family:inherit;position:relative;
