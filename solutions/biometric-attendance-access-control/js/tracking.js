@@ -86,3 +86,36 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
 
   switchTo(0);
 }());
+
+/* tracking - device-type carousel (same pattern as home-page testimonials) */
+(function(){
+  var track = document.getElementById('tkDevtypeTrack');
+  if(!track) return; // guard: absent on non-tracking pages
+
+  var dots = document.querySelectorAll('#tkDevtypeDots .tk-devtype-dot');
+  var prev = document.getElementById('tkDevtypePrev');
+  var next = document.getElementById('tkDevtypeNext');
+  var total = dots.length;
+  var current = 0;
+  var autoTimer;
+
+  function goTo(idx){
+    current = (idx + total) % total;
+    track.style.transform = 'translateX(-' + (current * 100) + '%)';
+    dots.forEach(function(d, i){ d.classList.toggle('active', i === current); });
+  }
+
+  if(prev) prev.addEventListener('click', function(){ goTo(current - 1); resetAuto(); });
+  if(next) next.addEventListener('click', function(){ goTo(current + 1); resetAuto(); });
+  dots.forEach(function(d, i){ d.addEventListener('click', function(){ goTo(i); resetAuto(); }); });
+
+  var startX = 0;
+  track.addEventListener('touchstart', function(e){ startX = e.touches[0].clientX; }, {passive:true});
+  track.addEventListener('touchend', function(e){
+    var diff = startX - e.changedTouches[0].clientX;
+    if(Math.abs(diff) > 40){ goTo(diff > 0 ? current + 1 : current - 1); resetAuto(); }
+  });
+
+  function resetAuto(){ clearInterval(autoTimer); autoTimer = setInterval(function(){ goTo(current + 1); }, 5000); }
+  resetAuto();
+}());
