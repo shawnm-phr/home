@@ -111,23 +111,48 @@
 .tk-section-head h2{font-size:clamp(24px,3vw,34px);font-weight:800;line-height:1.2;letter-spacing:-.01em;margin:0 0 14px;}
 .tk-section-head p{font-size:15.5px;line-height:1.65;color:var(--tk-text);margin:0;}
 
-/* --- Pillar grid (Attendance / Access / Payroll) -------------------- */
-.tk-pillar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
-.tk-pillar{border:1px solid var(--tk-border);border-radius:16px;padding:28px;background:#fff;}
-.tk-pillar-ic{
-  width:44px;height:44px;border-radius:12px;display:grid;place-items:center;
-  background:var(--tk-blue-soft);color:var(--tk-blue);margin-bottom:16px;
+/* --- Pillar switcher (Attendance / Access / Payroll) ----------------- */
+.tk-switch{max-width:1080px;margin:0 auto;}
+.tk-switch-layout{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;min-height:300px;}
+.tk-switch-content{transition:opacity .22s ease,transform .22s ease;}
+.tk-switch-content.tk-switch-out{opacity:0;transform:translateY(-10px);pointer-events:none;}
+.tk-switch-content.tk-switch-in{opacity:0;transform:translateY(12px);}
+.tk-switch-title{font-size:22px;font-weight:800;margin:0 0 14px;}
+.tk-switch-body{font-size:15px;line-height:1.7;color:var(--tk-muted);margin:0;}
+.tk-switch-visual{position:relative;}
+.tk-switch-img-wrap{
+  border-radius:20px;overflow:hidden;position:relative;height:320px;
+  box-shadow:0 8px 40px rgba(13,27,62,.14);background:var(--tk-surface);
 }
-.tk-pillar-ic svg{width:22px;height:22px;}
-.tk-pillar h3{font-size:17px;font-weight:700;margin:0 0 8px;}
-.tk-pillar p{font-size:14px;line-height:1.6;color:var(--tk-muted);margin:0;}
+.tk-switch-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease,opacity .3s ease;}
+.tk-switch-img.tk-switch-img-out{opacity:0;transform:scale(1.04);}
+.tk-switch-tint{position:absolute;inset:0;opacity:.28;transition:background .4s ease;pointer-events:none;}
+.tk-switch-tabs{display:flex;border-top:1px solid var(--tk-border);margin-top:36px;}
+.tk-switch-tab{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  padding:20px 10px;background:none;border:none;cursor:pointer;font-family:inherit;position:relative;
+}
+.tk-switch-tab::after{
+  content:"";position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--tk-blue);
+  transform:scaleX(0);transition:transform .25s ease;
+}
+.tk-switch-tab.active::after{transform:scaleX(1);}
+.tk-switch-tab-ic{width:24px;height:24px;color:#94a3b8;transition:color .2s ease;}
+.tk-switch-tab-ic svg{width:100%;height:100%;}
+.tk-switch-tab span:last-child{font-size:12.5px;font-weight:700;color:#94a3b8;transition:color .2s ease;text-align:center;}
+.tk-switch-tab.active .tk-switch-tab-ic,.tk-switch-tab:hover .tk-switch-tab-ic{color:var(--tk-blue);}
+.tk-switch-tab.active span:last-child,.tk-switch-tab:hover span:last-child{color:var(--tk-ink);}
 
 /* --- Device grid (Fingerprint / Face / Kiosk / Card) ---------------- */
 .tk-device-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
-.tk-device{border:1px solid var(--tk-border);border-radius:16px;padding:26px;background:#fff;}
+.tk-device{border:1px solid var(--tk-border);border-radius:16px;background:#fff;overflow:hidden;}
+.tk-device-img{height:130px;overflow:hidden;background:var(--tk-blue-soft);}
+.tk-device-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.tk-device-body{padding:22px;}
 .tk-device-ic{
   width:40px;height:40px;border-radius:11px;display:grid;place-items:center;
-  background:var(--tk-blue-soft);color:var(--tk-blue);margin-bottom:14px;
+  background:var(--tk-blue-soft);color:var(--tk-blue);margin:-42px 0 14px;
+  border:2px solid #fff;box-shadow:0 2px 8px rgba(13,27,62,.12);
 }
 .tk-device-ic svg{width:20px;height:20px;}
 .tk-device h3{font-size:15.5px;font-weight:700;margin:0 0 8px;}
@@ -199,8 +224,10 @@
   .tk-stats ul{grid-template-columns:repeat(3,1fr);}
 }
 @media (max-width:900px){
-  .tk-pillar-grid,.tk-integration-grid{grid-template-columns:1fr;}
+  .tk-integration-grid{grid-template-columns:1fr;}
   .tk-checklist-2col{grid-template-columns:1fr;}
+  .tk-switch-layout{grid-template-columns:1fr;gap:28px;}
+  .tk-switch-img-wrap{height:240px;}
 }
 @media (max-width:640px){
   .tk-hero{padding:56px 20px 40px;}
@@ -209,4 +236,6 @@
   .tk-device-grid,.tk-why-grid{grid-template-columns:1fr;}
   .tk-stats ul{grid-template-columns:repeat(2,1fr);gap:12px;padding:36px 20px;}
   .tk-final-cta{padding:48px 24px;border-radius:18px;}
+  .tk-switch-tab span:last-child{font-size:10.5px;}
+  .tk-switch-tab-ic{width:20px;height:20px;}
 }
