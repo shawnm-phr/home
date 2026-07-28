@@ -209,6 +209,15 @@
   display:grid;grid-template-columns:1fr;gap:14px;
 }
 .tk-checklist-left{max-width:none;margin:0;}
+.tk-partner-badge{
+  display:inline-flex;align-items:center;gap:14px;
+  padding:12px 20px;border-radius:12px;margin-bottom:20px;
+  background:#fff;border:1px solid var(--tk-border);
+  box-shadow:0 6px 16px rgba(13,27,62,.06);
+}
+.tk-partner-badge img{height:26px;width:auto;display:block;}
+.tk-partner-badge-divider{width:1px;height:22px;background:var(--tk-border);flex:0 0 auto;}
+.tk-partner-badge-label{font-size:13px;font-weight:700;color:var(--tk-ink);white-space:nowrap;}
 .tk-checklist li{
   position:relative;padding-left:34px;font-size:14.5px;line-height:1.55;color:var(--tk-text);
 }
@@ -347,4 +356,6 @@
   .tk-switch-tab-ic{width:20px;height:20px;}
   .tk-ind-tabs{justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap;}
   .tk-ind-tab{flex:0 0 auto;min-width:auto;padding:14px 12px;white-space:nowrap;}
+  .tk-partner-badge{flex-wrap:wrap;justify-content:center;}
+  .tk-partner-badge-label{white-space:normal;text-align:left;}
 }
