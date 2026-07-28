@@ -213,11 +213,7 @@
   background:var(--tk-blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='5 13 10 18 19 7'/%3E%3C/svg%3E") center/13px no-repeat;
 }
 
-/* --- Access control deep dive (text+list left / image right) -------- */
-.tk-access-grid{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:stretch;}
-.tk-access-text{text-align:left;}
-.tk-access-text h2{font-size:clamp(24px,3vw,34px);font-weight:800;line-height:1.2;letter-spacing:-.01em;margin:0 0 14px;}
-.tk-access-text p{font-size:15.5px;line-height:1.65;color:var(--tk-text);margin:0 0 28px;}
+/* --- Checklist row (used by the Connected-to-PeoplesHR section) ----- */
 .tk-access-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;}
 .tk-access-list li{
   display:flex;align-items:center;gap:12px;
@@ -228,8 +224,6 @@
   flex:0 0 auto;width:22px;height:22px;border-radius:50%;
   background:var(--tk-blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='5 13 10 18 19 7'/%3E%3C/svg%3E") center/13px no-repeat;
 }
-.tk-access-visual{border-radius:20px;overflow:hidden;min-height:320px;box-shadow:0 16px 48px -20px rgba(13,27,62,.28);}
-.tk-access-visual img{width:100%;height:100%;object-fit:cover;display:block;}
 
 /* --- Large-photo split sections (Integration / Industries / Why-us) - */
 .tk-split{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1fr 1.1fr;gap:56px;align-items:center;}
@@ -258,10 +252,6 @@
   font-size:12px;font-weight:700;fill:var(--tk-ink);text-anchor:middle;
 }
 .tk-network-hub{fill:var(--tk-ink);}
-.tk-network-hub-label{
-  font-family:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  font-size:14px;font-weight:800;fill:#fff;text-anchor:middle;
-}
 .tk-network-dot{fill:var(--tk-blue);filter:drop-shadow(0 0 6px rgba(37,99,235,.65));}
 
 /* --- Device-type carousel: vertical cards, 3 visible at a time -------- */
@@ -322,8 +312,6 @@
 }
 @media (max-width:900px){
   .tk-devtype-slide{flex-basis:calc((100% - 24px)/2);}
-  .tk-access-grid{grid-template-columns:1fr;gap:32px;}
-  .tk-access-visual{order:-1;min-height:220px;}
   .tk-split{grid-template-columns:1fr;gap:32px;}
   .tk-split-visual img{aspect-ratio:16/10;}
   .tk-ind-layout{grid-template-columns:1fr;gap:28px;}

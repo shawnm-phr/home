@@ -437,6 +437,9 @@
         </div>
         <div class="tk-network">
           <svg class="tk-network-svg" viewBox="0 0 440 400" role="img" aria-label="Diagram showing fingerprint, face recognition, kiosk, and access gate devices all connected to PeoplesHR">
+            <defs>
+              <clipPath id="tkHubClip"><circle cx="0" cy="0" r="32"/></clipPath>
+            </defs>
             <path id="tkPath0" class="tk-network-line" d="M 70,58 C 210,58 210,200 350,200"/>
             <path id="tkPath1" class="tk-network-line" d="M 70,153 C 250,153 250,200 350,200"/>
             <path id="tkPath2" class="tk-network-line" d="M 70,247 C 250,247 250,200 350,200"/>
@@ -489,8 +492,8 @@
 
             <g transform="translate(350,200)">
               <circle r="48" class="tk-network-hub"/>
-              <text class="tk-network-hub-label" y="-4">Peoples</text>
-              <text class="tk-network-hub-label" y="16">HR</text>
+              <circle r="34" fill="#fff"/>
+              <image href="images/peopleshr.jpeg" x="-32" y="-32" width="64" height="64" clip-path="url(#tkHubClip)" preserveAspectRatio="xMidYMid slice"/>
             </g>
           </svg>
         </div>
@@ -529,29 +532,6 @@
               <div class="tk-switch-tint" id="tkSwitchTint"></div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== ACCESS CONTROL & SECURITY DEEP DIVE ===================== -->
-    <section class="tk-section tk-section-alt">
-      <div class="tk-access-grid">
-        <div class="tk-access-text">
-          <h2>Control Who Goes Where — and Know It Instantly</h2>
-          <p>PeoplesHR Tracking extends beyond time capture into physical security.
-            The same devices and platform that track attendance can also manage
-            access to restricted zones, server rooms, warehouses, or entire
-            buildings.</p>
-          <ul class="tk-access-list">
-            <li><span class="tk-access-check"></span>Role-based and shift-based access permissions</li>
-            <li><span class="tk-access-check"></span>Door, gate, and turnstile integration</li>
-            <li><span class="tk-access-check"></span>Real-time alerts for unauthorized access attempts</li>
-            <li><span class="tk-access-check"></span>Full audit trail for compliance and investigations</li>
-            <li><span class="tk-access-check"></span>Centralized management across multiple sites and buildings</li>
-          </ul>
-        </div>
-        <div class="tk-access-visual">
-          <img src="https://images.unsplash.com/photo-1708807472445-d33589e6b090?auto=format&amp;fit=crop&amp;w=1000&amp;q=80" alt="Security operations team monitoring access control camera feeds" loading="lazy">
         </div>
       </div>
     </section>
