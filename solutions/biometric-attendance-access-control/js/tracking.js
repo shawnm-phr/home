@@ -156,3 +156,96 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
   goTo(0);
   resetAuto();
 }());
+
+/* tracking - industry switcher (Manufacturing / Retail / Office / etc.) */
+(function(){
+  'use strict';
+
+  var contentEl = document.getElementById('tkIndContent');
+  var imgEl     = document.getElementById('tkIndImg');
+  var tintEl    = document.getElementById('tkIndTint');
+  var tabs      = document.querySelectorAll('#tkIndTabs .tk-ind-tab');
+
+  if(!contentEl || !imgEl || !tabs.length) return; // guard: absent on non-tracking pages
+
+  var industries = [
+    {
+      title: 'Manufacturing & Factories',
+      body:  'Track attendance and control access across production floors and warehouses, with rugged devices built for high-traffic industrial environments and shift-based rules that match your production schedule.',
+      tags:  ['Shift-based access', 'Rugged hardware', 'Multi-site sync'],
+      img:   'https://images.unsplash.com/photo-1700727448686-b314cb5f9948?auto=format&fit=crop&w=1000&q=80',
+      tint:  '#ea580c'
+    },
+    {
+      title: 'Retail & Multi-Branch Operations',
+      body:  'Keep every store staffed and accountable on one platform — consistent attendance data and access control whether you run 5 locations or 500.',
+      tags:  ['Fast rollout', 'Centralized reporting', 'Any headcount'],
+      img:   'https://images.unsplash.com/photo-1558898452-e5c989f41b27?auto=format&fit=crop&w=1000&q=80',
+      tint:  '#db2777'
+    },
+    {
+      title: 'Corporate Offices',
+      body:  'Give employees frictionless badge or biometric entry at reception and secure zones, with attendance data flowing straight into payroll — no separate systems to reconcile.',
+      tags:  ['Badge & biometric entry', 'Zone permissions', 'Payroll sync'],
+      img:   'https://images.unsplash.com/photo-1543325042-c67825847491?auto=format&fit=crop&w=1000&q=80',
+      tint:  '#2563eb'
+    },
+    {
+      title: 'Healthcare Facilities',
+      body:  'Secure wards and pharmacies with role-based access, while contactless biometric check-in keeps staff attendance accurate without adding to infection-control risk.',
+      tags:  ['Contactless check-in', 'Restricted-zone control', 'Audit trail'],
+      img:   'https://images.unsplash.com/photo-1584451049700-ec9b394f3805?auto=format&fit=crop&w=1000&q=80',
+      tint:  '#059669'
+    },
+    {
+      title: 'Warehousing & Logistics',
+      body:  'Track attendance across shifts and loading docks, with access gates that log every entry and exit — full visibility over who\'s on site, at every facility.',
+      tags:  ['Gate & dock access', 'Shift coverage', 'Real-time visibility'],
+      img:   'https://images.unsplash.com/photo-1620388640785-892616248ec8?auto=format&fit=crop&w=1000&q=80',
+      tint:  '#7c3aed'
+    },
+    {
+      title: 'Educational Institutions',
+      body:  'Manage staff and campus access across multiple buildings from one dashboard, with attendance data ready for compliance reporting whenever it\'s needed.',
+      tags:  ['Campus-wide access', 'Staff attendance', 'Compliance-ready'],
+      img:   'https://images.unsplash.com/photo-1731349219592-60ca16964631?auto=format&fit=crop&w=1000&q=80',
+      tint:  '#0891b2'
+    }
+  ];
+
+  function buildContent(ind){
+    var tagsHtml = ind.tags.map(function(t){ return '<span class="tk-ind-tag">' + t + '</span>'; }).join('');
+    return '<h3 class="tk-ind-title">' + ind.title + '</h3>'
+      + '<p class="tk-ind-body">' + ind.body + '</p>'
+      + '<div class="tk-ind-tags">' + tagsHtml + '</div>';
+  }
+
+  function switchTo(idx){
+    var ind = industries[idx];
+    if(!ind) return;
+
+    tabs.forEach(function(t,i){ t.classList.toggle('active', i === idx); });
+    contentEl.classList.add('tk-ind-out');
+    imgEl.classList.add('tk-ind-img-out');
+
+    setTimeout(function(){
+      contentEl.innerHTML     = buildContent(ind);
+      imgEl.src               = ind.img;
+      imgEl.alt               = ind.title;
+      tintEl.style.background = ind.tint;
+
+      contentEl.classList.remove('tk-ind-out');
+      contentEl.classList.add('tk-ind-in');
+      imgEl.classList.remove('tk-ind-img-out');
+
+      void contentEl.offsetWidth; /* force reflow so the fade-in transition fires */
+      contentEl.classList.remove('tk-ind-in');
+    }, 220);
+  }
+
+  tabs.forEach(function(tab, i){
+    tab.addEventListener('click', function(){ switchTo(i); });
+  });
+
+  switchTo(0);
+}());

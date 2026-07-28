@@ -153,6 +153,44 @@
 .tk-switch-tab.active .tk-switch-tab-ic,.tk-switch-tab:hover .tk-switch-tab-ic{color:var(--tk-blue);}
 .tk-switch-tab.active span:last-child,.tk-switch-tab:hover span:last-child{color:var(--tk-ink);}
 
+/* --- Industry switcher (Manufacturing / Retail / Office / etc.) ----- */
+.tk-eyebrow-label{
+  display:inline-block;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--tk-blue);margin:0 0 10px;
+}
+.tk-ind{max-width:1080px;margin:0 auto;}
+.tk-ind-layout{display:grid;grid-template-columns:1fr 1.1fr;gap:56px;align-items:center;min-height:280px;}
+.tk-ind-content{transition:opacity .22s ease,transform .22s ease;}
+.tk-ind-content.tk-ind-out{opacity:0;transform:translateY(-10px);pointer-events:none;}
+.tk-ind-content.tk-ind-in{opacity:0;transform:translateY(12px);}
+.tk-ind-title{font-size:24px;font-weight:800;color:var(--tk-ink);margin:0 0 14px;letter-spacing:-.01em;}
+.tk-ind-body{font-size:15px;line-height:1.7;color:var(--tk-muted);margin:0 0 20px;}
+.tk-ind-tags{display:flex;flex-wrap:wrap;gap:8px;}
+.tk-ind-tag{
+  font-size:12px;font-weight:700;color:var(--tk-blue);background:var(--tk-blue-soft);
+  border-radius:999px;padding:6px 12px;
+}
+.tk-ind-visual{position:relative;}
+.tk-ind-img-wrap{
+  border-radius:20px;overflow:hidden;position:relative;height:320px;
+  box-shadow:0 8px 40px rgba(13,27,62,.14);background:var(--tk-surface);
+}
+.tk-ind-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease,opacity .3s ease;}
+.tk-ind-img.tk-ind-img-out{opacity:0;transform:scale(1.04);}
+.tk-ind-tint{position:absolute;inset:0;opacity:.28;transition:background .4s ease;pointer-events:none;}
+.tk-ind-tabs{display:flex;flex-wrap:wrap;border-top:1px solid var(--tk-border);margin-top:36px;padding-top:8px;}
+.tk-ind-tab{
+  flex:1 1 0;min-width:140px;background:none;border:none;cursor:pointer;font-family:inherit;
+  padding:16px 10px;font-size:13px;font-weight:700;color:#94a3b8;text-align:center;position:relative;
+  transition:color .2s ease;
+}
+.tk-ind-tab::after{
+  content:"";position:absolute;top:-1px;left:0;right:0;height:2px;background:var(--tk-blue);
+  transform:scaleX(0);transition:transform .25s ease;
+}
+.tk-ind-tab.active::after{transform:scaleX(1);}
+.tk-ind-tab.active,.tk-ind-tab:hover{color:var(--tk-ink);}
+
 /* --- Device grid (Fingerprint / Face / Kiosk / Card) ---------------- */
 .tk-device-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
 .tk-device{border:1px solid var(--tk-border);border-radius:16px;background:#fff;overflow:hidden;}
@@ -252,18 +290,6 @@
 }
 .tk-devtype-dot.active{background:var(--tk-blue);width:24px;border-radius:4px;}
 
-/* --- Industry chip list ---------------------------------------------- */
-.tk-chip-list{
-  max-width:900px;margin:0;padding:0;list-style:none;
-  display:flex;flex-wrap:wrap;justify-content:center;gap:12px;
-}
-.tk-chip-list-left{justify-content:flex-start;}
-.tk-chip-list li{
-  font-size:13.5px;font-weight:600;color:var(--tk-ink);
-  background:#fff;border:1px solid var(--tk-border);border-radius:999px;
-  padding:10px 18px;
-}
-
 /* --- FAQ accordion ----------------------------------------------------- */
 .tk-faq-list{max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:12px;}
 .tk-faq-list details{
@@ -300,7 +326,10 @@
   .tk-access-visual{order:-1;min-height:220px;}
   .tk-split{grid-template-columns:1fr;gap:32px;}
   .tk-split-visual img{aspect-ratio:16/10;}
-  .tk-chip-list-left{justify-content:center;}
+  .tk-ind-layout{grid-template-columns:1fr;gap:28px;}
+  .tk-ind-img-wrap{height:240px;}
+  .tk-ind-content{text-align:center;}
+  .tk-ind-tags{justify-content:center;}
   .tk-split-text{text-align:center;}
   .tk-split-item{border-left:0;border-top:3px solid var(--tk-blue);padding:14px 0 0;text-align:left;}
   .tk-switch-layout{grid-template-columns:1fr;gap:28px;}
@@ -320,4 +349,6 @@
   .tk-final-cta{padding:48px 24px;border-radius:18px;}
   .tk-switch-tab span:last-child{font-size:10.5px;}
   .tk-switch-tab-ic{width:20px;height:20px;}
+  .tk-ind-tabs{justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap;}
+  .tk-ind-tab{flex:0 0 auto;min-width:auto;padding:14px 12px;white-space:nowrap;}
 }
