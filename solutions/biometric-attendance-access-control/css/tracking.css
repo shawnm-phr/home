@@ -206,6 +206,26 @@
 .tk-split-item h3{font-size:15.5px;font-weight:700;margin:0 0 8px;}
 .tk-split-item p{font-size:13.5px;line-height:1.6;color:var(--tk-muted);margin:0;}
 
+/* --- Connected-devices network diagram -------------------------------- */
+.tk-network{display:flex;align-items:center;justify-content:center;}
+.tk-network-svg{width:100%;max-width:440px;height:auto;overflow:visible;}
+.tk-network-line{fill:none;stroke:var(--tk-border);stroke-width:2;}
+.tk-network-node circle{
+  fill:#fff;stroke:var(--tk-border);stroke-width:1.5;
+  filter:drop-shadow(0 6px 16px rgba(13,27,62,.12));
+}
+.tk-network-node{color:var(--tk-blue);}
+.tk-network-label{
+  font-family:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:12px;font-weight:700;fill:var(--tk-ink);text-anchor:middle;
+}
+.tk-network-hub{fill:var(--tk-ink);}
+.tk-network-hub-label{
+  font-family:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:14px;font-weight:800;fill:#fff;text-anchor:middle;
+}
+.tk-network-dot{fill:var(--tk-blue);filter:drop-shadow(0 0 6px rgba(37,99,235,.65));}
+
 /* --- Industry chip list ---------------------------------------------- */
 .tk-chip-list{
   max-width:900px;margin:0;padding:0;list-style:none;
