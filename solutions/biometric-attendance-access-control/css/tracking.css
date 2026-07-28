@@ -159,12 +159,6 @@
 .tk-device-img{height:190px;overflow:hidden;background:var(--tk-blue-soft);}
 .tk-device-img img{width:100%;height:100%;object-fit:cover;display:block;}
 .tk-device-body{padding:22px;}
-.tk-device-ic{
-  width:40px;height:40px;border-radius:11px;display:grid;place-items:center;
-  background:var(--tk-blue-soft);color:var(--tk-blue);margin:-42px 0 14px;
-  border:2px solid #fff;box-shadow:0 2px 8px rgba(13,27,62,.12);
-}
-.tk-device-ic svg{width:20px;height:20px;}
 .tk-device h3{font-size:15.5px;font-weight:700;margin:0 0 8px;}
 .tk-device p{font-size:13.5px;line-height:1.6;color:var(--tk-muted);margin:0;}
 
