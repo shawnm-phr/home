@@ -63,26 +63,35 @@
 
 /* --- Hero ---------------------------------------------------------- */
 .tk-hero{
-  max-width:1240px;margin:0 auto;padding:72px 24px 48px;text-align:center;
+  max-width:1240px;margin:0 auto;padding:48px 24px;
+  min-height:calc(100vh - 60px);
+  display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center;
 }
+.tk-hero-text{text-align:left;}
 .tk-hero h1{
   font-size:clamp(32px,4.5vw,52px);
   font-weight:800;line-height:1.12;letter-spacing:-.01em;
   margin:0 0 18px;
 }
 .tk-hero p{
-  max-width:640px;margin:0 auto 32px;
+  max-width:520px;margin:0 0 32px;
   font-size:17px;line-height:1.6;color:var(--tk-text);
 }
-.tk-hero-actions{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:22px;}
+.tk-hero-actions{display:flex;align-items:center;justify-content:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:22px;}
 .tk-hero .tk-hero-badge{
-  display:block;max-width:none;margin:0 auto;
+  display:block;max-width:none;margin:0;
   font-size:13px;font-weight:600;color:var(--tk-muted);white-space:nowrap;
 }
 .tk-hero-badge svg{
   display:inline-block;width:16px;height:16px;
   margin-right:6px;vertical-align:-3px;color:var(--tk-blue);
 }
+.tk-hero-visual{position:relative;}
+.tk-hero-img-wrap{
+  border-radius:24px;overflow:hidden;position:relative;
+  aspect-ratio:4/5;box-shadow:0 24px 64px -24px rgba(13,27,62,.35);
+}
+.tk-hero-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;}
 
 /* --- Stats bar (icon benefit cards) --------------------------------- */
 .tk-stats{background:var(--tk-surface);border-top:1px solid var(--tk-border);border-bottom:1px solid var(--tk-border);}
@@ -146,7 +155,7 @@
 /* --- Device grid (Fingerprint / Face / Kiosk / Card) ---------------- */
 .tk-device-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
 .tk-device{border:1px solid var(--tk-border);border-radius:16px;background:#fff;overflow:hidden;}
-.tk-device-img{height:130px;overflow:hidden;background:var(--tk-blue-soft);}
+.tk-device-img{height:190px;overflow:hidden;background:var(--tk-blue-soft);}
 .tk-device-img img{width:100%;height:100%;object-fit:cover;display:block;}
 .tk-device-body{padding:22px;}
 .tk-device-ic{
@@ -228,9 +237,12 @@
   .tk-checklist-2col{grid-template-columns:1fr;}
   .tk-switch-layout{grid-template-columns:1fr;gap:28px;}
   .tk-switch-img-wrap{height:240px;}
+  .tk-hero{grid-template-columns:1fr;min-height:0;gap:36px;padding:48px 20px;}
+  .tk-hero-visual{order:-1;}
+  .tk-hero-img-wrap{aspect-ratio:16/10;}
 }
 @media (max-width:640px){
-  .tk-hero{padding:56px 20px 40px;}
+  .tk-hero{padding:40px 20px;}
   .tk-hero .tk-hero-badge{white-space:normal;}
   .tk-section{padding:56px 20px;}
   .tk-device-grid,.tk-why-grid{grid-template-columns:1fr;}
