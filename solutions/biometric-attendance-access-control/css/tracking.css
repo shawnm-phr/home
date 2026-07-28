@@ -175,11 +175,11 @@
   background:var(--tk-blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='5 13 10 18 19 7'/%3E%3C/svg%3E") center/13px no-repeat;
 }
 
-/* --- Access control deep dive (text left / list-cards right) -------- */
-.tk-access-grid{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
+/* --- Access control deep dive (text+list left / image right) -------- */
+.tk-access-grid{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:stretch;}
 .tk-access-text{text-align:left;}
 .tk-access-text h2{font-size:clamp(24px,3vw,34px);font-weight:800;line-height:1.2;letter-spacing:-.01em;margin:0 0 14px;}
-.tk-access-text p{font-size:15.5px;line-height:1.65;color:var(--tk-text);margin:0;}
+.tk-access-text p{font-size:15.5px;line-height:1.65;color:var(--tk-text);margin:0 0 28px;}
 .tk-access-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;}
 .tk-access-list li{
   display:flex;align-items:center;gap:12px;
@@ -190,21 +190,28 @@
   flex:0 0 auto;width:22px;height:22px;border-radius:50%;
   background:var(--tk-blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='5 13 10 18 19 7'/%3E%3C/svg%3E") center/13px no-repeat;
 }
+.tk-access-visual{border-radius:20px;overflow:hidden;min-height:320px;box-shadow:0 16px 48px -20px rgba(13,27,62,.28);}
+.tk-access-visual img{width:100%;height:100%;object-fit:cover;display:block;}
 
-/* --- Integration points / Why-us cards ------------------------------ */
-.tk-integration-grid,.tk-why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
-.tk-why-grid{grid-template-columns:repeat(4,1fr);}
-.tk-integration-grid article,.tk-why-card{
-  border-left:3px solid var(--tk-blue);border-radius:4px;padding:4px 0 4px 18px;
-}
-.tk-integration-grid h3,.tk-why-card h3{font-size:15.5px;font-weight:700;margin:0 0 8px;}
-.tk-integration-grid p,.tk-why-card p{font-size:13.5px;line-height:1.6;color:var(--tk-muted);margin:0;}
+/* --- Large-photo split sections (Integration / Industries / Why-us) - */
+.tk-split{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1fr 1.1fr;gap:56px;align-items:center;}
+.tk-split-visual{border-radius:20px;overflow:hidden;box-shadow:0 16px 48px -20px rgba(13,27,62,.28);}
+.tk-split-visual img{width:100%;height:100%;aspect-ratio:4/3.4;object-fit:cover;display:block;}
+.tk-split-text{text-align:left;}
+.tk-split-text h2{font-size:clamp(24px,3vw,34px);font-weight:800;line-height:1.2;letter-spacing:-.01em;margin:0 0 14px;}
+.tk-split-text>p{font-size:15.5px;line-height:1.65;color:var(--tk-text);margin:0 0 32px;}
+.tk-split-list{display:flex;flex-direction:column;gap:22px;}
+.tk-split-list-2col{display:grid;grid-template-columns:1fr 1fr;gap:22px 28px;}
+.tk-split-item{border-left:3px solid var(--tk-blue);border-radius:4px;padding:4px 0 4px 18px;}
+.tk-split-item h3{font-size:15.5px;font-weight:700;margin:0 0 8px;}
+.tk-split-item p{font-size:13.5px;line-height:1.6;color:var(--tk-muted);margin:0;}
 
 /* --- Industry chip list ---------------------------------------------- */
 .tk-chip-list{
-  max-width:900px;margin:0 auto;padding:0;list-style:none;
+  max-width:900px;margin:0;padding:0;list-style:none;
   display:flex;flex-wrap:wrap;justify-content:center;gap:12px;
 }
+.tk-chip-list-left{justify-content:flex-start;}
 .tk-chip-list li{
   font-size:13.5px;font-weight:600;color:var(--tk-ink);
   background:#fff;border:1px solid var(--tk-border);border-radius:999px;
@@ -239,13 +246,16 @@
 /* --- Responsive ----------------------------------------------------- */
 @media (max-width:1080px){
   .tk-device-grid{grid-template-columns:repeat(2,1fr);}
-  .tk-why-grid{grid-template-columns:repeat(2,1fr);}
   .tk-stats ul{grid-template-columns:repeat(3,1fr);}
 }
 @media (max-width:900px){
-  .tk-integration-grid{grid-template-columns:1fr;}
   .tk-access-grid{grid-template-columns:1fr;gap:32px;}
-  .tk-access-text{text-align:center;}
+  .tk-access-visual{order:-1;min-height:220px;}
+  .tk-split{grid-template-columns:1fr;gap:32px;}
+  .tk-split-visual img{aspect-ratio:16/10;}
+  .tk-chip-list-left{justify-content:center;}
+  .tk-split-text{text-align:center;}
+  .tk-split-item{border-left:0;border-top:3px solid var(--tk-blue);padding:14px 0 0;text-align:left;}
   .tk-switch-layout{grid-template-columns:1fr;gap:28px;}
   .tk-switch-img-wrap{height:240px;}
   .tk-hero{grid-template-columns:1fr;min-height:0;gap:36px;padding:48px 20px;}
@@ -256,7 +266,8 @@
   .tk-hero{padding:40px 20px;}
   .tk-hero .tk-hero-badge{white-space:normal;}
   .tk-section{padding:56px 20px;}
-  .tk-device-grid,.tk-why-grid{grid-template-columns:1fr;}
+  .tk-device-grid{grid-template-columns:1fr;}
+  .tk-split-list-2col{grid-template-columns:1fr;}
   .tk-stats ul{grid-template-columns:repeat(2,1fr);gap:12px;padding:36px 20px;}
   .tk-final-cta{padding:48px 24px;border-radius:18px;}
   .tk-switch-tab span:last-child{font-size:10.5px;}
