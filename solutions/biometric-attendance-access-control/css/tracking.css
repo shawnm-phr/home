@@ -27,6 +27,10 @@
    Content sourced from the PeoplesHR Tracking landing content draft.
    ═══════════════════════════════════════════════════════════════════ */
 
+/* Reserve scrollbar space so opening an accordion (FAQ, etc.) never
+   shifts page width when it pushes the document past viewport height. */
+html{scrollbar-gutter:stable;}
+
 .tk-scope{
   --tk-ink:#0d1b3e;
   --tk-text:#3a4254;
@@ -93,33 +97,44 @@
 }
 .tk-hero-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;}
 
-/* --- Stats bar (icon benefit cards) --------------------------------- */
-.tk-stats{background:var(--tk-surface);border-top:1px solid var(--tk-border);border-bottom:1px solid var(--tk-border);}
-.tk-stats.tk-stats-white{background:#fff;border-color:transparent;}
-.tk-stats-head{max-width:640px;margin:0 auto;padding:56px 24px 0;text-align:center;}
-.tk-stats-head h2{font-size:clamp(24px,3vw,32px);font-weight:800;line-height:1.2;letter-spacing:-.01em;margin:0 0 14px;color:var(--tk-ink);}
-.tk-stats-head p{font-size:15px;line-height:1.65;color:var(--tk-muted);margin:0;}
+/* --- Stats bar (compact blue strip) ---------------------------------- */
+.tk-stats{
+  background:#1b2c5e;
+  box-sizing:border-box;
+}
+.tk-stats-head{max-width:640px;margin:0 auto;padding:44px 24px 0;text-align:center;}
+.tk-stats-head .tk-eyebrow-label{color:#bfdbfe;}
+.tk-stats-head h2{font-size:clamp(21px,2.4vw,26px);font-weight:800;line-height:1.2;letter-spacing:-.01em;margin:0 0 8px;color:#fff;}
+.tk-stats-head p{font-size:13.5px;line-height:1.6;color:#dbe6fd;margin:0;}
 .tk-stats ul{
-  max-width:1240px;margin:0 auto;padding:40px 24px 56px;
+  max-width:1240px;margin:0 auto;padding:28px 24px 40px;
   list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:16px;
 }
 .tk-stats li{
   display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;
-  background:#fff;border:1px solid var(--tk-border);border-radius:16px;padding:24px 14px;
+  border:1px solid rgba(255,255,255,.35);border-radius:14px;padding:20px 14px;
 }
 .tk-stat-ic{
-  width:44px;height:44px;border-radius:12px;display:grid;place-items:center;
-  background:var(--tk-blue-soft);color:var(--tk-blue);margin-bottom:10px;
+  width:38px;height:38px;border-radius:10px;display:grid;place-items:center;
+  background:rgba(255,255,255,.14);color:#fff;margin-bottom:6px;
 }
-.tk-stat-ic svg{width:22px;height:22px;}
-.tk-stats strong{font-size:19px;font-weight:800;color:var(--tk-ink);line-height:1.2;}
-.tk-stats span{font-size:12.5px;font-weight:600;color:var(--tk-muted);}
-.tk-stats p{font-size:12px;line-height:1.5;color:var(--tk-muted);margin:6px 0 0;opacity:.8;}
+.tk-stat-ic svg{width:19px;height:19px;}
+.tk-stats strong{font-size:17px;font-weight:800;color:#fff;line-height:1.2;}
+.tk-stats span{font-size:12px;font-weight:600;color:#dbe6fd;}
+.tk-stats p{font-size:11px;line-height:1.5;color:#bcd0f7;margin:5px 0 0;opacity:.9;}
 
 /* --- Generic content section --------------------------------------- */
-.tk-section{max-width:1240px;margin:0 auto;padding:80px 24px;}
+.tk-section{
+  max-width:1240px;margin:0 auto;padding:80px 24px;box-sizing:border-box;
+  min-height:80vh;min-height:80dvh;width:100%;
+  display:flex;flex-direction:column;justify-content:center;
+}
 .tk-section-alt{max-width:none;background:var(--tk-surface);}
 .tk-section-alt>*{max-width:1240px;margin-left:auto;margin-right:auto;}
+/* Compact: minor sections (e.g. FAQ) that shouldn't force full-viewport
+   height. Also sidesteps flex-stretch on children, so nothing can change
+   width when content height changes (accordions, etc.). */
+.tk-section-compact{min-height:0;display:block;padding-top:56px;padding-bottom:56px;}
 .tk-section-head{max-width:720px;margin:0 auto 44px;text-align:center;}
 .tk-section-head-narrow{max-width:560px;}
 .tk-section-head h2{font-size:clamp(24px,3vw,34px);font-weight:800;line-height:1.2;letter-spacing:-.01em;margin:0 0 14px;}
@@ -149,7 +164,6 @@
 }
 .tk-ind-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease,opacity .3s ease;}
 .tk-ind-img.tk-ind-img-out{opacity:0;transform:scale(1.04);}
-.tk-ind-tint{position:absolute;inset:0;opacity:.28;transition:background .4s ease;pointer-events:none;}
 .tk-ind-tabs{display:flex;flex-wrap:wrap;border-bottom:1px solid var(--tk-border);margin-bottom:36px;}
 .tk-ind-tab{
   flex:1 1 0;min-width:140px;background:none;border:none;cursor:pointer;font-family:inherit;
@@ -187,6 +201,17 @@
 .tk-partner-badge img{height:26px;width:auto;display:block;}
 .tk-partner-badge-divider{width:1px;height:22px;background:var(--tk-border);flex:0 0 auto;}
 .tk-partner-badge-label{font-size:13px;font-weight:700;color:var(--tk-ink);white-space:nowrap;}
+
+/* --- Time/Pay icon row (Payroll & T&A integration section) ---------- */
+.tk-integ-icons{display:flex;gap:10px;margin:16px 0 20px;}
+.tk-integ-icon{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:7px 16px 7px 7px;border-radius:999px;
+  background:#fff;border:1px solid var(--tk-border);
+  box-shadow:0 6px 16px rgba(13,27,62,.06);
+  font-size:13.5px;font-weight:700;color:var(--tk-ink);
+}
+.tk-integ-icon img{width:28px;height:28px;border-radius:9px;display:block;}
 .tk-checklist li{
   position:relative;padding-left:34px;font-size:14.5px;line-height:1.55;color:var(--tk-text);
 }
@@ -211,6 +236,19 @@
 .tk-split{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1fr 1.1fr;gap:56px;align-items:center;}
 .tk-split-visual{border-radius:20px;overflow:hidden;box-shadow:0 16px 48px -20px rgba(13,27,62,.28);}
 .tk-split-visual img{width:100%;height:100%;aspect-ratio:4/3.4;object-fit:cover;display:block;}
+
+/* --- Geo visual: device photo + floating check-in UI card ----------- */
+.tk-split-visual.tk-geo-visual{overflow:visible;box-shadow:none;border-radius:0;position:relative;}
+.tk-geo-photo{border-radius:20px;overflow:hidden;box-shadow:0 16px 48px -20px rgba(13,27,62,.28);}
+.tk-geo-photo img{width:100%;height:100%;aspect-ratio:4/3.4;object-fit:cover;display:block;}
+.tk-geo-phone{
+  position:absolute;right:-22px;bottom:-22px;width:168px;
+  border-radius:18px;overflow:hidden;border:2px solid #fff;
+  box-shadow:0 18px 36px -12px rgba(13,27,62,.5);
+}
+.tk-geo-phone img{
+  display:block;width:100%;height:auto;aspect-ratio:3/5;object-fit:cover;
+}
 .tk-split-text{text-align:left;}
 .tk-split-text h2{font-size:clamp(24px,3vw,34px);font-weight:800;line-height:1.2;letter-spacing:-.01em;margin:0 0 14px;}
 .tk-split-text>p{font-size:15.5px;line-height:1.65;color:var(--tk-text);margin:0 0 32px;}
@@ -221,8 +259,8 @@
 .tk-split-item p{font-size:13.5px;line-height:1.6;color:var(--tk-muted);margin:0;}
 
 /* --- Connected-devices network diagram -------------------------------- */
-.tk-network{display:flex;align-items:center;justify-content:center;}
-.tk-network-svg{width:100%;max-width:440px;height:auto;overflow:visible;}
+.tk-network{display:flex;align-items:center;justify-content:center;min-width:0;}
+.tk-network-svg{display:block;width:100%;max-width:620px;height:auto;overflow:visible;}
 .tk-network-line{fill:none;stroke:var(--tk-border);stroke-width:2;}
 .tk-network-node circle{
   fill:#fff;stroke:var(--tk-border);stroke-width:1.5;
@@ -241,7 +279,7 @@
 
 /* --- Device category tabs + large preview panel (mirrors home page's --- */
 /* --- module-tabs / module-preview-panel pattern) ---------------------- */
-.tk-devtab-wrap{display:flex;gap:28px;align-items:flex-start;max-width:1160px;margin:0 auto;}
+.tk-devtab-wrap{display:flex;gap:28px;align-items:center;max-width:1160px;margin:0 auto;}
 .tk-devtabs{flex:0 0 264px;display:flex;flex-direction:column;gap:4px;}
 .tk-devtab{
   display:flex;align-items:center;gap:12px;width:100%;text-align:left;
@@ -252,24 +290,47 @@
 }
 .tk-devtab:hover{background:#fff;color:var(--tk-ink);border-color:var(--tk-border);}
 .tk-devtab.active{background:#fff;color:var(--tk-blue);border-color:var(--tk-blue-soft);box-shadow:0 2px 12px rgba(37,99,235,.1);}
-.tk-devtab-ic{width:20px;height:20px;flex-shrink:0;display:flex;}
+.tk-devtab-ic{width:20px;height:20px;flex-shrink:0;display:flex;transition:transform .25s ease;}
+.tk-devtab.active .tk-devtab-ic{transform:scale(1.08);}
 .tk-devtab span:not(.tk-devtab-ic){flex:1;}
-.tk-devtab-arrow{flex-shrink:0;opacity:0;transition:opacity .2s ease;}
-.tk-devtab.active .tk-devtab-arrow{opacity:1;color:var(--tk-blue);}
-.tk-devtab.active::before{content:"";position:absolute;left:0;top:20%;bottom:20%;width:3px;border-radius:2px;background:var(--tk-blue);}
+.tk-devtab-arrow{flex-shrink:0;opacity:0;transform:translateX(-4px);transition:opacity .25s ease,transform .25s ease;}
+.tk-devtab.active .tk-devtab-arrow{opacity:1;transform:translateX(0);color:var(--tk-blue);}
+.tk-devtab::before{
+  content:"";position:absolute;left:0;top:20%;bottom:20%;width:3px;border-radius:2px;
+  background:var(--tk-blue);opacity:0;transform:scaleY(.4);transform-origin:center;
+  transition:opacity .25s ease,transform .25s ease;
+}
+.tk-devtab.active::before{opacity:1;transform:scaleY(1);}
 
 .tk-devpreview-panel{flex:1;background:#fff;border-radius:20px;border:1px solid var(--tk-border);overflow:hidden;box-shadow:0 8px 40px rgba(13,27,62,.08);}
 .tk-devpreview-content{display:none;}
-.tk-devpreview-content.active{display:block;}
+.tk-devpreview-content.active{display:block;animation:tkDevFadeIn .45s ease;}
 .tk-devpreview-img-wrap{width:100%;height:440px;overflow:hidden;}
-.tk-devpreview-img{width:100%;height:100%;object-fit:cover;display:block;}
+.tk-devpreview-img{width:100%;height:100%;object-fit:cover;display:block;animation:tkDevImgIn .5s ease;}
+@keyframes tkDevFadeIn{
+  from{opacity:0;transform:translateY(14px);}
+  to{opacity:1;transform:translateY(0);}
+}
+@keyframes tkDevImgIn{
+  from{opacity:0;transform:scale(1.05);}
+  to{opacity:1;transform:scale(1);}
+}
 .tk-devpreview-text{padding:26px 32px 32px;}
-.tk-devpreview-text h3{font-size:21px;font-weight:800;color:var(--tk-ink);margin:0 0 10px;letter-spacing:-.01em;}
-.tk-devpreview-text p{font-size:14.5px;line-height:1.65;color:var(--tk-muted);margin:0;}
+.tk-devpreview-text h3{font-size:21px;font-weight:800;color:var(--tk-ink);margin:0 0 14px;letter-spacing:-.01em;}
+.tk-devpreview-text p{font-size:14.5px;line-height:1.7;color:var(--tk-muted);margin:0;}
+.tk-devpreview-specs{
+  display:flex;margin:0 0 20px;
+  border-top:1px solid var(--tk-border);border-bottom:1px solid var(--tk-border);
+}
+.tk-devpreview-spec{flex:1;padding:12px 18px;border-right:1px solid var(--tk-border);}
+.tk-devpreview-spec:last-child{border-right:none;}
+.tk-devpreview-spec-label{display:block;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tk-muted);margin-bottom:4px;}
+.tk-devpreview-spec-value{display:block;font-size:13.5px;font-weight:700;color:var(--tk-ink);}
 
 /* --- FAQ accordion ----------------------------------------------------- */
 .tk-faq-list{max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:12px;}
 .tk-faq-list details{
+  width:100%;box-sizing:border-box;
   border:1px solid var(--tk-border);border-radius:14px;background:#fff;
   padding:6px 20px;
 }
@@ -285,7 +346,7 @@
 
 /* --- Final CTA banner --------------------------------------------------- */
 .tk-final-cta{
-  max-width:1140px;margin:0 auto 80px;padding:64px 32px;
+  max-width:1140px;margin:80px auto 64px;padding:64px 32px;
   border-radius:24px;text-align:center;
   background:linear-gradient(100deg,#0d1b3e,#1b2c5e);
 }
@@ -308,6 +369,7 @@
   .tk-ind-content{text-align:center;}
   .tk-ind-tags{justify-content:center;}
   .tk-split-text{text-align:center;}
+  .tk-integ-icons{justify-content:center;}
   .tk-split-item{border-left:0;border-top:3px solid var(--tk-blue);padding:14px 0 0;text-align:left;}
   .tk-hero{grid-template-columns:1fr;min-height:0;gap:36px;padding:48px 20px;}
   .tk-hero-visual{order:-1;}
@@ -325,8 +387,13 @@
   .tk-devtab-arrow{display:none;}
   .tk-devtab-ic{width:20px;height:20px;margin:0 auto;}
   .tk-devpreview-img-wrap{height:220px;}
+  .tk-devpreview-specs{flex-direction:column;}
+  .tk-devpreview-spec{border-right:none;border-bottom:1px solid var(--tk-border);}
+  .tk-devpreview-spec:last-child{border-bottom:none;}
   .tk-devpreview-text{padding:20px 20px 24px;}
   .tk-split-list-2col{grid-template-columns:1fr;}
+  .tk-geo-visual{margin-bottom:24px;}
+  .tk-geo-phone{right:-12px;bottom:-16px;width:126px;}
   .tk-stats-head{padding:40px 20px 0;}
   .tk-stats ul{grid-template-columns:repeat(2,1fr);gap:12px;padding:28px 20px 40px;}
   .tk-final-cta{padding:48px 24px;border-radius:18px;}
