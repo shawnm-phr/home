@@ -321,44 +321,6 @@
       </div>
     </section>
 
-    <!-- ===================== TRUST / STATS BAR ===================== -->
-    <section class="tk-stats">
-      <div class="tk-stats-head">
-        <span class="tk-eyebrow-label">By The Numbers</span>
-        <h2>Built on Proof, Not Just Promises</h2>
-        <p>Every claim on this page traces back to a device sitting on a wall
-          somewhere, capturing real punches and real access events. Here's what
-          that looks like in practice.</p>
-      </div>
-      <ul>
-        <li>
-          <div class="tk-stat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 6v6c0 5 3.8 8.7 9 10 5.2-1.3 9-5 9-10V6l-9-4Z"/><path d="m9 12 2 2 4-4"/></svg></div>
-          <strong>Authorized</strong><span>ZKTeco Partner</span>
-          <p>Genuine devices with a full manufacturer warranty.</p>
-        </li>
-        <li>
-          <div class="tk-stat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".7" fill="currentColor" stroke="none"/></svg></div>
-          <strong>99.9%</strong><span>Attendance capture accuracy</span>
-          <p>Biometric capture leaves virtually no missed punches.</p>
-        </li>
-        <li>
-          <div class="tk-stat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v5h5"/><path d="M20 20v-5h-5"/><path d="M5.5 15A8 8 0 0 0 19 9"/><path d="M18.5 9A8 8 0 0 0 5 15"/></svg></div>
-          <strong>Real-time</strong><span>Sync with Payroll &amp; T&amp;A</span>
-          <p>Every clock-in flows straight into pay calculations.</p>
-        </li>
-        <li>
-          <div class="tk-stat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.5 7-11a7 7 0 1 0-14 0c0 4.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
-          <strong>Multi-site</strong><span>Deployment across branches</span>
-          <p>One platform, unlimited sites and locations.</p>
-        </li>
-        <li>
-          <div class="tk-stat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
-          <strong>Zero</strong><span>Buddy punching, guaranteed</span>
-          <p>Biometric verification stops proxy attendance cold.</p>
-        </li>
-      </ul>
-    </section>
-
     <!-- ===================== DEVICE TYPES CAROUSEL ===================== -->
     <section class="tk-section tk-section-alt">
       <div class="tk-section-head">
@@ -368,62 +330,104 @@
           fits, mix and match across locations.</p>
       </div>
 
-      <div class="tk-devtype-track-wrap">
-        <div class="tk-devtype-track" id="tkDevtypeTrack">
-          <div class="tk-devtype-slide">
-            <div class="tk-devtype-img"><img src="https://images.unsplash.com/photo-1682944525540-874749c83b9d?auto=format&amp;fit=crop&amp;w=700&amp;q=80" alt="Turnstile access gates at an entry point" loading="lazy"></div>
-            <h3>Basic Access Control</h3>
-            <p>Straightforward door and gate readers for smaller sites that need
-              simple, reliable entry management without the extra features.</p>
+      <div class="tk-devtab-wrap">
+        <div class="tk-devtabs" id="tkDevTabs">
+          <button class="tk-devtab active" data-dev="basic">
+            <span class="tk-devtab-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4v16M19 4v16"/><path d="M5 12h14"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/></svg></span>
+            <span>Basic Access Control</span>
+            <svg class="tk-devtab-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+          <button class="tk-devtab" data-dev="smb">
+            <span class="tk-devtab-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 8h.01M12 8h.01M16 8h.01M8 12h.01M12 12h.01M16 12h.01M8 16h.01M12 16h.01M16 16h.01" stroke-width="2.4"/></svg></span>
+            <span>SMB T&amp;A Terminals</span>
+            <svg class="tk-devtab-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+          <button class="tk-devtab" data-dev="multi">
+            <span class="tk-devtab-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 11a3 3 0 0 1 3 3c0 3-1 5-2 6"/><path d="M8 15c0-3 1.5-5 4-5"/><path d="M6 17c-.5-2 0-6 2-8a7 7 0 0 1 10 2"/><path d="M4 19c-1-3-1-8 1.5-11A10 10 0 0 1 20 8.5"/><path d="M12 6a5 5 0 0 1 5 5c0 1 0 2-.3 3"/></svg></span>
+            <span>Multi-Biometric</span>
+            <svg class="tk-devtab-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+          <button class="tk-devtab" data-dev="contactless">
+            <span class="tk-devtab-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><circle cx="12" cy="13.5" r="3.5"/><path d="M9 7l1-3h4l1 3"/></svg></span>
+            <span>Contactless Biometrics</span>
+            <svg class="tk-devtab-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+          <button class="tk-devtab" data-dev="ai">
+            <span class="tk-devtab-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M6 3v3M12 3v3M18 3v3M6 18v3M12 18v3M18 18v3M3 6h3M3 12h3M3 18h3M18 6h3M18 12h3M18 18h3"/></svg></span>
+            <span>AI Smart Terminals</span>
+            <svg class="tk-devtab-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+          <button class="tk-devtab" data-dev="converged">
+            <span class="tk-devtab-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="3" width="10" height="18" rx="1"/><circle cx="14" cy="12" r="1" fill="currentColor" stroke="none"/></svg></span>
+            <span>Converged Devices</span>
+            <svg class="tk-devtab-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+          <button class="tk-devtab" data-dev="portable">
+            <span class="tk-devtab-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></span>
+            <span>Portable Biometric Devices</span>
+            <svg class="tk-devtab-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+
+        <div class="tk-devpreview-panel">
+          <div class="tk-devpreview-content active" id="tkdev-basic">
+            <div class="tk-devpreview-img-wrap"><img class="tk-devpreview-img" src="https://images.unsplash.com/photo-1682944525540-874749c83b9d?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Turnstile access gates at an entry point" loading="lazy"></div>
+            <div class="tk-devpreview-text">
+              <h3>Basic Access Control</h3>
+              <p>Straightforward door and gate readers for smaller sites that need
+                simple, reliable entry management without the extra features.</p>
+            </div>
           </div>
-          <div class="tk-devtype-slide">
-            <div class="tk-devtype-img"><img src="https://images.unsplash.com/photo-1653070043040-e6afca6a4847?auto=format&amp;fit=crop&amp;w=700&amp;q=80" alt="Compact keypad terminals on a desk" loading="lazy"></div>
-            <h3>SMB T&amp;A Terminals</h3>
-            <p>Compact time &amp; attendance terminals sized for small and
-              mid-sized teams — the essentials, without enterprise overhead.</p>
+          <div class="tk-devpreview-content" id="tkdev-smb">
+            <div class="tk-devpreview-img-wrap"><img class="tk-devpreview-img" src="https://images.unsplash.com/photo-1653070043040-e6afca6a4847?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Compact keypad terminals on a desk" loading="lazy"></div>
+            <div class="tk-devpreview-text">
+              <h3>SMB T&amp;A Terminals</h3>
+              <p>Compact time &amp; attendance terminals sized for small and
+                mid-sized teams — the essentials, without enterprise overhead.</p>
+            </div>
           </div>
-          <div class="tk-devtype-slide">
-            <div class="tk-devtype-img"><img src="https://images.unsplash.com/photo-1694174439282-ee8cdf0ec6ba?auto=format&amp;fit=crop&amp;w=700&amp;q=80" alt="Combined camera, screen, keypad, and card-reader access panel" loading="lazy"></div>
-            <h3>Multi-Biometric</h3>
-            <p>Devices that combine fingerprint, face, and card verification in
-              one unit, so a site supports multiple check-in methods without
-              multiple machines.</p>
+          <div class="tk-devpreview-content" id="tkdev-multi">
+            <div class="tk-devpreview-img-wrap"><img class="tk-devpreview-img" src="https://images.unsplash.com/photo-1694174439282-ee8cdf0ec6ba?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Combined camera, screen, keypad, and card-reader access panel" loading="lazy"></div>
+            <div class="tk-devpreview-text">
+              <h3>Multi-Biometric</h3>
+              <p>Devices that combine fingerprint, face, and card verification in
+                one unit, so a site supports multiple check-in methods without
+                multiple machines.</p>
+            </div>
           </div>
-          <div class="tk-devtype-slide">
-            <div class="tk-devtype-img"><img src="https://images.unsplash.com/photo-1705147293087-9e183bf149ef?auto=format&amp;fit=crop&amp;w=700&amp;q=80" alt="Compact smart camera sensor" loading="lazy"></div>
-            <h3>Contactless Biometrics</h3>
-            <p>Touch-free face and palm recognition for fast, hygienic check-ins
-              in high-traffic environments.</p>
+          <div class="tk-devpreview-content" id="tkdev-contactless">
+            <div class="tk-devpreview-img-wrap"><img class="tk-devpreview-img" src="https://images.unsplash.com/photo-1705147293087-9e183bf149ef?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Compact smart camera sensor" loading="lazy"></div>
+            <div class="tk-devpreview-text">
+              <h3>Contactless Biometrics</h3>
+              <p>Touch-free face and palm recognition for fast, hygienic check-ins
+                in high-traffic environments.</p>
+            </div>
           </div>
-          <div class="tk-devtype-slide">
-            <div class="tk-devtype-img"><img src="https://images.unsplash.com/photo-1754494977436-a5c202306fe4?auto=format&amp;fit=crop&amp;w=700&amp;q=80" alt="Wall-mounted smart access reader with active indicator light" loading="lazy"></div>
-            <h3>AI Smart Terminals</h3>
-            <p>AI-enhanced devices with mask detection, temperature screening,
-              and liveness checks alongside standard capture.</p>
+          <div class="tk-devpreview-content" id="tkdev-ai">
+            <div class="tk-devpreview-img-wrap"><img class="tk-devpreview-img" src="https://images.unsplash.com/photo-1754494977436-a5c202306fe4?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Wall-mounted smart access reader with active indicator light" loading="lazy"></div>
+            <div class="tk-devpreview-text">
+              <h3>AI Smart Terminals</h3>
+              <p>AI-enhanced devices with mask detection, temperature screening,
+                and liveness checks alongside standard capture.</p>
+            </div>
           </div>
-          <div class="tk-devtype-slide">
-            <div class="tk-devtype-img"><img src="https://images.unsplash.com/photo-1654440656236-d01651158536?auto=format&amp;fit=crop&amp;w=700&amp;q=80" alt="Entry door with an integrated access reader" loading="lazy"></div>
-            <h3>Converged Devices</h3>
-            <p>All-in-one hardware that unifies attendance and access control at
-              a single door or entry point.</p>
+          <div class="tk-devpreview-content" id="tkdev-converged">
+            <div class="tk-devpreview-img-wrap"><img class="tk-devpreview-img" src="https://images.unsplash.com/photo-1654440656236-d01651158536?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Entry door with an integrated access reader" loading="lazy"></div>
+            <div class="tk-devpreview-text">
+              <h3>Converged Devices</h3>
+              <p>All-in-one hardware that unifies attendance and access control at
+                a single door or entry point.</p>
+            </div>
           </div>
-          <div class="tk-devtype-slide">
-            <div class="tk-devtype-img"><img src="https://images.unsplash.com/photo-1758543102397-e14b5dfdd8bd?auto=format&amp;fit=crop&amp;w=700&amp;q=80" alt="Rugged handheld biometric terminal in a charging dock" loading="lazy"></div>
-            <h3>Portable Biometric Devices</h3>
-            <p>Battery-powered, handheld biometric terminals for mobile teams,
-              remote sites, or temporary locations without fixed infrastructure.</p>
+          <div class="tk-devpreview-content" id="tkdev-portable">
+            <div class="tk-devpreview-img-wrap"><img class="tk-devpreview-img" src="https://images.unsplash.com/photo-1758543102397-e14b5dfdd8bd?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Rugged handheld biometric terminal in a charging dock" loading="lazy"></div>
+            <div class="tk-devpreview-text">
+              <h3>Portable Biometric Devices</h3>
+              <p>Battery-powered, handheld biometric terminals for mobile teams,
+                remote sites, or temporary locations without fixed infrastructure.</p>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="tk-devtype-controls">
-        <button class="tk-devtype-arrow tk-devtype-prev" id="tkDevtypePrev" aria-label="Previous device category">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
-        </button>
-        <div class="tk-devtype-dots" id="tkDevtypeDots"><!-- JS: built to match how many cards fit per view --></div>
-        <button class="tk-devtype-arrow tk-devtype-next" id="tkDevtypeNext" aria-label="Next device category">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
-        </button>
       </div>
     </section>
 
@@ -507,44 +511,8 @@
       </div>
     </section>
 
-    <!-- ===================== CORE PILLARS ===================== -->
-    <section id="solutions" class="tk-section tk-section-alt">
-      <div class="tk-section-head">
-        <h2>Attendance. Access. Security. In One Connected System.</h2>
-        <p>PeoplesHR Tracking isn't just about clocking in and out. It's a complete
-          workforce tracking and security layer built for organizations that need
-          accurate attendance data, controlled facility access, and a single
-          source of truth that flows straight into payroll.</p>
-      </div>
-      <div class="tk-switch">
-        <div class="tk-switch-tabs" id="tkSwitchTabs">
-          <button class="tk-switch-tab active" data-idx="0">
-            <span class="tk-switch-tab-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></span>
-            <span>Attendance Tracking</span>
-          </button>
-          <button class="tk-switch-tab" data-idx="1">
-            <span class="tk-switch-tab-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 6v6c0 5 3.8 8.7 9 10 5.2-1.3 9-5 9-10V6l-9-4Z"/></svg></span>
-            <span>Access Control &amp; Security</span>
-          </button>
-          <button class="tk-switch-tab" data-idx="2">
-            <span class="tk-switch-tab-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v5h5"/><path d="M20 20v-5h-5"/><path d="M5.5 15A8 8 0 0 0 19 9"/><path d="M18.5 9A8 8 0 0 0 5 15"/></svg></span>
-            <span>Payroll-Ready Data</span>
-          </button>
-        </div>
-        <div class="tk-switch-layout">
-          <div class="tk-switch-content" id="tkSwitchContent"><!-- JS --></div>
-          <div class="tk-switch-visual">
-            <div class="tk-switch-img-wrap">
-              <img class="tk-switch-img" id="tkSwitchImg" src="" alt="">
-              <div class="tk-switch-tint" id="tkSwitchTint"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- ===================== PAYROLL & TIME-ATTENDANCE INTEGRATION ===================== -->
-    <section class="tk-section">
+    <section class="tk-section tk-section-alt">
       <div class="tk-split">
         <div class="tk-split-visual">
           <img src="https://images.unsplash.com/photo-1542744173-05336fcc7ad4?auto=format&amp;fit=crop&amp;w=1000&amp;q=80" alt="Reviewing payroll and attendance data on a laptop dashboard" loading="lazy">
@@ -575,22 +543,13 @@
     </section>
 
     <!-- ===================== INDUSTRIES / USE CASES ===================== -->
-    <section class="tk-section tk-section-alt">
+    <section class="tk-section">
       <div class="tk-section-head">
         <span class="tk-eyebrow-label">Industries</span>
         <h2>Built for Every Kind of Workplace</h2>
       </div>
 
       <div class="tk-ind">
-        <div class="tk-ind-layout">
-          <div class="tk-ind-content" id="tkIndContent"><!-- JS --></div>
-          <div class="tk-ind-visual">
-            <div class="tk-ind-img-wrap">
-              <img class="tk-ind-img" id="tkIndImg" src="" alt="">
-              <div class="tk-ind-tint" id="tkIndTint"></div>
-            </div>
-          </div>
-        </div>
         <div class="tk-ind-tabs" id="tkIndTabs">
           <button class="tk-ind-tab active" data-idx="0">Manufacturing &amp; Factories</button>
           <button class="tk-ind-tab" data-idx="1">Retail &amp; Multi-Branch</button>
@@ -599,33 +558,12 @@
           <button class="tk-ind-tab" data-idx="4">Warehousing &amp; Logistics</button>
           <button class="tk-ind-tab" data-idx="5">Educational Institutions</button>
         </div>
-      </div>
-    </section>
-
-    <!-- ===================== WHY PEOPLESHR TRACKING ===================== -->
-    <section class="tk-section">
-      <div class="tk-split">
-        <div class="tk-split-visual">
-          <img src="https://images.unsplash.com/photo-1622675363311-3e1904dc1885?auto=format&amp;fit=crop&amp;w=1000&amp;q=80" alt="Team collaborating around a table with laptops" loading="lazy">
-        </div>
-        <div class="tk-split-text">
-          <h2>Why Teams Choose PeoplesHR Tracking</h2>
-          <div class="tk-split-list tk-split-list-2col">
-            <div class="tk-split-item">
-              <h3>One Vendor, One Platform</h3>
-              <p>No stitching together separate attendance, access control, and payroll systems from different providers.</p>
-            </div>
-            <div class="tk-split-item">
-              <h3>Reliable Hardware</h3>
-              <p>Industrial-grade fingerprint machines, face recognition kiosks, and card readers built to run every shift, every day.</p>
-            </div>
-            <div class="tk-split-item">
-              <h3>Real Payroll Accuracy</h3>
-              <p>Direct integration with PeoplesHR Payroll means fewer disputes, faster pay runs, and confident month-end closing.</p>
-            </div>
-            <div class="tk-split-item">
-              <h3>Scales With You</h3>
-              <p>Add devices, sites, and employees as you grow, without switching platforms or losing historical data.</p>
+        <div class="tk-ind-layout">
+          <div class="tk-ind-content" id="tkIndContent"><!-- JS --></div>
+          <div class="tk-ind-visual">
+            <div class="tk-ind-img-wrap">
+              <img class="tk-ind-img" id="tkIndImg" src="" alt="">
+              <div class="tk-ind-tint" id="tkIndTint"></div>
             </div>
           </div>
         </div>
@@ -662,8 +600,76 @@
       </div>
     </section>
 
-    <!-- ===================== FAQ ===================== -->
+    <!-- ===================== TRUST / STATS BAR ===================== -->
+    <section class="tk-stats tk-stats-white">
+      <div class="tk-stats-head">
+        <span class="tk-eyebrow-label">By The Numbers</span>
+        <h2>Built on Proof, Not Just Promises</h2>
+        <p>Every claim on this page traces back to a device sitting on a wall
+          somewhere, capturing real punches and real access events. Here's what
+          that looks like in practice.</p>
+      </div>
+      <ul>
+        <li>
+          <div class="tk-stat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 6v6c0 5 3.8 8.7 9 10 5.2-1.3 9-5 9-10V6l-9-4Z"/><path d="m9 12 2 2 4-4"/></svg></div>
+          <strong>Authorized</strong><span>ZKTeco Partner</span>
+          <p>Genuine devices with a full manufacturer warranty.</p>
+        </li>
+        <li>
+          <div class="tk-stat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".7" fill="currentColor" stroke="none"/></svg></div>
+          <strong>99.9%</strong><span>Attendance capture accuracy</span>
+          <p>Biometric capture leaves virtually no missed punches.</p>
+        </li>
+        <li>
+          <div class="tk-stat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v5h5"/><path d="M20 20v-5h-5"/><path d="M5.5 15A8 8 0 0 0 19 9"/><path d="M18.5 9A8 8 0 0 0 5 15"/></svg></div>
+          <strong>Real-time</strong><span>Sync with Payroll &amp; T&amp;A</span>
+          <p>Every clock-in flows straight into pay calculations.</p>
+        </li>
+        <li>
+          <div class="tk-stat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.5 7-11a7 7 0 1 0-14 0c0 4.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
+          <strong>Multi-site</strong><span>Deployment across branches</span>
+          <p>One platform, unlimited sites and locations.</p>
+        </li>
+        <li>
+          <div class="tk-stat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
+          <strong>Zero</strong><span>Buddy punching, guaranteed</span>
+          <p>Biometric verification stops proxy attendance cold.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===================== WHY PEOPLESHR TRACKING ===================== -->
     <section class="tk-section tk-section-alt">
+      <div class="tk-split">
+        <div class="tk-split-visual">
+          <img src="https://images.unsplash.com/photo-1622675363311-3e1904dc1885?auto=format&amp;fit=crop&amp;w=1000&amp;q=80" alt="Team collaborating around a table with laptops" loading="lazy">
+        </div>
+        <div class="tk-split-text">
+          <h2>Why Teams Choose PeoplesHR Tracking</h2>
+          <div class="tk-split-list tk-split-list-2col">
+            <div class="tk-split-item">
+              <h3>One Vendor, One Platform</h3>
+              <p>No stitching together separate attendance, access control, and payroll systems from different providers.</p>
+            </div>
+            <div class="tk-split-item">
+              <h3>Reliable Hardware</h3>
+              <p>Industrial-grade fingerprint machines, face recognition kiosks, and card readers built to run every shift, every day.</p>
+            </div>
+            <div class="tk-split-item">
+              <h3>Real Payroll Accuracy</h3>
+              <p>Direct integration with PeoplesHR Payroll means fewer disputes, faster pay runs, and confident month-end closing.</p>
+            </div>
+            <div class="tk-split-item">
+              <h3>Scales With You</h3>
+              <p>Add devices, sites, and employees as you grow, without switching platforms or losing historical data.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FAQ ===================== -->
+    <section class="tk-section">
       <div class="tk-section-head tk-section-head-narrow">
         <h2>Frequently Asked Questions</h2>
       </div>
