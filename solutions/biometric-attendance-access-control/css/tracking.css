@@ -275,17 +275,19 @@ html{scrollbar-gutter:stable;}
 .tk-deploy-visual{
   position:relative;max-width:1140px;margin:0 auto;
 }
-.tk-deploy-photo{
-  border-radius:20px;overflow:hidden;background:#fff;
-  border:1px solid var(--tk-border);
-  box-shadow:0 24px 64px -24px rgba(13,27,62,.32);
-  transition:transform .3s var(--tk-ease),box-shadow .3s var(--tk-ease);
+.tk-deploy-photo{position:relative;}
+.tk-deploy-photo>img{width:100%;height:auto;display:block;}
+.tk-deploy-hotspot{
+  position:absolute;padding:0;margin:0;border:0;background:none;
+  cursor:pointer;z-index:2;-webkit-tap-highlight-color:transparent;
+  transition:transform .22s var(--tk-ease),filter .22s var(--tk-ease);
 }
-.tk-deploy-visual:hover .tk-deploy-photo{
-  transform:translateY(-3px);
-  box-shadow:0 32px 72px -24px rgba(13,27,62,.4);
+.tk-deploy-hotspot img{width:100%;height:100%;display:block;object-fit:contain;pointer-events:none;}
+.tk-deploy-hotspot:hover,.tk-deploy-hotspot:focus-visible{
+  transform:scale(1.09);z-index:3;
+  filter:drop-shadow(0 12px 22px rgba(13,27,62,.3));
 }
-.tk-deploy-photo img{width:100%;height:auto;display:block;}
+.tk-deploy-hotspot:focus-visible{outline:2px solid var(--tk-blue);outline-offset:4px;border-radius:999px;}
 .tk-deploy-badge{
   position:absolute;display:flex;flex-direction:column;gap:2px;
   background:#fff;border-radius:14px;padding:14px 18px;max-width:180px;
