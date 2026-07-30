@@ -271,6 +271,66 @@ html{scrollbar-gutter:stable;}
 .tk-split-item h3{font-size:15.5px;font-weight:700;margin:0 0 8px;}
 .tk-split-item p{font-size:13.5px;line-height:1.6;color:var(--tk-muted);margin:0;}
 
+/* --- Interactive deployment map: site plan + hover pins --------------- */
+.tk-map{position:relative;width:100%;max-width:1080px;margin:0 auto;}
+.tk-map-plan{width:100%;height:auto;display:block;aspect-ratio:1000/600;overflow:visible;}
+.tk-map-ground{fill:var(--tk-surface);stroke:var(--tk-border);stroke-width:2;}
+.tk-map-building{fill:#fff;stroke:var(--tk-border);stroke-width:2;}
+.tk-map-label{
+  font-family:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:16px;font-weight:700;fill:var(--tk-muted);text-anchor:middle;
+}
+.tk-map-label-sm{font-size:13px;}
+.tk-map-road{fill:none;stroke:#dfe4ee;stroke-width:22;stroke-linecap:round;}
+.tk-map-gate{fill:var(--tk-ink);opacity:.18;}
+.tk-map-parking{fill:#eef0f5;stroke:var(--tk-border);stroke-width:1.5;}
+.tk-map-parking-line{stroke:#fff;stroke-width:3;}
+.tk-map-dock{fill:var(--tk-blue-soft);stroke:var(--tk-blue);stroke-width:1.5;}
+.tk-map-tree{fill:#d3ecdc;}
+
+.tk-map-pin{
+  position:absolute;transform:translate(-50%,-50%);
+  background:none;border:0;padding:0;margin:0;cursor:pointer;font-family:inherit;
+  z-index:1;
+}
+.tk-map-pin-dot{
+  display:grid;place-items:center;width:38px;height:38px;border-radius:50%;
+  background:var(--tk-blue);color:#fff;
+  box-shadow:0 6px 16px rgba(37,99,235,.4),0 0 0 6px rgba(37,99,235,.14);
+  transition:transform .22s var(--tk-ease);
+}
+.tk-map-pin-dot svg{width:18px;height:18px;}
+.tk-map-pin:hover .tk-map-pin-dot,
+.tk-map-pin:focus-visible .tk-map-pin-dot{transform:scale(1.15);}
+
+.tk-map-pin-card{
+  position:absolute;bottom:calc(100% + 14px);left:50%;width:220px;
+  background:#fff;border-radius:14px;padding:14px 16px;
+  box-shadow:0 18px 40px -12px rgba(13,27,62,.35);
+  opacity:0;visibility:hidden;pointer-events:none;text-align:left;z-index:2;
+  transform:translateX(-50%) translateY(6px);
+  transition:opacity .2s var(--tk-ease),transform .2s var(--tk-ease),visibility .2s;
+}
+.tk-map-pin:hover .tk-map-pin-card,
+.tk-map-pin:focus-visible .tk-map-pin-card{
+  opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0);
+}
+.tk-map-pin-zone{display:block;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tk-blue);margin-bottom:4px;}
+.tk-map-pin-card strong{display:block;font-size:14.5px;font-weight:800;color:var(--tk-ink);margin-bottom:6px;}
+.tk-map-pin-card p{font-size:12.5px;line-height:1.55;color:var(--tk-muted);margin:0;}
+
+.tk-map-pin-flip .tk-map-pin-card{bottom:auto;top:calc(100% + 14px);transform:translateX(-50%) translateY(-6px);}
+.tk-map-pin-flip:hover .tk-map-pin-card,
+.tk-map-pin-flip:focus-visible .tk-map-pin-card{transform:translateX(-50%) translateY(0);}
+
+.tk-map-pin-align-left .tk-map-pin-card{left:0;transform:translateY(6px);}
+.tk-map-pin-align-left:hover .tk-map-pin-card,
+.tk-map-pin-align-left:focus-visible .tk-map-pin-card{transform:translateY(0);}
+
+.tk-map-pin-flip.tk-map-pin-align-left .tk-map-pin-card{transform:translateY(-6px);}
+.tk-map-pin-flip.tk-map-pin-align-left:hover .tk-map-pin-card,
+.tk-map-pin-flip.tk-map-pin-align-left:focus-visible .tk-map-pin-card{transform:translateY(0);}
+
 /* --- Connected-devices network diagram -------------------------------- */
 .tk-network{display:flex;align-items:center;justify-content:center;min-width:0;}
 .tk-network-svg{display:block;width:100%;max-width:620px;height:auto;overflow:visible;}
@@ -409,6 +469,11 @@ html{scrollbar-gutter:stable;}
   .tk-geo-phone{right:-12px;bottom:-16px;width:126px;}
   .tk-sync-visual{margin-bottom:24px;}
   .tk-sync-card{right:-12px;bottom:-16px;width:150px;}
+  .tk-map-pin-dot{width:30px;height:30px;}
+  .tk-map-pin-dot svg{width:15px;height:15px;}
+  .tk-map-pin-card{width:170px;padding:11px 13px;}
+  .tk-map-pin-card strong{font-size:13px;}
+  .tk-map-pin-card p{font-size:11.5px;}
   .tk-stats-head{padding:40px 20px 0;}
   .tk-stats ul{grid-template-columns:repeat(2,1fr);gap:12px;padding:28px 20px 40px;}
   .tk-final-cta{padding:48px 24px;border-radius:18px;}
