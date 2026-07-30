@@ -73,37 +73,37 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
       title: 'Manufacturing & Factories',
       body:  'Track attendance and control access across production floors and warehouses, with rugged devices built for high-traffic industrial environments and shift-based rules that match your production schedule. Fingerprint terminals hold up to dust, heat, and constant handling far better than card-only readers, so the hardware keeps working through the conditions a factory floor actually throws at it.',
       tags:  ['Shift-based access', 'Rugged hardware', 'Multi-site sync'],
-      img:   'https://images.unsplash.com/photo-1700727448686-b314cb5f9948?auto=format&fit=crop&w=1000&q=80'
+      img:   'images/Factory worker operating industrial machinery, wearing gloves, hard hat, and protective eyewear.webp'
     },
     {
       title: 'Retail & Multi-Branch Operations',
       body:  'Keep every store staffed and accountable on one platform, with consistent attendance data and access control whether you run 5 locations or 500. New branches roll out on the same device standard and report into the same dashboard, so head office gets one clean view of attendance instead of a different spreadsheet from every store.',
       tags:  ['Fast rollout', 'Centralized reporting', 'Any headcount'],
-      img:   'https://images.unsplash.com/photo-1558898452-e5c989f41b27?auto=format&fit=crop&w=1000&q=80'
+      img:   'images/Two supermarket staff members in uniform, one holding a tablet and the other carrying a box, in a grocery store.webp'
     },
     {
       title: 'Corporate Offices',
       body:  'Give employees frictionless badge or biometric entry at reception and secure zones, with attendance data flowing straight into payroll and no separate systems to reconcile. Visitors and contractors can be granted temporary access on the same platform, so security and HR are working off the same record instead of two.',
       tags:  ['Badge & biometric entry', 'Zone permissions', 'Payroll sync'],
-      img:   'https://images.unsplash.com/photo-1543325042-c67825847491?auto=format&fit=crop&w=1000&q=80'
+      img:   'images/Two colleagues in a corporate boardroom meeting.webp'
     },
     {
       title: 'Healthcare Facilities',
       body:  'Secure wards and pharmacies with role-based access, while contactless biometric check-in keeps staff attendance accurate without adding to infection-control risk. Access rights can be scoped tightly by ward, shift, or clearance level, so sensitive areas stay restricted to the staff who are actually authorized to be there.',
       tags:  ['Contactless check-in', 'Restricted-zone control', 'Audit trail'],
-      img:   'https://images.unsplash.com/photo-1584451049700-ec9b394f3805?auto=format&fit=crop&w=1000&q=80'
+      img:   'images/Doctor and nurse walking through a hospital corridor.webp'
     },
     {
       title: 'Warehousing & Logistics',
       body:  'Track attendance across shifts and loading docks, with access gates that log every entry and exit for full visibility over who\'s on site, at every facility. Handheld and gate-mounted devices cover both fixed checkpoints and moving crews, so coverage doesn\'t drop off between the office and the yard.',
       tags:  ['Gate & dock access', 'Shift coverage', 'Real-time visibility'],
-      img:   'https://images.unsplash.com/photo-1620388640785-892616248ec8?auto=format&fit=crop&w=1000&q=80'
+      img:   'images/Lorry driver in uniform, viewed close-up through the vehicle window.webp'
     },
     {
       title: 'Educational Institutions',
       body:  'Manage staff and campus access across multiple buildings from one dashboard, with attendance data ready for compliance reporting whenever it\'s needed. Term-time schedules, multiple campuses, and mixed staff and faculty access rules are all handled from the same system, without extra spreadsheets at reporting time.',
       tags:  ['Campus-wide access', 'Staff attendance', 'Compliance-ready'],
-      img:   'https://images.unsplash.com/photo-1731349219592-60ca16964631?auto=format&fit=crop&w=1000&q=80'
+      img:   'images/Professor walking into a university building.webp'
     }
   ];
 
