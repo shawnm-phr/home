@@ -136,6 +136,7 @@ html{scrollbar-gutter:stable;}
    width when content height changes (accordions, etc.). */
 .tk-section-compact{min-height:0;display:block;padding-top:56px;padding-bottom:56px;}
 .tk-section-head{max-width:720px;margin:0 auto 44px;text-align:center;}
+.tk-section-head--device{margin-bottom:57px;}
 .tk-section-head-narrow{max-width:560px;}
 .tk-section-head h2{font-size:clamp(24px,3vw,34px);font-weight:800;line-height:1.2;letter-spacing:-.01em;margin:0 0 14px;}
 .tk-section-head p{font-size:15.5px;line-height:1.65;color:var(--tk-text);margin:0;}
