@@ -58,6 +58,36 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
   resetAuto();
 }());
 
+/* tracking - campus deployment map beacons (click a point, see device card) */
+(function(){
+  var points = document.querySelectorAll('.tk-deploy-point');
+  if(!points.length) return; // guard: absent on non-tracking pages
+
+  function closeAll(except){
+    points.forEach(function(p){
+      if(p === except) return;
+      p.classList.remove('is-open');
+      var b = p.querySelector('.tk-deploy-beacon');
+      if(b) b.setAttribute('aria-expanded','false');
+    });
+  }
+
+  points.forEach(function(point){
+    var btn = point.querySelector('.tk-deploy-beacon');
+    if(!btn) return;
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var willOpen = !point.classList.contains('is-open');
+      closeAll(willOpen ? point : null);
+      point.classList.toggle('is-open', willOpen);
+      btn.setAttribute('aria-expanded', String(willOpen));
+    });
+  });
+
+  document.addEventListener('click', function(){ closeAll(null); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeAll(null); });
+}());
+
 /* tracking - industry switcher (Manufacturing / Retail / Office / etc.) */
 (function(){
   'use strict';
