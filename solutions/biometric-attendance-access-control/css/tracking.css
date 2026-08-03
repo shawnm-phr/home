@@ -271,35 +271,17 @@ html{scrollbar-gutter:stable;}
 .tk-split-item h3{font-size:15.5px;font-weight:700;margin:0 0 8px;}
 .tk-split-item p{font-size:13.5px;line-height:1.6;color:var(--tk-muted);margin:0;}
 
-/* --- Campus deployment map: full-width diagram + popout stat badges --- */
+/* --- Campus deployment map: full-width diagram ------------------------ */
 .tk-deploy-visual{
   position:relative;max-width:1140px;margin:0 auto;
 }
-.tk-deploy-photo{position:relative;}
-.tk-deploy-photo>img{width:100%;height:auto;display:block;}
-.tk-deploy-hotspot{
-  position:absolute;padding:0;margin:0;border:0;background:none;
-  cursor:pointer;z-index:2;-webkit-tap-highlight-color:transparent;
-  transition:transform .22s var(--tk-ease),filter .22s var(--tk-ease);
-}
-.tk-deploy-hotspot img{width:100%;height:100%;display:block;object-fit:contain;pointer-events:none;}
-.tk-deploy-hotspot:hover,.tk-deploy-hotspot:focus-visible{
-  transform:scale(1.09);z-index:3;
-  filter:drop-shadow(0 12px 22px rgba(13,27,62,.3));
-}
-.tk-deploy-hotspot:focus-visible{outline:2px solid var(--tk-blue);outline-offset:4px;border-radius:999px;}
-.tk-deploy-badge{
-  position:absolute;display:flex;flex-direction:column;gap:2px;
-  background:#fff;border-radius:14px;padding:14px 18px;max-width:180px;
-  border:1px solid var(--tk-border);
-  box-shadow:0 18px 40px -16px rgba(13,27,62,.4);
-  transition:transform .3s var(--tk-ease),box-shadow .3s var(--tk-ease);
-}
-.tk-deploy-badge-left{left:-16px;top:36px;}
-.tk-deploy-badge-right{right:-16px;bottom:36px;}
-.tk-deploy-visual:hover .tk-deploy-badge{transform:translateY(-5px);box-shadow:0 24px 48px -16px rgba(13,27,62,.5);}
-.tk-deploy-badge-num{font-size:28px;font-weight:800;line-height:1;color:var(--tk-blue);}
-.tk-deploy-badge-label{font-size:12.5px;font-weight:600;line-height:1.35;color:var(--tk-muted);}
+.tk-deploy-photo{position:relative;overflow:hidden;}
+.tk-deploy-photo>img{width:100%;height:auto;display:block;will-change:transform;transform:scale(1.04);transition:transform .5s var(--tk-ease);}
+.tk-deploy-tag{position:absolute;z-index:2;transform:translateX(-50%);text-align:center;pointer-events:none;will-change:transform;transition:transform .5s var(--tk-ease);}
+.tk-deploy-tag img{width:100%;height:auto;display:block;margin:0 auto;}
+.tk-deploy-tag-circle{position:relative;}
+.tk-deploy-tag-photo{display:block;border-radius:50%;overflow:hidden;}
+.tk-deploy-tag-label{position:absolute;left:50%;bottom:9%;transform:translateX(-50%);width:82%;padding:4px 5px;border-radius:9px;font-size:9.5px;font-weight:700;line-height:1.15;color:var(--tk-ink);background:rgba(255,255,255,.92);box-shadow:0 2px 6px rgba(13,27,62,.2);}
 
 /* --- Connected-devices network diagram -------------------------------- */
 .tk-network{display:flex;align-items:center;justify-content:center;min-width:0;}
@@ -418,8 +400,7 @@ html{scrollbar-gutter:stable;}
   .tk-hero-visual{order:-1;}
   .tk-hero-img-wrap{aspect-ratio:16/10;}
   .tk-deploy-visual{margin-top:8px;}
-  .tk-deploy-badge{position:static;max-width:none;margin-top:12px;box-shadow:0 6px 16px rgba(13,27,62,.06);}
-  .tk-deploy-badge-left,.tk-deploy-badge-right{left:auto;right:auto;top:auto;bottom:auto;}
+  .tk-deploy-tag{display:none;}
 }
 @media (max-width:640px){
   .tk-hero{padding:40px 20px;}
