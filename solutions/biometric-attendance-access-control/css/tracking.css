@@ -277,11 +277,14 @@ html{scrollbar-gutter:stable;}
 }
 .tk-deploy-photo{position:relative;overflow:hidden;}
 .tk-deploy-photo>img{width:100%;height:auto;display:block;will-change:transform;transform:scale(1.04);transition:transform .5s var(--tk-ease);}
-.tk-deploy-tag{position:absolute;z-index:2;transform:translateX(-50%);text-align:center;pointer-events:none;will-change:transform;transition:transform .5s var(--tk-ease);}
-.tk-deploy-tag img{width:100%;height:auto;display:block;margin:0 auto;}
-.tk-deploy-tag-circle{position:relative;}
-.tk-deploy-tag-photo{display:block;border-radius:50%;overflow:hidden;}
-.tk-deploy-tag-label{position:absolute;left:50%;bottom:9%;transform:translateX(-50%);width:82%;padding:4px 5px;border-radius:9px;font-size:9.5px;font-weight:700;line-height:1.15;color:var(--tk-ink);background:rgba(255,255,255,.92);box-shadow:0 2px 6px rgba(13,27,62,.2);}
+.tk-deploy-beacon{position:absolute;z-index:3;width:16px;height:16px;padding:0;border:0;background:transparent;cursor:pointer;transform:translate(-50%,-50%);}
+.tk-deploy-beacon-dot{position:absolute;inset:0;border-radius:50%;background:var(--tk-blue);box-shadow:0 0 0 3px rgba(255,255,255,.95),0 2px 8px rgba(13,27,62,.35);}
+.tk-deploy-beacon-dot::before,.tk-deploy-beacon-dot::after{content:"";position:absolute;inset:0;border-radius:50%;background:rgba(37,99,235,.55);animation:tk-beacon-ping 2.4s cubic-bezier(0,0,.2,1) infinite;}
+.tk-deploy-beacon-dot::after{animation-delay:1.2s;}
+@keyframes tk-beacon-ping{0%{transform:scale(1);opacity:.7;}75%,100%{transform:scale(3.4);opacity:0;}}
+.tk-deploy-beacon-label{position:absolute;left:50%;bottom:calc(100% + 10px);transform:translateX(-50%) translateY(4px);white-space:nowrap;background:rgba(13,27,62,.94);color:#fff;font-size:11.5px;font-weight:600;padding:5px 9px;border-radius:7px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .18s var(--tk-ease),transform .18s var(--tk-ease),visibility .18s var(--tk-ease);box-shadow:0 6px 16px -6px rgba(13,27,62,.4);}
+.tk-deploy-beacon-label::after{content:"";position:absolute;left:50%;top:100%;transform:translateX(-50%);border:5px solid transparent;border-top-color:rgba(13,27,62,.94);}
+.tk-deploy-beacon:hover .tk-deploy-beacon-label,.tk-deploy-beacon:focus-visible .tk-deploy-beacon-label{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);}
 
 /* --- Connected-devices network diagram -------------------------------- */
 .tk-network{display:flex;align-items:center;justify-content:center;min-width:0;}
@@ -400,7 +403,6 @@ html{scrollbar-gutter:stable;}
   .tk-hero-visual{order:-1;}
   .tk-hero-img-wrap{aspect-ratio:16/10;}
   .tk-deploy-visual{margin-top:8px;}
-  .tk-deploy-tag{display:none;}
 }
 @media (max-width:640px){
   .tk-hero{padding:40px 20px;}
