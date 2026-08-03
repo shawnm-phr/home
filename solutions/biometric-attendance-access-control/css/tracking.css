@@ -288,6 +288,7 @@ html{scrollbar-gutter:stable;}
 .tk-deploy-point--label-above .tk-deploy-beacon-name{top:auto;bottom:calc(100% + 8px);}
 .tk-deploy-point--label-stagger .tk-deploy-beacon-name{top:calc(100% + 36px);}
 .tk-deploy-point--label-tier3 .tk-deploy-beacon-name{top:calc(100% + 62px);}
+.tk-deploy-point--label-tier3.tk-deploy-point--label-above .tk-deploy-beacon-name{top:auto;bottom:calc(100% + 62px);}
 .tk-deploy-point--label-shift-right .tk-deploy-beacon-name{transform:translateX(calc(-50% + 22px));}
 .tk-deploy-point--label-shift-left .tk-deploy-beacon-name{transform:translateX(calc(-50% - 20px));}
 .tk-deploy-point--label-stagger.tk-deploy-point--label-above .tk-deploy-beacon-name{top:auto;bottom:calc(100% + 30px);}
@@ -398,6 +399,7 @@ html{scrollbar-gutter:stable;}
 @media (max-width:1080px){
   .tk-device-grid{grid-template-columns:repeat(2,1fr);}
   .tk-stats ul{grid-template-columns:repeat(3,1fr);}
+  .tk-deploy-beacon-name{display:none;}
 }
 @media (max-width:900px){
   .tk-devtab-wrap{flex-direction:column;gap:20px;}
