@@ -298,6 +298,8 @@ html{scrollbar-gutter:stable;}
 .tk-deploy-point--label-shift-right .tk-deploy-beacon-name{--label-tx:calc(-50% + 22px);}
 .tk-deploy-point--label-shift-left .tk-deploy-beacon-name{--label-tx:calc(-50% - 20px);}
 .tk-deploy-point--label-stagger.tk-deploy-point--label-above .tk-deploy-beacon-name{top:auto;bottom:calc(100% + 30px);}
+.tk-deploy-point--label-side .tk-deploy-beacon-name{top:50%;left:calc(100% + 8px);--label-tx:0px;--label-ty:-50%;}
+.tk-deploy-point--label-side .tk-deploy-beacon:hover .tk-deploy-beacon-name,.tk-deploy-point--label-side .tk-deploy-beacon:focus-visible .tk-deploy-beacon-name{--label-ty:-50%;}
 .tk-deploy-card{position:absolute;left:50%;bottom:calc(100% + 10px);width:220px;max-width:78vw;background:#fff;border-radius:14px;box-shadow:0 20px 45px -20px rgba(13,27,62,.45),0 6px 16px -8px rgba(13,27,62,.25);overflow:hidden;text-align:left;opacity:0;visibility:hidden;pointer-events:none;transform:translateX(-50%) translateY(6px) scale(.96);transition:opacity .2s var(--tk-ease),transform .2s var(--tk-ease),visibility .2s var(--tk-ease);}
 .tk-deploy-point--card-below .tk-deploy-card{bottom:auto;top:calc(100% + 10px);transform:translateX(-50%) translateY(-6px) scale(.96);}
 .tk-deploy-point.is-open .tk-deploy-card{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0) scale(1);}
