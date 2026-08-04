@@ -14,7 +14,18 @@ const WEBINAR_DATA = {
       { "initials": "MG", "name": "Manolo Garcia-Ramos", "role": "Country Director – Philippines, PeoplesHR", "photo": "https://peopleshr.com/wp-content/uploads/2026/06/manuel_ramos.webp", "color": "#dbeafe", "textColor": "#2563eb" }
     ]
   },
-  "upcoming": [],
+  "upcoming": [
+    {
+      "category": "Product",
+      "title": "PeoplesHR v10.3: People Intelligence, Wherever You Are",
+      "date": "19 Aug 2026",
+      "time": "12:30 PM IST",
+      "duration": "< 1 hour",
+      "language": "English",
+      "registerUrl": "/webinar-v10-3/webinar-v10-3.html",
+      "gradient": 2
+    }
+  ],
   "recordings": [
     {
       "category": "Product",
@@ -690,9 +701,9 @@ async function init() {
     const data = WEBINAR_DATA;
 
     const body = document.getElementById('wb-body');
+    const hasUpcoming = data.upcoming && data.upcoming.length > 0;
     body.innerHTML =
-      renderComingSoon() +
-      renderUpcoming(data.upcoming) +
+      (hasUpcoming ? renderUpcoming(data.upcoming) : renderComingSoon()) +
       renderRecordings(data.recordings) +
       renderCTA();
 
