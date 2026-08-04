@@ -66,6 +66,7 @@
   border-radius:100px;padding:10px 22px;margin-bottom:36px;
   font-size:14.5px;font-weight:600;color:#fff;
 }
+.wreg-hero-cta{display:flex;justify-content:center;}
 .wreg-hero-meta svg{flex-shrink:0;color:var(--blue-bright);}
 
 /* --- What We'll Cover ---------------------------------------------------- */
