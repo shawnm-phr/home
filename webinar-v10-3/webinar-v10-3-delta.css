@@ -86,13 +86,6 @@
 }
 .wreg-bullet-check svg{width:13px;height:13px;color:#fff;}
 
-/* --- Webinar Details recap box -------------------------------------------- */
-.wreg-recap{background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 8px 32px rgba(13,27,62,.08);}
-.wreg-recap-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 28px;border-bottom:1px solid var(--border);}
-.wreg-recap-row:last-child{border-bottom:0;}
-.wreg-recap-label{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);}
-.wreg-recap-value{font-size:15px;font-weight:600;color:var(--text-dark);text-align:right;}
-
 /* --- Closing CTA wrapper (band itself reuses .wb-cta-strip as-is) --------- */
 .wreg-cta-wrap{max-width:1000px;margin:0 auto;padding:0 48px 96px;}
 
@@ -113,7 +106,5 @@
   .wreg-hero-sub{font-size:15px;}
   .wreg-hero-meta{font-size:13px;padding:9px 18px;flex-wrap:wrap;justify-content:center;text-align:center;}
   .wreg-section{padding:56px 20px;}
-  .wreg-recap-row{padding:16px 20px;flex-direction:column;align-items:flex-start;gap:4px;}
-  .wreg-recap-value{text-align:left;}
   .wreg-cta-wrap{padding:0 20px 64px;}
 }
