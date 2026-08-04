@@ -86,12 +86,6 @@
 }
 .wreg-bullet-check svg{width:13px;height:13px;color:#fff;}
 
-/* --- Who Should Attend ---------------------------------------------------- */
-.wreg-attend{background:var(--bg-card);text-align:center;padding:64px 48px;}
-.wreg-attend-inner{max-width:640px;margin:0 auto;}
-.wreg-attend h2{font-size:clamp(22px,2.8vw,28px);font-weight:800;color:var(--text-dark);margin-bottom:14px;}
-.wreg-attend p{font-size:16.5px;color:var(--text-body);line-height:1.65;}
-
 /* --- Webinar Details recap box -------------------------------------------- */
 .wreg-recap{background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 8px 32px rgba(13,27,62,.08);}
 .wreg-recap-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 28px;border-bottom:1px solid var(--border);}
@@ -112,7 +106,6 @@
 @media(max-width:1024px){
   .wreg-hero{padding:96px 32px 80px;}
   .wreg-section{padding:72px 32px;}
-  .wreg-attend{padding:56px 32px;}
 }
 @media(max-width:768px){
   .wreg-hero{padding:64px 20px 56px;}
@@ -120,7 +113,6 @@
   .wreg-hero-sub{font-size:15px;}
   .wreg-hero-meta{font-size:13px;padding:9px 18px;flex-wrap:wrap;justify-content:center;text-align:center;}
   .wreg-section{padding:56px 20px;}
-  .wreg-attend{padding:48px 20px;}
   .wreg-recap-row{padding:16px 20px;flex-direction:column;align-items:flex-start;gap:4px;}
   .wreg-recap-value{text-align:left;}
   .wreg-cta-wrap{padding:0 20px 64px;}
