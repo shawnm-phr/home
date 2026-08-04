@@ -114,6 +114,56 @@
 .wreg-form-confirm svg{color:#16a34a;margin-bottom:14px;}
 .wreg-form-confirm p{font-size:16px;font-weight:600;color:var(--text-dark);}
 
+/* HubSpot form overrides scoped to #wregFormContainer -- the shared
+   .wbr-register-card rules in phrhome.css style this same embed for a
+   dark background (white text/translucent fields), which goes invisible
+   on this page's white modal. Force dark, readable colors here instead. */
+#wregFormContainer .hs-form fieldset{max-width:100%!important;}
+#wregFormContainer .hs-form .hs-form-field{margin-bottom:16px!important;}
+#wregFormContainer .hs-form .hs-form-field label{
+  display:block!important;font-size:13px!important;font-weight:600!important;
+  color:var(--text-dark)!important;margin-bottom:6px!important;
+  letter-spacing:normal!important;text-transform:none!important;
+}
+#wregFormContainer .hs-form input[type="text"],
+#wregFormContainer .hs-form input[type="email"],
+#wregFormContainer .hs-form input[type="tel"],
+#wregFormContainer .hs-form select,
+#wregFormContainer .hs-form textarea{
+  width:100%!important;background:#fff!important;
+  border:1px solid var(--border)!important;border-radius:10px!important;
+  padding:11px 14px!important;font-size:14px!important;color:var(--text-dark)!important;
+  font-family:"Plus Jakarta Sans",sans-serif!important;outline:none!important;
+  box-shadow:none!important;appearance:none!important;-webkit-appearance:none!important;
+  transition:border-color .2s!important;
+}
+#wregFormContainer .hs-form input::placeholder,
+#wregFormContainer .hs-form textarea::placeholder{color:var(--text-muted)!important;}
+#wregFormContainer .hs-form input:focus,
+#wregFormContainer .hs-form select:focus,
+#wregFormContainer .hs-form textarea:focus{border-color:var(--blue)!important;}
+#wregFormContainer .hs-form legend,
+#wregFormContainer .hs-form .hs-richtext,
+#wregFormContainer .hs-form .hs-field-desc,
+#wregFormContainer .hs-form .legal-consent-container,
+#wregFormContainer .hs-form .legal-consent-container p{
+  color:var(--text-muted)!important;font-size:12.5px!important;line-height:1.5!important;
+}
+#wregFormContainer .hs-form .hs-error-msgs label{
+  color:#dc2626!important;font-size:12px!important;font-weight:500!important;
+  text-transform:none!important;letter-spacing:normal!important;
+}
+#wregFormContainer .hs-form .hs-submit .hs-button,
+#wregFormContainer .hs-form input[type="submit"]{
+  width:100%!important;background:var(--blue)!important;color:#fff!important;
+  font-size:15px!important;font-weight:700!important;
+  font-family:"Plus Jakarta Sans",sans-serif!important;
+  padding:14px!important;border-radius:10px!important;border:none!important;
+  cursor:pointer!important;margin-top:8px!important;transition:background .2s!important;
+}
+#wregFormContainer .hs-form .hs-submit .hs-button:hover,
+#wregFormContainer .hs-form input[type="submit"]:hover{background:var(--blue-dark,#1d4ed8)!important;}
+
 /* --- Responsive (breakpoints match the existing .wb- family) -------------- */
 @media(max-width:1024px){
   .wreg-hero{padding:72px 32px;}
