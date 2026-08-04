@@ -301,7 +301,7 @@ html{scrollbar-gutter:stable;}
 .tk-deploy-card{position:absolute;left:50%;bottom:calc(100% + 10px);width:220px;max-width:78vw;background:#fff;border-radius:14px;box-shadow:0 20px 45px -20px rgba(13,27,62,.45),0 6px 16px -8px rgba(13,27,62,.25);overflow:hidden;text-align:left;opacity:0;visibility:hidden;pointer-events:none;transform:translateX(-50%) translateY(6px) scale(.96);transition:opacity .2s var(--tk-ease),transform .2s var(--tk-ease),visibility .2s var(--tk-ease);}
 .tk-deploy-point--card-below .tk-deploy-card{bottom:auto;top:calc(100% + 10px);transform:translateX(-50%) translateY(-6px) scale(.96);}
 .tk-deploy-point.is-open .tk-deploy-card{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0) scale(1);}
-.tk-deploy-card img{width:100%;height:120px;object-fit:cover;display:block;background:#f3f6fc;}
+.tk-deploy-card img{width:100%;height:180px;object-fit:cover;display:block;background:#f3f6fc;}
 .tk-deploy-card-body{padding:10px 12px 12px;}
 .tk-deploy-card-body h4{margin:0 0 4px;font-size:13px;font-weight:700;color:var(--tk-ink);}
 .tk-deploy-card-body p{margin:0;font-size:11.5px;line-height:1.45;color:var(--tk-muted);}
