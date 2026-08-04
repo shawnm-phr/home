@@ -1,0 +1,113 @@
+/* ==========================================================================
+   webinar-v10-3-delta.css
+   Page-specific styles for the PeoplesHR v10.3 Webinar registration page.
+   Requires: phrhome.css loaded first, extends it, never modifies it.
+
+   New classes are prefixed .wreg- (webinar registration) to stay distinct
+   from the existing .wb- webinar-hub family (phr-webinar-page/) and the
+   unrelated .wbr- trust-chip classes already in phrhome.css. Reuses
+   .btn-primary, .wb-cta-strip, and .hs-modal-* directly from phrhome.css
+   rather than duplicating them. All colors/spacing come from phrhome.css's
+   :root variables; breakpoints (1024/768) match the ones already used by
+   the .wb- family.
+   ========================================================================== */
+
+/* --- Hero --------------------------------------------------------------
+   Dark navy + blue gradient per brief. #1e3a8a is not currently a :root
+   token -- it's the exact second gradient stop already hardcoded on
+   .wb-cta-strip elsewhere in phrhome.css, reused here for the same
+   "v10.3 release" gradient look rather than introducing a new color. */
+.wreg-hero{
+  background:linear-gradient(135deg, var(--navy) 0%, #1e3a8a 100%);
+  padding:120px 48px 96px;
+  position:relative;
+  overflow:hidden;
+  text-align:center;
+}
+.wreg-hero::before{
+  content:'';position:absolute;top:-20%;right:-10%;width:520px;height:520px;
+  border-radius:50%;background:radial-gradient(circle, rgba(59,130,246,.25), transparent 70%);
+  pointer-events:none;
+}
+.wreg-hero-inner{max-width:760px;margin:0 auto;position:relative;z-index:2;}
+.wreg-hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);
+  border-radius:100px;padding:6px 18px;
+  font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:#fff;margin-bottom:24px;
+}
+.wreg-hero-eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--blue-bright);}
+.wreg-hero h1{
+  font-size:clamp(2.2rem,4.5vw,3.4rem);font-weight:800;color:#fff;
+  letter-spacing:-.03em;line-height:1.12;margin-bottom:20px;
+}
+.wreg-hero-sub{
+  font-size:17px;color:rgba(255,255,255,.78);line-height:1.65;
+  max-width:560px;margin:0 auto 28px;
+}
+.wreg-hero-meta{
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);
+  border-radius:100px;padding:10px 22px;margin-bottom:36px;
+  font-size:14.5px;font-weight:600;color:#fff;
+}
+.wreg-hero-meta svg{flex-shrink:0;color:var(--blue-bright);}
+
+/* --- What We'll Cover ---------------------------------------------------- */
+.wreg-section{padding:88px 48px;max-width:820px;margin:0 auto;}
+.wreg-section-center{text-align:center;margin-bottom:44px;}
+.wreg-section-center h2{font-size:clamp(24px,3vw,32px);font-weight:800;color:var(--text-dark);letter-spacing:-.02em;margin-bottom:14px;}
+.wreg-section-center p{font-size:16px;color:var(--text-muted);line-height:1.65;max-width:600px;margin:0 auto;}
+
+.wreg-bullets{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;}
+.wreg-bullet{
+  display:flex;align-items:flex-start;gap:14px;
+  background:var(--bg-light);border:1px solid var(--border);border-radius:var(--radius);
+  padding:18px 22px;font-size:15px;font-weight:600;color:var(--text-dark);line-height:1.5;
+}
+.wreg-bullet-check{
+  flex:0 0 auto;width:24px;height:24px;border-radius:50%;
+  background:var(--blue);display:flex;align-items:center;justify-content:center;margin-top:1px;
+}
+.wreg-bullet-check svg{width:13px;height:13px;color:#fff;}
+
+/* --- Who Should Attend ---------------------------------------------------- */
+.wreg-attend{background:var(--bg-card);text-align:center;padding:64px 48px;}
+.wreg-attend-inner{max-width:640px;margin:0 auto;}
+.wreg-attend h2{font-size:clamp(22px,2.8vw,28px);font-weight:800;color:var(--text-dark);margin-bottom:14px;}
+.wreg-attend p{font-size:16.5px;color:var(--text-body);line-height:1.65;}
+
+/* --- Webinar Details recap box -------------------------------------------- */
+.wreg-recap{background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 8px 32px rgba(13,27,62,.08);}
+.wreg-recap-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 28px;border-bottom:1px solid var(--border);}
+.wreg-recap-row:last-child{border-bottom:0;}
+.wreg-recap-label{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);}
+.wreg-recap-value{font-size:15px;font-weight:600;color:var(--text-dark);text-align:right;}
+
+/* --- Closing CTA wrapper (band itself reuses .wb-cta-strip as-is) --------- */
+.wreg-cta-wrap{max-width:1000px;margin:0 auto;padding:0 48px 96px;}
+
+/* --- Registration modal form states (shared .hs-modal shell) -------------- */
+.wreg-form-loader{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--text-muted);padding:12px 0;}
+.wreg-form-confirm{text-align:center;padding:24px 0;}
+.wreg-form-confirm svg{color:#16a34a;margin-bottom:14px;}
+.wreg-form-confirm p{font-size:16px;font-weight:600;color:var(--text-dark);}
+
+/* --- Responsive (breakpoints match the existing .wb- family) -------------- */
+@media(max-width:1024px){
+  .wreg-hero{padding:96px 32px 80px;}
+  .wreg-section{padding:72px 32px;}
+  .wreg-attend{padding:56px 32px;}
+}
+@media(max-width:768px){
+  .wreg-hero{padding:64px 20px 56px;}
+  .wreg-hero h1{font-size:clamp(1.9rem,7vw,2.4rem);}
+  .wreg-hero-sub{font-size:15px;}
+  .wreg-hero-meta{font-size:13px;padding:9px 18px;flex-wrap:wrap;justify-content:center;text-align:center;}
+  .wreg-section{padding:56px 20px;}
+  .wreg-attend{padding:48px 20px;}
+  .wreg-recap-row{padding:16px 20px;flex-direction:column;align-items:flex-start;gap:4px;}
+  .wreg-recap-value{text-align:left;}
+  .wreg-cta-wrap{padding:0 20px 64px;}
+}
