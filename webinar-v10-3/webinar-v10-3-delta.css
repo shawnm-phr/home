@@ -74,23 +74,21 @@
 .wreg-section--alt{max-width:none;background:var(--bg-card);}
 .wreg-section--alt .wreg-cover{max-width:1080px;margin-left:auto;margin-right:auto;}
 
-.wreg-cover{display:grid;grid-template-columns:1fr 1.5fr;gap:56px;align-items:start;}
+.wreg-cover{display:grid;grid-template-columns:1.5fr 1fr;gap:56px;align-items:start;}
 .wreg-cover-content h2{font-size:clamp(24px,3vw,32px);font-weight:800;color:var(--text-dark);letter-spacing:-.02em;margin-bottom:14px;}
 .wreg-cover-content>p{font-size:16px;color:var(--text-muted);line-height:1.65;margin-bottom:28px;}
 
 .wreg-bullets{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;}
 .wreg-bullet{
-  display:flex;align-items:flex-start;gap:14px;
-  background:var(--bg-light);border:1px solid var(--border);border-radius:var(--radius);
-  padding:18px 22px;font-size:15px;font-weight:600;color:var(--text-dark);line-height:1.5;
+  position:relative;padding-left:32px;
+  font-size:15px;font-weight:500;color:var(--text-body);line-height:1.6;
 }
-.wreg-bullet-check{
-  flex:0 0 auto;width:24px;height:24px;border-radius:50%;
-  background:var(--blue);display:flex;align-items:center;justify-content:center;margin-top:1px;
+.wreg-bullet::before{
+  content:"";position:absolute;left:0;top:2px;width:20px;height:20px;border-radius:50%;
+  background:var(--blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/12px no-repeat;
 }
-.wreg-bullet-check svg{width:13px;height:13px;color:#fff;}
 
-/* --- Featured Speakers (left column of the cover section) ----------------- */
+/* --- Featured Speakers (right column of the cover section) ---------------- */
 .wreg-cover-speakers{display:flex;flex-direction:column;gap:14px;}
 .wreg-cover-eyebrow{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:2px;}
 .wreg-speaker{
