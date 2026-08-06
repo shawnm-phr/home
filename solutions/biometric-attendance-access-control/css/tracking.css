@@ -448,7 +448,7 @@ html{scrollbar-gutter:stable;}
   .tk-split-item{border-left:0;border-top:3px solid var(--tk-blue);padding:14px 0 0;text-align:left;}
   .tk-hero{grid-template-columns:minmax(0,1fr);min-height:0;gap:36px;padding:48px 20px;}
   .tk-hero-visual{order:-1;}
-  .tk-hero-img-wrap{aspect-ratio:16/10;}
+  .tk-hero-img-wrap{aspect-ratio:auto;height:1000px;}
   .tk-deploy-visual{margin-top:8px;}
 }
 @media (max-width:640px){
