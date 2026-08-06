@@ -465,7 +465,7 @@ html{scrollbar-gutter:stable;}
   /* Within that body block, show the 3-point checklist before the
      paragraph on mobile (desktop keeps paragraph-then-list). */
   .tk-split-body{display:flex;flex-direction:column;}
-  .tk-split-body>p{order:2;}
+  .tk-split-body>p{order:2;margin-top:24px;}
   .tk-split-body>ul{order:1;}
   /* Geo-clock-in section: stack as title -> image -> body copy. */
   .tk-geo-title{grid-column:1;grid-row:auto;order:1;}
