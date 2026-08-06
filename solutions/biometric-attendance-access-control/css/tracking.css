@@ -257,7 +257,13 @@ html{scrollbar-gutter:stable;}
 .tk-split-visual img{width:100%;height:100%;aspect-ratio:4/3.4;object-fit:cover;display:block;}
 
 /* --- Geo visual: device photo + floating check-in UI card ----------- */
-.tk-split-visual.tk-geo-visual{overflow:visible;box-shadow:none;border-radius:0;position:relative;}
+/* Title/body split the same way as the connected-devices section above,
+   so the image can sit between them on mobile via order -- desktop keeps
+   the image spanning both rows in column 1 (it's first here, not column
+   2, so this needs its own placement rather than reusing .tk-split-title). */
+.tk-geo-title{grid-column:2;grid-row:1;}
+.tk-geo-body{grid-column:2;grid-row:2;}
+.tk-split-visual.tk-geo-visual{overflow:visible;box-shadow:none;border-radius:0;position:relative;grid-column:1;grid-row:1/3;}
 .tk-geo-photo{border-radius:20px;overflow:hidden;box-shadow:0 16px 48px -20px rgba(13,27,62,.28);}
 .tk-geo-photo img{width:100%;height:100%;aspect-ratio:4/3.4;object-fit:cover;display:block;}
 .tk-geo-phone{
@@ -443,6 +449,10 @@ html{scrollbar-gutter:stable;}
   .tk-deploy-beacon-name{display:none;}
 }
 @media (max-width:900px){
+  /* Reduce the top space above the logo scroller on this page only --
+     phrhome.css's own mobile tiers (80px <=1200px, 60px <=768px) are
+     wider than needed here. */
+  .industries-section{padding-top:24px;}
   .tk-devtab-wrap{flex-direction:column;gap:20px;align-items:stretch;}
   .tk-devtabs{flex:none;width:100%;margin-top:0;}
   .tk-devpreview-img-wrap{height:440px;}
@@ -452,6 +462,15 @@ html{scrollbar-gutter:stable;}
   .tk-split-title{grid-column:1;grid-row:auto;order:1;}
   .tk-network{grid-column:1;grid-row:auto;order:2;}
   .tk-split-body{grid-column:1;grid-row:auto;order:3;}
+  /* Within that body block, show the 3-point checklist before the
+     paragraph on mobile (desktop keeps paragraph-then-list). */
+  .tk-split-body{display:flex;flex-direction:column;}
+  .tk-split-body>p{order:2;}
+  .tk-split-body>ul{order:1;}
+  /* Geo-clock-in section: stack as title -> image -> body copy. */
+  .tk-geo-title{grid-column:1;grid-row:auto;order:1;}
+  .tk-split-visual.tk-geo-visual{grid-column:1;grid-row:auto;order:2;}
+  .tk-geo-body{grid-column:1;grid-row:auto;order:3;}
   .tk-ind-layout{grid-template-columns:minmax(0,1fr);gap:28px;}
   .tk-ind-img-wrap{height:240px;}
   .tk-ind-content{text-align:center;}
