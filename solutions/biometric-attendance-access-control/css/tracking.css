@@ -330,6 +330,7 @@ html{scrollbar-gutter:stable;}
   filter:drop-shadow(0 6px 16px rgba(13,27,62,.12));
 }
 .tk-network-dot{fill:var(--tk-blue);filter:drop-shadow(0 0 6px rgba(37,99,235,.65));}
+.tk-network-dot--return{fill:#f97316;filter:drop-shadow(0 0 6px rgba(249,115,22,.65));}
 
 /* --- Device category tabs + large preview panel (mirrors home page's --- */
 /* --- module-tabs / module-preview-panel pattern) ---------------------- */

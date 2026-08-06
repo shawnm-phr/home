@@ -316,7 +316,7 @@
       </div>
       <div class="tk-hero-visual">
         <div class="tk-hero-img-wrap">
-          <img src="images/hero-fingerprint-checkin.png" alt="Employee using a fingerprint machine and face recognition kiosk for workplace attendance and access control" loading="lazy">
+          <img src="images/hero-fingerprint-checkin.webp" alt="Employee using a fingerprint machine and face recognition kiosk for workplace attendance and access control" loading="lazy">
         </div>
       </div>
     </section>
@@ -609,7 +609,7 @@
           </ul>
         </div>
         <div class="tk-network">
-          <svg class="tk-network-svg" viewBox="0 0 660 500" role="img" aria-label="Diagram showing fingerprint, face recognition, kiosk, mobile, and access gate devices connected to PeoplesHR, with data flowing onward into PeoplesHR Time, then into Pay">
+          <svg class="tk-network-svg" viewBox="0 0 660 500" role="img" aria-label="Diagram showing fingerprint, face recognition, kiosk, mobile, and access gate devices connected to PeoplesHR, with data flowing onward into PeoplesHR Time and Pay, and PeoplesHR sending data back to each device">
             <defs>
               <clipPath id="tkHubClip"><circle cx="0" cy="0" r="32"/></clipPath>
               <clipPath id="tkTimeClip"><circle cx="0" cy="0" r="22"/></clipPath>
@@ -623,39 +623,72 @@
             <path id="tkPath5" class="tk-network-line" d="M 350,250 L 490,250"/>
             <path id="tkPath6" class="tk-network-line" d="M 490,250 L 610,250"/>
 
+            <!-- Phase 1 (0s-3s of a 6s cycle): device data flows in to PeoplesHR, on to Time, then Pay -->
             <circle class="tk-network-dot" r="5">
-              <animateMotion dur="2.6s" begin="0s" repeatCount="indefinite">
+              <animateMotion dur="6s" begin="0s" repeatCount="indefinite" keyTimes="0;0.35;1" keyPoints="0;1;1" calcMode="linear">
                 <mpath href="#tkPath0"/>
               </animateMotion>
             </circle>
             <circle class="tk-network-dot" r="5">
-              <animateMotion dur="2.6s" begin="0.52s" repeatCount="indefinite">
+              <animateMotion dur="6s" begin="0.15s" repeatCount="indefinite" keyTimes="0;0.35;1" keyPoints="0;1;1" calcMode="linear">
                 <mpath href="#tkPath1"/>
               </animateMotion>
             </circle>
             <circle class="tk-network-dot" r="5">
-              <animateMotion dur="2.6s" begin="1.04s" repeatCount="indefinite">
+              <animateMotion dur="6s" begin="0.3s" repeatCount="indefinite" keyTimes="0;0.35;1" keyPoints="0;1;1" calcMode="linear">
                 <mpath href="#tkPath2"/>
               </animateMotion>
             </circle>
             <circle class="tk-network-dot" r="5">
-              <animateMotion dur="2.6s" begin="1.56s" repeatCount="indefinite">
+              <animateMotion dur="6s" begin="0.45s" repeatCount="indefinite" keyTimes="0;0.35;1" keyPoints="0;1;1" calcMode="linear">
                 <mpath href="#tkPath3"/>
               </animateMotion>
             </circle>
             <circle class="tk-network-dot" r="5">
-              <animateMotion dur="2.6s" begin="2.08s" repeatCount="indefinite">
+              <animateMotion dur="6s" begin="0.6s" repeatCount="indefinite" keyTimes="0;0.35;1" keyPoints="0;1;1" calcMode="linear">
                 <mpath href="#tkPath4"/>
               </animateMotion>
             </circle>
             <circle class="tk-network-dot" r="5">
-              <animateMotion dur="2.2s" begin="0.3s" repeatCount="indefinite">
+              <animateMotion dur="6s" begin="1.8s" repeatCount="indefinite" keyTimes="0;0.2;1" keyPoints="0;1;1" calcMode="linear">
                 <mpath href="#tkPath5"/>
               </animateMotion>
             </circle>
             <circle class="tk-network-dot" r="5">
-              <animateMotion dur="2.2s" begin="2.5s" repeatCount="indefinite">
+              <animateMotion dur="6s" begin="2.3s" repeatCount="indefinite" keyTimes="0;0.17;1" keyPoints="0;1;1" calcMode="linear">
                 <mpath href="#tkPath6"/>
+              </animateMotion>
+            </circle>
+
+            <!-- Phase 2 (3s-6s of the same cycle): PeoplesHR sends data back out to every device -->
+            <circle class="tk-network-dot tk-network-dot--return" r="5">
+              <animateMotion dur="6s" begin="3s" repeatCount="indefinite" keyTimes="0;0.2;1" keyPoints="1;0;0" calcMode="linear">
+                <mpath href="#tkPath5"/>
+              </animateMotion>
+            </circle>
+            <circle class="tk-network-dot tk-network-dot--return" r="5">
+              <animateMotion dur="6s" begin="4.2s" repeatCount="indefinite" keyTimes="0;0.24;1" keyPoints="1;0;0" calcMode="linear">
+                <mpath href="#tkPath0"/>
+              </animateMotion>
+            </circle>
+            <circle class="tk-network-dot tk-network-dot--return" r="5">
+              <animateMotion dur="6s" begin="4.26s" repeatCount="indefinite" keyTimes="0;0.24;1" keyPoints="1;0;0" calcMode="linear">
+                <mpath href="#tkPath1"/>
+              </animateMotion>
+            </circle>
+            <circle class="tk-network-dot tk-network-dot--return" r="5">
+              <animateMotion dur="6s" begin="4.32s" repeatCount="indefinite" keyTimes="0;0.24;1" keyPoints="1;0;0" calcMode="linear">
+                <mpath href="#tkPath2"/>
+              </animateMotion>
+            </circle>
+            <circle class="tk-network-dot tk-network-dot--return" r="5">
+              <animateMotion dur="6s" begin="4.38s" repeatCount="indefinite" keyTimes="0;0.24;1" keyPoints="1;0;0" calcMode="linear">
+                <mpath href="#tkPath3"/>
+              </animateMotion>
+            </circle>
+            <circle class="tk-network-dot tk-network-dot--return" r="5">
+              <animateMotion dur="6s" begin="4.44s" repeatCount="indefinite" keyTimes="0;0.24;1" keyPoints="1;0;0" calcMode="linear">
+                <mpath href="#tkPath4"/>
               </animateMotion>
             </circle>
 
