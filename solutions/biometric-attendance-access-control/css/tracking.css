@@ -165,8 +165,11 @@ html{scrollbar-gutter:stable;}
 .tk-ind-content{min-width:0;transition:opacity .22s ease,transform .22s ease;}
 .tk-ind-content.tk-ind-out{opacity:0;transform:translateY(-10px);pointer-events:none;}
 .tk-ind-content.tk-ind-in{opacity:0;transform:translateY(12px);}
-.tk-ind-title{font-size:24px;font-weight:800;color:var(--tk-ink);margin:0 0 14px;letter-spacing:-.01em;}
-.tk-ind-body{font-size:15px;line-height:1.7;color:var(--tk-muted);margin:0 0 20px;}
+.tk-ind-title{font-size:24px;font-weight:800;color:var(--tk-ink);margin:0 0 14px;letter-spacing:-.01em;min-height:2.4em;}
+/* Reserve space for the longest industry body/title so the row doesn't
+   change height as users switch tabs (same fix as the device-preview
+   panel above -- text length varies per industry, image height doesn't). */
+.tk-ind-body{font-size:15px;line-height:1.7;color:var(--tk-muted);margin:0 0 20px;min-height:9.5em;}
 .tk-ind-tags{display:flex;flex-wrap:wrap;gap:8px;}
 .tk-ind-tag{
   font-size:12px;font-weight:700;color:var(--tk-blue);background:var(--tk-blue-soft);
@@ -452,6 +455,8 @@ html{scrollbar-gutter:stable;}
   .tk-ind-layout{grid-template-columns:minmax(0,1fr);gap:28px;}
   .tk-ind-img-wrap{height:240px;}
   .tk-ind-content{text-align:center;}
+  .tk-ind-title{min-height:2.6em;}
+  .tk-ind-body{min-height:11.5em;}
   .tk-ind-tags{justify-content:center;}
   .tk-split-text{text-align:center;}
   .tk-integ-icons{justify-content:center;}
@@ -466,7 +471,7 @@ html{scrollbar-gutter:stable;}
   .tk-hero .tk-hero-badge{white-space:normal;}
   .tk-section{padding:56px 20px;}
   .tk-device-grid{grid-template-columns:1fr;}
-  .tk-devtabs{display:flex;flex-wrap:wrap;justify-content:center;gap:0;border-bottom:2px solid var(--tk-border);}
+  .tk-devtabs{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;gap:0;border-bottom:2px solid var(--tk-border);}
   .tk-devtab{flex:0 0 33.333%;max-width:33.333%;flex-direction:column;gap:5px;padding:12px 6px;min-width:0;text-align:center;border:none;border-radius:0;border-bottom:3px solid transparent;margin-bottom:-2px;font-size:11px;}
   .tk-devtab.active{border-color:var(--tk-blue);box-shadow:none;background:transparent;}
   .tk-devtab.active::before{display:none;}
