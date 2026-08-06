@@ -623,71 +623,74 @@
             <path id="tkPath5" class="tk-network-line" d="M 350,250 L 490,250"/>
             <path id="tkPath6" class="tk-network-line" d="M 490,250 L 610,250"/>
 
-            <!-- Phase 1 (0s-3s of a 6s cycle): device data flows in to PeoplesHR, on to Time, then Pay -->
+            <!-- Phase 1 (0s-3s of a 6s cycle): device data flows in to PeoplesHR, on to Time, then Pay.
+                 Every animateMotion below shares begin="0s" with the stagger folded into keyTimes
+                 instead -- circles with a later begin would otherwise sit at an undefined position
+                 (visible as a stray dot near the top-left) until that begin time was first reached. -->
             <circle class="tk-network-dot" r="5">
               <animateMotion dur="6s" begin="0s" repeatCount="indefinite" keyTimes="0;0.35;1" keyPoints="0;1;1" calcMode="linear">
                 <mpath href="#tkPath0"/>
               </animateMotion>
             </circle>
             <circle class="tk-network-dot" r="5">
-              <animateMotion dur="6s" begin="0.15s" repeatCount="indefinite" keyTimes="0;0.35;1" keyPoints="0;1;1" calcMode="linear">
+              <animateMotion dur="6s" begin="0s" repeatCount="indefinite" keyTimes="0;0.025;0.375;1" keyPoints="0;0;1;1" calcMode="linear">
                 <mpath href="#tkPath1"/>
               </animateMotion>
             </circle>
             <circle class="tk-network-dot" r="5">
-              <animateMotion dur="6s" begin="0.3s" repeatCount="indefinite" keyTimes="0;0.35;1" keyPoints="0;1;1" calcMode="linear">
+              <animateMotion dur="6s" begin="0s" repeatCount="indefinite" keyTimes="0;0.05;0.4;1" keyPoints="0;0;1;1" calcMode="linear">
                 <mpath href="#tkPath2"/>
               </animateMotion>
             </circle>
             <circle class="tk-network-dot" r="5">
-              <animateMotion dur="6s" begin="0.45s" repeatCount="indefinite" keyTimes="0;0.35;1" keyPoints="0;1;1" calcMode="linear">
+              <animateMotion dur="6s" begin="0s" repeatCount="indefinite" keyTimes="0;0.075;0.425;1" keyPoints="0;0;1;1" calcMode="linear">
                 <mpath href="#tkPath3"/>
               </animateMotion>
             </circle>
             <circle class="tk-network-dot" r="5">
-              <animateMotion dur="6s" begin="0.6s" repeatCount="indefinite" keyTimes="0;0.35;1" keyPoints="0;1;1" calcMode="linear">
+              <animateMotion dur="6s" begin="0s" repeatCount="indefinite" keyTimes="0;0.1;0.45;1" keyPoints="0;0;1;1" calcMode="linear">
                 <mpath href="#tkPath4"/>
               </animateMotion>
             </circle>
             <circle class="tk-network-dot" r="5">
-              <animateMotion dur="6s" begin="1.8s" repeatCount="indefinite" keyTimes="0;0.2;1" keyPoints="0;1;1" calcMode="linear">
+              <animateMotion dur="6s" begin="0s" repeatCount="indefinite" keyTimes="0;0.3;0.5;1" keyPoints="0;0;1;1" calcMode="linear">
                 <mpath href="#tkPath5"/>
               </animateMotion>
             </circle>
             <circle class="tk-network-dot" r="5">
-              <animateMotion dur="6s" begin="2.3s" repeatCount="indefinite" keyTimes="0;0.17;1" keyPoints="0;1;1" calcMode="linear">
+              <animateMotion dur="6s" begin="0s" repeatCount="indefinite" keyTimes="0;0.383;0.553;1" keyPoints="0;0;1;1" calcMode="linear">
                 <mpath href="#tkPath6"/>
               </animateMotion>
             </circle>
 
             <!-- Phase 2 (3s-6s of the same cycle): PeoplesHR sends data back out to every device -->
             <circle class="tk-network-dot tk-network-dot--return" r="5">
-              <animateMotion dur="6s" begin="3s" repeatCount="indefinite" keyTimes="0;0.2;1" keyPoints="1;0;0" calcMode="linear">
+              <animateMotion dur="6s" begin="0s" repeatCount="indefinite" keyTimes="0;0.5;0.7;1" keyPoints="1;1;0;0" calcMode="linear">
                 <mpath href="#tkPath5"/>
               </animateMotion>
             </circle>
             <circle class="tk-network-dot tk-network-dot--return" r="5">
-              <animateMotion dur="6s" begin="4.2s" repeatCount="indefinite" keyTimes="0;0.24;1" keyPoints="1;0;0" calcMode="linear">
+              <animateMotion dur="6s" begin="0s" repeatCount="indefinite" keyTimes="0;0.7;0.94;1" keyPoints="1;1;0;0" calcMode="linear">
                 <mpath href="#tkPath0"/>
               </animateMotion>
             </circle>
             <circle class="tk-network-dot tk-network-dot--return" r="5">
-              <animateMotion dur="6s" begin="4.26s" repeatCount="indefinite" keyTimes="0;0.24;1" keyPoints="1;0;0" calcMode="linear">
+              <animateMotion dur="6s" begin="0s" repeatCount="indefinite" keyTimes="0;0.71;0.95;1" keyPoints="1;1;0;0" calcMode="linear">
                 <mpath href="#tkPath1"/>
               </animateMotion>
             </circle>
             <circle class="tk-network-dot tk-network-dot--return" r="5">
-              <animateMotion dur="6s" begin="4.32s" repeatCount="indefinite" keyTimes="0;0.24;1" keyPoints="1;0;0" calcMode="linear">
+              <animateMotion dur="6s" begin="0s" repeatCount="indefinite" keyTimes="0;0.72;0.96;1" keyPoints="1;1;0;0" calcMode="linear">
                 <mpath href="#tkPath2"/>
               </animateMotion>
             </circle>
             <circle class="tk-network-dot tk-network-dot--return" r="5">
-              <animateMotion dur="6s" begin="4.38s" repeatCount="indefinite" keyTimes="0;0.24;1" keyPoints="1;0;0" calcMode="linear">
+              <animateMotion dur="6s" begin="0s" repeatCount="indefinite" keyTimes="0;0.73;0.97;1" keyPoints="1;1;0;0" calcMode="linear">
                 <mpath href="#tkPath3"/>
               </animateMotion>
             </circle>
             <circle class="tk-network-dot tk-network-dot--return" r="5">
-              <animateMotion dur="6s" begin="4.44s" repeatCount="indefinite" keyTimes="0;0.24;1" keyPoints="1;0;0" calcMode="linear">
+              <animateMotion dur="6s" begin="0s" repeatCount="indefinite" keyTimes="0;0.74;0.98;1" keyPoints="1;1;0;0" calcMode="linear">
                 <mpath href="#tkPath4"/>
               </animateMotion>
             </circle>
