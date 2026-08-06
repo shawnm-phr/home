@@ -132,6 +132,12 @@ html{scrollbar-gutter:stable;}
 .tk-section>*{min-width:0;width:100%;}
 .tk-section-alt{max-width:none;background:var(--tk-surface);}
 .tk-section-alt>*{max-width:1240px;margin-left:auto;margin-right:auto;}
+
+/* Reused .case-studies-section (from phrhome.css) is full-bleed by default;
+   constrain its content to this page's standard 1240px width, same as
+   .tk-section-alt above. The logo scroller right after it stays full-bleed
+   on purpose, so this deliberately doesn't touch .industries-section. */
+.case-studies-section>*{max-width:1240px;margin-left:auto;margin-right:auto;}
 /* Compact: minor sections (e.g. FAQ) that shouldn't force full-viewport
    height. Also sidesteps flex-stretch on children, so nothing can change
    width when content height changes (accordions, etc.). */
@@ -372,7 +378,7 @@ html{scrollbar-gutter:stable;}
 }
 .tk-devpreview-text{padding:26px 32px 32px;}
 .tk-devpreview-text h3{font-size:21px;font-weight:800;color:var(--tk-ink);margin:0 0 14px;letter-spacing:-.01em;}
-.tk-devpreview-text p{font-size:14.5px;line-height:1.7;color:var(--tk-muted);margin:0;}
+.tk-devpreview-text p{font-size:14.5px;line-height:1.7;color:var(--tk-muted);margin:0;min-height:8.6em;}
 .tk-devpreview-specs{
   display:flex;margin:0 0 20px;
   border-top:1px solid var(--tk-border);border-bottom:1px solid var(--tk-border);
@@ -448,6 +454,7 @@ html{scrollbar-gutter:stable;}
   .tk-devpreview-spec{border-right:none;border-bottom:1px solid var(--tk-border);}
   .tk-devpreview-spec:last-child{border-bottom:none;}
   .tk-devpreview-text{padding:20px 20px 24px;}
+  .tk-devpreview-text p{min-height:10.5em;}
   .tk-split-list-2col{grid-template-columns:1fr;}
   .tk-geo-visual{margin-bottom:24px;}
   .tk-geo-phone{right:-12px;bottom:-16px;width:126px;}
@@ -461,15 +468,4 @@ html{scrollbar-gutter:stable;}
   .tk-partner-badge{flex-wrap:wrap;justify-content:center;}
   .tk-partner-badge-label{white-space:normal;text-align:left;}
   .tk-deploy-section{display:none;}
-}
-
-/* --- Logo scroller: pause + lock on hover (desktop/mouse only) ------- */
-/* This page's .client-logos instance is a static, hardcoded track (see
-   index.html) rather than phrhome.js's industry-tab-driven renderLogos(),
-   which is the only place that normally pauses it on mouseenter. Without
-   that JS, the pause has to happen here in CSS instead. The existing
-   .client-logo:hover{opacity:1} rule (from phrhome.css) already highlights
-   just the one logo being hovered once the whole track stops moving. */
-@media (hover:hover) and (pointer:fine){
-  .client-logos:hover .logo-slider-track{animation-play-state:paused;}
 }
