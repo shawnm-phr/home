@@ -456,8 +456,8 @@ html{scrollbar-gutter:stable;}
   .tk-hero .tk-hero-badge{white-space:normal;}
   .tk-section{padding:56px 20px;}
   .tk-device-grid{grid-template-columns:1fr;}
-  .tk-devtabs{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-bottom:2px solid var(--tk-border);}
-  .tk-devtab{flex-direction:column;gap:5px;padding:12px 6px;min-width:0;text-align:center;border:none;border-radius:0;border-bottom:3px solid transparent;margin-bottom:-2px;font-size:11px;}
+  .tk-devtabs{display:flex;flex-wrap:wrap;justify-content:center;gap:0;border-bottom:2px solid var(--tk-border);}
+  .tk-devtab{flex:0 0 33.333%;max-width:33.333%;flex-direction:column;gap:5px;padding:12px 6px;min-width:0;text-align:center;border:none;border-radius:0;border-bottom:3px solid transparent;margin-bottom:-2px;font-size:11px;}
   .tk-devtab.active{border-color:var(--tk-blue);box-shadow:none;background:transparent;}
   .tk-devtab.active::before{display:none;}
   .tk-devtab-arrow{display:none;}
@@ -466,6 +466,7 @@ html{scrollbar-gutter:stable;}
   .tk-devpreview-specs{flex-direction:column;}
   .tk-devpreview-spec{border-right:none;border-bottom:1px solid var(--tk-border);}
   .tk-devpreview-spec:last-child{border-bottom:none;}
+  .tk-devpreview-spec-value{min-height:2.6em;}
   .tk-devpreview-text{padding:20px 20px 24px;}
   .tk-devpreview-text p{min-height:10.5em;}
   .tk-split-list-2col{grid-template-columns:1fr;}
