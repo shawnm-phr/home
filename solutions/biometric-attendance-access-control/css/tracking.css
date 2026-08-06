@@ -473,7 +473,11 @@ html{scrollbar-gutter:stable;}
 /* --- Responsive ----------------------------------------------------- */
 @media (max-width:1080px){
   .tk-device-grid{grid-template-columns:repeat(2,1fr);}
-  .tk-stats ul{grid-template-columns:repeat(3,1fr);}
+  /* 5 stat cards in a 3-col grid leave the last row's 2 items hugging the
+     left edge with a gap on the right -- flex+center balances that
+     incomplete row instead (same fix as the device tabs elsewhere). */
+  .tk-stats ul{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;}
+  .tk-stats li{flex:0 0 calc(33.333% - 11px);}
   .tk-deploy-beacon-name{display:none;}
 }
 @media (max-width:900px){
@@ -552,7 +556,8 @@ html{scrollbar-gutter:stable;}
   .tk-sync-visual{margin-bottom:24px;}
   .tk-sync-card{right:-12px;bottom:-16px;width:150px;}
   .tk-stats-head{padding:40px 20px 0;}
-  .tk-stats ul{grid-template-columns:repeat(2,1fr);gap:12px;padding:28px 20px 40px;}
+  .tk-stats ul{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;gap:12px;padding:28px 20px 40px;}
+  .tk-stats li{flex:0 0 calc(50% - 6px);}
   /* Card has no explicit width, so max-width:1140px+margin:auto has no
      effect once the viewport itself is under 1140px -- it stretches
      edge-to-edge. Small fixed side margin insets it on mobile instead. */
