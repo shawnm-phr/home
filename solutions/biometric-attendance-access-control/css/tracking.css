@@ -484,8 +484,10 @@ html{scrollbar-gutter:stable;}
   /* Shrink-to-fit (base rule) would squash 6 badges into illegible
      slivers on phone widths -- scroll horizontally instead, each badge
      keeping a comfortable, fixed minimum size. */
-  .tk-compliance-row{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;padding-bottom:10px;-webkit-overflow-scrolling:touch;}
-  .tk-compliance-badge{flex:0 0 auto;width:104px;height:84px;min-width:104px;padding:10px 14px;}
+  /* All 6 badges visible at once, wrapped 3-per-row (2 rows), instead of
+     the desktop shrink-to-one-line or a horizontally-scrolling strip. */
+  .tk-compliance-row{flex-wrap:wrap;justify-content:center;gap:12px;}
+  .tk-compliance-badge{flex:0 0 calc(33.333% - 8px);width:auto;height:76px;min-width:0;padding:10px 12px;}
   .tk-devtab-wrap{flex-direction:column;gap:20px;align-items:stretch;}
   .tk-devtabs{flex:none;width:100%;margin-top:0;}
   .tk-devpreview-img-wrap{height:440px;}
