@@ -133,11 +133,18 @@ html{scrollbar-gutter:stable;}
 .tk-section-alt{max-width:none;background:var(--tk-surface);}
 .tk-section-alt>*{max-width:1240px;margin-left:auto;margin-right:auto;}
 
-/* Reused .case-studies-section (from phrhome.css) is full-bleed by default;
-   constrain its content to this page's standard 1240px width, same as
-   .tk-section-alt above. The logo scroller right after it stays full-bleed
-   on purpose, so this deliberately doesn't touch .industries-section. */
-.case-studies-section>*{max-width:1240px;margin-left:auto;margin-right:auto;}
+/* Brandix case-study spotlight: .cs-company-logo swaps the card's plain-text
+   company name for its logo (phrhome.css only styles it as text, so the
+   image needs its own sizing here). --lg is the larger standalone mark used
+   in the .tk-split feature (vs. the small inline size elsewhere). */
+.cs-company-logo{display:flex;align-items:center;}
+.cs-company-logo img{height:16px;width:auto;display:block;}
+.cs-company-logo--lg{margin:0 0 20px;}
+.cs-company-logo--lg img{height:28px;}
+/* Remove the left/right white fade-out mask on the logo scroller, and the
+   dimmed-until-hover opacity on each logo -- both read as "faded". */
+.client-logos::before,.client-logos::after{content:none;}
+.client-logo{opacity:1;}
 /* Compact: minor sections (e.g. FAQ) that shouldn't force full-viewport
    height. Also sidesteps flex-stretch on children, so nothing can change
    width when content height changes (accordions, etc.). */
@@ -242,6 +249,7 @@ html{scrollbar-gutter:stable;}
 
 /* --- Large-photo split sections (Integration / Industries / Why-us) - */
 .tk-split{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1fr 1.1fr;gap:56px;align-items:center;}
+.tk-cs-cta-row{max-width:1140px;margin:72px auto 0;text-align:center;}
 .tk-split-visual{min-width:0;border-radius:20px;overflow:hidden;box-shadow:0 16px 48px -20px rgba(13,27,62,.28);}
 .tk-split-visual img{width:100%;height:100%;aspect-ratio:4/3.4;object-fit:cover;display:block;}
 
@@ -278,6 +286,11 @@ html{scrollbar-gutter:stable;}
 .tk-split-item{border-left:3px solid var(--tk-blue);border-radius:4px;padding:4px 0 4px 18px;}
 .tk-split-item h3{font-size:15.5px;font-weight:700;margin:0 0 8px;}
 .tk-split-item p{font-size:13.5px;line-height:1.6;color:var(--tk-muted);margin:0;}
+/* Case-study metrics row: same .tk-split-item accent, but the number reads
+   as a stat (bigger, blue) rather than a feature-bullet subheading. */
+.tk-split-list-3col{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 16px;margin:0 0 28px;}
+.tk-split-list-3col .tk-split-item h3{font-size:24px;font-weight:800;color:var(--tk-blue);margin:0 0 4px;}
+.tk-split-list-3col .tk-split-item p{font-size:12.5px;}
 
 /* --- Campus deployment map: full-width diagram ------------------------ */
 .tk-deploy-visual{
@@ -456,6 +469,7 @@ html{scrollbar-gutter:stable;}
   .tk-devpreview-text{padding:20px 20px 24px;}
   .tk-devpreview-text p{min-height:10.5em;}
   .tk-split-list-2col{grid-template-columns:1fr;}
+  .tk-split-list-3col{grid-template-columns:repeat(3,1fr);gap:14px 10px;}
   .tk-geo-visual{margin-bottom:24px;}
   .tk-geo-phone{right:-12px;bottom:-16px;width:126px;}
   .tk-sync-visual{margin-bottom:24px;}
