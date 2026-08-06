@@ -493,6 +493,7 @@ html{scrollbar-gutter:stable;}
   .tk-devpreview-img-wrap{height:440px;}
   .tk-split{grid-template-columns:minmax(0,1fr);gap:32px;}
   .tk-split-visual img{aspect-ratio:16/10;}
+  .tk-why-text h2{margin-bottom:28px;}
   /* Connected-devices section: stack as title -> diagram -> body copy. */
   .tk-split-title{grid-column:1;grid-row:auto;order:1;}
   .tk-network{grid-column:1;grid-row:auto;order:2;}
@@ -552,7 +553,10 @@ html{scrollbar-gutter:stable;}
   .tk-sync-card{right:-12px;bottom:-16px;width:150px;}
   .tk-stats-head{padding:40px 20px 0;}
   .tk-stats ul{grid-template-columns:repeat(2,1fr);gap:12px;padding:28px 20px 40px;}
-  .tk-final-cta{padding:48px 24px;border-radius:18px;}
+  /* Card has no explicit width, so max-width:1140px+margin:auto has no
+     effect once the viewport itself is under 1140px -- it stretches
+     edge-to-edge. Small fixed side margin insets it on mobile instead. */
+  .tk-final-cta{padding:48px 24px;border-radius:18px;margin-left:16px;margin-right:16px;}
   .tk-ind-tabs{justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap;}
   .tk-ind-tab{flex:0 0 auto;min-width:auto;padding:14px 12px;white-space:nowrap;}
   .tk-partner-badge{flex-wrap:wrap;justify-content:center;}
