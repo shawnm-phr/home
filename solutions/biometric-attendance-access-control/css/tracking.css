@@ -120,14 +120,17 @@ html{scrollbar-gutter:stable;}
 }
 .tk-stat-ic svg{width:19px;height:19px;}
 .tk-compliance-row{
-  display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:18px;
-  max-width:1240px;margin:0 auto;padding:0 24px 44px;
+  display:flex;flex-wrap:nowrap;justify-content:space-between;align-items:center;gap:16px;
+  max-width:1140px;margin:56px auto 0;padding:0 24px;
 }
 .tk-compliance-badge{
-  background:#fff;border-radius:12px;padding:10px 16px;height:56px;
-  display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+  background:#fff;border-radius:16px;padding:14px 16px;height:120px;
+  display:flex;align-items:center;justify-content:center;flex:1 1 0;min-width:0;
 }
-.tk-compliance-badge img{max-height:36px;max-width:110px;width:auto;height:auto;display:block;}
+/* max-height/max-width are % of the (shrinkable) flex item, not fixed px,
+   so every badge scales down together and all 6 always stay on one line
+   instead of wrapping when their combined natural width exceeds 1140px. */
+.tk-compliance-badge img{max-height:100%;max-width:100%;width:auto;height:auto;display:block;object-fit:contain;}
 .tk-stats strong{font-size:17px;font-weight:800;color:#fff;line-height:1.2;}
 .tk-stats span{font-size:12px;font-weight:600;color:#dbe6fd;}
 .tk-stats p{font-size:11px;line-height:1.5;color:#bcd0f7;margin:5px 0 0;opacity:.9;}
@@ -358,11 +361,18 @@ html{scrollbar-gutter:stable;}
 .tk-split-title{grid-column:1;grid-row:1;}
 .tk-split-body{grid-column:1;grid-row:2;}
 .tk-network{display:flex;align-items:center;justify-content:center;min-width:0;grid-column:2;grid-row:1/3;}
-/* ZKTeco partner section: reuses .tk-split-title/.tk-split-body (same
-   title-image-body grid shape as the connected-devices section above),
-   this rule just places its own image column 2 the same way .tk-network
-   does. */
-.tk-zk-visual{grid-column:2;grid-row:1/3;}
+/* ZKTeco partner section: title/badge/body are 3 independent grid items
+   (not the 2-row .tk-split-title/.tk-split-body shape used elsewhere)
+   since the badge needs its own row -- desktop stacks them top to
+   bottom in column 1 exactly as before, image spans all 3 rows in
+   column 2; mobile reorders so the image sits right after the title. */
+.tk-zk-title{grid-column:1;grid-row:1;}
+.tk-zk-badge-wrap{grid-column:1;grid-row:2;}
+.tk-zk-body{grid-column:1;grid-row:3;}
+.tk-zk-visual{grid-column:2;grid-row:1/4;}
+.tk-zk-body{display:flex;flex-direction:column;}
+.tk-zk-body>p{order:2;margin-top:24px;}
+.tk-zk-body>ul{order:1;}
 .tk-network-svg{display:block;width:100%;max-width:620px;height:auto;overflow:visible;}
 .tk-network-line{fill:none;stroke:var(--tk-border);stroke-width:2;}
 .tk-network-node circle{
@@ -471,6 +481,11 @@ html{scrollbar-gutter:stable;}
      phrhome.css's own mobile tiers (80px <=1200px, 60px <=768px) are
      wider than needed here. */
   .industries-section{padding-top:24px;}
+  /* Shrink-to-fit (base rule) would squash 6 badges into illegible
+     slivers on phone widths -- scroll horizontally instead, each badge
+     keeping a comfortable, fixed minimum size. */
+  .tk-compliance-row{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;padding-bottom:10px;-webkit-overflow-scrolling:touch;}
+  .tk-compliance-badge{flex:0 0 auto;width:104px;height:84px;min-width:104px;padding:10px 14px;}
   .tk-devtab-wrap{flex-direction:column;gap:20px;align-items:stretch;}
   .tk-devtabs{flex:none;width:100%;margin-top:0;}
   .tk-devpreview-img-wrap{height:440px;}
@@ -479,10 +494,11 @@ html{scrollbar-gutter:stable;}
   /* Connected-devices section: stack as title -> diagram -> body copy. */
   .tk-split-title{grid-column:1;grid-row:auto;order:1;}
   .tk-network{grid-column:1;grid-row:auto;order:2;}
-  /* ZKTeco partner section reuses .tk-split-title/.tk-split-body (already
-     ordered 1/3 above, ul-before-p already handled by the shared rule
-     below) -- just needs its own image placed between them, order:2. */
+  /* ZKTeco partner section: title -> image -> badge -> body copy. */
+  .tk-zk-title{grid-column:1;grid-row:auto;order:1;}
   .tk-zk-visual{grid-column:1;grid-row:auto;order:2;}
+  .tk-zk-badge-wrap{grid-column:1;grid-row:auto;order:3;}
+  .tk-zk-body{grid-column:1;grid-row:auto;order:4;}
   .tk-split-body{grid-column:1;grid-row:auto;order:3;}
   /* Within that body block, show the 3-point checklist before the
      paragraph on mobile (desktop keeps paragraph-then-list). */
