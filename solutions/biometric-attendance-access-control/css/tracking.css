@@ -170,7 +170,7 @@ html{scrollbar-gutter:stable;}
    change height as users switch tabs (same fix as the device-preview
    panel above -- text length varies per industry, image height doesn't). */
 .tk-ind-body{font-size:15px;line-height:1.7;color:var(--tk-muted);margin:0 0 20px;min-height:9.5em;}
-.tk-ind-tags{display:flex;flex-wrap:wrap;gap:8px;}
+.tk-ind-tags{display:flex;flex-wrap:wrap;gap:8px;min-height:62px;align-content:flex-start;}
 .tk-ind-tag{
   font-size:12px;font-weight:700;color:var(--tk-blue);background:var(--tk-blue-soft);
   border-radius:999px;padding:6px 12px;
@@ -405,7 +405,7 @@ html{scrollbar-gutter:stable;}
   to{opacity:1;transform:scale(1);}
 }
 .tk-devpreview-text{padding:26px 32px 32px;}
-.tk-devpreview-text h3{font-size:21px;font-weight:800;color:var(--tk-ink);margin:0 0 14px;letter-spacing:-.01em;}
+.tk-devpreview-text h3{font-size:21px;font-weight:800;color:var(--tk-ink);margin:0 0 14px;letter-spacing:-.01em;min-height:2.4em;}
 .tk-devpreview-text p{font-size:14.5px;line-height:1.7;color:var(--tk-muted);margin:0;min-height:8.6em;}
 .tk-devpreview-specs{
   display:flex;margin:0 0 20px;
@@ -502,6 +502,7 @@ html{scrollbar-gutter:stable;}
   .tk-devpreview-spec:last-child{border-bottom:none;}
   .tk-devpreview-spec-value{min-height:2.6em;}
   .tk-devpreview-text{padding:20px 20px 24px;}
+  .tk-devpreview-text h3{min-height:2.6em;}
   .tk-devpreview-text p{min-height:10.5em;}
   .tk-split-list-2col{grid-template-columns:1fr;}
   .tk-split-list-3col{grid-template-columns:repeat(3,1fr);gap:14px 10px;}
