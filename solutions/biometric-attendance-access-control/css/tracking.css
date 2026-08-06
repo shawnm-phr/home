@@ -332,7 +332,13 @@ html{scrollbar-gutter:stable;}
 .tk-deploy-card-body p{margin:0;font-size:11.5px;line-height:1.45;color:var(--tk-muted);}
 
 /* --- Connected-devices network diagram -------------------------------- */
-.tk-network{display:flex;align-items:center;justify-content:center;min-width:0;}
+/* Title and body are split into separate .tk-split grid items (instead of
+   one .tk-split-text block) so the network diagram can sit between them
+   on mobile via `order`, while desktop keeps both stacked in the left
+   column with the diagram spanning the full right column as before. */
+.tk-split-title{grid-column:1;grid-row:1;}
+.tk-split-body{grid-column:1;grid-row:2;}
+.tk-network{display:flex;align-items:center;justify-content:center;min-width:0;grid-column:2;grid-row:1/3;}
 .tk-network-svg{display:block;width:100%;max-width:620px;height:auto;overflow:visible;}
 .tk-network-line{fill:none;stroke:var(--tk-border);stroke-width:2;}
 .tk-network-node circle{
@@ -439,6 +445,10 @@ html{scrollbar-gutter:stable;}
   .tk-devpreview-img-wrap{height:440px;}
   .tk-split{grid-template-columns:minmax(0,1fr);gap:32px;}
   .tk-split-visual img{aspect-ratio:16/10;}
+  /* Connected-devices section: stack as title -> diagram -> body copy. */
+  .tk-split-title{grid-column:1;grid-row:auto;order:1;}
+  .tk-network{grid-column:1;grid-row:auto;order:2;}
+  .tk-split-body{grid-column:1;grid-row:auto;order:3;}
   .tk-ind-layout{grid-template-columns:minmax(0,1fr);gap:28px;}
   .tk-ind-img-wrap{height:240px;}
   .tk-ind-content{text-align:center;}
