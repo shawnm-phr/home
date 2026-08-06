@@ -119,6 +119,15 @@ html{scrollbar-gutter:stable;}
   background:rgba(255,255,255,.14);color:#fff;margin-bottom:6px;
 }
 .tk-stat-ic svg{width:19px;height:19px;}
+.tk-compliance-row{
+  display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:18px;
+  max-width:1240px;margin:0 auto;padding:0 24px 44px;
+}
+.tk-compliance-badge{
+  background:#fff;border-radius:12px;padding:10px 16px;height:56px;
+  display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+}
+.tk-compliance-badge img{max-height:36px;max-width:110px;width:auto;height:auto;display:block;}
 .tk-stats strong{font-size:17px;font-weight:800;color:#fff;line-height:1.2;}
 .tk-stats span{font-size:12px;font-weight:600;color:#dbe6fd;}
 .tk-stats p{font-size:11px;line-height:1.5;color:#bcd0f7;margin:5px 0 0;opacity:.9;}
@@ -165,12 +174,13 @@ html{scrollbar-gutter:stable;}
 .tk-ind-content{min-width:0;transition:opacity .22s ease,transform .22s ease;}
 .tk-ind-content.tk-ind-out{opacity:0;transform:translateY(-10px);pointer-events:none;}
 .tk-ind-content.tk-ind-in{opacity:0;transform:translateY(12px);}
-.tk-ind-title{font-size:24px;font-weight:800;color:var(--tk-ink);margin:0 0 14px;letter-spacing:-.01em;min-height:2.4em;}
-/* Reserve space for the longest industry body/title so the row doesn't
-   change height as users switch tabs (same fix as the device-preview
-   panel above -- text length varies per industry, image height doesn't). */
-.tk-ind-body{font-size:15px;line-height:1.7;color:var(--tk-muted);margin:0 0 20px;min-height:9.5em;}
-.tk-ind-tags{display:flex;flex-wrap:wrap;gap:8px;min-height:62px;align-content:flex-start;}
+.tk-ind-title{font-size:24px;font-weight:800;color:var(--tk-ink);margin:0 0 14px;letter-spacing:-.01em;}
+/* Height consistency across tabs is handled by JS (tracking.js measures
+   every industry's real rendered height and locks #tkIndContent to the
+   tallest) rather than guessed min-heights here -- text length varies
+   too unpredictably across viewport widths/devices for CSS alone. */
+.tk-ind-body{font-size:15px;line-height:1.7;color:var(--tk-muted);margin:0 0 20px;}
+.tk-ind-tags{display:flex;flex-wrap:wrap;gap:8px;}
 .tk-ind-tag{
   font-size:12px;font-weight:700;color:var(--tk-blue);background:var(--tk-blue-soft);
   border-radius:999px;padding:6px 12px;
@@ -348,6 +358,11 @@ html{scrollbar-gutter:stable;}
 .tk-split-title{grid-column:1;grid-row:1;}
 .tk-split-body{grid-column:1;grid-row:2;}
 .tk-network{display:flex;align-items:center;justify-content:center;min-width:0;grid-column:2;grid-row:1/3;}
+/* ZKTeco partner section: reuses .tk-split-title/.tk-split-body (same
+   title-image-body grid shape as the connected-devices section above),
+   this rule just places its own image column 2 the same way .tk-network
+   does. */
+.tk-zk-visual{grid-column:2;grid-row:1/3;}
 .tk-network-svg{display:block;width:100%;max-width:620px;height:auto;overflow:visible;}
 .tk-network-line{fill:none;stroke:var(--tk-border);stroke-width:2;}
 .tk-network-node circle{
@@ -405,8 +420,11 @@ html{scrollbar-gutter:stable;}
   to{opacity:1;transform:scale(1);}
 }
 .tk-devpreview-text{padding:26px 32px 32px;}
-.tk-devpreview-text h3{font-size:21px;font-weight:800;color:var(--tk-ink);margin:0 0 14px;letter-spacing:-.01em;min-height:2.4em;}
-.tk-devpreview-text p{font-size:14.5px;line-height:1.7;color:var(--tk-muted);margin:0;min-height:8.6em;}
+.tk-devpreview-text h3{font-size:21px;font-weight:800;color:var(--tk-ink);margin:0 0 14px;letter-spacing:-.01em;}
+/* Height consistency across device tabs is handled by JS (tracking.js
+   measures every tab's real rendered height and locks .tk-devpreview-text
+   to the tallest) rather than guessed min-heights here. */
+.tk-devpreview-text p{font-size:14.5px;line-height:1.7;color:var(--tk-muted);margin:0;}
 .tk-devpreview-specs{
   display:flex;margin:0 0 20px;
   border-top:1px solid var(--tk-border);border-bottom:1px solid var(--tk-border);
@@ -461,6 +479,10 @@ html{scrollbar-gutter:stable;}
   /* Connected-devices section: stack as title -> diagram -> body copy. */
   .tk-split-title{grid-column:1;grid-row:auto;order:1;}
   .tk-network{grid-column:1;grid-row:auto;order:2;}
+  /* ZKTeco partner section reuses .tk-split-title/.tk-split-body (already
+     ordered 1/3 above, ul-before-p already handled by the shared rule
+     below) -- just needs its own image placed between them, order:2. */
+  .tk-zk-visual{grid-column:1;grid-row:auto;order:2;}
   .tk-split-body{grid-column:1;grid-row:auto;order:3;}
   /* Within that body block, show the 3-point checklist before the
      paragraph on mobile (desktop keeps paragraph-then-list). */
@@ -471,11 +493,14 @@ html{scrollbar-gutter:stable;}
   .tk-geo-title{grid-column:1;grid-row:auto;order:1;}
   .tk-split-visual.tk-geo-visual{grid-column:1;grid-row:auto;order:2;}
   .tk-geo-body{grid-column:1;grid-row:auto;order:3;}
+  /* Within that body block, show the checklist before the paragraph
+     (desktop keeps paragraph-then-list). */
+  .tk-geo-body{display:flex;flex-direction:column;}
+  .tk-geo-body>p{order:2;margin-top:24px;}
+  .tk-geo-body>ul{order:1;}
   .tk-ind-layout{grid-template-columns:minmax(0,1fr);gap:28px;}
   .tk-ind-img-wrap{height:240px;}
   .tk-ind-content{text-align:center;}
-  .tk-ind-title{min-height:2.6em;}
-  .tk-ind-body{min-height:11.5em;}
   .tk-ind-tags{justify-content:center;}
   .tk-split-text{text-align:center;}
   .tk-integ-icons{justify-content:center;}
@@ -500,10 +525,7 @@ html{scrollbar-gutter:stable;}
   .tk-devpreview-specs{flex-direction:column;}
   .tk-devpreview-spec{border-right:none;border-bottom:1px solid var(--tk-border);}
   .tk-devpreview-spec:last-child{border-bottom:none;}
-  .tk-devpreview-spec-value{min-height:2.6em;}
   .tk-devpreview-text{padding:20px 20px 24px;}
-  .tk-devpreview-text h3{min-height:2.6em;}
-  .tk-devpreview-text p{min-height:10.5em;}
   .tk-split-list-2col{grid-template-columns:1fr;}
   .tk-split-list-3col{grid-template-columns:repeat(3,1fr);gap:14px 10px;}
   .tk-geo-visual{margin-bottom:24px;}

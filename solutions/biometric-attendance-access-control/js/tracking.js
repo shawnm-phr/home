@@ -55,6 +55,48 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
     wrap.addEventListener('mouseleave', resetAuto);
   }
 
+  /* Lock panel height to the tallest tab's real rendered height, so the
+     card doesn't grow/shrink as users switch between tabs with more or
+     less text. Measured directly (rather than guessed via CSS min-height)
+     because wrapped line count depends on viewport width/font rendering
+     in ways that are unreliable to estimate. Re-measured on resize since
+     that changes wrapping. */
+  var allContents = document.querySelectorAll('.tk-devpreview-content');
+  function lockPanelHeight(){
+    if(!allContents.length) return;
+    var max = 0;
+    allContents.forEach(function(c){
+      var text = c.querySelector('.tk-devpreview-text');
+      if(!text) return;
+      text.style.minHeight = '';
+      var isActive = c.classList.contains('active');
+      if(!isActive){
+        c.style.display = 'block';
+        c.style.position = 'fixed';
+        c.style.visibility = 'hidden';
+        c.style.top = '-9999px';
+        c.style.left = '-9999px';
+      }
+      max = Math.max(max, text.scrollHeight);
+      if(!isActive){
+        c.style.display = '';
+        c.style.position = '';
+        c.style.visibility = '';
+        c.style.top = '';
+        c.style.left = '';
+      }
+    });
+    document.querySelectorAll('.tk-devpreview-text').forEach(function(text){
+      text.style.minHeight = max + 'px';
+    });
+  }
+  var resizeTimer;
+  window.addEventListener('resize', function(){
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(lockPanelHeight, 150);
+  });
+  lockPanelHeight();
+
   resetAuto();
 }());
 
@@ -185,8 +227,31 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
     indWrap.addEventListener('mouseleave', resetAuto);
   }
 
+  /* Lock #tkIndContent to the tallest industry's real rendered height (same
+     approach as the device-preview panel), so the row doesn't change
+     height as users switch tabs. Renders each industry's content into the
+     live element to measure it -- fine since it happens synchronously,
+     with no intermediate paint, before restoring the current content. */
+  function lockContentHeight(){
+    var savedHTML = contentEl.innerHTML;
+    contentEl.style.minHeight = '';
+    var max = 0;
+    industries.forEach(function(ind){
+      contentEl.innerHTML = buildContent(ind);
+      max = Math.max(max, contentEl.scrollHeight);
+    });
+    contentEl.innerHTML = savedHTML;
+    if(max) contentEl.style.minHeight = max + 'px';
+  }
+  var indResizeTimer;
+  window.addEventListener('resize', function(){
+    clearTimeout(indResizeTimer);
+    indResizeTimer = setTimeout(lockContentHeight, 150);
+  });
+
   switchTo(0);
   resetAuto();
+  setTimeout(lockContentHeight, 260);
 }());
 
 (function(){
