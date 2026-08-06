@@ -415,7 +415,7 @@ html{scrollbar-gutter:stable;}
   .tk-deploy-beacon-name{display:none;}
 }
 @media (max-width:900px){
-  .tk-devtab-wrap{flex-direction:column;gap:20px;}
+  .tk-devtab-wrap{flex-direction:column;gap:20px;align-items:stretch;}
   .tk-devtabs{flex:none;width:100%;margin-top:0;}
   .tk-devpreview-img-wrap{height:440px;}
   .tk-split{grid-template-columns:minmax(0,1fr);gap:32px;}
@@ -461,4 +461,15 @@ html{scrollbar-gutter:stable;}
   .tk-partner-badge{flex-wrap:wrap;justify-content:center;}
   .tk-partner-badge-label{white-space:normal;text-align:left;}
   .tk-deploy-section{display:none;}
+}
+
+/* --- Logo scroller: pause + lock on hover (desktop/mouse only) ------- */
+/* This page's .client-logos instance is a static, hardcoded track (see
+   index.html) rather than phrhome.js's industry-tab-driven renderLogos(),
+   which is the only place that normally pauses it on mouseenter. Without
+   that JS, the pause has to happen here in CSS instead. The existing
+   .client-logo:hover{opacity:1} rule (from phrhome.css) already highlights
+   just the one logo being hovered once the whole track stops moving. */
+@media (hover:hover) and (pointer:fine){
+  .client-logos:hover .logo-slider-track{animation-play-state:paused;}
 }
