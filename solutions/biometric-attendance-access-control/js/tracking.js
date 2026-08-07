@@ -2,11 +2,24 @@
    tracking.js — delta script for the Tracking page
    (Access & Attendance Devices — /solutions/biometric-attendance-access-control/)
 
-   Loaded AFTER the shared ../phrhome.js. Page has no shared nav/footer
-   (standalone landing page) -- everything below is tk- behavior
-   specific to this page only, guarded to no-op if .tk-scope isn't
-   present.
+   Loaded AFTER the shared ../phrhome.js. Two things live here:
+
+   1. navbar/mobile-panel toggle behavior. Not yet part of the shared
+      phrhome.js upstream, so every page that embeds the nv- nav markup
+      currently carries its own copy (see customer-page/script.js,
+      phr-webinar-page/phrhome.js). Copied verbatim so the nav actually
+      works on this page.
+   2. tk- — behavior specific to this page only, guarded to no-op if
+      .tk-scope isn't present.
    ═══════════════════════════════════════════════════════════════════ */
+
+/* navbar - new JS additions */
+(function(){var bar=document.getElementById('nvBar');var menu=document.getElementById('nvMenu');if(!bar||!menu)return;var onScroll=function(){if(window.scrollY>8)bar.classList.add('is-scrolled');else bar.classList.remove('is-scrolled');};window.addEventListener('scroll',onScroll,{passive:true});onScroll();var items=menu.querySelectorAll('[data-nv="dropdown"]');var openTimer,closeTimer,current=null;function open(item){clearTimeout(closeTimer);if(current&&current!==item)close(current,true);item.classList.add('is-open');var btn=item.querySelector('.nv-link');if(btn)btn.setAttribute('aria-expanded','true');current=item;}
+function close(item,immediate){item=item||current;if(!item)return;item.classList.remove('is-open');var btn=item.querySelector('.nv-link');if(btn)btn.setAttribute('aria-expanded','false');if(current===item)current=null;}
+items.forEach(function(item){var btn=item.querySelector('.nv-link');item.addEventListener('mouseenter',function(){clearTimeout(closeTimer);openTimer=setTimeout(function(){open(item);},60);});item.addEventListener('mouseleave',function(){clearTimeout(openTimer);closeTimer=setTimeout(function(){close(item,false);},140);});btn.addEventListener('click',function(e){e.preventDefault();if(item.classList.contains('is-open'))close(item,true);else open(item);});btn.addEventListener('keydown',function(e){if(e.key==='Escape'){close(item,true);btn.focus();}});});document.addEventListener('click',function(e){if(current&&!current.contains(e.target))close(current,true);});document.addEventListener('keydown',function(e){if(e.key==='Escape'&&current)close(current,true);});var burger=document.getElementById('nvBurger');var panel=document.getElementById('nvPanel');var scrim=document.getElementById('nvScrim');var closeBtn=document.getElementById('nvClose');function openPanel(){document.body.classList.add('nv-mobile-open');if(burger)burger.setAttribute('aria-expanded','true');if(panel)panel.setAttribute('aria-hidden','false');}
+function closePanel(){document.body.classList.remove('nv-mobile-open');if(burger)burger.setAttribute('aria-expanded','false');if(panel)panel.setAttribute('aria-hidden','true');}
+if(burger)burger.addEventListener('click',openPanel);if(closeBtn)closeBtn.addEventListener('click',closePanel);if(scrim)scrim.addEventListener('click',closePanel);document.addEventListener('keydown',function(e){if(e.key==='Escape')closePanel();});var accs=document.querySelectorAll('[data-acc]');accs.forEach(function(acc){var btn=acc.querySelector('.nv-acc-btn');btn.addEventListener('click',function(){var isOpen=acc.classList.toggle('is-open');btn.setAttribute('aria-expanded',isOpen?'true':'false');});});var ann=document.getElementById('nvAnn');var annClose=document.getElementById('nvAnnClose');var ANN_KEY='phr_ann_lexi_hr_v1';if(ann){try{if(sessionStorage.getItem(ANN_KEY)==='1')ann.classList.add('is-dismissed');}catch(e){}
+if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-dismissed');try{sessionStorage.setItem(ANN_KEY,'1');}catch(e){}});}}());
 
 /* tracking - device category tabs (click a category, see it large; auto-rotates every 3s) */
 (function(){
@@ -132,37 +145,37 @@
       title: 'Manufacturing & Factories',
       body:  'Track attendance and control access across production floors and warehouses, with rugged devices built for high-traffic industrial environments and shift-based rules that match your production schedule. Fingerprint terminals hold up to dust, heat, and constant handling far better than card-only readers, so the hardware keeps working through the conditions a factory floor actually throws at it.',
       tags:  ['Shift-based access', 'Rugged hardware', 'Multi-site sync'],
-      img:   'images/factory-worker-operating-industrial-machinery-wearing-gloves-hard-hat-and-protective-eyewear.webp'
+      img:   'https://peopleshr.com/wp-content/uploads/2026/08/factory-worker-operating-industrial-machinery-wearing-gloves-hard-hat-and-protective-eyewear.webp'
     },
     {
       title: 'Retail & Multi-Branch Operations',
       body:  'Keep every store staffed and accountable on one platform, with consistent attendance data and access control whether you run 5 locations or 500. New branches roll out on the same device standard and report into the same dashboard, so head office gets one clean view of attendance instead of a different spreadsheet from every store.',
       tags:  ['Fast rollout', 'Centralized reporting', 'Any headcount'],
-      img:   'images/two-supermarket-staff-members-in-uniform-one-holding-a-tablet-and-the-other-carrying-a-box-in-a-grocery-store.webp'
+      img:   'https://peopleshr.com/wp-content/uploads/2026/08/two-supermarket-staff-members-in-uniform-one-holding-a-tablet-and-the-other-carrying-a-box-in-a-grocery-store.webp'
     },
     {
       title: 'Corporate Offices',
       body:  'Give employees frictionless badge or biometric entry at reception and secure zones, with attendance data flowing straight into payroll and no separate systems to reconcile. Visitors and contractors can be granted temporary access on the same platform, so security and HR are working off the same record instead of two.',
       tags:  ['Badge & biometric entry', 'Zone permissions', 'Payroll sync'],
-      img:   'images/two-colleagues-in-a-corporate-boardroom-meeting.webp'
+      img:   'https://peopleshr.com/wp-content/uploads/2026/08/two-colleagues-in-a-corporate-boardroom-meeting.webp'
     },
     {
       title: 'Healthcare Facilities',
       body:  'Secure wards and pharmacies with role-based access, while contactless biometric check-in keeps staff attendance accurate without adding to infection-control risk. Access rights can be scoped tightly by ward, shift, or clearance level, so sensitive areas stay restricted to the staff who are actually authorized to be there.',
       tags:  ['Contactless check-in', 'Restricted-zone control', 'Audit trail'],
-      img:   'images/doctor-and-nurse-walking-through-a-hospital-corridor.webp'
+      img:   'https://peopleshr.com/wp-content/uploads/2026/08/doctor-and-nurse-walking-through-a-hospital-corridor.webp'
     },
     {
       title: 'Warehousing & Logistics',
       body:  'Track attendance across shifts and loading docks, with access gates that log every entry and exit for full visibility over who\'s on site, at every facility. Handheld and gate-mounted devices cover both fixed checkpoints and moving crews, so coverage doesn\'t drop off between the office and the yard.',
       tags:  ['Gate & dock access', 'Shift coverage', 'Real-time visibility'],
-      img:   'images/lorry-driver-in-uniform-viewed-close-up-through-the-vehicle-window.webp'
+      img:   'https://peopleshr.com/wp-content/uploads/2026/08/lorry-driver-in-uniform-viewed-close-up-through-the-vehicle-window.webp'
     },
     {
       title: 'Educational Institutions',
       body:  'Manage staff and campus access across multiple buildings from one dashboard, with attendance data ready for compliance reporting whenever it\'s needed. Term-time schedules, multiple campuses, and mixed staff and faculty access rules are all handled from the same system, without extra spreadsheets at reporting time.',
       tags:  ['Campus-wide access', 'Staff attendance', 'Compliance-ready'],
-      img:   'images/professor-walking-into-a-university-building.webp'
+      img:   'https://peopleshr.com/wp-content/uploads/2026/08/professor-walking-into-a-university-building.webp'
     }
   ];
 
