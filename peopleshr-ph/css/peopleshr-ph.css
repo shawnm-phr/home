@@ -45,19 +45,180 @@ html{scrollbar-gutter:stable;}
 .ph-scope *{box-sizing:border-box;}
 .ph-scope h1,.ph-scope h2,.ph-scope h3{color:var(--ph-ink);}
 
-.ph-placeholder{
-  max-width:1240px;
-  margin:0 auto;
-  padding:120px 24px;
-  text-align:center;
+/* --- ph-section / ph-card ------------------------------------------
+   NOTE: phrhome.css defines TWO conflicting rules for the bare
+   `.phr-section` and `.phr-module-card` class names — one for the
+   generic "Philippines HRIS" component library (~line 4119/4128), and
+   an unrelated later one for a different legacy "SMSGT" page
+   (~line 6536/6586) that silently wins the cascade (dark navy bg on
+   .phr-section, glass-card style on .phr-module-card). Rather than
+   touch the shared master file, this page uses its own `.ph-section`/
+   `.ph-card` names — safe copies of the *intended* (first) rules —
+   for the section wrapper and card grid. Everything else (.phr-hero,
+   .phr-section__*, .phr-modules, .phr-lexi*, .phr-getstarted*, .warn-*)
+   is unaffected by the collision and reused directly. ---------------- */
+.ph-section{padding:88px 0;}
+.ph-section--alt{background:var(--phr-blue-30);}
+.ph-card{
+  background:var(--phr-white);
+  border:1px solid var(--phr-border);
+  border-radius:var(--phr-radius-md);
+  padding:32px 28px 28px;
+  position:relative;
+  overflow:hidden;
+  transition:transform var(--phr-transition),box-shadow var(--phr-transition),border-color var(--phr-transition);
 }
-.ph-placeholder h1{
-  font-size:clamp(28px,4vw,44px);
+.ph-card:hover{transform:translateY(-6px);box-shadow:var(--phr-shadow-hover);border-color:var(--phr-blue-200);}
+.ph-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--phr-blue-700),var(--phr-blue-500));opacity:0;transition:opacity var(--phr-transition);}
+.ph-card:hover::before{opacity:1;}
+.ph-card__icon{width:48px;height:48px;border-radius:12px;background:var(--phr-blue-50);display:flex;align-items:center;justify-content:center;margin-bottom:20px;transition:background var(--phr-transition);}
+.ph-card:hover .ph-card__icon{background:var(--phr-blue-700);}
+.ph-card:hover .ph-card__icon svg{stroke:var(--phr-white);}
+.ph-card__icon svg{stroke:var(--phr-blue-700);}
+.ph-card__name{font-size:18px;font-weight:800;color:var(--phr-text-dark);letter-spacing:-.3px;margin-bottom:8px;}
+.ph-card__desc{font-size:14.5px;color:var(--phr-text-mid);line-height:1.6;}
+@media(max-width:640px){.ph-section{padding:52px 0;}}
+
+/* --- Icon color extensions (icons use stroke="currentColor"; master
+   defines the icon containers but not a default icon color) ------- */
+.warn-icon{color:#ef4444;}
+
+/* --- 1. Hero CTA + trust strip ------------------------------------ */
+.ph-hero-cta{margin-top:8px;}
+.ph-trust-strip{margin-top:56px;}
+.ph-trust-label{
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--phr-text-light);
+  margin:0 0 14px;
+}
+.ph-trust-strip .client-logos{padding:0;min-height:auto;}
+.ph-trust-strip .client-logos::before,
+.ph-trust-strip .client-logos::after{display:none;}
+
+/* --- 3. Core proposition value strip ------------------------------ */
+.ph-value-strip{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+  margin-top:52px;
+  padding-top:40px;
+  border-top:1px solid var(--phr-border);
+}
+.ph-value-item{text-align:center;}
+.ph-value-item b{
+  display:block;
+  font-size:18px;
   font-weight:800;
-  margin:0 0 16px;
+  color:var(--phr-text-dark);
+  margin-bottom:6px;
 }
-.ph-placeholder p{
-  font-size:16px;
-  color:var(--ph-muted);
-  margin:0;
+.ph-value-item span{
+  font-size:14.5px;
+  color:var(--phr-text-mid);
+}
+
+/* --- "Replaces:" line (sections 4, 5, 7) --------------------------- */
+.ph-replaces{
+  font-size:13px;
+  font-weight:700;
+  color:#c2410c;
+  margin:2px 0 10px;
+}
+.ph-replaces--dark{color:#fbbf24;}
+
+/* --- 4. Compliance security strip ---------------------------------- */
+.ph-security-strip{justify-content:center;margin-top:40px;}
+
+/* --- 6. Industry relevance columns --------------------------------- */
+.ph-industry-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:32px;
+}
+.ph-industry-col h3{
+  font-size:18px;
+  font-weight:800;
+  margin-bottom:16px;
+  padding-bottom:12px;
+  border-bottom:2px solid var(--phr-blue-500);
+}
+.ph-industry-col ul{display:flex;flex-direction:column;gap:10px;}
+.ph-industry-col li{
+  font-size:14.5px;
+  color:var(--phr-text-mid);
+  padding-left:22px;
+  position:relative;
+  line-height:1.5;
+}
+.ph-industry-col li::before{
+  content:'';
+  position:absolute;
+  left:0;top:7px;
+  width:8px;height:8px;
+  border-radius:2px;
+  background:var(--phr-blue-500);
+}
+
+/* --- 7. Lexi AI: two cards instead of the default three ------------ */
+.ph-lexi-two .phr-lexi__items{grid-template-columns:repeat(2,1fr);gap:48px;}
+.ph-lexi-header{margin-bottom:44px;}
+@media(max-width:960px){.ph-lexi-two .phr-lexi__items{grid-template-columns:1fr;}}
+
+/* --- 8. Customer proof --------------------------------------------- */
+.ph-stats-bar{margin:0 0 64px;}
+.ph-proof-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+  margin-bottom:56px;
+}
+.ph-proof-card{
+  background:var(--phr-white);
+  border:1px solid var(--phr-border);
+  border-radius:var(--phr-radius-md);
+  padding:28px;
+}
+.ph-proof-card h3{
+  font-size:17px;
+  font-weight:800;
+  margin-bottom:6px;
+}
+.ph-proof-card p{
+  font-size:14px;
+  color:var(--phr-text-mid);
+  line-height:1.6;
+}
+.ph-proof-meta{
+  font-size:12.5px !important;
+  font-weight:700;
+  color:var(--phr-blue-600) !important;
+  margin-bottom:10px;
+}
+.ph-proof-logos{padding-bottom:0;}
+
+/* --- 9. Rollout reassurance + CTA ----------------------------------- */
+.ph-proof-line{
+  font-size:14px;
+  font-style:italic;
+  color:var(--phr-text-light);
+  margin:20px auto 0;
+  max-width:640px;
+}
+.ph-rollout-section .phr-getstarted-wrapper{padding-top:8px;}
+.ph-reassurance{
+  font-size:13px;
+  color:rgba(255,255,255,.55);
+  margin-top:14px;
+}
+
+@media(max-width:768px){
+  .ph-value-strip{grid-template-columns:1fr;gap:28px;}
+  .ph-industry-grid{grid-template-columns:1fr;gap:36px;}
+  .ph-proof-grid{grid-template-columns:1fr;}
+}
+@media(max-width:1080px){
+  .ph-proof-grid{grid-template-columns:repeat(2,1fr);}
 }
