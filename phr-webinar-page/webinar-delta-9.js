@@ -45,11 +45,11 @@ const WEBINAR_DATA = {
       "duration": "< 1 hour",
       "language": "English",
       "registerUrl": "https://peopleshr.com/webinar-peopleshr-walkthrough-v10-3/",
-      "coverImage": "images/12_aug_webinar.webp",
+      "coverImage": "https://peopleshr.com/wp-content/uploads/2026/08/12_aug_webinar.webp",
       "gradient": 2,
       "speakers": [
         { "initials": "SM", "name": "Shawn Moses", "role": "Product Marketing Manager, PeoplesHR", "photo": "https://peopleshr.com/wp-content/uploads/2026/05/shawn_moses.webp", "color": "#e0f2fe", "textColor": "#0369a1" },
-        { "initials": "AW", "name": "Aloka Weerawardane", "role": "Asst. Manager, Customer & Partner Marketing, PeoplesHR", "photo": "../webinar-v10-3/images/aloka-weerawardane-peopleshr.webp", "color": "#dbeafe", "textColor": "#2563eb" }
+        { "initials": "AW", "name": "Aloka Weerawardane", "role": "Asst. Manager, Customer & Partner Marketing, PeoplesHR", "photo": "https://peopleshr.com/wp-content/uploads/2026/08/aloka-weerawardane-peopleshr.webp", "color": "#dbeafe", "textColor": "#2563eb" }
       ]
     },
     {
@@ -60,10 +60,10 @@ const WEBINAR_DATA = {
       "duration": "1 hour",
       "language": "English",
       "registerUrl": "https://peopleshr.com/webinar-philippines/",
-      "coverImage": "images/1_september_webinar_cover.webp",
+      "coverImage": "https://peopleshr.com/wp-content/uploads/2026/08/1_september_webinar_cover.webp",
       "gradient": 3,
       "speakers": [
-        { "initials": "EH", "name": "Eli Harrell", "role": "CEO, EmergePH", "photo": "images/eli-harrell.webp", "color": "#dbeafe", "textColor": "#2563eb" },
+        { "initials": "EH", "name": "Eli Harrell", "role": "CEO, EmergePH", "photo": "https://peopleshr.com/wp-content/uploads/2026/08/Eli.jpg", "color": "#dbeafe", "textColor": "#2563eb" },
         { "initials": "MG", "name": "Manuel Garcia-Ramos", "role": "Country Director – Philippines, PeoplesHR", "photo": "https://peopleshr.com/wp-content/uploads/2026/06/manuel_ramos.webp", "color": "#dbeafe", "textColor": "#2563eb" }
       ]
     },
@@ -75,10 +75,10 @@ const WEBINAR_DATA = {
       "duration": "1 hour",
       "language": "Bahasa",
       "registerUrl": "https://peopleshr.com/webinar-indonesia-ai-in-hr/",
-      "coverImage": "images/3_sep_webinar_cover.webp",
+      "coverImage": "https://peopleshr.com/wp-content/uploads/2026/08/3_sep_webinar_cover.webp",
       "gradient": 4,
       "speakers": [
-        { "initials": "GA", "name": "Gustia R. Anasril", "role": "Chief HRGS Officer, Muliabara Group", "photo": "images/gustia-r-anasril.webp", "color": "#ede9fe", "textColor": "#7c3aed" }
+        { "initials": "GA", "name": "Gustia R. Anasril", "role": "Chief HRGS Officer, Muliabara Group", "photo": "https://peopleshr.com/wp-content/uploads/2026/08/Gustia.jpeg", "color": "#ede9fe", "textColor": "#7c3aed" }
       ]
     }
   ],
@@ -410,7 +410,7 @@ function renderUpcoming(upcoming) {
       <div class="wb-uc-thumb ${GRAD_CLASSES[u.gradient] || GRAD_CLASSES[1]}" style="${u.coverImage ? `background-image:url('${u.coverImage}');background-size:cover;background-position:center;` : ''}">
         ${u.coverImage ? `<div style="position:absolute;inset:0;background:rgba(0,0,0,0.25);border-radius:inherit;"></div>` : ''}
         ${u.date && u.time ? `<span class="wb-uc-date-badge" style="position:relative;z-index:1;">${u.date} &middot; ${u.time}</span>` : ''}
-        <div class="wb-uc-icon" style="position:relative;z-index:1;"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="3" width="12" height="11" rx="2" fill="none"/><path d="M5 1v3M11 1v3M2 7h12"/></svg></div>
+        <div class="wb-uc-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="3" width="12" height="11" rx="2" fill="none"/><path d="M5 1v3M11 1v3M2 7h12"/></svg></div>
       </div>
       <div class="wb-uc-body">
         <div class="wb-uc-cat-row">
