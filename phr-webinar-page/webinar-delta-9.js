@@ -24,7 +24,11 @@ const WEBINAR_DATA = {
       "language": "English",
       "registerUrl": "https://peopleshr.com/webinar-peopleshr-walkthrough-v10-3/",
       "coverImage": "images/12_aug_webinar.webp",
-      "gradient": 2
+      "gradient": 2,
+      "speakers": [
+        { "initials": "SM", "name": "Shawn Moses", "role": "Product Marketing Manager, PeoplesHR", "photo": "https://peopleshr.com/wp-content/uploads/2026/05/shawn_moses.webp", "color": "#e0f2fe", "textColor": "#0369a1" },
+        { "initials": "AW", "name": "Aloka Weerawardane", "role": "Asst. Manager, Customer & Partner Marketing, PeoplesHR", "photo": "../webinar-v10-3/images/aloka-weerawardane-peopleshr.webp", "color": "#dbeafe", "textColor": "#2563eb" }
+      ]
     },
     {
       "category": "HR & People",

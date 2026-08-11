@@ -1174,7 +1174,7 @@ window.addEventListener('message', function(e) {
       modules:   ['HR', 'Pay', 'Time'],
       img:       'https://img.magnific.com/free-photo/factory-workshop-interior-machines-glass-production-background_645730-396.jpg?semt=ais_hybrid&w=740&q=80',
       tint:      '#1d4ed8',
-      href:      'https://phr-case-study-inner-page-47s7.vercel.app/'
+      href:      '/case-study-inner-page/'
     },
     {
       logo:      '',
@@ -1186,7 +1186,7 @@ window.addEventListener('message', function(e) {
       modules:   ['HR', 'Talent'],
       img:       'https://shoppable.ph/wp-content/uploads/2023/12/business-philippines-limitations-1024x684.jpg',
       tint:      '#0f766e',
-      href:      'https://phr-case-study-inner-page-47s7.vercel.app/'
+      href:      '/case-study-inner-page/'
     },
     {
       logo:      LOGO_BASE + 'peoplesbank.webp',
@@ -1198,7 +1198,7 @@ window.addEventListener('message', function(e) {
       modules:   ['Pay', 'Insight'],
       img:       'https://www.bria.com.ph/wp-content/uploads/2022/05/Central-Business-Districts-in-the-Philippines.png',
       tint:      '#b91c1c',
-      href:      'https://phr-case-study-inner-page-47s7.vercel.app/'
+      href:      '/case-study-inner-page/'
     },
     {
       logo:      LOGO_BASE + 'pyramidwilmar.webp',
@@ -1210,7 +1210,7 @@ window.addEventListener('message', function(e) {
       modules:   ['HR', 'Time'],
       img:       'https://www.worldbank.org/content/dam/Worldbank/Feature%20Story/Africa/Tanzania/ug-empowering-ugandas-youth-to-be-job-creators-780x439.jpg',
       tint:      '#92400e',
-      href:      'https://phr-case-study-inner-page-47s7.vercel.app/'
+      href:      '/case-study-inner-page/'
     }
   ];
 
