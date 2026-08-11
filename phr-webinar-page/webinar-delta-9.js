@@ -18,7 +18,7 @@ const WEBINAR_DATA = {
     {
       "category": "Product",
       "title": "PeoplesHR v10.3: People Intelligence, Wherever You Are",
-      "date": "12 Aug 2026",
+      "date": "19 Aug 2026",
       "time": "12:30 PM IST",
       "duration": "< 1 hour",
       "language": "English",
@@ -41,7 +41,7 @@ const WEBINAR_DATA = {
       "coverImage": "images/1_september_webinar_cover.webp",
       "gradient": 3,
       "speakers": [
-        { "initials": "EH", "name": "Eli Harrell", "role": "CEO, EmergePH", "color": "#dbeafe", "textColor": "#2563eb" },
+        { "initials": "EH", "name": "Eli Harrell", "role": "CEO, EmergePH", "photo": "images/eli-harrell.webp", "color": "#dbeafe", "textColor": "#2563eb" },
         { "initials": "MG", "name": "Manuel Garcia-Ramos", "role": "Country Director – Philippines, PeoplesHR", "photo": "https://peopleshr.com/wp-content/uploads/2026/06/manuel_ramos.webp", "color": "#dbeafe", "textColor": "#2563eb" }
       ]
     },
@@ -56,7 +56,7 @@ const WEBINAR_DATA = {
       "coverImage": "images/3_sep_webinar_cover.webp",
       "gradient": 4,
       "speakers": [
-        { "initials": "GA", "name": "Gustia R. Anasril", "role": "Chief HRGS Officer, Muliabara Group", "color": "#ede9fe", "textColor": "#7c3aed" }
+        { "initials": "GA", "name": "Gustia R. Anasril", "role": "Chief HRGS Officer, Muliabara Group", "photo": "images/gustia-r-anasril.webp", "color": "#ede9fe", "textColor": "#7c3aed" }
       ]
     }
   ],
