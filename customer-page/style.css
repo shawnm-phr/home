@@ -7309,6 +7309,9 @@ button.btn-primary {
   }
   .cs-vid-card:hover .cs-vid-thumb-img { transform: scale(1.03); }
 
+  .cs-vid-thumb-img--zoom { transform: scale(1.3); }
+  .cs-vid-card:hover .cs-vid-thumb-img--zoom { transform: scale(1.34); }
+
   .cs-vid-scrim {
     position: absolute;
     inset: 0;
