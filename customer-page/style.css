@@ -7368,6 +7368,24 @@ button.btn-primary {
   }
   .cs-vid-play-btn svg { width: 20px; height: 20px; color: #fff; margin-left: 3px; }
 
+  /* Cards with no video wired up yet (data-youtube not set) */
+  .cs-vid-card:not([data-youtube]) { cursor: default; }
+  .cs-vid-card:not([data-youtube]) .cs-vid-play-btn { display: none; }
+  .cs-vid-card:not([data-youtube])::after {
+    content: 'Video coming soon';
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .2px;
+    color: rgba(255,255,255,.9);
+    background: rgba(0,0,0,.4);
+    padding: 4px 9px;
+    border-radius: 20px;
+    backdrop-filter: blur(6px);
+  }
+
   /* Info at bottom */
   .cs-vid-info {
     position: absolute;

@@ -1172,7 +1172,7 @@ window.addEventListener('message', function(e) {
       challenge: 'Pyramid Wilmar’s workforce spanned manufacturing plants, corporate offices and island-wide sales teams, but payroll and HR processes were split across different systems, paper workflows and location-based access limitations.',
       solution:  'PeoplesHR brought payroll, self-service, mobile access, kiosks and workforce visibility into one platform, giving 670+ employees real-time HR access and helping the rollout reach 95% completion in just 3.5 months.',
       modules:   ['HR', 'Pay', 'Time'],
-      img:       'https://img.magnific.com/free-photo/factory-workshop-interior-machines-glass-production-background_645730-396.jpg?semt=ais_hybrid&w=740&q=80',
+      img:       'images/Section-04-FEATURED-STORIES/Pyramid-Wilmar.png',
       tint:      '#92400e',
       href:      '/case-study-inner-page/pyramid-wilmar/'
     },
@@ -1184,7 +1184,7 @@ window.addEventListener('message', function(e) {
       challenge: 'Brandix had a large, factory-led workforce across multiple locations, but HR operations were affected by fragmented HCM systems, paper-based requests and limited digital access for frontline employees.',
       solution:  'With OneClick, powered by PeoplesHR, Brandix gave employees real-time access to HR services through mobile and self-service channels, increasing attendance self-service adoption from 4% to 96% and leave self-service adoption from 31% to 99% in just eight months.',
       modules:   ['HR', 'Pay', 'Time'],
-      img:       'https://img.magnific.com/free-photo/factory-workshop-interior-machines-glass-production-background_645730-396.jpg?semt=ais_hybrid&w=740&q=80',
+      img:       'images/Section-04-FEATURED-STORIES/Brandix.png',
       tint:      '#1d4ed8',
       href:      '/case-study-inner-page/brandix/'
     }
