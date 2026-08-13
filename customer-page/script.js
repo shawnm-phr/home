@@ -892,7 +892,9 @@ window.addEventListener('message', function(e) {
     return Math.max(0, total - visibleCount());
   }
   function render() {
-    track.style.transform = 'translateX(-' + (idx * STEP) + 'px)';
+    var maxScroll = Math.max(0, track.scrollWidth - track.parentElement.offsetWidth);
+    var offset    = Math.min(idx * STEP, maxScroll);
+    track.style.transform = 'translateX(-' + offset + 'px)';
     prevBtn.disabled = idx <= 0;
     nextBtn.disabled = idx >= maxIdx();
   }

@@ -7262,6 +7262,25 @@ button.btn-primary {
   .cs-videos .cs-section-eyebrow { color: var(--blue); }
   .cs-videos .cs-section-title { color: var(--navy); }
 
+  /* Carousel nav buttons (prev/next, next to the section title) */
+  .cs-vid-controls { display: flex; gap: 8px; flex: none; }
+  .cs-vid-btn {
+    width: 40px;
+    height: 40px;
+    flex: none;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    background: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .15s, border-color .15s;
+  }
+  .cs-vid-btn:hover { background: var(--bg-light); border-color: var(--navy); }
+  .cs-vid-btn svg { width: 16px; height: 16px; color: var(--navy); }
+  .cs-vid-btn:disabled { opacity: .35; cursor: default; }
+
   /* Carousel track */
   .cs-vid-carousel { position: relative; }
   .cs-vid-overflow { overflow: hidden; }
