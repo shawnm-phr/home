@@ -37,7 +37,7 @@ if (typeof LAZY_SECTIONS !== 'undefined') {
           <div class="dg-card-body">
             <div class="dg-card-tag">Lexi AI Insights</div>
             <div class="dg-card-title">Promotion vs Retention Analysis</div>
-            <div class="dg-card-desc">Discover whether promoted employees are more likely to stay using workforce data, key factors and visual analysis.</div>
+            <div class="dg-card-desc">Use AI-powered workforce analysis to discover whether promoted employees are more likely to stay.</div>
             <div class="dg-card-footer">
               <button class="dg-card-cta">Watch Demo <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
             </div>
@@ -55,7 +55,7 @@ if (typeof LAZY_SECTIONS !== 'undefined') {
           <div class="dg-card-body">
             <div class="dg-card-tag">Lexi AI Insights</div>
             <div class="dg-card-title">Contracted Hours Analysis</div>
-            <div class="dg-card-desc">Identify which departments are working beyond their contracted hours through clear workforce analysis and visualisations.</div>
+            <div class="dg-card-desc">Use AI-powered workforce analysis to identify which departments are working beyond their contracted hours.</div>
             <div class="dg-card-footer">
               <button class="dg-card-cta">Watch Demo <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
             </div>
@@ -73,7 +73,7 @@ if (typeof LAZY_SECTIONS !== 'undefined') {
           <div class="dg-card-body">
             <div class="dg-card-tag">Lexi AI Insights</div>
             <div class="dg-card-title">Workforce Insights on Mobile</div>
-            <div class="dg-card-desc">Ask strategic workforce questions by text or voice and access data-driven insights directly from your mobile device.</div>
+            <div class="dg-card-desc">Ask strategic workforce questions by text or voice and receive AI-powered insights directly on your mobile device.</div>
             <div class="dg-card-footer">
               <button class="dg-card-cta">Watch Demo <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
             </div>
