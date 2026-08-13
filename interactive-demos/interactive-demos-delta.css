@@ -1,0 +1,10 @@
+/* ═══════════════════════════════════════════════════════════════════
+   interactive-demos-delta.css — delta stylesheet for the Interactive
+   Demos page (/interactive-demos/)
+
+   Loaded AFTER the shared ../phrhome.css and must only extend it,
+   never modify it. All current page styling (.dg-*, .hero.dg-hero,
+   .industry-tabs, .testimonial-section, etc.) already lives in the
+   shared phrhome.css — this file stays empty until this page needs
+   something phrhome.css doesn't already cover.
+   ═══════════════════════════════════════════════════════════════════ */

@@ -1,0 +1,358 @@
+<!-- Supademo popup embed (required for every gatedDemo()/Supademo.open() call on this page) -->
+<script src="https://script.supademo.com/supademo.js"></script>
+
+<!-- Sitewide styles, shared with every other page -->
+<link rel="stylesheet" href="../phrhome.css">
+<!-- Page-only styles (empty until this page needs its own delta) -->
+<link rel="stylesheet" href="interactive-demos-delta.css">
+
+<!-- ═══════════════════════════════════════════════════════════════
+     HERO — uses .hero from phrhome.css + .dg-hero override
+═══════════════════════════════════════════════════════════════════ -->
+<section class="hero dg-hero">
+
+  <!-- Left: copy + CTAs -->
+  <div class="hero-left">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      INTERACTIVE PRODUCT DEMOS
+    </div>
+
+    <h1>Experience how <span class="accent">PeoplesHR</span> works for your team</h1>
+
+    <p class="hero-body">
+      See every module. Explore at your own pace, then talk to our experts when you're ready.
+    </p>
+
+    <div class="hero-ctas">
+      <button onclick="scrollToDemos()" class="dg-btn-anchor dg-btn-primary">
+        Watch More Demos
+        <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button onclick="scrollToContact()" class="dg-btn-anchor dg-btn-secondary">
+        Talk to Sales
+      </button>
+    </div>
+  </div>
+
+  <!-- Right: featured demo -->
+  <div class="dg-hero-demo">
+    <div class="dg-hero-demo-frame dg-hero-clickable" onclick="gatedDemo('cmov2pgrk05pu9rr9ct8hjufa')">
+      <img
+        src="https://peopleshr.com/wp-content/uploads/2026/06/hero_main_demo.webp"
+        alt="PeoplesHR Interactive Demo"
+        class="dg-hero-img"
+      >
+      <div class="dg-hero-play-btn">&#9654;</div>
+      <div class="dg-hero-demo-label">
+        <span></span> Interactive demo
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     CATEGORY TABS — uses .industry-tabs / .industry-tab from phrhome.css
+═══════════════════════════════════════════════════════════════════ -->
+<div class="dg-cats-wrap" id="demos">
+  <div class="dg-cats-inner">
+    <div class="industry-tabs">
+      <button class="industry-tab active" data-cat="hr">HR</button>
+      <button class="industry-tab dg-tab-disabled" data-cat="pay" title="Coming soon">Pay</button>
+      <button class="industry-tab" data-cat="time">Time</button>
+      <button class="industry-tab" data-cat="talent">Talent</button>
+      <button class="industry-tab dg-tab-disabled" data-cat="engagement" title="Coming soon">Engagement</button>
+      <button class="industry-tab dg-tab-disabled" data-cat="insight" title="Coming soon">Insight</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     DEMO GRID
+═══════════════════════════════════════════════════════════════════ -->
+<main class="dg-main">
+  <div class="dg-inner">
+
+    <!-- ── HR ─────────────────────────────────────────────────── -->
+    <div class="dg-section visible" id="dg-hr">
+      <div class="dg-cat-header">
+        <div class="dg-cat-header-left">
+          <!-- .section-label is phrhome.css -->
+          <h2 class="dg-section-heading">The foundation of your people operations</h2>
+          <p class="dg-cat-desc">Manage the full employee lifecycle, from hire to retire, with a single source of truth your entire organisation can rely on.</p>
+        </div>
+        <div class="dg-cat-count-box">
+          <div class="dg-cat-count-num">2</div>
+          <div class="dg-cat-count-lbl">Demos available</div>
+        </div>
+      </div>
+
+      <div class="dg-grid">
+
+        <div class="dg-card" onclick="gatedDemo('cmoseqnit5la6w9doj1uy40uf')">
+          <div class="dg-thumb dg-thumb-hr">
+            <img src="https://peopleshr.com/wp-content/uploads/2026/05/Salary_Grades_Corporate_Titles_Designations.webp" alt="Salary Grades, Corporate Titles & Designations" class="dg-thumb-image">
+            <div class="dg-thumb-overlay"><div class="dg-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
+            <div class="dg-thumb-new"><span class="new-tag">NEW</span></div>
+          </div>
+          <div class="dg-card-body">
+            <div class="dg-card-tag">Employee Information Manager</div>
+            <div class="dg-card-title">Salary Grades, Corporate Titles &amp; Designations</div>
+            <div class="dg-card-desc">Build your work structure — define salary grades, corporate titles, and job designations with grade and career progression mapped in.</div>
+            <div class="dg-card-footer">
+              <button class="dg-card-cta">Watch Demo <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="dg-card" onclick="gatedDemo('cmol5e7yn0klqpimdzphwzqw6')">
+          <div class="dg-thumb dg-thumb-hr">
+            <img src="https://peopleshr.com/wp-content/uploads/2026/05/Configure_Org_Chart_Hierarchy_Display_Settings1.webp" alt="Configure Org Chart Hierarchy & Display Settings" class="dg-thumb-image">
+            <div class="dg-thumb-overlay"><div class="dg-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
+          </div>
+          <div class="dg-card-body">
+            <div class="dg-card-tag">Organisation Chart</div>
+            <div class="dg-card-title">Configure Org Chart Hierarchy &amp; Display Settings</div>
+            <div class="dg-card-desc">Customise visible employee profile columns, manage corporate structure, and save personalised org chart settings.</div>
+            <div class="dg-card-footer">
+              <button class="dg-card-cta">Watch Demo <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div><!-- /dg-hr -->
+
+
+    <!-- ── TIME & PAY ─────────────────────────────────────────── -->
+    <div class="dg-section" id="dg-pay" data-loaded="false"></div><!-- /dg-pay -->
+
+
+    <!-- ── TIME ──────────────────────────────────────────────── -->
+    <div class="dg-section" id="dg-time" data-loaded="false"></div><!-- /dg-time -->
+
+
+    <!-- ── TALENT ─────────────────────────────────────────────── -->
+    <div class="dg-section" id="dg-talent" data-loaded="false"></div><!-- /dg-talent -->
+
+
+    <!-- ── ENGAGEMENT ─────────────────────────────────────────── -->
+    <div class="dg-section" id="dg-engagement" data-loaded="false"></div><!-- /dg-engagement -->
+
+
+    <!-- ── INSIGHTS ────────────────────────────────────────────── -->
+    <div class="dg-section" id="dg-insight" data-loaded="false"></div><!-- /dg-insight -->
+
+  </div>
+</main>
+
+
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     CTA BANNER — exact phrhome.css classes
+═══════════════════════════════════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════════════════════════════
+     BOTTOM FORM SECTION
+═══════════════════════════════════════════════════════════════════ -->
+<section class="dg-form-section" id="dg-contact">
+  <div class="dg-form-section-inner">
+
+    <!-- Left: copy -->
+    <div class="dg-form-copy">
+      <h2>Ready to see PeoplesHR in action?</h2>
+      <p>Tell us a little about your team and we'll set up a personalised walkthrough — tailored to your industry, size, and the challenges that matter most to you.</p>
+      <ul class="dg-form-bullets">
+        <li>
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Deployed across 1,000+ enterprises in 15+ countries
+        </li>
+        <li>
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Built for complex, multi-entity HR operations at scale
+        </li>
+        <li>
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          ISO 27001 (UKAS) · ISO 27017 · ISO 9001 · CSA STAR certified
+        </li>
+        <li>
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Dedicated implementation &amp; ongoing success support
+        </li>
+      </ul>
+    </div>
+
+    <!-- Right: HubSpot form -->
+    <div class="dg-form-embed">
+      <div id="hs-form-container">
+        <!-- Shown only until HubSpot form renders -->
+        <div id="hs-placeholder" class="dg-hs-placeholder">
+          <svg width="36" height="36" fill="none" viewBox="0 0 24 24" class="dg-hs-placeholder-icon"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <p class="dg-hs-placeholder-text">Loading form…</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     CUSTOMER LOGOS
+═══════════════════════════════════════════════════════════════════ -->
+<section class="dg-logo-strip">
+  <p class="dg-logo-strip-label">Trusted by leading organisations worldwide</p>
+  <div class="client-logos dg-logo-strip-inner">
+    <div class="logo-slider-track">
+      <div class="client-logo"><img src="https://peopleshr.com/wp-content/uploads/2026/04/sri-lankan-airlines.webp" alt=""></div>
+      <div class="client-logo"><img src="https://peopleshr.com/wp-content/uploads/2026/04/ansell.webp" alt=""></div>
+      <div class="client-logo"><img src="https://peopleshr.com/wp-content/uploads/2026/04/efl.webp" alt=""></div>
+      <div class="client-logo"><img src="https://peopleshr.com/wp-content/uploads/2026/04/zillion-e.webp" alt=""></div>
+      <div class="client-logo"><img src="https://peopleshr.com/wp-content/uploads/2026/04/Tellda.webp" alt=""></div>
+      <div class="client-logo"><img src="https://peopleshr.com/wp-content/uploads/2026/04/nable.webp" alt=""></div>
+      <div class="client-logo"><img src="https://peopleshr.com/wp-content/uploads/2026/04/CEAT.webp" alt=""></div>
+      <div class="client-logo"><img src="https://peopleshr.com/wp-content/uploads/2026/04/brandix.webp" alt=""></div>
+      <div class="client-logo"><img src="https://peopleshr.com/wp-content/uploads/2026/04/pyramidwilmar.webp" alt=""></div>
+      <div class="client-logo"><img src="https://peopleshr.com/wp-content/uploads/2026/04/phoenix.webp" alt=""></div>
+      <div class="client-logo"><img src="https://peopleshr.com/wp-content/uploads/2026/04/Fonterra.webp" alt=""></div>
+      <!-- Duplicate set for seamless infinite scroll -->
+      <div class="client-logo"><img src="https://peopleshr.com/wp-content/uploads/2026/04/sri-lankan-airlines.webp" alt=""></div>
+      <div class="client-logo"><img src="https://peopleshr.com/wp-content/uploads/2026/04/ansell.webp" alt=""></div>
+      <div class="client-logo"><img src="https://peopleshr.com/wp-content/uploads/2026/04/efl.webp" alt=""></div>
+      <div class="client-logo"><img src="https://peopleshr.com/wp-content/uploads/2026/04/zillion-e.webp" alt=""></div>
+      <div class="client-logo"><img src="https://peopleshr.com/wp-content/uploads/2026/04/Tellda.webp" alt=""></div>
+      <div class="client-logo"><img src="https://peopleshr.com/wp-content/uploads/2026/04/nable.webp" alt=""></div>
+      <div class="client-logo"><img src="https://peopleshr.com/wp-content/uploads/2026/04/CEAT.webp" alt=""></div>
+      <div class="client-logo"><img src="https://peopleshr.com/wp-content/uploads/2026/04/brandix.webp" alt=""></div>
+      <div class="client-logo"><img src="https://peopleshr.com/wp-content/uploads/2026/04/pyramidwilmar.webp" alt=""></div>
+      <div class="client-logo"><img src="https://peopleshr.com/wp-content/uploads/2026/04/phoenix.webp" alt=""></div>
+      <div class="client-logo"><img src="https://peopleshr.com/wp-content/uploads/2026/04/Fonterra.webp" alt=""></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     TESTIMONIALS
+═══════════════════════════════════════════════════════════════════ -->
+<section class="testimonial-section">
+  <div class="testimonial-track-wrap" id="t-track-wrap">
+    <div class="testimonial-track" id="t-track">
+
+      <div class="testimonial-slide">
+        <p class="testimonial-quote">"This transformation represents more than a technology upgrade — it's the realization of our vision for a modern, efficient, and transparent workplace. PeoplesHR helped us create a 'lean culture' that resonates with our diverse, tech-savvy workforce. The results speak for themselves."</p>
+        <div class="testimonial-meta">
+          <div class="t-avatar">
+            <img src="https://peopleshr.com/wp-content/uploads/2026/04/Chandima-Bambarenda.webp" alt="Chandima Bambarenda" width="56" height="56" class="dg-t-avatar-img">
+          </div>
+          <div class="t-meta-text">
+            <div class="testimonial-author">Chandima Bambarenda</div>
+            <div class="testimonial-title">Group Head of Human Resources &middot; Pyramid Wilmar (Pvt) Ltd</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-slide">
+        <p class="testimonial-quote">"I can proudly say we brought significant cost efficiencies to our HR processes. Most importantly, our HR officers now have more time to spend with employees — understanding their needs and engaging in business activities to keep motivation levels higher."</p>
+        <div class="testimonial-meta">
+          <div class="t-avatar">
+            <img src="https://peopleshr.com/wp-content/uploads/2026/04/Sahad-Mukthar.webp" alt="Sahad Mukthar" width="56" height="56" class="dg-t-avatar-img">
+          </div>
+          <div class="t-meta-text">
+            <div class="testimonial-author">Sahad Mukthar</div>
+            <div class="testimonial-title">Chief People Officer &middot; Brandix Group</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-slide">
+        <p class="testimonial-quote">"With the support and guidance from the PeoplesHR team, we focused on helping employees become comfortable using the system and integrating it into our daily processes. Today, even our minor staff members submit requests directly through the KIOSK. When you see that level of usage across the workforce, you know the system has truly become part of the organization."</p>
+        <div class="testimonial-meta">
+          <div class="t-avatar">
+            <svg viewBox="0 0 56 56" fill="none" width="56" height="56"><rect width="56" height="56" fill="#dcfce7"/><circle cx="28" cy="22" r="10" fill="#86efac"/><ellipse cx="28" cy="44" rx="16" ry="10" fill="#86efac"/></svg>
+          </div>
+          <div class="t-meta-text">
+            <div class="testimonial-author">Priyantha Jayawickrama</div>
+            <div class="testimonial-title">General Manager HR &amp; SHE &middot; Flintec Transducers Pvt. Ltd</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-slide">
+        <p class="testimonial-quote">"As the Government of Uganda, we are happy with the progress of the ongoing project of the Integrated Human Capital Management being implemented by the Joint Venture. With the project proceeding successfully, we look forward to fully automating the Human Resource Capital Management system in the Government Ministries, Departments, Agencies and Local Governments."</p>
+        <div class="testimonial-meta">
+          <div class="t-avatar">
+            <img src="https://peopleshr.com/wp-content/uploads/2026/04/Robert-Wambugu.webp" alt="Robert Wambugu" width="56" height="56" class="dg-t-avatar-img">
+          </div>
+          <div class="t-meta-text">
+            <div class="testimonial-author">Government of Uganda</div>
+            <div class="testimonial-title">Integrated Human Capital Management Project &middot; Government of Uganda (GoU)</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="testimonial-controls">
+    <button class="t-arrow" onclick="tSlide(-1)" aria-label="Previous">
+      <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="t-dots" id="t-dots">
+      <button class="t-dot active" onclick="tGoTo(0)"></button>
+      <button class="t-dot" onclick="tGoTo(1)"></button>
+      <button class="t-dot" onclick="tGoTo(2)"></button>
+      <button class="t-dot" onclick="tGoTo(3)"></button>
+    </div>
+    <button class="t-arrow" onclick="tSlide(1)" aria-label="Next">
+      <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════════════════════════════ -->
+<!-- HubSpot Form -->
+<!-- Dev toast -->
+<div class="dg-dev-toast" id="dg-dev-toast">
+  <div class="dg-dev-toast-icon">🛠</div>
+  Demo in development
+</div>
+
+
+
+
+<!-- ═══════════════════════════════════════
+     DEMO GATE OVERLAY
+═══════════════════════════════════════════ -->
+<div id="dg-gate-overlay" class="dg-gate-overlay" role="dialog" aria-modal="true" aria-label="Unlock demos">
+  <div class="dg-gate-card">
+    <button class="dg-gate-close" onclick="_hideGate()" aria-label="Close">&#x2715;</button>
+    <div class="dg-gate-header">
+      <div class="dg-gate-icon">&#9654;</div>
+      <h2 class="dg-gate-title">Watch the demo</h2>
+      <p class="dg-gate-sub">Enter your company details to get instant access.</p>
+    </div>
+    <div id="dg-gate-form-container">
+      <div class="dg-gate-loading">
+        <div class="dg-gate-spinner"></div>
+        <p>Loading form&#8230;</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Sitewide behavior, shared with every other page -->
+<script src="../phrhome.js"></script>
+<!-- Page-specific behavior (empty until this page needs its own delta) -->
+<script src="interactive-demos-delta.js"></script>
+
+<script charset="utf-8" type="text/javascript" src="https://js-na2.hsforms.net/forms/embed/v2.js"></script>
