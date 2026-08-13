@@ -220,13 +220,13 @@
      passed in, so the same source can appear at nav size, panel-head
      size, or the ladder heading's size. */
   var MODULE_ICON_SRC = {
-    HR: 'images/module-icons/HR%20Icon.webp',
-    Time: 'images/module-icons/Time%20Icon.webp',
-    Pay: 'images/module-icons/Pay%20Icon.webp',
-    Talent: 'images/module-icons/Talent%20Icon.webp',
-    Engagement: 'images/module-icons/Engagement%20Icon.webp',
-    Recruitment: 'images/module-icons/Recruitment.webp',
-    Insights: 'images/module-icons/Insights%20Icon.webp'
+    HR: '../images/module-icons/HR%20Icon.webp',
+    Time: '../images/module-icons/Time%20Icon.webp',
+    Pay: '../images/module-icons/Pay%20Icon.webp',
+    Talent: '../images/module-icons/Talent%20Icon.webp',
+    Engagement: '../images/module-icons/Engagement%20Icon.webp',
+    Recruitment: '../images/module-icons/Recruitment.webp',
+    Insights: '../images/module-icons/Insights%20Icon.webp'
   };
   function moduleIcon(name, sizeClass) {
     var src = MODULE_ICON_SRC[name];
@@ -260,14 +260,14 @@
      capability text already used elsewhere on the site (mobile app,
      employee/manager self-service, and the Ask Lexi AI group), not
      new claims. */
-  var MOBILE_APP_LOGO_SRC = 'images/module-icons/phr_mobile_app_logo.svg';
-  var SELF_SERVICE_ICON_SRC = 'images/module-icons/self_service.svg';
+  var MOBILE_APP_LOGO_SRC = '../images/module-icons/phr_mobile_app_logo.svg';
+  var SELF_SERVICE_ICON_SRC = '../images/module-icons/self_service.svg';
   /* the wordmark (white lettering, made for a dark background) is used
      on the pricing card's own brand row (itself dark); the square X
      glyph is used everywhere the icon needs to stand alone, like the
      nav tile and panel head, same square treatment as module icons. */
   var LEXI_LOGO_SRC = 'https://peopleshr.com/wp-content/uploads/2026/05/lexi-s.png';
-  var LEXI_X_ICON_SRC = 'images/module-icons/lexi_x_icon.svg';
+  var LEXI_X_ICON_SRC = '../images/module-icons/lexi_x_icon.svg';
   var STANDOUT = {
     lexi: {
       name: 'Lexi Ai', tagline: 'Selesaikan berbagai kebutuhan HR dengan percakapan sederhana.',
