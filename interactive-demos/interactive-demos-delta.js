@@ -16,7 +16,7 @@ if (typeof LAZY_SECTIONS !== 'undefined') {
           <p class="dg-cat-desc">Real-time workforce intelligence — from pre-built dashboards to AI-powered natural language queries with Lexi, your HR copilot.</p>
           <div class="lexi-powered-badge">
             <span class="lpb-text">Powered by</span>
-            <img src="https://peopleshr.com/wp-content/uploads/2026/05/lexi-s.png" alt="Lexi" class="lpb-logo-img">
+            <img src="images/lexi-ai.webp" alt="Lexi" class="lpb-logo-img">
           </div>
         </div>
         <div class="dg-cat-count-box">
