@@ -961,7 +961,6 @@ window.addEventListener('message', function(e) {
   if (!cards.length) return;
 
   var activeIndustry = 'all';
-  var activeModule   = 'all';
 
   /* ── Mobile dropdown ── */
   function openDropdown() {
@@ -993,18 +992,12 @@ window.addEventListener('message', function(e) {
     document.querySelectorAll('#cs-industry-list .cs-filter-list-btn').forEach(function(b) {
       b.classList.toggle('active', b.getAttribute('data-filter-industry') === activeIndustry);
     });
-    document.querySelectorAll('#cs-module-list .cs-filter-list-btn').forEach(function(b) {
-      b.classList.toggle('active', b.getAttribute('data-filter-module') === activeModule);
-    });
     /* Mobile pills */
     document.querySelectorAll('#cs-industry-pills-mobile .cs-pill').forEach(function(p) {
       p.classList.toggle('active', p.getAttribute('data-filter-industry') === activeIndustry);
     });
-    document.querySelectorAll('#cs-module-pills-mobile .cs-pill').forEach(function(p) {
-      p.classList.toggle('active', p.getAttribute('data-filter-module') === activeModule);
-    });
     /* Badge */
-    var count = (activeIndustry !== 'all' ? 1 : 0) + (activeModule !== 'all' ? 1 : 0);
+    var count = (activeIndustry !== 'all' ? 1 : 0);
     if (badge) { badge.textContent = count; badge.classList.toggle('hidden', count === 0); }
     /* Sidebar clear button */
     if (sidebarClear) sidebarClear.classList.toggle('visible', count > 0);
@@ -1015,9 +1008,7 @@ window.addEventListener('message', function(e) {
     var visible = 0;
     cards.forEach(function(card) {
       var industry = card.getAttribute('data-industry');
-      var modules  = (card.getAttribute('data-modules') || '').split(' ');
-      var show     = (activeIndustry === 'all' || industry === activeIndustry) &&
-                     (activeModule   === 'all' || modules.indexOf(activeModule) !== -1);
+      var show     = (activeIndustry === 'all' || industry === activeIndustry);
       card.style.display = show ? '' : 'none';
       if (show) visible++;
     });
@@ -1033,13 +1024,6 @@ window.addEventListener('message', function(e) {
       applyFilters();
     });
   });
-  document.querySelectorAll('#cs-module-list .cs-filter-list-btn').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      activeModule = btn.getAttribute('data-filter-module');
-      applyFilters();
-    });
-  });
-
   /* ── Mobile dropdown pills ── */
   document.querySelectorAll('#cs-industry-pills-mobile .cs-pill').forEach(function(pill) {
     pill.addEventListener('click', function() {
@@ -1047,17 +1031,10 @@ window.addEventListener('message', function(e) {
       applyFilters();
     });
   });
-  document.querySelectorAll('#cs-module-pills-mobile .cs-pill').forEach(function(pill) {
-    pill.addEventListener('click', function() {
-      activeModule = pill.getAttribute('data-filter-module');
-      applyFilters();
-    });
-  });
 
   /* ── Clear (both mobile and sidebar) ── */
   function clearAll() {
     activeIndustry = 'all';
-    activeModule   = 'all';
     applyFilters();
     closeDropdown();
   }
