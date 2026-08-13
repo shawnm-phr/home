@@ -27,11 +27,7 @@ if (typeof LAZY_SECTIONS !== 'undefined') {
       <div class="dg-grid">
         <div class="dg-card" onclick="gatedDemo('cmsr026bi0c1xqmm7mxnkwwam')">
           <div class="dg-thumb dg-thumb-insights">
-            <div class="dg-thumb-ui">
-              <div class="dg-ui-bar"></div>
-              <div class="dg-ui-row"><div class="dg-ui-pill"></div><div class="dg-ui-pill w55"></div></div>
-              <div class="dg-ui-bar s"></div>
-            </div>
+            <img src="images/promotion-retention-analysis.webp" alt="Promotion vs Retention Analysis" class="dg-thumb-image">
             <div class="dg-thumb-overlay"><div class="dg-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
           </div>
           <div class="dg-card-body">
@@ -45,11 +41,7 @@ if (typeof LAZY_SECTIONS !== 'undefined') {
         </div>
         <div class="dg-card" onclick="gatedDemo('cmsr2xph3023azj0jppp4zqmc')">
           <div class="dg-thumb dg-thumb-insights">
-            <div class="dg-thumb-ui">
-              <div class="dg-ui-bar"></div>
-              <div class="dg-ui-row"><div class="dg-ui-pill"></div><div class="dg-ui-pill w55"></div></div>
-              <div class="dg-ui-bar s"></div>
-            </div>
+            <img src="images/contracted-hours-analysis.webp" alt="Contracted Hours Analysis" class="dg-thumb-image">
             <div class="dg-thumb-overlay"><div class="dg-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
           </div>
           <div class="dg-card-body">
@@ -63,11 +55,7 @@ if (typeof LAZY_SECTIONS !== 'undefined') {
         </div>
         <div class="dg-card" onclick="gatedDemo('cmsr4wi1t029bzj0jot73obit')">
           <div class="dg-thumb dg-thumb-insights">
-            <div class="dg-thumb-ui">
-              <div class="dg-ui-bar"></div>
-              <div class="dg-ui-row"><div class="dg-ui-pill"></div><div class="dg-ui-pill w55"></div></div>
-              <div class="dg-ui-bar s"></div>
-            </div>
+            <img src="images/workforce-insights-mobile.webp" alt="Workforce Insights on Mobile" class="dg-thumb-image">
             <div class="dg-thumb-overlay"><div class="dg-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
           </div>
           <div class="dg-card-body">
