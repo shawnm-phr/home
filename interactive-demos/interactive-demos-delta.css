@@ -12,3 +12,11 @@
 /* Category tabs bar (HR/Pay/Time/Talent/Engagement/Insight) — keep the
    bar, just drop the sticky-on-scroll behavior from phrhome.css */
 .dg-cats-wrap{position:static;}
+
+/* Hero: .dg-hero-demo has flex:1 with no cap, so on wide viewports it
+   stretches edge-to-edge while .dg-inner/.dg-cats-inner below it are
+   capped at max-width:1240px — center the hero row and cap the demo
+   frame so total content width matches that same 1240px, like pricing's
+   .pc-wrap does for .pc-hero. */
+.dg-hero{justify-content:center;}
+.dg-hero-demo{max-width:724px;}
