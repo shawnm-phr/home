@@ -8,3 +8,7 @@
    shared phrhome.css — this file stays empty until this page needs
    something phrhome.css doesn't already cover.
    ═══════════════════════════════════════════════════════════════════ */
+
+/* Category tabs bar (HR/Pay/Time/Talent/Engagement/Insight) — keep the
+   bar, just drop the sticky-on-scroll behavior from phrhome.css */
+.dg-cats-wrap{position:static;}
