@@ -20,3 +20,9 @@
    .pc-wrap does for .pc-hero. */
 .dg-hero{justify-content:center;}
 .dg-hero-demo{max-width:724px;}
+
+/* .dg-hero-img has no sizing rule in phrhome.css — it was rendering at
+   its natural pixel size and relying on the (uncapped) wide frame to
+   happen to cover it. Now that the frame is capped narrower, force it
+   to actually fill/crop to the 16:10 frame like a real cover image. */
+.dg-hero-img{width:100%;height:100%;object-fit:cover;display:block;}
