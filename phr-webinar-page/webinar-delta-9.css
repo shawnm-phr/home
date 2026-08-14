@@ -9,7 +9,7 @@
    yet part of the shared phrhome.css upstream, so every page that
    embeds the nav/footer markup currently carries its own copy
    (see home-page/style.css, solutions/biometric-attendance-access-control/css/tracking.css,
-   peopleshr-ph/css/peopleshr-ph.css). Copied verbatim so nav/footer
+   ph-lander/css/ph-lander.css). Copied verbatim so nav/footer
    render identically wherever they're embedded again in the future.
    ═══════════════════════════════════════════════════════════════════ */
 

@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════════════════════
-   peopleshr-ph.js — delta script for the PeoplesHR PH landing page
-   (/peopleshr-ph/)
+   ph-lander.js — delta script for the PeoplesHR PH landing page
+   (/ph-lander/)
 
    Loaded AFTER the shared ../../phrhome.js. Two things live here:
 
@@ -24,5 +24,5 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
 /* ph - behavior specific to this page (none yet) */
 (function(){
   var scope = document.querySelector('.ph-scope');
-  if(!scope) return; // guard: absent on non-peopleshr-ph pages
+  if(!scope) return; // guard: absent on non-ph-lander pages
 }());

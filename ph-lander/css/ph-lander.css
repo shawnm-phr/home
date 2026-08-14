@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════════════════════
-   peopleshr-ph.css — delta stylesheet for the PeoplesHR PH landing page
-   (/peopleshr-ph/)
+   ph-lander.css — delta stylesheet for the PeoplesHR PH landing page
+   (/ph-lander/)
 
    This file is loaded AFTER the shared ../../phrhome.css and must only
    extend it, never modify it. Two things live here:
@@ -21,7 +21,7 @@
 .ft-root{--blue-dark:#1d4ed8;--ink:#0d1b3e;--text:#4a5265;--muted:#6b7280;--border-soft:#eef0f5;--white:#ffffff;--ease:cubic-bezier(.22,.61,.36,1)}.ft-root *{box-sizing:border-box}.ft-root{font-family:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:var(--white);border-top:1px solid var(--border);padding:64px 24px 28px}.ft-wrap{max-width:1240px;margin:0 auto}.ft-top{display:grid;grid-template-columns:2.3fr 1fr 1fr 1fr 1fr;gap:40px 32px;padding-bottom:44px}.ft-brand{max-width:400px}.ft-logo img{height:34px;width:auto;display:block;margin-bottom:18px}.ft-blurb{font-size:14px;line-height:1.6;color:var(--muted);margin:0 0 22px}.ft-office{margin-bottom:16px}.ft-office-label{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--blue);margin:0 0 5px}.ft-office address{font-style:normal;font-size:13.5px;line-height:1.55;color:var(--text)}.ft-office a{display:inline-block;margin-top:3px;color:var(--ink);font-weight:600;text-decoration:none;font-size:13.5px}.ft-office a:hover{color:var(--blue)}.ft-social{display:flex;gap:10px;margin:22px 0 26px}.ft-social a{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;color:var(--ink);background:#f4f6fb;border:1px solid var(--border);transition:background .16s var(--ease),color .16s var(--ease),transform .16s var(--ease)}.ft-social a:hover{background:var(--navy);color:#fff;transform:translateY(-2px)}.ft-social svg{width:17px;height:17px}.ft-certs{display:flex;flex-wrap:wrap;gap:12px;align-items:center}.ft-cert{height:74px;min-width:74px;padding:8px 14px;border:1px solid var(--border);border-radius:12px;background:#fafbfe;display:grid;place-items:center;text-align:center;font-size:10.5px;font-weight:700;line-height:1.25;color:var(--muted);letter-spacing:.02em}.ft-cert img{max-height:58px;max-width:100px;width:auto;display:block}.ft-col{min-width:0}.ft-h{font-size:14px;font-weight:700;color:var(--ink);margin:0 0 16px;letter-spacing:.01em}.ft-sub{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:26px 0 12px}.ft-links{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px}.ft-links a{font-size:13.5px;font-weight:500;color:var(--text);text-decoration:none;line-height:1.3;transition:color .15s var(--ease)}.ft-links a:hover{color:var(--blue)}.ft-bottom{border-top:1px solid var(--border);padding-top:24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}.ft-copy{font-size:13px;color:var(--muted);margin:0}.ft-legal{display:flex;flex-wrap:wrap;gap:8px 22px;list-style:none;margin:0;padding:0}.ft-legal a{font-size:13px;font-weight:500;color:var(--text);text-decoration:none;transition:color .15s var(--ease)}.ft-legal a:hover{color:var(--blue)}@media (max-width:1080px){.ft-top{grid-template-columns:1.4fr 1fr 1fr}.ft-brand{grid-column:1 / -1;max-width:none}.ft-brand-inner{display:grid;grid-template-columns:minmax(280px,1.4fr) 1fr;gap:24px 40px;align-items:start}}@media (min-width:1081px){.ft-brand-inner{display:block}}@media (max-width:680px){.ft-root{padding:48px 20px 24px}.ft-top{grid-template-columns:1fr 1fr;gap:32px 24px}.ft-brand-inner{grid-template-columns:1fr}.ft-bottom{flex-direction:column;align-items:flex-start}}@media (max-width:420px){.ft-top{grid-template-columns:1fr}}@media (prefers-reduced-motion:reduce){*{transition-duration:.01ms!important}}
 
 /* ═══════════════════════════════════════════════════════════════════
-   peopleshr-ph-delta.css
+   ph-lander-delta.css
    New classes for this page only. All prefixed .ph- and scoped under
    .ph-scope so nothing here can leak onto/clash with other pages.
    Placeholder styles only — replace once the page content is designed.
@@ -162,12 +162,28 @@ html{scrollbar-gutter:stable;}
   background:var(--phr-blue-500);
 }
 
-/* --- 7. Lexi AI: two cards instead of the default three ------------ */
+/* --- 7. Interactive demo: card placed right, copy left, mirroring
+   the interactive-demos page hero (.dg-hero/.dg-hero-demo* classes
+   reused as-is from phrhome.css; only the split wrapper is new). --- */
+.ph-demo-split{
+  display:flex;
+  align-items:center;
+  gap:64px;
+}
+.ph-demo-copy{flex:1;max-width:480px;}
+.ph-demo-split .dg-hero-demo{flex:1;}
+@media(max-width:1024px){
+  .ph-demo-split{flex-direction:column;gap:40px;}
+  .ph-demo-copy{max-width:100%;}
+  .ph-demo-split .dg-hero-demo{width:100%;}
+}
+
+/* --- 8. Lexi AI: two cards instead of the default three ------------ */
 .ph-lexi-two .phr-lexi__items{grid-template-columns:repeat(2,1fr);gap:48px;}
 .ph-lexi-header{margin-bottom:44px;}
 @media(max-width:960px){.ph-lexi-two .phr-lexi__items{grid-template-columns:1fr;}}
 
-/* --- 8. Customer proof --------------------------------------------- */
+/* --- 9. Customer proof --------------------------------------------- */
 .ph-stats-bar{margin:0 0 64px;}
 .ph-proof-grid{
   display:grid;
@@ -199,7 +215,7 @@ html{scrollbar-gutter:stable;}
 }
 .ph-proof-logos{padding-bottom:0;}
 
-/* --- 9. Rollout reassurance + CTA ----------------------------------- */
+/* --- 10. Rollout reassurance + CTA ----------------------------------- */
 .ph-proof-line{
   font-size:14px;
   font-style:italic;
