@@ -4,15 +4,28 @@
 
    Loaded AFTER the shared ../phrhome.js. This page's demo-gallery
    logic (tab switching, LAZY_SECTIONS content, the Supademo gate
-   flow, the bottom contact form) used to live in phrhome.js, but
-   nothing else on the site uses .industry-tab[data-cat], .dg-*
-   sections, #hs-form-container, or #dg-gate-overlay — only this page
-   does — so it's all been moved here. The only thing phrhome.js still
-   owns that this page also uses is the generic testimonial carousel
-   (tGoTo/tSlide), since home-page/index.html and
-   solutions/biometric-attendance-access-control/ share that same
-   .testimonial-section markup.
+   flow, the bottom contact form, the testimonial carousel) used to
+   live in phrhome.js, but nothing else on the site actually calls
+   any of it — home-page/index.html has its own independent
+   testimonial carousel in script.js (#testimonial-track, no onclick
+   wiring to tGoTo/tSlide), and the biometric solutions page has no
+   testimonial markup at all. Only this page's dots/arrows call
+   tGoTo()/tSlide() via onclick, so it's all been moved here.
    ═══════════════════════════════════════════════════════════════════ */
+
+var tIndex = 0, tTotal = 4;
+
+function tGoTo(n) {
+  tIndex = n;
+  var track = document.getElementById('t-track');
+  if (track) track.style.transform = 'translateX(-' + (tIndex * 100) + '%)';
+  document.querySelectorAll('.t-dot').forEach(function(d, i) { d.classList.toggle('active', i === tIndex); });
+}
+function tSlide(dir) { tGoTo((tIndex + dir + tTotal) % tTotal); }
+
+document.addEventListener('DOMContentLoaded', function() {
+  setInterval(function() { tSlide(1); }, 6000);
+});
 
 const LAZY_SECTIONS = {
   pay:        `      <div class="dg-cat-header">

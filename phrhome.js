@@ -272,20 +272,6 @@ document.querySelectorAll('.module-card, .persona-card, .cs-card, .feature-item,
 
 (function(){'use strict';var ProductsPage={initFaq:function(){var triggers=document.querySelectorAll('.phr-faq-item__trigger');triggers.forEach(function(btn){btn.addEventListener('click',function(){var item=btn.closest('.phr-faq-item');var body=item.querySelector('.phr-faq-item__body');var isOpen=item.classList.contains('phr-faq-item--open');document.querySelectorAll('.phr-faq-item--open').forEach(function(el){el.classList.remove('phr-faq-item--open');el.querySelector('.phr-faq-item__body').style.maxHeight='0';el.querySelector('.phr-faq-item__trigger').setAttribute('aria-expanded','false')});if(!isOpen){item.classList.add('phr-faq-item--open');body.style.maxHeight=body.scrollHeight+'px';btn.setAttribute('aria-expanded','true')}})})},init:function(){this.initFaq()}};document.addEventListener('DOMContentLoaded',function(){ProductsPage.init()});}());
 
-var tIndex = 0, tTotal = 4;
-
-function tGoTo(n) {
-  tIndex = n;
-  var track = document.getElementById('t-track');
-  if (track) track.style.transform = 'translateX(-' + (tIndex * 100) + '%)';
-  document.querySelectorAll('.t-dot').forEach(function(d, i) { d.classList.toggle('active', i === tIndex); });
-}
-function tSlide(dir) { tGoTo((tIndex + dir + tTotal) % tTotal); }
-
-document.addEventListener('DOMContentLoaded', function() {
-  setInterval(function() { tSlide(1); }, 6000);
-});
-
 /* ==========================================================================
    smsgt-lexi-ph-page.js
    Page-specific interactions for SMSGT Ã¢â‚¬â€ AI-Powered HR Intelligence (Philippines).
