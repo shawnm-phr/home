@@ -3,18 +3,31 @@
    #pcMatrix JSON payload. All class names are .pc- prefixed and the
    whole thing is scoped under .pc-scope in the markup, so nothing
    here can collide with phrhome.css or the shared navbar/footer —
-   see the matching note in pricing-delta.css. */
+   see the matching note in pricing-delta.css.
+
+   Shared by both the English page (pricing/) and the Bahasa page
+   (pricing/pricing-bahasa/) — LANG below picks the right copy at
+   runtime from the page's own <html lang> attribute, so this one
+   file is safe to load on either page without ever double-rendering
+   the ladder. Do NOT also load a second copy of this script on the
+   same page — that reintroduces the double-card-set bug this
+   consolidation fixed (two IIFEs both appending into #pcLadder). */
 (function () {
   var scope = document.querySelector('.pc-scope');
   if (!scope) return; // guard: absent on non-pricing pages
 
+  var LANG = document.documentElement.lang === 'id' ? 'id' : 'en';
   var DATA = JSON.parse(document.getElementById('pcMatrix').textContent);
   var TIERS = [['manage', 'Manage'], ['grow', 'Grow'], ['transform', 'Transform']];
   /* Talent and Recruitment aren't offered on Manage — only Grow and
      Transform — so both the tier cards and the table hide that column
      entirely for these modules instead of showing a value for it. */
   var NO_MANAGE = ['Talent', 'Recruitment'];
-  var CARDS = {
+  var CARDS = LANG === 'id' ? {
+    manage: { tag: 'Kelola operasional perusahaan', desc: 'Kelola HR dengan tepat — data yang akurat, payroll yang rapi, dan kepatuhan regulasi di sepanjang perjalanan karyawan dari rekrutmen hingga purna kerja.' },
+    grow: { tag: 'Dukung pertumbuhan karyawan', desc: 'Kembangkan karyawan Anda — performa, talenta, rekrutmen, dan engagement menjadi lebih terencana, bukan sekadar reaktif. Dirancang untuk operasional HR yang lebih kompleks dan tenaga kerja yang lebih besar.', popular: true },
+    transform: { tag: 'Pimpin berdasarkan insight karyawan', desc: 'Jadikan data karyawan sebagai pusat pengambilan keputusan — antisipasi turnover dan selaraskan strategi SDM dengan bisnis.' }
+  } : {
     manage: { tag: 'Run the organisation', desc: 'Get HR right — accurate records, clean payroll, and statutory compliance across the full hire-to-retire journey.' },
     grow: { tag: 'Invest in your people', desc: 'Develop your people — performance, talent, recruitment and engagement become intentional, not reactive. Built for more complex HR operations and larger workforces.', popular: true },
     transform: { tag: 'Lead with people intelligence', desc: 'Put workforce data at the centre of decisions — anticipate attrition and align people strategy with the business.' }
@@ -23,7 +36,60 @@
      grounded in that module's actual manage/grow/transform capability
      data, not generic platform copy. Falls back to CARDS above when a
      module has no entry yet. */
-  var MODULE_TIERS = {
+  var MODULE_TIERS = LANG === 'id' ? {
+    HR: {
+      manage: { desc: 'Bangun fondasi HR yang kuat dengan sistem data yang akurat. Mulai dari menyusun struktur perusahaan, data karyawan, hingga dokumen HR dalam satu platform — lengkap dengan fitur pembaruan data mandiri, akses mobile, serta riwayat perubahan data yang transparan.',
+        bullets: ['Struktur organisasi & data karyawan terpusat', 'Informasi legal & dokumen dalam satu sistem', 'Pembuatan surat HR & pembaruan data mandiri', 'Akses lewat ponsel & riwayat perubahan data transparan'] },
+      grow: { desc: 'Fondasi HR yang dirancang untuk organisasi yang semakin berkembang. Mendukung struktur organisasi yang lebih kompleks, kustomisasi data, berbagai tahapan siklus karyawan, hingga akses insight ke supervisor lewat dashboard yang komprehensif.',
+        bullets: ['Struktur organisasi & data yang dapat disesuaikan', 'Validasi fleksibel & siklus karyawan yang lebih lengkap', 'Proses offboarding end-to-end', 'Dashboard supervisor yang lebih informatif'] },
+      transform: { desc: 'Kelola administrasi HR skala besar yang disesuaikan dengan cara kerja perusahaan Anda. Mulai dari struktur organisasi, tahapan siklus karyawan, hingga notifikasi khusus sesuai kebutuhan perusahaan. Dilengkapi proses offboarding dan penyelesaian hak karyawan yang berjalan otomatis.',
+        bullets: ['Struktur organisasi, data & siklus karyawan sesuai kebutuhan', 'Peringatan dan notifikasi yang dapat dikustomisasi', 'Exit clearance & penyelesaian hak karyawan yang otomatis'] }
+    },
+    Time: {
+      manage: { desc: 'Kelola kehadiran dan cuti dengan lebih akurat. Mulai dari penjadwalan shift, pencatatan absensi via aplikasi mobile atau web, persetujuan kehadiran sebelum payroll, hingga pengelolaan kuota dan persetujuan cuti.',
+        bullets: ['Penjadwalan shift & absensi via mobile/web', 'Pelacakan keterlambatan & lembur', 'Persetujuan absensi sebelum payroll', 'Pengelolaan kuota & persetujuan cuti'] },
+      grow: { desc: 'Pantau tim Anda yang terus berkembang dengan lebih mudah. Dilengkapi absensi berbasis lokasi (geofencing), timesheet proyek, dashboard supervisor, perencanaan cuti, serta kalender libur dan jenis cuti yang dapat disesuaikan.',
+        bullets: ['Absensi berbasis lokasi & persetujuan lembur', 'Timesheet proyek & dashboard supervisor', 'Perencanaan & akumulasi cuti', 'Kalender libur & jenis cuti yang dapat disesuaikan'] },
+      transform: { desc: 'Dukung operasional kompleks dengan multi-lokasi lewat pengelolaan absensi dan jadwal kerja yang fleksibel. Mulai dari atur berbagai pola shift, pertukaran shift, serta aturan lembur dan cuti sesuai kebutuhan bisnis Anda.',
+        bullets: ['Berbagai pilihan pola shift', 'Shift fleksibel, shift bertahap & pertukaran shift', 'Perhitungan lembur yang bisa disesuaikan', 'Aturan & validasi cuti yang fleksibel'] }
+    },
+    Pay: {
+      manage: { desc: 'Jalankan proses payroll dengan akurat dan tepat waktu. Kelola persetujuan, buat file transfer bank, slip gaji, serta laporan payroll lengkap, sekaligus memastikan kepatuhan terhadap pajak dan potongan wajib secara otomatis.',
+        bullets: ['Proses payroll, file transfer bank, dan slip gaji', 'Laporan payroll lengkap', 'Alur persetujuan', 'Perhitungan pajak dan potongan wajib secara otomatis'] },
+      grow: { desc: 'Sistem payroll untuk sistem penggajian yang lebih kompleks. Dilengkapi fitur multi-mata uang, pemetaan General Ledger (GL), deteksi anomali sebelum proses penggajian, penyesuaian gaji berlaku surut (backdated), pengelolaan pinjaman karyawan, serta pilihan benefit yang beragam.',
+        bullets: ['Payroll multi-mata uang & pemetaan General Ledger (GL)', 'Deteksi anomali sebelum payroll diproses', 'Revisi gaji & penyesuaian berlaku surut (backdated)', 'Pinjaman karyawan & lebih banyak pilihan benefit'] },
+      transform: { desc: 'Solusi payroll yang dirancang khusus sesuai kebutuhan perusahaan Anda. Mulai dari alur penggajian, persetujuan, skema pinjaman, hingga struktur benefit dapat dikonfigurasi penuh untuk menangani payroll bervolume tinggi tanpa hambatan.',
+        bullets: ['Proses payroll & alur persetujuan yang dapat disesuaikan', 'Jenis pinjaman & skema benefit yang dapat dikustomisasi', 'Mendukung payroll dalam skala besar'] }
+    },
+    Talent: {
+      grow: { desc: 'Bangun dan kembangkan potensi karyawan secara lebih terencana. Mulai dari kelola penilaian kinerja dan evaluasi 180°, tetapkan sasaran, OKR, dan KPI, pantau masa probation, atur program pelatihan melalui kalender, serta rencanakan kebutuhan tenaga kerja di masa depan.',
+        bullets: ['Penilaian kinerja & evaluasi 180°', 'Perencanaan sasaran kerja, OKR, & KPI', 'Pemantauan masa probation karyawan', 'Kalender pelatihan, anggaran, & perencanaan kebutuhan tenaga kerja'] },
+      transform: { desc: 'Kelola seluruh proses pengembangan talenta lebih strategis. Mulai dari feedback 360°, penilaian yang lebih objektif, perencanaan suksesi dengan 9-box, rekomendasi pembelajaran berbasis AI, hingga pengelolaan kenaikan gaji, insentif, dan proyeksi biaya tenaga kerja.',
+        bullets: ['Feedback 360° (termasuk dari pihak eksternal)', 'Perencanaan suksesi dengan matriks 9-box', 'Rekomendasi pembelajaran berbasis AI', 'Kenaikan gaji berbasis kinerja, insentif, & proyeksi biaya tenaga kerja'] }
+    },
+    Engagement: {
+      manage: { desc: "Berikan karyawan ruang bersuara serta kelola setiap permasalahan secara terstruktur. Keluhan ditangani melalui alur banding yang jelas, sementara kasus disipliner terdokumentasi lengkap dengan surat resmi.",
+        bullets: ['Saluran aspirasi karyawan', 'Pengelolaan keluhan dengan alur banding', 'Pengelolaan kasus disipliner & pembuatan surat'] },
+      grow: { desc: 'Dengarkan aspirasi karyawan secara lebih menyeluruh. Lengkapi pengelolaan masukan dan keluhan dengan survei serta pulse survey yang terarah untuk memperoleh sentimen berbasis data.',
+        bullets: ['Semua fitur pada paket Manage', 'Survei terarah & pulse survey', 'Pengukuran sentimen karyawan'] },
+      transform: { desc: "Bangun budaya apresiasi di perusahaan. Nikmati seluruh fitur pada paket Grow, ditambah pemberian apresiasi secara langsung, feed pencapaian bersama, dan sistem reward yang dapat ditukarkan.",
+        bullets: ['Semua fitur pada paket Grow', 'Apresiasi langsung dari rekan kerja maupun atasan', 'Feed pencapaian bersama (shared wins feed)', 'Reward yang dapat ditukarkan (redeemable rewards)'] }
+    },
+    Recruitment: {
+      grow: { desc: 'Rekrut dan onboarding karyawan dengan lebih terstruktur. Mulai dari menyetujui kebutuhan rekrutmen, mempublikasikan lowongan ke berbagai platform sekaligus, menyaring kandidat lewat portal rekrutmen, hingga onboarding karyawan baru dengan dokumentasi dan checklist yang lengkap.',
+        bullets: ['Persetujuan lowongan & publikasi di banyak platform', 'Portal kandidat, pemeringkatan & shortlist kandidat', 'Wawancara terstruktur & penawaran kerja (offers)', 'Checklist onboarding'] },
+      transform: { desc: 'Rekrut dalam skala besar dengan lebih cerdas. Unggah CV secara massal dengan pemrosesan AI, akses bank CV eksternal, serta pantau performa dan biaya rekrutmen dibandingkan anggaran yang telah disetujui.',
+        bullets: ['Unggah banyak CV sekaligus & pemrosesan berbasis AI', 'Bank CV eksternal', 'Pemantauan kinerja & biaya perekrutan vs. anggaran'] }
+    },
+    Insights: {
+      manage: { desc: "Pantau seluruh aktivitas perusahaan Anda dalam satu tempat. Mulai dari laporan standar untuk setiap modul, data tenaga kerja secara real-time, hingga Lexi Smart Navigator yang memudahkan Anda mengakses halaman yang dibutuhkan hanya dalam beberapa klik. Lexi AI tersedia sebagai fitur tambahan (add-on).",
+        bullets: ['Pustaka laporan standar untuk semua modul', 'Data tenaga kerja secara real-time dalam satu tampilan', 'Lexi Smart Navigator untuk akses cepat ke setiap halaman', 'Lexi AI tersedia sebagai fitur tambahan (add-on)'] },
+      grow: { desc: 'Temukan jawaban sendiri tanpa perlu bergantung pada tim HR. Dapatkan laporan kustom dan terjadwal, dashboard interaktif, serta Lexi Super Agent yang memungkinkan karyawan menyelesaikan berbagai kebutuhan HR hanya dengan mengajukannya lewat chat.',
+        bullets: ['Laporan kustom dan terjadwal', 'Dashboard interaktif', 'Lexi Super Agent untuk kebutuhan HR mandiri (self-service)'] },
+      transform: { desc: 'Ambil keputusan yang lebih baik dengan insight karyawan yang menyeluruh. Nikmati laporan dan dashboard yang disesuaikan dengan kebutuhan perusahaan Anda, tampilan data yang terintegrasi dari payroll, performa, dan engagement, serta Lexi AI Insights yang siap menjawab berbagai pertanyaan tentang karyawan.',
+        bullets: ['Laporan dan dashboard yang disesuaikan dengan kebutuhan Anda', 'Tampilan data payroll, performa, dan engagement yang terintegrasi', 'Lexi AI Insights untuk menjawab berbagai pertanyaan seputar karyawan'] }
+    }
+  } : {
     HR: {
       manage: { desc: 'Get your people data right. Build your company structure, keep a single accurate record for every employee, and generate HR letters — with self-service updates, mobile access, and a full audit trail.',
         bullets: ['Company structure & single employee record', 'Statutory details & centralised documents', 'HR letters & self-service updates', 'Mobile access & full audit trail'] },
@@ -88,12 +154,12 @@
     var k = pair[0], name = pair[1], c = CARDS[k];
     var el = document.createElement('div');
     el.className = 'pc-tier-card'; el.dataset.tier = k; el.tabIndex = 0; el.setAttribute('role', 'button');
-    el.innerHTML = (c.popular ? '<span class="pc-popular">Most chosen</span>' : '') +
+    el.innerHTML = (c.popular ? '<span class="pc-popular">' + (LANG === 'id' ? 'Paling Diminati' : 'Most chosen') + '</span>' : '') +
       '<div class="pc-tname"><span class="pc-chip"></span>' + name + '</div>' +
       '<div class="pc-ttag">' + c.tag + '</div>' +
       '<div class="pc-tdesc"></div>' +
       '<ul></ul>' +
-      '<a href="#" class="pc-btn" data-open-hs>Contact Us</a>';
+      '<a href="#" class="pc-btn" data-open-hs>' + (LANG === 'id' ? 'Hubungi Kami' : 'Contact Us') + '</a>';
     var goToBuilder = function () { document.getElementById('pcCmp').scrollIntoView({ behavior: 'smooth', block: 'start' }); };
     el.addEventListener('click', function (e) { if (e.target.closest('a')) return; goToBuilder(); });
     el.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goToBuilder(); } });
@@ -157,6 +223,7 @@
   /* cell rendering */
   function linkify(s) { return String(s).replace(/\[(.+?)\]\((.+?)\)/g, function (_, t, u) { return '<a class="pc-cell-link" href="' + u + '"' + (u !== '#' ? ' target="_blank" rel="noopener"' : '') + '>' + t + '</a>'; }); }
   function plainify(s) { return String(s).replace(/\[(.+?)\]\((.+?)\)/g, '$1'); }
+  var SALES_LABEL = LANG === 'id' ? 'Hubungi Sales' : 'Talk to sales';
   function cellContent(val) {
     var v = (val || '').trim();
     if (v === 'yes') return svgCheck;
@@ -164,9 +231,9 @@
     if (v.toLowerCase() === 'add-on') return '<span class="pc-pill">Add-on</span>';
     if (/^tts:/i.test(v)) {
       var label = v.slice(v.indexOf(':') + 1).trim();
-      return '<span class="pc-cap pc-tts-cap">' + linkify(label) + '</span><span class="pc-pill pc-sales">Talk to sales</span>';
+      return '<span class="pc-cap pc-tts-cap">' + linkify(label) + '</span><span class="pc-pill pc-sales">' + SALES_LABEL + '</span>';
     }
-    if (v.toLowerCase() === 'talk to sales' || v.toLowerCase() === 'talk to sale') return '<span class="pc-pill pc-sales">Talk to sales</span>';
+    if (v.toLowerCase() === 'talk to sales' || v.toLowerCase() === 'talk to sale') return '<span class="pc-pill pc-sales">' + SALES_LABEL + '</span>';
     return '<span class="pc-cap">' + linkify(v.replace(/\s{2,}/g, ' · ')) + '</span>';
   }
   var uid = 0;
@@ -178,13 +245,15 @@
       var id = 'pcp' + (uid++);
       var covers = '';
       if (it.children && it.children.length) {
-        covers = '<div class="pc-covers"><div class="pc-ch">Covers — based on the modules you own</div><div class="pc-tags">' + it.children.map(function (c) { return '<span class="pc-tag">' + c.module + '</span>'; }).join('') + '</div></div><div class="pc-avail">Available as an add-on; what Lexi can answer depends on the modules in your plan.</div>';
+        covers = LANG === 'id'
+          ? '<div class="pc-covers"><div class="pc-ch">Mencakup — berdasarkan modul yang Anda miliki</div><div class="pc-tags">' + it.children.map(function (c) { return '<span class="pc-tag">' + c.module + '</span>'; }).join('') + '</div></div><div class="pc-avail">Tersedia sebagai add-on; jawaban yang dapat diberikan Lexi bergantung pada modul dalam paket Anda.</div>'
+          : '<div class="pc-covers"><div class="pc-ch">Covers — based on the modules you own</div><div class="pc-tags">' + it.children.map(function (c) { return '<span class="pc-tag">' + c.module + '</span>'; }).join('') + '</div></div><div class="pc-avail">Available as an add-on; what Lexi can answer depends on the modules in your plan.</div>';
       }
-      pop = '<span class="pc-info"><button class="pc-info-btn" aria-expanded="false" aria-controls="' + id + '" aria-label="More information">i</button>' +
+      pop = '<span class="pc-info"><button class="pc-info-btn" aria-expanded="false" aria-controls="' + id + '" aria-label="' + (LANG === 'id' ? 'Informasi lebih lanjut' : 'More information') + '">i</button>' +
         '<div class="pc-pop" id="' + id + '" role="dialog"><div class="pc-pt">' + plainify(it.label) + '</div>' + (it.info ? '<div class="pc-pd">' + it.info + '</div>' : '') + covers + '</div></span>';
     }
-    var badge = it.tag === 'new' ? '<span class="pc-label-badge pc-label-badge-new">New</span>'
-      : it.tag === 'soon' ? '<span class="pc-label-badge pc-label-badge-soon">Coming Soon</span>' : '';
+    var badge = it.tag === 'new' ? '<span class="pc-label-badge pc-label-badge-new">' + (LANG === 'id' ? 'Baru' : 'New') + '</span>'
+      : it.tag === 'soon' ? '<span class="pc-label-badge pc-label-badge-soon">' + (LANG === 'id' ? 'Segera Hadir' : 'Coming Soon') + '</span>' : '';
     row.innerHTML = '<div class="pc-cell-item"><span class="pc-lbl">' + linkify(it.label) + '</span>' + badge + pop + '</div>' +
       (hideManage ? '' : '<div class="pc-cell" data-tier="manage">' + cellContent(it.manage) + '</div>') +
       '<div class="pc-cell" data-tier="grow">' + cellContent(it.grow) + '</div>' +
@@ -218,15 +287,20 @@
 
   /* moduleIcon() renders the right markup at whatever size class is
      passed in, so the same source can appear at nav size, panel-head
-     size, or the ladder heading's size. */
+     size, or the ladder heading's size.
+
+     IMG_BASE accounts for the Bahasa page living one folder deeper
+     (pricing/pricing-bahasa/) than the English page (pricing/) — same
+     images, just a different relative path back up to pricing/images/. */
+  var IMG_BASE = LANG === 'id' ? '../images/module-icons/' : 'images/module-icons/';
   var MODULE_ICON_SRC = {
-    HR: 'images/module-icons/HR%20Icon.webp',
-    Time: 'images/module-icons/Time%20Icon.webp',
-    Pay: 'images/module-icons/Pay%20Icon.webp',
-    Talent: 'images/module-icons/Talent%20Icon.webp',
-    Engagement: 'images/module-icons/Engagement%20Icon.webp',
-    Recruitment: 'images/module-icons/Recruitment.webp',
-    Insights: 'images/module-icons/Insights%20Icon.webp'
+    HR: IMG_BASE + 'HR%20Icon.webp',
+    Time: IMG_BASE + 'Time%20Icon.webp',
+    Pay: IMG_BASE + 'Pay%20Icon.webp',
+    Talent: IMG_BASE + 'Talent%20Icon.webp',
+    Engagement: IMG_BASE + 'Engagement%20Icon.webp',
+    Recruitment: IMG_BASE + 'Recruitment.webp',
+    Insights: IMG_BASE + 'Insights%20Icon.webp'
   };
   function moduleIcon(name, sizeClass) {
     var src = MODULE_ICON_SRC[name];
@@ -260,15 +334,194 @@
      capability text already used elsewhere on the site (mobile app,
      employee/manager self-service, and the Ask Lexi AI group), not
      new claims. */
-  var MOBILE_APP_LOGO_SRC = 'images/module-icons/phr_mobile_app_logo.svg';
-  var SELF_SERVICE_ICON_SRC = 'images/module-icons/self_service.svg';
+  var MOBILE_APP_LOGO_SRC = IMG_BASE + 'phr_mobile_app_logo.svg';
+  var SELF_SERVICE_ICON_SRC = IMG_BASE + 'self_service.svg';
   /* the wordmark (white lettering, made for a dark background) is used
      on the pricing card's own brand row (itself dark); the square X
      glyph is used everywhere the icon needs to stand alone, like the
      nav tile and panel head, same square treatment as module icons. */
   var LEXI_LOGO_SRC = 'https://peopleshr.com/wp-content/uploads/2026/05/lexi-s.png';
-  var LEXI_X_ICON_SRC = 'images/module-icons/lexi_x_icon.svg';
-  var STANDOUT = {
+  var LEXI_X_ICON_SRC = IMG_BASE + 'lexi_x_icon.svg';
+  var STANDOUT = LANG === 'id' ? {
+    lexi: {
+      name: 'Lexi Ai', tagline: 'Selesaikan berbagai kebutuhan HR dengan percakapan sederhana.',
+      icon: '<img class="pc-nav-ic" src="' + LEXI_X_ICON_SRC + '" alt="Lexi">',
+      panelIcon: '<img class="pc-mod-ic" src="' + LEXI_X_ICON_SRC + '" alt="Lexi">',
+      pricingCards: [
+        {
+          badge: 'Insights',
+          price: 'US$60', priceUnit: '/ lisensi / bulan',
+          tokenNote: 'Termasuk <b>10 juta token</b> per lisensi, per bulan.',
+          footnote: 'Kemampuan dan analisis data yang tersedia bergantung pada modul PeoplesHR yang diaktifkan perusahaan Anda.',
+          includedHeading: "Fitur yang Termasuk",
+          included: [
+            'Insight dan rekomendasi cerdas',
+            'Insight sesuai konteks internal perusahaan',
+            'Perencanaan kebutuhan tenaga kerja',
+            'Analisis kesiapan talenta untuk peran strategis',
+            'Simulasi payroll dan estimasi biaya',
+            'Analisis turnover karyawan dan risiko SDM',
+            'Deteksi risiko burnout dan kesejahteraan karyawan',
+            'AI yang memahami konteks percakapan',
+            'Keamanan data dan kepatuhan terhadap standar enterprise',
+            'Identifikasi hambatan dalam proses rekrutmen',
+            'Akses menyeluruh ke data HR bagi pimpinan HR'
+          ]
+        },
+        {
+          badge: 'Super Agent',
+          accent: 'blue',
+          includedIn: ['Grow', 'Transform'],
+          tagline: 'Asisten AI berbasis percakapan yang dapat menangani berbagai permintaan di seluruh modul HR, Payroll, dan Time dalam satu chat. Dirancang untuk membantu karyawan, manajer, dan admin menyelesaikan pekerjaan tanpa perlu berpindah-pindah modul.',
+          includedHeading: "Fitur yang Termasuk",
+          groups: [
+            { name: 'Untuk Karyawan', items: [
+              'Mengajukan atau membatalkan cuti',
+              'Melihat sisa kuota dan riwayat cuti',
+              'Mengakses slip gaji (termasuk pembayaran di luar jadwal payroll)',
+              'Menanyakan kebijakan perusahaan',
+              'Melihat benefit yang tersedia',
+              'Melihat atau memperbarui informasi profil sesuai hak akses',
+              'Menanyakan informasi pajak, BPJS, potongan wajib, dan estimasi penghasilan'
+            ] },
+            { name: 'Untuk Manager', items: [
+              'Memantau kehadiran dan ketidakhadiran anggota tim',
+              'Mengakses informasi jadwal shift karyawan',
+              'Melihat pengajuan cuti, lembur, absensi, koreksi kehadiran, hingga perubahan shift'
+            ] },
+            { name: 'Untuk HR dan Administrator', items: [
+              'Mengelola data karyawan dan struktur organisasi',
+              'Mengelola struktur organisasi, lokasi kerja, cost center, grade gaji, dan jabatan',
+              'Memperbarui pengaturan absensi dan benefit',
+              'Membuat job description dan target kerja',
+              'Meninjau informasi proses rekrutmen'
+            ] }
+          ]
+        },
+        {
+          badge: 'Smart Navigator',
+          accent: 'blue',
+          includedIn: ['Manage', 'Grow', 'Transform'],
+          tagline: 'Layanan pencarian terpusat yang memangkas waktu navigasi di seluruh platform.',
+          footnote: 'Menjadi keunggulan utama bersama Lexi Ai — dirancang khusus untuk secara signifikan mengurangi waktu yang dihabiskan pengguna HR dan karyawan saat menavigasi sistem yang rumit.',
+          includedHeading: 'Kemampuan Utama',
+          included: [
+            'Navigasi Cerdas — temukan dan buka menu, modul, atau fungsi apa pun secara cepat tanpa harus mencari manual satu per satu di tampilan layar',
+            'Berbasis AI — gunakan AI untuk memahami apa yang ingin Anda cari dan langsung tampilkan hasil yang paling relevan',
+            'Akses Universal — fitur pencarian terpusat untuk seluruh platform PeoplesHR'
+          ]
+        }
+      ]
+    },
+    mobile: {
+      name: 'Mobile App', tagline: 'Bekerja lebih mudah, di mana saja.',
+      icon: '<img class="pc-nav-ic" src="' + MOBILE_APP_LOGO_SRC + '" alt="Mobile App">',
+      panelIcon: '<img class="pc-mod-ic" src="' + MOBILE_APP_LOGO_SRC + '" alt="Mobile App">',
+      cards: [
+        { title: 'Employee Self-Service', items: [
+          'Tampilan beranda yang dipersonalisasi dengan widget serbaguna untuk melihat semua informasi penting',
+          'Lihat dan perbarui data pribadi Anda',
+          'Lihat dan unduh slip gaji kapan saja tanpa perlu dicetak',
+          'Ajukan cuti, termasuk cuti singkat dan cuti per jam',
+          'Cek sisa cuti dan lihat ketersediaan anggota tim hingga 5 hari ke depan',
+          'Lihat sisa saldo pinjaman dan riwayat pembayarannya',
+          'Lihat benefit dan hak karyawan yang Anda dapatkan',
+          'Pantau status dari seluruh pengajuan dalam satu tempat',
+          'Ajukan kasbon kapan saja tanpa perlu mendatangi HR',
+          'Lihat riwayat kehadiran langsung dari aplikasi',
+          'Ikuti survei perusahaan dan pulse check',
+          'Catat dan lacak insiden di tempat kerja secara real-time',
+          'Kirim masukan, saran, atau keluhan kepada HR dengan mudah'
+        ] },
+        { title: 'Kehadiran', items: [
+          'Konfirmasi lokasi Anda secara otomatis saat melakukan clock-in',
+          'Batasi presensi masuk hanya di lokasi kerja yang telah disetujui',
+          'Dapatkan notifikasi instan terkait aktivitas kehadiran'
+        ] },
+        { title: 'Akses dan Fitur Manager', items: [
+          'Setujui atau tolak pengajuan cuti langsung dari notifikasi HP',
+          'Lihat jadwal cuti dan ketersediaan tim hingga 5 hari ke depan',
+          'Akses dashboard analitik kehadiran dan performa tim',
+          'Pantau kehadiran seluruh departemen, bukan hanya tim Anda',
+          'Kelola jadwal shift dan roster kapan saja'
+        ] },
+        { title: 'Fitur Lexi AI', items: [
+          'Ajukan cuti cukup dengan mengetik atau berbicara kepada Lexi',
+          'Ajukan cuti per jam dengan pengecekan kebijakan perusahaan dan sisa cuti secara otomatis',
+          'Tanyakan insight tentang karyawan dan dapatkan jawaban instan yang dihasilkan AI'
+        ] },
+        { title: 'Performance & Talent', items: [
+          'Selesaikan evaluasi kinerja, termasuk alur penilaian dengan beberapa tahap',
+          'Lakukan penilaian kompetensi sesuai dengan peran karyawan',
+          'Pantau perkembangan performa setiap hari'
+        ] },
+        { title: 'Personalisasi & UX', items: [
+          'Atur ulang tampilan aplikasi untuk menempatkan fitur yang paling sering digunakan di urutan teratas',
+          'Sesuaikan widget di dashboard berdasarkan kebutuhan',
+          'Gunakan aplikasi dalam bahasa pilihan Anda',
+          'Selesaikan tugas sehari-hari hanya dalam 3 kali tap atau kurang'
+        ] }
+      ]
+    },
+    selfservice: {
+      name: 'Self Service Portal', tagline: 'Kurangi permintaan yang harus diproses HR.',
+      icon: '<img class="pc-nav-ic" src="' + SELF_SERVICE_ICON_SRC + '" alt="Self Service Portal">',
+      panelIcon: '<img class="pc-mod-ic" src="' + SELF_SERVICE_ICON_SRC + '" alt="Self Service Portal">',
+      cards: [
+        { title: 'Pengelolaan Informasi Pribadi', items: [
+          'Lihat dan perbarui data profil pribadi',
+          'Ubah rute persetujuan sesuai alur kerja yang berlaku',
+          'Sesuaikan tampilan kolom tertentu (misalnya format angka di Bangladesh)',
+          'Kelola file pribadi secara digital (hingga 201 file)'
+        ] },
+        { title: 'Payroll & Kompensasi', items: [
+          'Akses slip gaji kapan saja tanpa perlu meminta ke HR',
+          'Lihat riwayat gaji dan kompensasi',
+          'Akses informasi pinjaman',
+          'Cek rincian gaji dan tunjangan'
+        ] },
+        { title: 'Pengelolaan Cuti', items: [
+          'Ajukan cuti langsung dari mana saja (web atau aplikasi mobile)',
+          'Lihat sisa saldo cuti secara real-time',
+          'Pantau status pengajuan dari awal hingga disetujui',
+          'Atasan menerima notifikasi otomatis tanpa perlu diingatkan'
+        ] },
+        { title: 'Kehadiran & Pelacakan Waktu Kerja', items: [
+          'Check-in dan check-out melalui aplikasi mobile',
+          'Clock-in menggunakan GPS untuk memastikan lokasi yang valid',
+          'Batasi absensi hanya di lokasi yang telah ditentukan',
+          'Lihat riwayat kehadiran',
+          'Lakukan absensi offline yang tersinkron saat internet tersedia'
+        ] },
+        { title: 'Pengelolaan Dokumen & Sertifikat', items: [
+          'Minta surat keterangan kerja tanpa perlu bantuan tim HR secara manual',
+          'Akses ke dokumen kebijakan dan memo perusahaan',
+          'Lacak konfirmasi pembacaan dokumen'
+        ] },
+        { title: 'Performance & Pengembangan Karyawan', items: [
+          'Partisipasi dalam penilaian kinerja dan pengelolaan KPI',
+          'Ajukan proposal target dan penilaian mandiri',
+          'Ajukan permohonan pelatihan kerja dan akses materi pembelajaran'
+        ] },
+        { title: 'Layanan Bantuan & Dukungan HR', items: [
+          'Ajukan permintaan terkait urusan HR ke Service Request Tracker',
+          'Pantau status tiket secara real-time',
+          'Ajukan permohonan kasbon atau pinjaman kapan saja'
+        ] },
+        { title: 'Asisten Berbasis AI: Lexi', items: [
+          'Tanyakan pertanyaan seputar HR dengan bahasa sehari-hari',
+          'Jalankan berbagai tugas melalui AI (misalnya mengajukan cuti lewat chat)',
+          'Temukan menu atau fitur di sistem lebih cepat melalui Smart Navigator'
+        ] },
+        { title: 'Engagement & Komunikasi', items: [
+          'Ikuti survei perusahaan',
+          'Sampaikan keluhan atau masukan',
+          'Lihat informasi lowongan internal',
+          'Ketahui siapa saja rekan tim yang sedang cuti melalui dashboard'
+        ] }
+      ]
+    },
+  } : {
     lexi: {
       name: 'Lexi Ai', tagline: 'Turn any HR action into a simple conversation.',
       icon: '<img class="pc-nav-ic" src="' + LEXI_X_ICON_SRC + '" alt="Lexi">',
@@ -523,7 +776,7 @@
     var priceHtml = p.price
       ? '<h2>' + p.price + '<span class="pc-lexi-price-unit">' + p.priceUnit + '</span></h2>' +
         (p.tokenNote ? '<div class="pc-lexi-token-box">' + p.tokenNote + '</div>' : '')
-      : '<div class="pc-lexi-includedin"><span class="pc-lexi-includedin-label">Included in</span><div class="pc-lexi-tier-tags">' +
+      : '<div class="pc-lexi-includedin"><span class="pc-lexi-includedin-label">' + (LANG === 'id' ? 'Termasuk dalam paket' : 'Included in') + '</span><div class="pc-lexi-tier-tags">' +
           p.includedIn.map(function (t) { return '<span class="pc-lexi-tier-tag" style="--accent:var(--' + t.toLowerCase() + ')">' + t + '</span>'; }).join('') +
         '</div></div>';
     return '<div class="pc-lexi-row">' +
@@ -555,9 +808,10 @@
       return '<li' + (i >= FEATURE_LIST_VISIBLE ? ' class="pc-feature-extra"' : '') + '>' + svgTick + '<span>' + it + '</span></li>';
     }).join('');
     if (extra <= 0) return '<ul class="pc-feature-list">' + lis + '</ul>';
-    var moreLabel = 'View ' + extra + ' more feature' + (extra === 1 ? '' : 's');
+    var moreLabel = LANG === 'id' ? ('Lihat ' + extra + ' fitur lainnya') : ('View ' + extra + ' more feature' + (extra === 1 ? '' : 's'));
+    var lessLabel = LANG === 'id' ? 'Tampilkan lebih sedikit' : 'Show less';
     return '<ul class="pc-feature-list">' + lis + '</ul>' +
-      '<button type="button" class="pc-feature-more" data-more-label="' + moreLabel + '" data-less-label="Show less">' + moreLabel + '</button>';
+      '<button type="button" class="pc-feature-more" data-more-label="' + moreLabel + '" data-less-label="' + lessLabel + '">' + moreLabel + '</button>';
   }
 
   /* mobile carousel only: both the colored pricing cards (Insights/
@@ -778,9 +1032,9 @@
     var thRowEl = document.createElement('div');
     thRowEl.className = 'pc-th-row';
     thRowEl.innerHTML = '<div class="pc-lead">' + escapeHtml(groups[0].name) + '</div>' +
-      (hideManage ? '' : '<div class="pc-th" data-tier="manage"><div class="pc-n">Manage</div><div class="pc-t">Run the organisation</div></div>') +
-      '<div class="pc-th" data-tier="grow"><div class="pc-n">Grow</div><div class="pc-t">Invest in your people</div></div>' +
-      '<div class="pc-th" data-tier="transform"><div class="pc-n">Transform</div><div class="pc-t">Lead with people intelligence</div></div>';
+      (hideManage ? '' : '<div class="pc-th" data-tier="manage"><div class="pc-n">Manage</div><div class="pc-t">' + CARDS.manage.tag + '</div></div>') +
+      '<div class="pc-th" data-tier="grow"><div class="pc-n">Grow</div><div class="pc-t">' + CARDS.grow.tag + '</div></div>' +
+      '<div class="pc-th" data-tier="transform"><div class="pc-n">Transform</div><div class="pc-t">' + CARDS.transform.tag + '</div></div>';
     block.appendChild(thRowEl);
 
     var groupsWrap = document.createElement('div');
@@ -809,15 +1063,17 @@
   function renderAllModulesStatus(query, totalCount, moduleCount, featureKeys) {
     if (!totalCount && !featureKeys.length) {
       searchStatus.hidden = false;
-      searchStatus.innerHTML = '<span class="pc-search-empty">No capabilities found for “' + escapeHtml(query) + '”.</span>';
+      searchStatus.innerHTML = '<span class="pc-search-empty">' + (LANG === 'id' ? ('Tidak ada fitur yang ditemukan untuk “' + escapeHtml(query) + '”.') : ('No capabilities found for “' + escapeHtml(query) + '”.')) + '</span>';
       return;
     }
     searchStatus.hidden = false;
     var html = totalCount
-      ? '<span class="pc-search-found">' + totalCount + ' result' + (totalCount === 1 ? '' : 's') + ' for “' + escapeHtml(query) + '” across ' + moduleCount + ' module' + (moduleCount === 1 ? '' : 's') + '</span>'
-      : '<span class="pc-search-found">No module results for “' + escapeHtml(query) + '”</span>';
+      ? '<span class="pc-search-found">' + (LANG === 'id'
+          ? (totalCount + ' hasil untuk “' + escapeHtml(query) + '” di ' + moduleCount + ' modul')
+          : (totalCount + ' result' + (totalCount === 1 ? '' : 's') + ' for “' + escapeHtml(query) + '” across ' + moduleCount + ' module' + (moduleCount === 1 ? '' : 's'))) + '</span>'
+      : '<span class="pc-search-found">' + (LANG === 'id' ? ('Tidak ada hasil modul untuk “' + escapeHtml(query) + '”') : ('No module results for “' + escapeHtml(query) + '”')) + '</span>';
     if (featureKeys.length) {
-      html += '<span class="pc-search-also">Also in:</span>' + featureKeys.map(function (k) {
+      html += '<span class="pc-search-also">' + (LANG === 'id' ? 'Juga di:' : 'Also in:') + '</span>' + featureKeys.map(function (k) {
         return '<button type="button" class="pc-search-pill" data-feature="' + k + '">' + escapeHtml(STANDOUT[k].name) + '</button>';
       }).join('');
     }
@@ -845,7 +1101,7 @@
 
     var query = (rawQuery || '').trim();
     if (!query) {
-      searchFeed.innerHTML = '<div class="pc-search-feed-empty">Search for a capability above to see matching results across every module.</div>';
+      searchFeed.innerHTML = '<div class="pc-search-feed-empty">' + (LANG === 'id' ? 'Cari fitur di atas untuk melihat hasil yang sesuai di seluruh modul.' : 'Search for a capability above to see matching results across every module.') + '</div>';
       searchStatus.hidden = true;
       searchStatus.innerHTML = '';
       return;
@@ -867,7 +1123,7 @@
     if (moduleResults.length) {
       moduleResults.forEach(function (r) { searchFeed.appendChild(buildModuleBlock(r.module, r.groups)); });
     } else {
-      searchFeed.innerHTML = '<div class="pc-search-feed-empty">No capabilities found for “' + escapeHtml(query) + '” in any module.</div>';
+      searchFeed.innerHTML = '<div class="pc-search-feed-empty">' + (LANG === 'id' ? ('Tidak ada fitur yang ditemukan untuk “' + escapeHtml(query) + '” di modul manapun.') : ('No capabilities found for “' + escapeHtml(query) + '” in any module.')) + '</div>';
     }
 
     var featureKeys = Object.keys(STANDOUT).filter(function (k) { return FEATURE_SEARCH_TEXT[k].indexOf(q) !== -1; });
