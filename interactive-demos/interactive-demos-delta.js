@@ -27,7 +27,12 @@ document.addEventListener('DOMContentLoaded', function() {
   setInterval(function() { tSlide(1); }, 6000);
 });
 
-const LAZY_SECTIONS = {
+/* window.LAZY_SECTIONS, not const: a stale copy of phrhome.js still
+   loaded by the WP theme may already declare LAZY_SECTIONS with
+   `const`, and a duplicate `const` in the same global scope throws a
+   SyntaxError that would abort this whole file. Merging into
+   window.LAZY_SECTIONS survives that collision either way. */
+window.LAZY_SECTIONS = Object.assign(window.LAZY_SECTIONS || {}, {
   pay:        `      <div class="dg-cat-header">
         <div class="dg-cat-header-left">
           <h2 class="dg-section-heading">Accurate payroll. Zero compliance risk.</h2>
@@ -368,12 +373,12 @@ const LAZY_SECTIONS = {
           </div>
         </div>
       </div>`
-};
+});
 
 function ensureLoaded(cat) {
   var sec = document.getElementById('dg-' + cat);
   if (!sec || sec.getAttribute('data-loaded') !== 'false') return;
-  sec.innerHTML = LAZY_SECTIONS[cat] || '';
+  sec.innerHTML = window.LAZY_SECTIONS[cat] || '';
   sec.setAttribute('data-loaded', 'true');
 }
 
