@@ -29,9 +29,16 @@
   border-radius:20px;box-shadow:0 20px 60px -24px rgba(13,27,62,.18);
 }
 .wb-hero-form-col .wb-notify-inner{padding:24px 24px 4px;}
+
+/* Text column is narrower now that the form card takes ~44% of the
+   hero width, so phrhome.css's default title size wraps "Where Great
+   HR Leaders" onto two lines -- scale it down to keep it on one. */
+.wb-hero-title{font-size:clamp(2.1rem,3.2vw,2.8rem);}
+
 @media(max-width:768px){
   .wb-hero-form-col{flex:none;width:100%;}
   .wb-hero-form-col .wb-notify-inner{padding:20px 20px 4px;}
+  .wb-hero-title{font-size:clamp(1.9rem,7.5vw,2.6rem);}
 }
 
 /* --- wb- overrides -------------------------------------------------
