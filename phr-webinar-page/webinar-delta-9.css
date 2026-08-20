@@ -83,13 +83,3 @@
   .wb-hero-float-decor{display:none;}
 }
 
-/* --- wb- overrides -------------------------------------------------
-   .wb-body carries a -72px top margin in phrhome.css so it can float
-   a solid .wb-featured-card over the bottom edge of .wb-page-hero.
-   This page's init() never calls renderFeatured() (the featured
-   webinar data is stale — a past date), so .wb-body's first real
-   child is the plain "More Upcoming Webinars" heading with no card
-   background, and the negative margin pulls it straight into the
-   hero image instead of masking cleanly. #wb-body (id, higher
-   specificity than the .wb-body class rule) removes the pull-up. */
-#wb-body{margin-top:0;}

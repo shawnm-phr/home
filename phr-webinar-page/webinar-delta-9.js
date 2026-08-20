@@ -22,36 +22,21 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
 
 const WEBINAR_DATA = {
   "featured": {
-    "title": "Agentic AI in HR: What Every Leader Needs to Know Today",
-    "description": "Agentic AI is moving HR from automation to autonomy — systems that don't just execute tasks but make decisions, take action, and adapt in real time. Join Iono Mendoza and Manolo Garcia-Ramos as they break down what agentic AI actually means for HR leaders, where it's already changing day-to-day operations, and how to prepare your organisation for what's coming next.",
-    "date": "",
-    "dateLabel": "23rd June, 2026",
-    "timeLabel": "2:30 PM PHT",
-    "registerUrl": "https://peopleshr.com/webinar-agentic-ai-ph/",
+    "title": "Why AI Reskilling Isn't Enough: A Practical Guide to Real Change",
+    "description": "Reskilling programs are multiplying, but most still miss the mark. Join Eli Harrell and Manuel Garcia-Ramos as they unpack why bolting AI training onto old workflows doesn't work, what real behavioral change requires, and how HR leaders in the Philippines can build reskilling that actually sticks.",
+    "date": "2026-09-01T15:00:00+08:00",
+    "dateLabel": "1st September, 2026",
+    "timeLabel": "3:00 PM PHT",
+    "registerUrl": "https://peopleshr.com/webinar-philippines/",
     "language": "English",
     "attendees": "",
-    "coverImage": "https://peopleshr.com/wp-content/uploads/2026/06/featured-bg.webp",
+    "coverImage": "https://peopleshr.com/wp-content/uploads/2026/08/1_september_webinar_cover.webp",
     "speakers": [
-      { "initials": "IM", "name": "Iono Mendoza", "role": "CEO & Co-founder, Amorsolo Consulting", "photo": "https://peopleshr.com/wp-content/uploads/2026/06/iona_mendoza.webp", "color": "#ede9fe", "textColor": "#7c3aed" },
-      { "initials": "MG", "name": "Manolo Garcia-Ramos", "role": "Country Director – Philippines, PeoplesHR", "photo": "https://peopleshr.com/wp-content/uploads/2026/06/manuel_ramos.webp", "color": "#dbeafe", "textColor": "#2563eb" }
+      { "initials": "EH", "name": "Eli Harrell", "role": "CEO, EmergePH", "photo": "https://peopleshr.com/wp-content/uploads/2026/08/Eli.jpg", "color": "#dbeafe", "textColor": "#2563eb" },
+      { "initials": "MG", "name": "Manuel Garcia-Ramos", "role": "Country Director – Philippines, PeoplesHR", "photo": "https://peopleshr.com/wp-content/uploads/2026/06/manuel_ramos.webp", "color": "#dbeafe", "textColor": "#2563eb" }
     ]
   },
   "upcoming": [
-    {
-      "category": "HR & People",
-      "title": "Why AI Reskilling Isn't Enough: A Practical Guide to Real Change",
-      "date": "1 Sep 2026",
-      "time": "3:00 PM PHT",
-      "duration": "1 hour",
-      "language": "English",
-      "registerUrl": "https://peopleshr.com/webinar-philippines/",
-      "coverImage": "https://peopleshr.com/wp-content/uploads/2026/08/1_september_webinar_cover.webp",
-      "gradient": 3,
-      "speakers": [
-        { "initials": "EH", "name": "Eli Harrell", "role": "CEO, EmergePH", "photo": "https://peopleshr.com/wp-content/uploads/2026/08/Eli.jpg", "color": "#dbeafe", "textColor": "#2563eb" },
-        { "initials": "MG", "name": "Manuel Garcia-Ramos", "role": "Country Director – Philippines, PeoplesHR", "photo": "https://peopleshr.com/wp-content/uploads/2026/06/manuel_ramos.webp", "color": "#dbeafe", "textColor": "#2563eb" }
-      ]
-    },
     {
       "category": "HR & People",
       "title": "AI dalam HR: Mendorong Transformasi Organisasi dalam Skala Besar",
@@ -385,7 +370,7 @@ function renderFeatured(f) {
         <a href="${f.registerUrl}" class="btn-primary wb-featured-cta">Register Free ${ICON_ARROW}</a>
       </div>
     </div>
-    <div class="wb-featured-right"${f.coverImage ? ` style="background-image:linear-gradient(135deg,rgba(13,27,62,.55),rgba(13,27,62,.7)),url('${f.coverImage}');background-size:cover;background-position:center;"` : ''}>
+    <div class="wb-featured-right"${f.coverImage ? ` style="background-image:linear-gradient(135deg,rgba(13,27,62,.82),rgba(13,27,62,.9)),url('${f.coverImage}');background-size:cover;background-position:center;"` : ''}>
       <div class="wb-countdown">
         <div class="wb-countdown-label">Starts in</div>
         <div class="wb-countdown-tiles">
@@ -700,9 +685,12 @@ async function init() {
     const body = document.getElementById('wb-body');
     const hasUpcoming = data.upcoming && data.upcoming.length > 0;
     body.innerHTML =
+      (data.featured ? renderFeatured(data.featured) : '') +
       (hasUpcoming ? renderUpcoming(data.upcoming) : renderComingSoon()) +
       renderRecordings(data.recordings) +
       renderCTA();
+
+    if (data.featured && data.featured.date) startCountdown(data.featured.date);
 
     // Wire up video modal
     renderModal();
