@@ -38,21 +38,6 @@ const WEBINAR_DATA = {
   },
   "upcoming": [
     {
-      "category": "Product",
-      "title": "PeoplesHR v10.3: People Intelligence, Wherever You Are",
-      "date": "19 Aug 2026",
-      "time": "12:30 PM IST",
-      "duration": "< 1 hour",
-      "language": "English",
-      "registerUrl": "https://peopleshr.com/webinar-peopleshr-walkthrough-v10-3/",
-      "coverImage": "https://peopleshr.com/wp-content/uploads/2026/08/12_aug_webinar.webp",
-      "gradient": 2,
-      "speakers": [
-        { "initials": "SM", "name": "Shawn Moses", "role": "Product Marketing Manager, PeoplesHR", "photo": "https://peopleshr.com/wp-content/uploads/2026/05/shawn_moses.webp", "color": "#e0f2fe", "textColor": "#0369a1" },
-        { "initials": "AW", "name": "Aloka Weerawardane", "role": "Asst. Manager, Customer & Partner Marketing, PeoplesHR", "photo": "https://peopleshr.com/wp-content/uploads/2026/08/aloka-weerawardane-peopleshr.webp", "color": "#dbeafe", "textColor": "#2563eb" }
-      ]
-    },
-    {
       "category": "HR & People",
       "title": "Why AI Reskilling Isn't Enough: A Practical Guide to Real Change",
       "date": "1 Sep 2026",
@@ -87,6 +72,21 @@ const WEBINAR_DATA = {
       "category": "Product",
       "categoryColor": "#2563eb",
       "videos": [
+        {
+          "id": "rec-21",
+          "title": "PeoplesHR v10.3: People Intelligence, Wherever You Are",
+          "date": "19 Aug 2026",
+          "duration": "",
+          "views": "",
+          "language": "English",
+          "youtubeId": "TODO_ADD_RECORDING_LINK",
+          "thumbnailGradient": "linear-gradient(135deg,#1e40af,#3b82f6)",
+          "speakers": [
+            { "initials": "SM", "name": "Shawn Moses", "role": "Product Marketing Manager, PeoplesHR", "photo": "https://peopleshr.com/wp-content/uploads/2026/05/shawn_moses.webp", "color": "#e0f2fe", "textColor": "#0369a1" },
+            { "initials": "AW", "name": "Aloka Weerawardane", "role": "Asst. Manager, Customer & Partner Marketing, PeoplesHR", "photo": "https://peopleshr.com/wp-content/uploads/2026/08/aloka-weerawardane-peopleshr.webp", "color": "#dbeafe", "textColor": "#2563eb" }
+          ],
+          "watchUrl": "TODO_ADD_RECORDING_LINK"
+        },
         {
           "id": "rec-20",
           "title": "Agentic AI in HR: What Every Leader Needs to Know Today",
