@@ -538,7 +538,7 @@ function renderCTA() {
       <p>Get notified when new sessions go live. Join 8,000+ HR and finance leaders already subscribed.</p>
     </div>
     <div class="wb-cta-strip-btns">
-      <a href="#" class="btn-primary wb-notify-btn" style="font-size:.9rem;padding:12px 24px;">Get Notified ${ICON_ARROW}</a>
+      <a href="#wbHeroForm" class="btn-primary" style="font-size:.9rem;padding:12px 24px;">Get Notified ${ICON_ARROW}</a>
     </div>
   </div>`;
 }
@@ -555,7 +555,7 @@ function renderComingSoon() {
     <div class="wb-comingsoon-badge"><span class="wb-soon-dot"></span>COMING SOON</div>
     <h2 class="wb-comingsoon-title">More Webinars Coming Soon</h2>
     <p class="wb-comingsoon-desc">We're working on our next session &mdash; deep-dives into workforce strategy, product updates, and what's next in HR tech. Subscribe to be the first to know when it goes live.</p>
-    <a href="#" class="btn-primary wb-comingsoon-cta wb-notify-btn">Get Notified ${ICON_ARROW}</a>
+    <a href="#wbHeroForm" class="btn-primary wb-comingsoon-cta">Get Notified ${ICON_ARROW}</a>
   </div>`;
 }
 
@@ -692,68 +692,6 @@ function closeVideoModal() {
   document.body.style.overflow = '';
 }
 
-// ── Notify / HubSpot Modal ────────────────────────────────────────
-function renderNotifyModal() {
-  const el = document.createElement('div');
-  el.id = 'wb-notify-modal';
-  el.className = 'wb-modal-backdrop';
-  el.innerHTML = `
-    <div class="wb-modal-box wb-modal-box--form">
-      <button class="wb-modal-close" id="wb-notify-close">&#x2715;</button>
-      <div class="wb-notify-inner">
-        <h3 class="wb-notify-title">Stay in the Loop</h3>
-        <p class="wb-notify-sub">Be the first to know when our next webinar goes live.</p>
-        <div id="wb-notify-loader" class="wb-notify-loader">
-          <svg width="32" height="32" viewBox="0 0 40 40" fill="none" class="wb-loading-spinner"><circle cx="20" cy="20" r="16" stroke="#e2e8f0" stroke-width="4"/><path d="M20 4a16 16 0 0 1 16 16" stroke="#2563eb" stroke-width="4" stroke-linecap="round"/></svg>
-          <span>Loading form...</span>
-        </div>
-        <div id="wb-notify-form"></div>
-      </div>
-    </div>`;
-  document.body.appendChild(el);
-  el.addEventListener('click', e => { if (e.target === el) closeNotifyModal(); });
-  document.getElementById('wb-notify-close').addEventListener('click', closeNotifyModal);
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNotifyModal(); });
-}
-
-function ensureHsScript(cb) {
-  if (window.hbspt) { cb(); return; }
-  const existing = document.querySelector('script[src*="hsforms.net/forms/embed/v2.js"]');
-  if (existing) { existing.addEventListener('load', cb); return; }
-  const script = document.createElement('script');
-  script.charset = 'utf-8';
-  script.src = '//js-na2.hsforms.net/forms/embed/v2.js';
-  script.onload = cb;
-  document.head.appendChild(script);
-}
-
-let _notifyFormLoaded = false;
-
-function openNotifyModal() {
-  document.getElementById('wb-notify-modal').classList.add('open');
-  document.body.style.overflow = 'hidden';
-  if (_notifyFormLoaded) return;
-  _notifyFormLoaded = true;
-  ensureHsScript(function() {
-    hbspt.forms.create({
-      region: 'na2',
-      portalId: '45700506',
-      formId: '11020900-bc03-406a-bee2-deaee6112df2',
-      target: '#wb-notify-form',
-      onFormReady: function() {
-        const loader = document.getElementById('wb-notify-loader');
-        if (loader) loader.style.display = 'none';
-      }
-    });
-  });
-}
-
-function closeNotifyModal() {
-  document.getElementById('wb-notify-modal').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-
 // â"€â"€ Main: Fetch data.json and render everything â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
 async function init() {
   try {
@@ -766,14 +704,11 @@ async function init() {
       renderRecordings(data.recordings) +
       renderCTA();
 
-    // Wire up video modal and notify modal
+    // Wire up video modal
     renderModal();
-    renderNotifyModal();
     document.getElementById('wb-body').addEventListener('click', e => {
       const recCard = e.target.closest('.wb-rec-card[data-ytid]');
       if (recCard) { openVideoModal(recCard.dataset.ytid, recCard.dataset.title); return; }
-      const notifyBtn = e.target.closest('.wb-notify-btn');
-      if (notifyBtn) { e.preventDefault(); openNotifyModal(); }
     });
 
     // Kick off interactive features after DOM is ready
