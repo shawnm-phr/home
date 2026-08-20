@@ -105,3 +105,11 @@
   .wb-hero-float-decor{display:none;}
 }
 
+/* --- Gated recording (v10.3) ----------------------------------------
+   .wb-preview-label is opacity:0 until hover (phrhome.css) since it's
+   just a "live preview" hint; the gated label needs to stay visible at
+   all times so it reads as a lock, not a hover hint. Its ::before pulse
+   dot is preview-specific too, so it's dropped here. */
+.wb-gated-label{opacity:1;background:rgba(13,27,62,.82);}
+.wb-gated-label::before{display:none;}
+

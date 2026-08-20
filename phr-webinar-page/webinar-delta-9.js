@@ -64,6 +64,7 @@ const WEBINAR_DATA = {
           "duration": "",
           "views": "",
           "language": "English",
+          "gated": true,
           "youtubeId": "SrGdn9PUBlk",
           "thumbnailGradient": "linear-gradient(135deg,#1e40af,#3b82f6)",
           "speakers": [
@@ -328,6 +329,8 @@ const ICON_CLOCK    = `<svg width="16" height="16" viewBox="0 0 16 16" fill="non
 const ICON_ARROW    = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 7h10M7 2l5 5-5 5"/></svg>`;
 const ICON_PLAY_SM  = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 4-8 4V4z" fill="#fff"/></svg>`;
 const ICON_PLAY_LG  = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7 5l9 5-9 5V5z" fill="#2563eb"/></svg>`;
+const ICON_LOCK     = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>`;
+const ICON_LOCK_LG  = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>`;
 const ICON_EYE      = `<svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M1 5s1.5-3 4-3 4 3 4 3-1.5 3-4 3-4-3-4-3z" fill="none"/><circle cx="5" cy="5" r="1.2" fill="currentColor"/></svg>`;
 const ICON_MINI_CLK = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="6" cy="6" r="4.5" fill="none"/><path d="M6 3.5v2.5l1.5 1.5" stroke-linecap="round"/></svg>`;
 const ICON_MINI_ARR = `<svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 5h6M5 2l3 3-3 3"/></svg>`;
@@ -463,11 +466,13 @@ function renderRecordings(recordings) {
         : '';
 
       return `
-      <div class="wb-rec-card" data-ytid="${v.youtubeId}" data-title="${v.title.replace(/"/g, '&quot;')}">
-        <div class="wb-rec-thumb" style="${thumbStyle}">
+      <div class="wb-rec-card"${v.gated ? ' data-gated="1"' : ''} data-ytid="${v.youtubeId}" data-title="${v.title.replace(/"/g, '&quot;')}">
+        <div class="wb-rec-thumb" style="${thumbStyle}${v.gated ? 'filter:brightness(.7);' : ''}">
           ${youtubeThumb}
-          <span class="wb-preview-label">Preview</span>
-          <div class="wb-rec-thumb-inner"><div class="wb-rec-play">${ICON_PLAY_LG}</div></div>
+          ${v.gated
+            ? `<span class="wb-preview-label wb-gated-label">${ICON_LOCK} Members only</span>`
+            : `<span class="wb-preview-label">Preview</span>`}
+          <div class="wb-rec-thumb-inner"><div class="wb-rec-play">${v.gated ? ICON_LOCK_LG : ICON_PLAY_LG}</div></div>
           ${v.duration ? `<span class="wb-rec-duration">${v.duration}</span>` : ''}
           ${v.views ? `<span class="wb-rec-viewed">${ICON_EYE} ${v.views} views</span>` : ''}
         </div>
@@ -677,6 +682,97 @@ function closeVideoModal() {
   document.body.style.overflow = '';
 }
 
+// â"€â"€ Gate Modal (form-gated recordings) â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â”€â”€
+// Uses hbspt.forms.create (the classic JS-API embed), not the newer
+// hs-form-frame embed used elsewhere on this page -- hs-form-frame
+// never hydrates a form that starts out inside a display:none modal
+// (verified through repeated testing), while hbspt.forms.create builds
+// the iframe on demand via an explicit JS call, so it works reliably
+// regardless of the modal's starting visibility.
+let _gateFormBuilt = false;
+let _gatePending = null;
+
+function renderGateModal() {
+  const el = document.createElement('div');
+  el.id = 'wb-gate-modal';
+  el.className = 'wb-modal-backdrop';
+  el.innerHTML = `
+    <div class="wb-modal-box wb-modal-box--form">
+      <button class="wb-modal-close" id="wb-gate-close">&#x2715;</button>
+      <div class="wb-notify-inner">
+        <h3 class="wb-notify-title">Unlock This Recording</h3>
+        <p class="wb-notify-sub">Fill in your details below to watch the full session.</p>
+        <div id="wb-gate-loader" class="wb-notify-loader">
+          <svg width="20" height="20" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="16" stroke="#e2e8f0" stroke-width="4"/><path d="M20 4a16 16 0 0 1 16 16" stroke="#2563eb" stroke-width="4" stroke-linecap="round"/></svg>
+          Loading form...
+        </div>
+        <div id="wb-gate-form"></div>
+      </div>
+    </div>`;
+  document.body.appendChild(el);
+  el.addEventListener('click', e => { if (e.target === el) closeGateModal(); });
+  document.getElementById('wb-gate-close').addEventListener('click', closeGateModal);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeGateModal(); });
+}
+
+function buildGateForm() {
+  if (_gateFormBuilt) return;
+  _gateFormBuilt = true;
+  function createForm() {
+    hbspt.forms.create({
+      region: 'na2',
+      portalId: '45700506',
+      formId: '11020900-bc03-406a-bee2-deaee6112df2',
+      target: '#wb-gate-form',
+      onFormReady: function() {
+        const loader = document.getElementById('wb-gate-loader');
+        if (loader) loader.style.display = 'none';
+      },
+      onFormSubmitted: unlockGatedVideo
+    });
+  }
+  if (window.hbspt) {
+    createForm();
+  } else {
+    const script = document.createElement('script');
+    script.charset = 'utf-8';
+    script.src = '//js-na2.hsforms.net/forms/embed/v2.js';
+    script.onload = createForm;
+    document.head.appendChild(script);
+  }
+}
+
+function unlockGatedVideo() {
+  closeGateModal();
+  if (_gatePending) {
+    openVideoModal(_gatePending.youtubeId, _gatePending.title);
+    _gatePending = null;
+  }
+}
+
+function openGateModal(youtubeId, title) {
+  _gatePending = { youtubeId, title };
+  document.getElementById('wb-gate-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  buildGateForm();
+}
+
+function closeGateModal() {
+  document.getElementById('wb-gate-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* Fallback for cases where onFormSubmitted doesn't fire directly
+   (matches the pattern already used for the hero form). */
+window.addEventListener('message', function (e) {
+  if (!e.data) return;
+  if (e.data.type === 'hsFormCallback' && e.data.eventName === 'onFormSubmitted') {
+    if (document.getElementById('wb-gate-modal') && document.getElementById('wb-gate-modal').classList.contains('open')) {
+      unlockGatedVideo();
+    }
+  }
+});
+
 // â"€â"€ Main: Fetch data.json and render everything â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
 async function init() {
   try {
@@ -692,11 +788,17 @@ async function init() {
 
     if (data.featured && data.featured.date) startCountdown(data.featured.date);
 
-    // Wire up video modal
+    // Wire up video + gate modals
     renderModal();
+    renderGateModal();
     document.getElementById('wb-body').addEventListener('click', e => {
       const recCard = e.target.closest('.wb-rec-card[data-ytid]');
-      if (recCard) { openVideoModal(recCard.dataset.ytid, recCard.dataset.title); return; }
+      if (!recCard) return;
+      if (recCard.dataset.gated) {
+        openGateModal(recCard.dataset.ytid, recCard.dataset.title);
+      } else {
+        openVideoModal(recCard.dataset.ytid, recCard.dataset.title);
+      }
     });
 
     // Kick off interactive features after DOM is ready
