@@ -27,6 +27,7 @@
 .wb-hero-form-col{
   flex:0 0 44%;background:#fff;border:1px solid var(--border);
   border-radius:20px;box-shadow:0 20px 60px -24px rgba(13,27,62,.18);
+  position:relative;z-index:2;
 }
 .wb-hero-form-col .wb-notify-inner{padding:24px 24px 4px;}
 
@@ -47,20 +48,27 @@
    ~55% only, so nothing drifts over the form card on the right. Each
    .wb-float-N carries its own position + animation timing so the whole
    cluster drifts out of sync instead of bobbing in lockstep. */
+.wb-hero-content{position:relative;z-index:2;}
 .wb-hero-float-decor{position:absolute;inset:0;pointer-events:none;z-index:1;}
 .wb-float{position:absolute;border-radius:50%;box-shadow:0 10px 24px -8px rgba(13,27,62,.25);animation:wbFloat 6s ease-in-out infinite;}
 .wb-float-av{width:52px;height:52px;object-fit:cover;border:3px solid #fff;}
 .wb-float-ic{width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:var(--ic,var(--blue));border:3px solid #fff;}
 .wb-float-ic svg{width:42%;height:42%;}
 
-.wb-float-1{top:0%;left:4%;width:68px;height:68px;border-width:4px;animation-duration:7s;animation-delay:0s;}
-.wb-float-2{top:6%;left:47%;width:30px;height:30px;animation-duration:6.5s;animation-delay:.6s;}
-.wb-float-3{top:72%;left:0%;width:58px;height:58px;animation-duration:7.5s;animation-delay:1.2s;}
-.wb-float-4{top:80%;left:38%;width:32px;height:32px;animation-duration:6.8s;animation-delay:.3s;}
-.wb-float-5{top:34%;left:53%;width:46px;height:46px;animation-duration:7.2s;animation-delay:1.6s;}
-.wb-float-6{top:18%;left:23%;width:48px;height:48px;animation-duration:6.2s;animation-delay:.9s;}
-.wb-float-7{top:58%;left:48%;width:34px;height:34px;animation-duration:7.8s;animation-delay:.2s;}
-.wb-float-8{top:88%;left:12%;width:52px;height:52px;animation-duration:6.6s;animation-delay:1.4s;}
+/* Title+paragraph fill most of the column's vertical middle at every
+   width the two-column row is shown, so floats are kept to the clear
+   top and bottom bands only -- a mid-band float would sit behind the
+   text at some widths and directly over it at others, since the
+   paragraph spans the full column width regardless of breakpoint. */
+.wb-float-1{top:0%;left:2%;width:68px;height:68px;border-width:4px;animation-duration:7s;animation-delay:0s;}
+.wb-float-2{top:4%;left:34%;width:30px;height:30px;animation-duration:6.5s;animation-delay:.6s;}
+.wb-float-6{top:14%;left:16%;width:48px;height:48px;animation-duration:6.2s;animation-delay:.9s;}
+.wb-float-5{top:2%;left:46%;width:32px;height:32px;animation-duration:7.2s;animation-delay:1.6s;}
+
+.wb-float-3{top:78%;left:0%;width:58px;height:58px;animation-duration:7.5s;animation-delay:1.2s;}
+.wb-float-4{top:86%;left:28%;width:32px;height:32px;animation-duration:6.8s;animation-delay:.3s;}
+.wb-float-7{top:74%;left:42%;width:34px;height:34px;animation-duration:7.8s;animation-delay:.2s;}
+.wb-float-8{top:92%;left:12%;width:52px;height:52px;animation-duration:6.6s;animation-delay:1.4s;}
 
 @keyframes wbFloat{
   0%,100%{transform:translateY(0) rotate(0deg);}
