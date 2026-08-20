@@ -42,6 +42,28 @@
   .wb-hero-title{font-size:clamp(1.9rem,7.5vw,2.6rem);}
 }
 
+/* Vertically center the countdown in the featured card's cover image.
+   phrhome.css pins it near the top (justify-content:flex-start;
+   padding-top:15%) to leave room for a wide landscape cover image's
+   subject below -- the new portrait cover photo fills the whole panel,
+   so centering reads better than a fixed top offset. */
+.wb-featured-right{justify-content:center;padding-top:40px;}
+
+/* More breathing room below the form before the featured card floats
+   over the hero's bottom edge -- .wb-body's -72px pull-up (phrhome.css)
+   is a fixed offset, so widening the hero's own bottom padding is what
+   actually increases the visible gap. */
+.wb-page-hero{padding-bottom:200px;}
+@media(max-width:1024px){
+  .wb-page-hero{padding-bottom:110px;}
+}
+@media(max-width:768px){
+  .wb-page-hero{padding-bottom:90px;}
+}
+@media(max-width:480px){
+  .wb-page-hero{padding-bottom:70px;}
+}
+
 /* --- Floating speaker avatars + icons around the hero title -------------
    position:absolute takes this out of .wb-hero-inner's flex flow (no
    effect on the text/form columns' layout). Scattered across the left
