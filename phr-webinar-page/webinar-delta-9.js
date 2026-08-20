@@ -753,23 +753,6 @@ function closeNotifyModal() {
   document.body.style.overflow = '';
 }
 
-// ── Hero "Stay in the Loop" form (embedded, not modal) ─────────────
-function buildHeroForm() {
-  const target = document.getElementById('wbHeroForm');
-  if (!target) return;
-  ensureHsScript(function() {
-    hbspt.forms.create({
-      region: 'na2',
-      portalId: '45700506',
-      formId: '11020900-bc03-406a-bee2-deaee6112df2',
-      target: '#wbHeroForm',
-      onFormReady: function() {
-        const loader = document.getElementById('wbHeroFormLoader');
-        if (loader) loader.style.display = 'none';
-      }
-    });
-  });
-}
 
 // â"€â"€ Main: Fetch data.json and render everything â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
 async function init() {
@@ -786,7 +769,6 @@ async function init() {
     // Wire up video modal and notify modal
     renderModal();
     renderNotifyModal();
-    buildHeroForm();
     document.getElementById('wb-body').addEventListener('click', e => {
       const recCard = e.target.closest('.wb-rec-card[data-ytid]');
       if (recCard) { openVideoModal(recCard.dataset.ytid, recCard.dataset.title); return; }
