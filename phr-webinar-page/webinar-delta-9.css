@@ -28,10 +28,10 @@
   flex:0 0 44%;background:#fff;border:1px solid var(--border);
   border-radius:20px;box-shadow:0 20px 60px -24px rgba(13,27,62,.18);
 }
-.wb-hero-form-col .wb-notify-inner{padding:32px;}
+.wb-hero-form-col .wb-notify-inner{padding:24px 24px 4px;}
 @media(max-width:768px){
   .wb-hero-form-col{flex:none;width:100%;}
-  .wb-hero-form-col .wb-notify-inner{padding:28px 20px;}
+  .wb-hero-form-col .wb-notify-inner{padding:20px 20px 4px;}
 }
 
 /* --- wb- overrides -------------------------------------------------
