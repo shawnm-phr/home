@@ -46,7 +46,7 @@
 .wb-hero-title{font-size:clamp(2.1rem,3.2vw,2.8rem);}
 
 @media(max-width:768px){
-  .wb-hero-form-col{flex:none;width:100%;}
+  .wb-hero-form-col{flex:none;width:100%;min-height:710px;}
   .wb-hero-form-col .wb-notify-inner{padding:20px 20px 4px;}
   .wb-hero-title{font-size:clamp(1.9rem,7.5vw,2.6rem);}
 }
