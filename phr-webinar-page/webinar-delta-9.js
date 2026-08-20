@@ -64,13 +64,13 @@ const WEBINAR_DATA = {
           "duration": "",
           "views": "",
           "language": "English",
-          "youtubeId": "TODO_ADD_RECORDING_LINK",
+          "youtubeId": "SrGdn9PUBlk",
           "thumbnailGradient": "linear-gradient(135deg,#1e40af,#3b82f6)",
           "speakers": [
             { "initials": "SM", "name": "Shawn Moses", "role": "Product Marketing Manager, PeoplesHR", "photo": "https://peopleshr.com/wp-content/uploads/2026/05/shawn_moses.webp", "color": "#e0f2fe", "textColor": "#0369a1" },
             { "initials": "AW", "name": "Aloka Weerawardane", "role": "Asst. Manager, Customer & Partner Marketing, PeoplesHR", "photo": "https://peopleshr.com/wp-content/uploads/2026/08/aloka-weerawardane-peopleshr.webp", "color": "#dbeafe", "textColor": "#2563eb" }
           ],
-          "watchUrl": "TODO_ADD_RECORDING_LINK"
+          "watchUrl": "https://youtu.be/SrGdn9PUBlk"
         },
         {
           "id": "rec-20",
@@ -412,7 +412,7 @@ function renderUpcoming(upcoming) {
           return '<div class="wb-uc-speakers">' + sps.map(sp => `
             <div class="wb-uc-speaker">
               ${sp.photo
-                ? `<img class="wb-rec-sp-av wb-rec-sp-photo" src="${sp.photo}" alt="${sp.name}">`
+                ? `<img class="wb-rec-sp-av wb-rec-sp-photo" src="${sp.photo}" alt="${sp.name}" loading="lazy">`
                 : `<div class="wb-rec-sp-av" style="background:${sp.color};color:${sp.textColor};">${sp.initials}</div>`}
               <div class="wb-rec-sp-info">
                 <span class="wb-rec-sp-name">${sp.name}</span>
@@ -451,7 +451,7 @@ function renderRecordings(recordings) {
       const speakersHTML = (v.speakers || []).slice(0, 2).map(s => `
         <div class="wb-rec-speaker">
           ${s.photo
-            ? `<img class="wb-rec-sp-av wb-rec-sp-photo" src="${s.photo}" alt="${s.name}">`
+            ? `<img class="wb-rec-sp-av wb-rec-sp-photo" src="${s.photo}" alt="${s.name}" loading="lazy">`
             : `<div class="wb-rec-sp-av" style="background:${s.color};color:${s.textColor};">${s.initials}</div>`}
           <div class="wb-rec-sp-info">
             <span class="wb-rec-sp-name">${s.name}</span>
