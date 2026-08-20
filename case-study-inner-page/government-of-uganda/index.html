@@ -183,7 +183,7 @@
       </nav>
 
       <div class="nv-actions">
-        <a class="nv-cta" href="https://peopleshr.com/get-in-touch/">Request a Demo</a>
+        <a class="nv-cta" href="https://peopleshr.com/get-in-touch/" data-request-demo>Request a Demo</a>
         <button class="nv-burger" id="nvBurger" aria-label="Open menu" aria-expanded="false"><span></span></button>
       </div>
 
@@ -288,7 +288,7 @@
 
     </div>
     <div class="nv-panel-foot">
-      <a class="nv-cta" href="https://peopleshr.com/get-in-touch/">Request a Demo</a>
+      <a class="nv-cta" href="https://peopleshr.com/get-in-touch/" data-request-demo>Request a Demo</a>
     </div>
   </aside>
 
@@ -605,6 +605,28 @@
 </div>
 
 
+
+<!-- REQUEST A DEMO MODAL -->
+<div class="dg-gate-overlay" id="rd-modal-overlay" role="dialog" aria-modal="true" aria-label="Request a Demo">
+  <div class="dg-gate-card">
+    <button class="dg-gate-close" id="rd-modal-close" aria-label="Close">&#x2715;</button>
+    <div class="dg-gate-header">
+      <div class="dg-gate-icon">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/><path d="M16 2v4M8 2v4M3 10h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <h3 class="dg-gate-title">Request a Demo</h3>
+      <p class="dg-gate-sub">See how PeoplesHR fits your organization. Fill out the form and our team will be in touch.</p>
+    </div>
+    <div id="rd-form-container">
+      <div class="dg-gate-loading" id="rd-form-loading">
+        <div class="dg-gate-spinner"></div>
+        Loading form&hellip;
+      </div>
+    </div>
+  </div>
+</div>
+
+<script charset="utf-8" type="text/javascript" src="//js-na2.hsforms.net/forms/embed/v2.js"></script>
   <script src="../script.js"></script>
 </body>
 </html>
