@@ -27,9 +27,18 @@
 .wb-hero-form-col{
   flex:0 0 44%;background:#fff;border:1px solid var(--border);
   border-radius:20px;box-shadow:0 20px 60px -24px rgba(13,27,62,.18);
-  position:relative;z-index:2;
+  position:relative;z-index:2;min-height:620px;
 }
 .wb-hero-form-col .wb-notify-inner{padding:24px 24px 4px;}
+
+/* The .hs-form-frame div starts at 0 height until the HubSpot embed
+   script loads and the iframe fills in, so without a reserved height
+   .wb-hero-form-col is briefly short -- and since it's the tallest
+   flex child, that shrinks .wb-hero-inner's row height too, which
+   pulls the percentage-positioned .wb-float-N items (below) up into
+   the title/paragraph for a moment before the form loads and the row
+   grows to its real height. min-height above reserves that space
+   from first paint so nothing has to jump. */
 
 /* Text column is narrower now that the form card takes ~44% of the
    hero width, so phrhome.css's default title size wraps "Where Great
