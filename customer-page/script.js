@@ -1237,6 +1237,14 @@ window.addEventListener('message', function(e) {
     }
   ];
 
+  /* Preload every story image up front so switching stories is instant
+     instead of holding the previous image on screen while the next one
+     downloads. */
+  stories.forEach(function (s) {
+    var preload = new Image();
+    preload.src = s.img;
+  });
+
   function buildContent(s) {
     var logoHtml = s.logo
       ? '<img class="sf2-company-logo" src="' + s.logo + '" alt="' + s.logoAlt + '">'
@@ -1264,15 +1272,21 @@ window.addEventListener('message', function(e) {
 
     setTimeout(function () {
       contentEl.innerHTML = buildContent(s);
-      imgEl.src           = s.img;
-      imgEl.alt           = s.logoAlt;
+      imgEl.alt = s.logoAlt;
 
       contentEl.classList.remove('sf2-out');
       contentEl.classList.add('sf2-in');
-      imgEl.classList.remove('sf2-img-out');
 
       void contentEl.offsetWidth; /* force reflow so the fade-in transition fires */
       contentEl.classList.remove('sf2-in');
+
+      /* Only reveal the new image once it's actually loaded, instead of on
+         a fixed timer — avoids holding the previous story's image on
+         screen while the next one is still downloading. */
+      var reveal = function () { imgEl.classList.remove('sf2-img-out'); };
+      imgEl.onload = reveal;
+      imgEl.src    = s.img;
+      if (imgEl.complete) { reveal(); }
     }, 220);
   }
 
