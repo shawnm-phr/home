@@ -30,7 +30,7 @@ const WEBINAR_DATA = {
     "registerUrl": "https://peopleshr.com/webinar-philippines/",
     "language": "English",
     "attendees": "",
-    "coverImage": "https://peopleshr.com/wp-content/uploads/2026/08/1_september_webinar_cover.webp",
+    "coverImage": "images/upcoming_cover.webp",
     "speakers": [
       { "initials": "EH", "name": "Eli Harrell", "role": "CEO, EmergePH", "photo": "https://peopleshr.com/wp-content/uploads/2026/08/Eli.jpg", "color": "#dbeafe", "textColor": "#2563eb" },
       { "initials": "MG", "name": "Manuel Garcia-Ramos", "role": "Country Director – Philippines, PeoplesHR", "photo": "https://peopleshr.com/wp-content/uploads/2026/06/manuel_ramos.webp", "color": "#dbeafe", "textColor": "#2563eb" }
@@ -370,7 +370,7 @@ function renderFeatured(f) {
         <a href="${f.registerUrl}" class="btn-primary wb-featured-cta">Register Free ${ICON_ARROW}</a>
       </div>
     </div>
-    <div class="wb-featured-right"${f.coverImage ? ` style="background-image:linear-gradient(135deg,rgba(13,27,62,.82),rgba(13,27,62,.9)),url('${f.coverImage}');background-size:cover;background-position:center;"` : ''}>
+    <div class="wb-featured-right"${f.coverImage ? ` style="background-image:linear-gradient(135deg,rgba(13,27,62,.5),rgba(13,27,62,.72)),url('${f.coverImage}');background-size:cover;background-position:center;"` : ''}>
       <div class="wb-countdown">
         <div class="wb-countdown-label">Starts in</div>
         <div class="wb-countdown-tiles">
