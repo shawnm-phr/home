@@ -3,24 +3,17 @@
    Page-specific behavior for the PeoplesHR v10.3 Webinar registration page.
    Requires: phrhome.js loaded first.
 
-   Registration modal -- same .hs-modal-overlay/.hs-modal shell used
-   sitewide for HubSpot-embedded lead forms (see phrhome.css), wired to
-   this page's own form instance following the same pattern as
-   pricing/js/pricing.js's "Contact Us" modal. The embed script and the
-   form itself are both built lazily on first open, not on page load.
+   Registration form is embedded directly in the hero (.wreg-hero-form),
+   built on page load rather than lazily inside a modal.
    ========================================================================== */
 
-/* registration modal */
+/* hero registration form */
 (function () {
   'use strict';
 
-  var modal = document.getElementById('wregModal');
-  if (!modal) return;
-
-  var closeBtn      = document.getElementById('wregModalClose');
   var formContainer = document.getElementById('wregFormContainer');
   var loader        = document.getElementById('wregFormLoader');
-  var formBuilt     = false;
+  if (!formContainer) return;
 
   function ensureHsScript(cb) {
     if (window.hbspt) { cb(); return; }
@@ -41,45 +34,18 @@
       '</div>';
   }
 
-  function buildForm() {
-    if (formBuilt) return;
-    formBuilt = true;
-    ensureHsScript(function () {
-      /* HUBSPOT FORM EMBED GOES HERE */
-      hbspt.forms.create({
-        portalId: '45700506',
-        formId:   '93181f13-b063-4e09-a572-345dbda4b062',
-        region:   'na2',
-        target:   '#wregFormContainer',
-        onFormReady: function () {
-          if (loader) loader.style.display = 'none';
-        },
-        onFormSubmitted: showConfirmation
-      });
+  ensureHsScript(function () {
+    /* HUBSPOT FORM EMBED GOES HERE */
+    hbspt.forms.create({
+      portalId: '45700506',
+      formId:   '93181f13-b063-4e09-a572-345dbda4b062',
+      region:   'na2',
+      target:   '#wregFormContainer',
+      onFormReady: function () {
+        if (loader) loader.style.display = 'none';
+      },
+      onFormSubmitted: showConfirmation
     });
-  }
-
-  function openModal(e) {
-    if (e) e.preventDefault();
-    modal.classList.add('active');
-    modal.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-    buildForm();
-  }
-
-  function closeModal() {
-    modal.classList.remove('active');
-    modal.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-  }
-
-  document.querySelectorAll('[data-open-hs]').forEach(function (el) {
-    el.addEventListener('click', openModal);
-  });
-  if (closeBtn) closeBtn.addEventListener('click', closeModal);
-  modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
   });
 
   /* Fallback for cases where onFormSubmitted doesn't fire directly
