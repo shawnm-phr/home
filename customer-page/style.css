@@ -7283,7 +7283,9 @@ button.btn-primary {
 
   /* Carousel track */
   .cs-vid-carousel { position: relative; }
-  .cs-vid-overflow { overflow: hidden; }
+  .cs-vid-overflow { overflow: hidden; cursor: grab; touch-action: pan-y; }
+  .cs-vid-overflow.is-dragging { cursor: grabbing; }
+  .cs-vid-overflow.is-dragging, .cs-vid-overflow.is-dragging * { user-select: none; }
   .cs-vid-track {
     display: flex;
     gap: 16px;
@@ -7327,6 +7329,7 @@ button.btn-primary {
     object-position: top center;
     display: block;
     transition: transform .4s ease;
+    -webkit-user-drag: none;
   }
   .cs-vid-card:hover .cs-vid-thumb-img { transform: scale(1.03); }
 
@@ -7581,47 +7584,13 @@ button.btn-primary {
     margin: 0;
   }
 
-  /* Modules */
-  .sf2-modules-section {
-    margin-top: 32px;
-    padding-top: 28px;
-    border-top: 1px solid var(--border);
-  }
-  .sf2-modules-heading {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.4px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 14px;
-  }
-  .sf2-modules {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 36px;
-  }
-  .sf2-module-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 5px 12px;
-    background: rgba(37,99,235,.08);
-    border-radius: 100px;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--blue);
-  }
-  .sf2-module-chip svg {
-    width: 12px;
-    height: 12px;
-    flex-shrink: 0;
-  }
-
   .sf2-read {
     display: inline-flex;
     align-items: center;
     gap: 5px;
+    margin-top: 32px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
     font-size: 13px;
     font-weight: 700;
     color: var(--blue);
@@ -7654,14 +7623,6 @@ button.btn-primary {
     transition: transform .5s ease, opacity .3s ease;
   }
   .sf2-img.sf2-img-out { opacity: 0; transform: scale(1.04); }
-
-  .sf2-img-tint {
-    position: absolute;
-    inset: 0;
-    opacity: .3;
-    transition: background .4s ease;
-    pointer-events: none;
-  }
 
   /* ── Logo selector row ── */
   .sf2-logos {

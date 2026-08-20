@@ -873,37 +873,111 @@ window.addEventListener('message', function(e) {
 
 /* ── 1. Video Carousel ─────────────────────────────────────────────── */
 (function() {
+  var overflow = document.querySelector('.cs-vid-overflow');
   var track    = document.getElementById('cs-vid-track');
   var prevBtn  = document.getElementById('cs-vid-prev');
   var nextBtn  = document.getElementById('cs-vid-next');
-  if (!track || !prevBtn || !nextBtn) return;
+  if (!overflow || !track || !prevBtn || !nextBtn) return;
 
-  var CARD_W   = 240;
-  var GAP      = 16;
-  var STEP     = CARD_W + GAP;
-  var cards    = track.querySelectorAll('.cs-vid-card');
-  var total    = cards.length;
-  var idx      = 0;
+  var items = track.querySelectorAll('.cs-vid-item');
+  var total = items.length;
+  var idx   = 0;
 
-  function visibleCount() {
-    return Math.max(1, Math.floor((track.parentElement.offsetWidth + GAP) / STEP));
+  function step() {
+    if (!items.length) return 0;
+    var gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+    return items[0].getBoundingClientRect().width + gap;
+  }
+  function maxScroll() {
+    return Math.max(0, track.scrollWidth - overflow.offsetWidth);
   }
   function maxIdx() {
-    return Math.max(0, total - visibleCount());
+    var s = step();
+    return s ? Math.round(maxScroll() / s) : 0;
   }
-  function render() {
-    var maxScroll = Math.max(0, track.scrollWidth - track.parentElement.offsetWidth);
-    var offset    = Math.min(idx * STEP, maxScroll);
-    track.style.transform = 'translateX(-' + offset + 'px)';
+  function offsetForIdx(i) {
+    return Math.min(i * step(), maxScroll());
+  }
+  function render(animate) {
+    track.style.transition = animate === false ? 'none' : '';
+    track.style.transform  = 'translateX(-' + offsetForIdx(idx) + 'px)';
     prevBtn.disabled = idx <= 0;
     nextBtn.disabled = idx >= maxIdx();
   }
 
   prevBtn.addEventListener('click', function() { if (idx > 0) { idx--; render(); } });
   nextBtn.addEventListener('click', function() { if (idx < maxIdx()) { idx++; render(); } });
-  window.addEventListener('resize', function() { idx = Math.min(idx, maxIdx()); render(); });
+  window.addEventListener('resize', function() { idx = Math.min(idx, maxIdx()); render(false); });
 
-  render();
+  /* Click-and-drag on desktop, swipe on touch — unified via Pointer Events */
+  var dragging    = false;
+  var dragMoved   = false;
+  var pointerId   = null;
+  var startX      = 0;
+  var lastX       = 0;
+  var startOffset = 0;
+
+  overflow.addEventListener('pointerdown', function(e) {
+    if (e.button !== undefined && e.button !== 0) return;
+    dragging    = true;
+    dragMoved   = false;
+    pointerId   = e.pointerId;
+    startX      = e.clientX;
+    lastX       = e.clientX;
+    startOffset = offsetForIdx(idx);
+    track.style.transition = 'none';
+    overflow.classList.add('is-dragging');
+  });
+
+  overflow.addEventListener('pointermove', function(e) {
+    if (!dragging || e.pointerId !== pointerId) return;
+    var dx = e.clientX - startX;
+    if (!dragMoved && Math.abs(dx) > 4) {
+      dragMoved = true;
+      if (overflow.setPointerCapture) { try { overflow.setPointerCapture(pointerId); } catch (err) {} }
+    }
+    if (!dragMoved) return;
+    lastX = e.clientX;
+    var raw = startOffset - dx;
+    var max = maxScroll();
+    if (raw < 0) raw = raw / 3;
+    else if (raw > max) raw = max + (raw - max) / 3;
+    track.style.transform = 'translateX(-' + raw + 'px)';
+    e.preventDefault();
+  }, { passive: false });
+
+  function endDrag(e) {
+    if (!dragging) return;
+    dragging = false;
+    overflow.classList.remove('is-dragging');
+    if (pointerId != null && overflow.releasePointerCapture) {
+      try { overflow.releasePointerCapture(pointerId); } catch (err) {}
+    }
+    pointerId = null;
+
+    if (!dragMoved) { track.style.transition = ''; return; }
+
+    var dx = lastX - startX;
+    var s  = step();
+    if (dx <= -s / 5 && idx < maxIdx())    idx++;
+    else if (dx >= s / 5 && idx > 0)       idx--;
+    render();
+  }
+
+  overflow.addEventListener('pointerup', endDrag);
+  overflow.addEventListener('pointercancel', endDrag);
+  overflow.addEventListener('pointerleave', function(e) { if (dragging) endDrag(e); });
+
+  // Swallow the click that follows a drag so it doesn't open the video modal
+  track.addEventListener('click', function(e) {
+    if (dragMoved) {
+      e.preventDefault();
+      e.stopPropagation();
+      dragMoved = false;
+    }
+  }, true);
+
+  render(false);
 }());
 
 
@@ -1126,11 +1200,9 @@ window.addEventListener('message', function(e) {
   'use strict';
 
   var ARROW = '<svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-  var CHECK = '<svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
   var contentEl = document.getElementById('sf2-content');
   var imgEl     = document.getElementById('sf2-img');
-  var tintEl    = document.getElementById('sf2-tint');
   var btns      = document.querySelectorAll('#sf2-logos .sf2-btn');
 
   if (!contentEl || !imgEl || !btns.length) { return; }
@@ -1150,9 +1222,7 @@ window.addEventListener('message', function(e) {
       headline:  'How Pyramid Wilmar unified payroll and 24/7 HR access in just 3.5 months',
       challenge: 'Pyramid Wilmar’s workforce spanned manufacturing plants, corporate offices and island-wide sales teams, but payroll and HR processes were split across different systems, paper workflows and location-based access limitations.',
       solution:  'PeoplesHR brought payroll, self-service, mobile access, kiosks and workforce visibility into one platform, giving 670+ employees real-time HR access and helping the rollout reach 95% completion in just 3.5 months.',
-      modules:   ['HR', 'Pay', 'Time'],
-      img:       'images/Section-04-FEATURED-STORIES/Pyramid-Wilmar.png',
-      tint:      '#92400e',
+      img:       'images/Section-04-FEATURED-STORIES/Pyramid-Wilmar.webp',
       href:      '/case-study-inner-page/pyramid-wilmar/'
     },
     {
@@ -1162,9 +1232,7 @@ window.addEventListener('message', function(e) {
       headline:  'How Brandix drove 99% HR self-service adoption across 25,000 employees in 8 months',
       challenge: 'Brandix had a large, factory-led workforce across multiple locations, but HR operations were affected by fragmented HCM systems, paper-based requests and limited digital access for frontline employees.',
       solution:  'With OneClick, powered by PeoplesHR, Brandix gave employees real-time access to HR services through mobile and self-service channels, increasing attendance self-service adoption from 4% to 96% and leave self-service adoption from 31% to 99% in just eight months.',
-      modules:   ['HR', 'Pay', 'Time'],
-      img:       'images/Section-04-FEATURED-STORIES/Brandix.png',
-      tint:      '#1d4ed8',
+      img:       'images/Section-04-FEATURED-STORIES/Brandix.webp',
       href:      '/case-study-inner-page/brandix/'
     }
   ];
@@ -1173,10 +1241,6 @@ window.addEventListener('message', function(e) {
     var logoHtml = s.logo
       ? '<img class="sf2-company-logo" src="' + s.logo + '" alt="' + s.logoAlt + '">'
       : '<span class="sf2-company-name">' + s.company + '</span>';
-
-    var modulesHtml = s.modules.map(function (m) {
-      return '<span class="sf2-module-chip">' + CHECK + m + '</span>';
-    }).join('');
 
     return '<h3 class="sf2-headline">' + s.headline + '</h3>'
       + '<div class="sf2-block">'
@@ -1187,11 +1251,7 @@ window.addEventListener('message', function(e) {
       +   '<div class="sf2-block-heading">Solution</div>'
       +   '<p class="sf2-block-text">' + s.solution + '</p>'
       + '</div>'
-      + '<div class="sf2-modules-section">'
-      +   '<div class="sf2-modules-heading">Modules used</div>'
-      +   '<div class="sf2-modules">' + modulesHtml + '</div>'
-      +   '<a href="' + s.href + '" class="sf2-read" target="_blank">Read Case Study ' + ARROW + '</a>'
-      + '</div>';
+      + '<a href="' + s.href + '" class="sf2-read" target="_blank">Read Case Study ' + ARROW + '</a>';
   }
 
   function switchTo(idx) {
@@ -1203,10 +1263,9 @@ window.addEventListener('message', function(e) {
     imgEl.classList.add('sf2-img-out');
 
     setTimeout(function () {
-      contentEl.innerHTML     = buildContent(s);
-      imgEl.src               = s.img;
-      imgEl.alt               = s.logoAlt;
-      tintEl.style.background = s.tint;
+      contentEl.innerHTML = buildContent(s);
+      imgEl.src           = s.img;
+      imgEl.alt           = s.logoAlt;
 
       contentEl.classList.remove('sf2-out');
       contentEl.classList.add('sf2-in');
