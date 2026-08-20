@@ -122,3 +122,11 @@
 .wb-gated-label{opacity:1;background:rgba(13,27,62,.82);}
 .wb-gated-label::before{display:none;}
 
+/* --- Upcoming-webinar card cover, mobile ------------------------------
+   phrhome.css's .wb-uc-thumb is a flat 150px at every breakpoint; on
+   mobile the card is nearly full-width (82vw) so a taller cover reads
+   much better than the same height used at desktop card widths. */
+@media(max-width:768px){
+  .wb-uc-thumb{height:220px;}
+}
+
