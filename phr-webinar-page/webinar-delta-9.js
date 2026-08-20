@@ -716,6 +716,17 @@ function renderNotifyModal() {
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNotifyModal(); });
 }
 
+function ensureHsScript(cb) {
+  if (window.hbspt) { cb(); return; }
+  const existing = document.querySelector('script[src*="hsforms.net/forms/embed/v2.js"]');
+  if (existing) { existing.addEventListener('load', cb); return; }
+  const script = document.createElement('script');
+  script.charset = 'utf-8';
+  script.src = '//js-na2.hsforms.net/forms/embed/v2.js';
+  script.onload = cb;
+  document.head.appendChild(script);
+}
+
 let _notifyFormLoaded = false;
 
 function openNotifyModal() {
@@ -723,7 +734,7 @@ function openNotifyModal() {
   document.body.style.overflow = 'hidden';
   if (_notifyFormLoaded) return;
   _notifyFormLoaded = true;
-  function createForm() {
+  ensureHsScript(function() {
     hbspt.forms.create({
       region: 'na2',
       portalId: '45700506',
@@ -734,21 +745,30 @@ function openNotifyModal() {
         if (loader) loader.style.display = 'none';
       }
     });
-  }
-  if (window.hbspt) {
-    createForm();
-  } else {
-    const script = document.createElement('script');
-    script.charset = 'utf-8';
-    script.src = '//js-na2.hsforms.net/forms/embed/v2.js';
-    script.onload = createForm;
-    document.head.appendChild(script);
-  }
+  });
 }
 
 function closeNotifyModal() {
   document.getElementById('wb-notify-modal').classList.remove('open');
   document.body.style.overflow = '';
+}
+
+// ── Hero "Stay in the Loop" form (embedded, not modal) ─────────────
+function buildHeroForm() {
+  const target = document.getElementById('wbHeroForm');
+  if (!target) return;
+  ensureHsScript(function() {
+    hbspt.forms.create({
+      region: 'na2',
+      portalId: '45700506',
+      formId: '11020900-bc03-406a-bee2-deaee6112df2',
+      target: '#wbHeroForm',
+      onFormReady: function() {
+        const loader = document.getElementById('wbHeroFormLoader');
+        if (loader) loader.style.display = 'none';
+      }
+    });
+  });
 }
 
 // â"€â"€ Main: Fetch data.json and render everything â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
@@ -766,6 +786,7 @@ async function init() {
     // Wire up video modal and notify modal
     renderModal();
     renderNotifyModal();
+    buildHeroForm();
     document.getElementById('wb-body').addEventListener('click', e => {
       const recCard = e.target.closest('.wb-rec-card[data-ytid]');
       if (recCard) { openVideoModal(recCard.dataset.ytid, recCard.dataset.title); return; }
