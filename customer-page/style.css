@@ -7100,7 +7100,7 @@ button.btn-primary {
     align-items: center;
     justify-content: center;
     backdrop-filter: blur(6px);
-    opacity: 0;
+    opacity: 1;
     transition: opacity .2s, background .2s, transform .2s, border-color .2s;
   }
   .cs-hero-vid-card:hover .cs-hero-vid-play {
