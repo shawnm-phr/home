@@ -7238,6 +7238,9 @@ button.btn-primary {
   padding: 28px 32px;
   background: var(--bg-light);
 }
+/* Hidden site-wide until the PDF resource is ready to publish.
+   Delete this rule to bring it back — markup and the rule above are untouched. */
+.csi-download-cta { display: none; }
 .csi-download-icon {
   width: 52px;
   height: 52px;
