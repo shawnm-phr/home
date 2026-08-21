@@ -7927,7 +7927,6 @@ button.btn-primary {
   }
 
   .cs-lib-header {
-    display: flex;
     align-items: center;
     justify-content: flex-end;
     margin-bottom: 22px;
@@ -7966,6 +7965,7 @@ button.btn-primary {
     overflow: hidden;
     background: var(--bg-card);
     flex-shrink: 0;
+    cursor: pointer;
   }
   .cs-card-thumb img {
     width: 100%;

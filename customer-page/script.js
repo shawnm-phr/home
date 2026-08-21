@@ -1117,6 +1117,19 @@ window.addEventListener('message', function(e) {
 }());
 
 
+/* ── 3b. Make case study card covers clickable ───────────────────── */
+(function () {
+  document.querySelectorAll('#cs-grid .cs-card-thumb').forEach(function (thumb) {
+    var card = thumb.closest('.cs-card');
+    var link = card && card.querySelector('.cs-card-cta');
+    if (!link) return;
+    thumb.addEventListener('click', function () {
+      window.open(link.href, link.target || '_self');
+    });
+  });
+}());
+
+
 /* ── 4. Smooth scroll for hero CTA ────────────────────────────────── */
 (function() {
   var btn = document.querySelector('a[href="#library"]');
