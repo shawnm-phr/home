@@ -7929,7 +7929,7 @@ button.btn-primary {
   .cs-lib-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     margin-bottom: 22px;
   }
   .cs-lib-count {
@@ -8140,6 +8140,14 @@ button.btn-primary {
     text-transform: uppercase;
     color: var(--blue-light);
     margin-bottom: 14px;
+  }
+  .cs-cta-section .cs-btn-ghost {
+    color: #fff;
+    border-color: rgba(255,255,255,.35);
+  }
+  .cs-cta-section .cs-btn-ghost:hover {
+    background: rgba(255,255,255,.08);
+    border-color: rgba(255,255,255,.6);
   }
   .cs-cta-title {
     font-size: 40px;

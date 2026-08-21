@@ -1026,7 +1026,7 @@ window.addEventListener('message', function(e) {
 (function() {
   var cards      = Array.prototype.slice.call(document.querySelectorAll('#cs-grid .cs-card[data-industry]'));
   var noResults  = document.getElementById('cs-no-results');
-  var countEl    = document.getElementById('cs-result-count');
+  var countEl    = document.getElementById('cs-result-count-desktop');
   var trigger    = document.getElementById('cs-filter-trigger');
   var dropdown   = document.getElementById('cs-filter-dropdown');
   var badge      = document.getElementById('cs-filter-badge');
