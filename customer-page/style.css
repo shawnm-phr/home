@@ -7412,7 +7412,7 @@ button.btn-primary {
     padding-top: 8px;
     border-top: 1px solid var(--border);
   }
-  .cs-vid-logo-below img { height: 32px; width: auto; max-width: 100%; display: block; object-fit: contain; object-position: left center; }
+  .cs-vid-logo-below img { height: 40px; width: auto; max-width: 100%; display: block; object-fit: contain; object-position: left center; }
 
   /* Carousel nav buttons */
   .cs-vid-nav {
@@ -8017,9 +8017,9 @@ button.btn-primary {
   .cs-card-anon-icon {
     width: 36px; height: 36px; flex-shrink: 0;
     border-radius: 8px;
-    background: var(--bg-card, #f1f5f9);
+    background: rgba(37,99,235,.08);
     display: flex; align-items: center; justify-content: center;
-    color: var(--text-muted);
+    color: var(--blue);
   }
   .cs-card-anon-icon svg { width: 18px; height: 18px; }
   .cs-card-anon-label {
