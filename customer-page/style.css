@@ -7074,10 +7074,7 @@ button.btn-primary {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: .8;
-    transition: opacity .3s ease;
   }
-  .cs-hero-vid-card:hover .cs-hero-vid-bg img { opacity: 1; }
   .cs-hero-vid-scrim {
     position: absolute;
     inset: 0;
