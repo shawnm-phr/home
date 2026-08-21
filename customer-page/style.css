@@ -7010,7 +7010,7 @@ button.btn-primary {
   .cs-hero-g2:hover .cs-hero-g2-count { color: var(--blue); text-decoration: underline; }
 
   /* Condensed single-line logo strip — spans the full hero width, below both columns */
-  .cs-hero-logos { margin-top: 96px; max-width: 1200px; margin-left: auto; margin-right: auto; position: relative; z-index: 1; }
+  .cs-hero-logos { margin-top: 150px; max-width: 1200px; margin-left: auto; margin-right: auto; position: relative; z-index: 1; }
   .cs-hero-logos-wrap {
     overflow: hidden;
     -webkit-mask: linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%);
