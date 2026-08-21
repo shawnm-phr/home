@@ -6912,7 +6912,8 @@ button.btn-primary {
     padding: 100px 48px 88px;
     min-height: 100vh;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
     position: relative;
     overflow: hidden;
   }
@@ -6985,6 +6986,12 @@ button.btn-primary {
     margin-top: 28px;
     text-decoration: none;
   }
+  .cs-hero-g2-mark {
+    width: 24px;
+    height: 24px;
+    display: block;
+    flex-shrink: 0;
+  }
   .cs-hero-g2-stars { position: relative; display: inline-flex; }
   .cs-hero-g2-stars-bg,
   .cs-hero-g2-stars-fg { display: flex; gap: 1px; }
@@ -7002,15 +7009,15 @@ button.btn-primary {
   .cs-hero-g2-count { transition: color .15s; }
   .cs-hero-g2:hover .cs-hero-g2-count { color: var(--blue); text-decoration: underline; }
 
-  /* Condensed single-line logo strip */
-  .cs-hero-logos { margin-top: 36px; max-width: 560px; }
+  /* Condensed single-line logo strip — spans the full hero width, below both columns */
+  .cs-hero-logos { margin-top: 56px; max-width: 1200px; margin-left: auto; margin-right: auto; position: relative; z-index: 1; }
   .cs-hero-logos-wrap {
     overflow: hidden;
-    -webkit-mask: linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
-    mask: linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
+    -webkit-mask: linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%);
+    mask: linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%);
   }
-  .cs-hero-logos .cs-logo-row { gap: 40px; }
-  .cs-hero-logos .cs-logo-item img { height: 26px; }
+  .cs-hero-logos .cs-logo-row { gap: 56px; }
+  .cs-hero-logos .cs-logo-item img { height: 30px; }
 
   /* Buttons — delta variants for dark bg */
   .cs-btn-primary {
@@ -7504,11 +7511,7 @@ button.btn-primary {
     height: 64px;
     width: auto;
     display: block;
-    filter: grayscale(1);
-    opacity: .5;
-    transition: filter .25s, opacity .25s;
   }
-  .cs-logo-item img:hover { filter: grayscale(0); opacity: .85; }
   .cs-logo-item-text {
     font-size: 14px;
     font-weight: 700;
