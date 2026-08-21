@@ -8012,6 +8012,23 @@ button.btn-primary {
   .cs-card-logo { height: 36px; width: auto; display: block; }
   .cs-card-logo-text { font-size: 14px; font-weight: 800; color: var(--navy); }
 
+  /* Anonymous case study: industry icon + "Client Protected" label instead of a logo */
+  .cs-card-anon { display: flex; align-items: center; gap: 10px; }
+  .cs-card-anon-icon {
+    width: 36px; height: 36px; flex-shrink: 0;
+    border-radius: 8px;
+    background: var(--bg-card, #f1f5f9);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-muted);
+  }
+  .cs-card-anon-icon svg { width: 18px; height: 18px; }
+  .cs-card-anon-label {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 12px; font-weight: 700; letter-spacing: .2px;
+    color: var(--text-muted);
+  }
+  .cs-card-anon-label svg { width: 13px; height: 13px; flex-shrink: 0; }
+
   .cs-card-headline {
     font-size: 14.5px;
     font-weight: 700;
