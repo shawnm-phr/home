@@ -6910,6 +6910,9 @@ button.btn-primary {
   .cs-hero {
     background: linear-gradient(160deg, #f8faff 0%, #eef4ff 100%);
     padding: 100px 48px 88px;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
     position: relative;
     overflow: hidden;
   }
@@ -6923,6 +6926,7 @@ button.btn-primary {
     pointer-events: none;
   }
   .cs-hero-inner {
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
@@ -6972,6 +6976,41 @@ button.btn-primary {
     margin-bottom: 40px;
   }
   .cs-hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  /* G2 rating badge */
+  .cs-hero-g2 {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 28px;
+    text-decoration: none;
+  }
+  .cs-hero-g2-stars { position: relative; display: inline-flex; }
+  .cs-hero-g2-stars-bg,
+  .cs-hero-g2-stars-fg { display: flex; gap: 1px; }
+  .cs-hero-g2-stars-bg svg { color: #e2e8f0; }
+  .cs-hero-g2-stars-fg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .cs-hero-g2-stars-fg svg { color: #f59e0b; flex-shrink: 0; }
+  .cs-hero-g2-stars svg { width: 15px; height: 15px; fill: currentColor; display: block; }
+  .cs-hero-g2-text { font-size: 13.5px; font-weight: 500; color: var(--text-muted); }
+  .cs-hero-g2-text strong { color: var(--navy); font-weight: 800; }
+  .cs-hero-g2-count { transition: color .15s; }
+  .cs-hero-g2:hover .cs-hero-g2-count { color: var(--blue); text-decoration: underline; }
+
+  /* Condensed single-line logo strip */
+  .cs-hero-logos { margin-top: 36px; max-width: 560px; }
+  .cs-hero-logos-wrap {
+    overflow: hidden;
+    -webkit-mask: linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
+    mask: linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
+  }
+  .cs-hero-logos .cs-logo-row { gap: 40px; }
+  .cs-hero-logos .cs-logo-item img { height: 26px; }
 
   /* Buttons — delta variants for dark bg */
   .cs-btn-primary {
@@ -7443,16 +7482,6 @@ button.btn-primary {
 
 
   /* ── LOGO MARQUEE ─────────────────────────────────────────────────── */
-  .cs-logo-marquee {
-    background: #fff;
-    padding: 60px 0 0;
-  }
-  .cs-logo-marquee-wrap {
-    overflow: hidden;
-    padding-bottom: 50px;
-    -webkit-mask: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
-    mask: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
-  }
   .cs-logo-row {
     display: flex;
     align-items: center;
