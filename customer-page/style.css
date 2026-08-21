@@ -7016,8 +7016,8 @@ button.btn-primary {
     -webkit-mask: linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%);
     mask: linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%);
   }
-  .cs-hero-logos .cs-logo-row { gap: 56px; }
-  .cs-hero-logos .cs-logo-item img { height: 30px; }
+  .cs-hero-logos .cs-logo-row { gap: 64px; }
+  .cs-hero-logos .cs-logo-item img { height: 60px; }
 
   /* Buttons — delta variants for dark bg */
   .cs-btn-primary {
