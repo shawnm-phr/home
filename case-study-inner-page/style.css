@@ -7243,6 +7243,7 @@ button.btn-primary {
   letter-spacing: .2px;
 }
 .csi-quote-avatar svg { width: 20px; height: 20px; }
+.csi-quote-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; }
 
 /* Download CTA */
 .csi-download-cta {
