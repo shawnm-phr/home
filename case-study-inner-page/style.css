@@ -7214,10 +7214,28 @@ button.btn-primary {
   margin-bottom: 12px !important;
 }
 .csi-blockquote footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   font-size: 13px;
   color: var(--text-muted);
   font-style: normal;
 }
+.csi-quote-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--blue);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .2px;
+}
+.csi-quote-avatar svg { width: 20px; height: 20px; }
 
 /* Download CTA */
 .csi-download-cta {
