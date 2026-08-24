@@ -8045,7 +8045,8 @@ button.btn-primary {
   .cs-card-logo-text { font-size: 14px; font-weight: 800; color: var(--navy); }
 
   /* Anonymous case study: industry icon + "Client Protected" label instead of a logo */
-  .cs-card-anon { display: flex; align-items: center; gap: 10px; }
+  .cs-card-anon { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .cs-card-anon-left { display: flex; align-items: center; gap: 10px; }
   .cs-card-anon-icon {
     width: 36px; height: 36px; flex-shrink: 0;
     border-radius: 8px;
@@ -8054,10 +8055,12 @@ button.btn-primary {
     color: var(--blue);
   }
   .cs-card-anon-icon svg { width: 18px; height: 18px; }
+  .cs-card-anon-industry { font-size: 14px; font-weight: 800; color: var(--navy); }
   .cs-card-anon-label {
     display: inline-flex; align-items: center; gap: 5px;
     font-size: 12px; font-weight: 700; letter-spacing: .2px;
     color: var(--text-muted);
+    flex-shrink: 0;
   }
   .cs-card-anon-label svg { width: 13px; height: 13px; flex-shrink: 0; }
 
