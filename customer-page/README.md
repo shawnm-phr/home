@@ -73,7 +73,7 @@ real assets/copy:
 - `REPLACE_YT_ID_*` — YouTube video IDs not yet supplied for some carousel
   cards
 - Several customer logos use stand-in images until final brand assets are
-  provided (see note below on `dev.peopleshr.com` logo paths)
+  provided
 
 ## Production notes (WordPress)
 
@@ -84,8 +84,3 @@ real assets/copy:
   (e.g. `/* customers — new classes */`), rather than replacing them.
 - Don't place HTML comments inside `<style>` blocks when merging — it
   breaks CSS parsing for everything after it in some browsers.
-- The Brandix, Peoples Bank, and Pyramid Wilmar logo URLs in
-  `customer-app.js` point to `dev.peopleshr.com/wp-content/uploads/2026/04/`
-  — these paths were assumed from naming convention and have not been
-  confirmed to exist. Verify before deploying, and swap the Brandix
-  Wikipedia stand-in logo for the real brand asset.
