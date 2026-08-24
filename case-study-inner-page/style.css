@@ -6941,14 +6941,6 @@ button.btn-primary {
   color: var(--text-muted);
   margin-bottom: 20px;
 }
-.csi-eyebrow-dot {
-  display: inline-block;
-  width: 9px;
-  height: 9px;
-  background: var(--text-dark);
-  border-radius: 2px;
-  flex-shrink: 0;
-}
 .csi-title {
   font-size: 36px;
   font-weight: 700;
