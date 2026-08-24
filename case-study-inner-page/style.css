@@ -7201,10 +7201,10 @@ button.btn-primary {
 
 .csi-blockquote {
   margin: 28px 0;
-  padding: 22px 26px;
+  padding: 26px 28px;
   border-left: 3px solid var(--blue);
   background: #eff6ff;
-  border-radius: 0 12px 12px 0;
+  border-radius: 16px;
 }
 .csi-blockquote p {
   font-size: 15.5px !important;
@@ -7214,6 +7214,13 @@ button.btn-primary {
   margin-bottom: 12px !important;
 }
 .csi-blockquote footer {
+  /* Reset the global bare `footer{}` rule (site footer, line ~638) which
+     otherwise leaks its white background/padding/border into this
+     unrelated <footer> element. */
+  background: none;
+  padding: 16px 0 0;
+  margin-top: 8px;
+  border-top: 1px solid rgba(37, 99, 235, .15);
   display: flex;
   align-items: center;
   gap: 12px;
