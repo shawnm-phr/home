@@ -1,4 +1,4 @@
-/* ═══════════════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════════════
    pricing-delta.css
    Net-new styles for the Pricing page only, all classes prefixed .pc-
    and scoped under .pc-scope so nothing here can collide with
@@ -7,7 +7,7 @@
    header can genuinely stick to the top of the page while scrolling,
    which an iframe can never do unless it has its own internal scroll
    — see project memory for the full reasoning).
-   ═══════════════════════════════════════════════════════════════════ */
+   ═══════════════════════════════════════════════════════════════════════ */
 .pc-scope{
   --white:#fff; --ink:#0F1C2E; --ink-2:#334155; --muted:#64748B; --muted-2:#94A3B8;
   --line:#E7EAF0; --line-2:#EEF1F6; --bg-soft:#F8FAFC;
@@ -151,13 +151,13 @@
    bare nav{} rule (sticky, height:64px, border-bottom, etc. — meant
    for the old unprefixed site header) unless every property that rule
    sets is overridden here */
-.pc-cmp-nav{position:sticky;top:90px;z-index:20;height:auto;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:2px;background:transparent;backdrop-filter:none;border-bottom:0}
+.pc-cmp-nav{position:sticky;top:120px;z-index:20;height:auto;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:2px;background:transparent;backdrop-filter:none;border-bottom:0}
 /* module nav (HR, Pay, Time...) and the standout-capability nav
    (Lexi Ai, Mobile App...) share .pc-cmp-nav's sticky/layout base but
    can have independent top/bottom padding via their own ids */
-#pcCmpNav{padding:110px 0}
+#pcCmpNav{padding:10px 0}
 #pcStandoutNav{padding:110px 0}
-.pc-cmp-nav button{display:flex;align-items:center;gap:11px;width:100%;text-align:left;font-family:var(--display);font-weight:600;font-size:15.5px;color:var(--ink-2);background:transparent;border:0;border-left:3px solid transparent;border-radius:0 8px 8px 0;padding:10px 16px;cursor:pointer;transition:background .15s ease,color .15s ease,border-color .15s ease}
+.pc-cmp-nav button{text-transform: none !important; display:flex;align-items:center;gap:11px;width:100%;text-align:left;font-family:var(--display);font-weight:600;font-size:15.5px;color:var(--ink-2);background:transparent;border:0;border-left:3px solid transparent;border-radius:0 8px 8px 0;padding:10px 16px;cursor:pointer;transition:background .15s ease,color .15s ease,border-color .15s ease}
 .pc-cmp-nav button:hover{background:#fff;color:var(--ink)}
 .pc-cmp-nav button.pc-on{background:#fff;color:var(--ink);font-weight:700;border-left-color:var(--ink)}
 .pc-nav-ic{width:28px;height:28px;flex:0 0 auto;border-radius:7px;object-fit:cover}
@@ -173,14 +173,14 @@
   .pc-cmp-layout::before{display:none}
   .pc-cmp-nav{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:6px}
   .pc-cmp-nav button{width:auto}
-  /* #pcCmpNav/#pcStandoutNav's 110px padding only makes sense centering
-     a short nav beside a much taller sticky desktop panel — once the
-     layout collapses to one column it's just dead space above/below the
-     row. Their sticky lock goes too — pinned to top:90px in a
-     single-column layout, it just sits on top of and overlaps the panel
+  /* #pcStandoutNav's 110px padding only makes sense centering a short
+     nav beside a much taller sticky desktop panel — once the layout
+     collapses to one column it's just dead space above/below the row.
+     Its sticky lock goes too — pinned to top:75px in a single-column
+     layout, it just sits on top of and overlaps the feature panel
      content as you scroll past it, instead of staying out of the way
      beside a much taller sticky desktop panel. */
-  #pcCmpNav,#pcStandoutNav{padding:10px 0;position:static}
+  #pcStandoutNav{padding:10px 0;position:static}
 }
 /* ---- mobile: capability comparison table is too dense to use on a
    phone screen (7-module nav + 3-column table), so below this width
@@ -249,7 +249,7 @@
 
 /* info button + popover */
 .pc-info{position:relative;flex:0 0 auto}
-.pc-info-btn{width:19px;height:19px;border-radius:50%;border:1.4px solid var(--muted-2);color:var(--muted);background:#fff;font-family:var(--display);font-weight:800;font-size:11px;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:all .15s ease}
+.pc-info-btn{text-transform: none !important; width:19px;height:19px;border-radius:50%;border:1.4px solid var(--muted-2);color:var(--muted);background:#fff;font-family:var(--display);font-weight:800;font-size:11px;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:all .15s ease}
 .pc-info-btn:hover{border-color:var(--ink);color:var(--ink)}
 .pc-info-btn[aria-expanded=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
 .pc-pop{position:absolute;left:0;top:28px;z-index:200;width:340px;max-width:78vw;background:#fff;border:1px solid var(--line);border-radius:var(--radius-sm);box-shadow:var(--shadow-lg);padding:16px 17px;display:none}

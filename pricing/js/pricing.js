@@ -16,7 +16,12 @@
   var scope = document.querySelector('.pc-scope');
   if (!scope) return; // guard: absent on non-pricing pages
 
-  var LANG = document.documentElement.lang === 'id' ? 'id' : 'en';
+  /* both pricing pages are dropped into WordPress as custom-HTML blocks,
+     so the surrounding theme's <html lang> stays whatever the site
+     default is and can't be relied on — the Bahasa page marks itself
+     via data-lang="id" on the outer .pc-scope wrapper instead (falls
+     back to <html lang> for any embed that predates that attribute). */
+  var LANG = scope.dataset.lang === 'id' || document.documentElement.lang === 'id' ? 'id' : 'en';
   var DATA = JSON.parse(document.getElementById('pcMatrix').textContent);
   var TIERS = [['manage', 'Manage'], ['grow', 'Grow'], ['transform', 'Transform']];
   /* Talent and Recruitment aren't offered on Manage — only Grow and
@@ -289,18 +294,18 @@
      passed in, so the same source can appear at nav size, panel-head
      size, or the ladder heading's size.
 
-     IMG_BASE accounts for the Bahasa page living one folder deeper
-     (pricing/pricing-bahasa/) than the English page (pricing/) — same
-     images, just a different relative path back up to pricing/images/. */
-  var IMG_BASE = LANG === 'id' ? '../images/module-icons/' : 'images/module-icons/';
+     IMG_BASE points at the hosted WordPress media library so both the
+     English and Bahasa pages load the same images regardless of their
+     own folder depth. */
+  var IMG_BASE = 'https://peopleshr.com/wp-content/uploads/2026/07/';
   var MODULE_ICON_SRC = {
-    HR: IMG_BASE + 'HR%20Icon.webp',
-    Time: IMG_BASE + 'Time%20Icon.webp',
-    Pay: IMG_BASE + 'Pay%20Icon.webp',
-    Talent: IMG_BASE + 'Talent%20Icon.webp',
-    Engagement: IMG_BASE + 'Engagement%20Icon.webp',
+    HR: IMG_BASE + 'HRIcon.webp',
+    Time: IMG_BASE + 'TimeIcon.webp',
+    Pay: IMG_BASE + 'PayIcon.webp',
+    Talent: IMG_BASE + 'TalentIcon.webp',
+    Engagement: IMG_BASE + 'EngagementIcon.webp',
     Recruitment: IMG_BASE + 'Recruitment.webp',
-    Insights: IMG_BASE + 'Insights%20Icon.webp'
+    Insights: IMG_BASE + 'InsightsIcon.webp'
   };
   function moduleIcon(name, sizeClass) {
     var src = MODULE_ICON_SRC[name];
