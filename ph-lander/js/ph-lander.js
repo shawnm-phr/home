@@ -30,6 +30,24 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
      (ProductsPage.initFaq targets .phr-faq-item__trigger site-wide) —
      nothing to add here, just reusing the shared .phr-faq markup. */
 
+  /* Modules tabs — click a tab, show its panel, hide the rest. */
+  var modTabs = document.querySelectorAll('.ph-mod-tab');
+  modTabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      var target = tab.getAttribute('data-mod-tab');
+      modTabs.forEach(function(t){
+        var isActive = t === tab;
+        t.classList.toggle('is-active', isActive);
+        t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+      document.querySelectorAll('.ph-mod-panel').forEach(function(panel){
+        var isActive = panel.getAttribute('data-mod-panel') === target;
+        panel.classList.toggle('is-active', isActive);
+        panel.hidden = !isActive;
+      });
+    });
+  });
+
   /* Video testimonial modal — ported from customer-page/script.js's
      "2. Video Modal" IIFE, retargeted at this page's own element ids. */
   var vidModal = document.getElementById('phVidModal');

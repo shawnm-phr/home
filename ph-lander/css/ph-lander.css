@@ -213,10 +213,112 @@ html{scrollbar-gutter:stable;}
 
 /* --- 2. Compliance strip (title + badge row, right after hero) ---- */
 .ph-compliance-strip{padding:56px 0;}
+.ph-compliance-strip .phr-section__title{font-size:clamp(20px,2.2vw,26px);}
 .ph-compliance-badges{justify-content:center;margin-top:28px;}
 .ph-compliance-badge{gap:8px;}
 .ph-compliance-badge-icon{flex-shrink:0;width:16px;height:16px;object-fit:contain;display:block;}
 .ph-credibility-line{text-align:center;margin:24px 0 0;font-size:13.5px;font-weight:600;color:var(--phr-text-light);}
+
+/* --- 5. Modules tabs: icon+label tab row, one panel visible at a time */
+.ph-mod-tabs{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+  margin-top:44px;
+}
+.ph-mod-tab{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  background:var(--phr-white);
+  border:1.5px solid var(--phr-border);
+  border-radius:100px;
+  padding:10px 20px 10px 12px;
+  font-family:inherit;
+  font-size:14px;
+  font-weight:700;
+  color:var(--phr-text-mid);
+  cursor:pointer;
+  transition:border-color var(--phr-transition),color var(--phr-transition),background var(--phr-transition);
+}
+.ph-mod-tab img{width:24px;height:24px;object-fit:contain;flex-shrink:0;}
+.ph-mod-tab:hover{border-color:var(--phr-blue-200);color:var(--phr-blue-700);}
+.ph-mod-tab.is-active{background:var(--phr-blue-700);border-color:var(--phr-blue-700);color:var(--phr-white);}
+
+.ph-mod-panels{margin-top:40px;}
+.ph-mod-panel[hidden]{display:none;}
+.ph-mod-panel{
+  display:flex;
+  gap:48px;
+  align-items:center;
+  background:var(--phr-white);
+  border:1px solid var(--phr-border);
+  border-radius:var(--phr-radius-lg);
+  padding:44px 48px;
+  max-width:1040px;
+  margin:0 auto;
+}
+.ph-mod-panel-content{flex:1;display:flex;gap:24px;align-items:flex-start;min-width:0;}
+.ph-mod-panel-media{flex:0 0 380px;max-width:380px;}
+.ph-mod-ui-placeholder{
+  width:100%;
+  aspect-ratio:4/3;
+  border-radius:var(--phr-radius-md);
+  border:1.5px dashed var(--phr-blue-200);
+  background:var(--phr-blue-50);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  text-align:center;
+  padding:24px;
+}
+.ph-mod-ui-placeholder-icon{width:40px;height:40px;object-fit:contain;opacity:.6;}
+.ph-mod-ui-placeholder span{font-size:13px;font-weight:600;color:var(--phr-text-light);}
+.ph-mod-panel-icon{
+  flex:0 0 auto;
+  width:56px;
+  height:56px;
+  border-radius:14px;
+  background:var(--phr-blue-50);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.ph-mod-panel-icon img{width:32px;height:32px;object-fit:contain;}
+.ph-mod-panel-body{min-width:0;}
+.ph-mod-panel-body h3{font-size:22px;font-weight:800;color:var(--phr-text-dark);margin:0 0 8px;}
+.ph-mod-panel-desc{font-size:15px;color:var(--phr-text-mid);line-height:1.6;margin:0 0 22px;}
+.ph-mod-panel-label{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--phr-text-light);margin:0 0 12px;}
+.ph-mod-outcomes{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;}
+.ph-mod-outcomes li{
+  position:relative;
+  padding-left:26px;
+  font-size:14.5px;
+  color:var(--phr-text-dark);
+  line-height:1.5;
+}
+.ph-mod-outcomes li::before{
+  content:'';
+  position:absolute;
+  left:0;top:5px;
+  width:16px;height:16px;
+  border-radius:50%;
+  background:var(--phr-blue-50);
+  box-shadow:inset 0 0 0 5px var(--phr-blue-500);
+}
+@media(max-width:860px){
+  .ph-mod-panel{flex-direction:column;align-items:stretch;}
+  .ph-mod-panel-media{flex:none;max-width:100%;order:-1;}
+}
+@media(max-width:640px){
+  .ph-mod-tab span{display:none;}
+  .ph-mod-tab{padding:10px;border-radius:50%;}
+  .ph-mod-panel{padding:28px 24px;}
+  .ph-mod-panel-content{flex-direction:column;}
+}
 
 /* --- 3. Core proposition value strip ------------------------------ */
 .ph-value-strip{
