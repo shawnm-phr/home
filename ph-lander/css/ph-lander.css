@@ -83,8 +83,47 @@ html{scrollbar-gutter:stable;}
    defines the icon containers but not a default icon color) ------- */
 .warn-icon{color:#ef4444;}
 
-/* --- 1. Hero CTA + trust strip ------------------------------------ */
+/* --- 1. Hero: text left, image right + CTA + trust strip ---------- */
+.phr-hero__split{justify-content:space-between;gap:56px;}
+.phr-hero__copy{max-width:560px;}
+.phr-hero__visual{flex:1;max-width:480px;width:100%;}
+.ph-hero-placeholder{
+  aspect-ratio:4/3;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  border-radius:var(--phr-radius-lg);
+  border:1.5px dashed var(--phr-blue-200);
+  background:var(--phr-blue-50);
+  color:var(--phr-text-light);
+}
+.ph-hero-placeholder svg{opacity:.55;}
+.ph-hero-placeholder span{font-size:13px;font-weight:600;letter-spacing:.02em;}
+@media(max-width:960px){.phr-hero__visual{max-width:100%;}}
+
+/* .ph-hero-cta wraps a single .btn-primary <a>. The shared .btn-primary
+   is display:flex (block-level), so without a width constraint it
+   stretches to fill the wrapper instead of sizing to its content. */
 .ph-hero-cta{margin-top:8px;}
+.ph-hero-cta .btn-primary{width:max-content;}
+
+/* G2 rating badge, reused from customer-page's .cs-hero-g2* pattern */
+.ph-hero-g2{display:inline-flex;align-items:center;gap:10px;margin-top:20px;text-decoration:none;}
+.ph-hero-g2-mark{width:24px;height:24px;display:block;flex-shrink:0;}
+.ph-hero-g2-stars{position:relative;display:inline-flex;}
+.ph-hero-g2-stars-bg,.ph-hero-g2-stars-fg{display:flex;gap:1px;}
+.ph-hero-g2-stars-bg svg{color:#e2e8f0;}
+.ph-hero-g2-stars-fg{position:absolute;inset:0;overflow:hidden;white-space:nowrap;}
+.ph-hero-g2-stars-fg svg{color:#f59e0b;flex-shrink:0;}
+.ph-hero-g2-stars svg{width:15px;height:15px;fill:currentColor;display:block;}
+.ph-hero-g2-text{font-size:13.5px;font-weight:500;color:var(--phr-text-mid);}
+.ph-hero-g2-text strong{color:var(--phr-text-dark);font-weight:800;}
+.ph-hero-g2-count{transition:color .15s;}
+.ph-hero-g2:hover .ph-hero-g2-count{color:var(--phr-blue-600);text-decoration:underline;}
+
 .ph-trust-strip{margin-top:56px;}
 .ph-trust-label{
   font-size:12px;
@@ -97,6 +136,10 @@ html{scrollbar-gutter:stable;}
 .ph-trust-strip .client-logos{padding:0;min-height:auto;}
 .ph-trust-strip .client-logos::before,
 .ph-trust-strip .client-logos::after{display:none;}
+
+/* --- 2. Compliance strip (title + badge row, right after hero) ---- */
+.ph-compliance-strip{padding:56px 0;}
+.ph-compliance-badges{justify-content:center;margin-top:28px;}
 
 /* --- 3. Core proposition value strip ------------------------------ */
 .ph-value-strip{
