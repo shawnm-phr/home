@@ -83,6 +83,11 @@ html{scrollbar-gutter:stable;}
    defines the icon containers but not a default icon color) ------- */
 .warn-icon{color:#ef4444;}
 
+/* --- 3. The Problem: 7-card grid (4 cols desktop) ------------------ */
+.ph-warning-grid-7{grid-template-columns:repeat(4,1fr);}
+@media(max-width:980px){.ph-warning-grid-7{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:768px){.ph-warning-grid-7{grid-template-columns:1fr;}}
+
 /* --- 1. Hero: full viewport height + green tint + bottom fade ----- */
 .phr-hero{min-height:100vh;background:linear-gradient(160deg,#EEF6F0 0%,#F5FAF6 55%,#E9F5EC 100%);}
 .phr-hero::after{
@@ -98,11 +103,78 @@ html{scrollbar-gutter:stable;}
   pointer-events:none;
   z-index:1;
 }
-.phr-hero__split{justify-content:space-between;gap:56px;}
-.phr-hero__copy{max-width:560px;}
-.phr-hero__visual{flex:1;max-width:480px;width:100%;}
-.ph-hero-img{width:100%;max-width:480px;height:auto;display:block;}
-@media(max-width:960px){.phr-hero__visual{max-width:100%;}}
+.phr-hero__split{justify-content:space-between;gap:40px;}
+.phr-hero__copy{max-width:500px;}
+.phr-hero__visual{flex:1;max-width:600px;width:100%;align-self:stretch;display:flex;align-items:flex-end;position:relative;z-index:0;}
+.ph-hero-img{
+  width:100%;
+  max-width:600px;
+  aspect-ratio:3/4;
+  object-fit:cover;
+  object-position:center top;
+  display:block;
+  position:relative;
+  z-index:2;
+}
+.ph-hero-float{
+  position:absolute;
+  width:190px;
+  height:190px;
+  background:var(--phr-white);
+  border:1.5px dashed var(--phr-blue-200);
+  border-radius:var(--phr-radius-lg);
+  box-shadow:0 20px 40px -12px rgba(13,27,62,.2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:12px;
+  font-size:13px;
+  font-weight:600;
+  color:var(--phr-text-light);
+  animation:ph-hero-float-bob 5s ease-in-out infinite;
+}
+/* Peeks out from behind her shoulder — sits under the photo. */
+.ph-hero-float--1{top:30%;left:-54px;z-index:1;}
+/* Overlaps her arm in front — sits over the photo. */
+.ph-hero-float--2{top:48%;right:-30px;z-index:4;animation-delay:1.4s;animation-duration:6s;}
+@keyframes ph-hero-float-bob{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-14px);}
+}
+@media(prefers-reduced-motion:reduce){.ph-hero-float{animation:none;}}
+
+/* Small product-icon chips scattered around her — HR, Pay, Time, Talent. */
+.ph-hero-icon{
+  position:absolute;
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  background:var(--phr-white);
+  box-shadow:0 14px 28px -10px rgba(13,27,62,.25);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--phr-blue-500);
+  z-index:5;
+  animation:ph-hero-float-bob 5s ease-in-out infinite;
+}
+.ph-hero-icon svg{width:26px;height:26px;}
+.ph-hero-icon--hr{top:4%;left:20%;animation-duration:5.5s;}
+.ph-hero-icon--pay{top:10%;right:2%;z-index:1;animation-duration:4.5s;animation-delay:.6s;}
+.ph-hero-icon--time{top:64%;left:-6%;animation-duration:6.5s;animation-delay:1.1s;}
+.ph-hero-icon--talent{top:80%;right:14%;z-index:1;animation-duration:5s;animation-delay:1.9s;}
+@media(prefers-reduced-motion:reduce){.ph-hero-icon{animation:none;}}
+
+@media(max-width:960px){
+  .phr-hero__visual{max-width:420px;margin:0 auto;}
+  .ph-hero-img{max-width:420px;}
+  .ph-hero-float{width:130px;height:130px;font-size:11px;}
+  .ph-hero-float--1{left:-20px;top:26%;}
+  .ph-hero-float--2{right:-16px;top:46%;}
+  .ph-hero-icon{width:46px;height:46px;}
+  .ph-hero-icon svg{width:20px;height:20px;}
+}
 
 /* .ph-hero-cta wraps a single .btn-primary <a>. The shared .btn-primary
    is display:flex (block-level), so without a width constraint it
@@ -327,25 +399,45 @@ html{scrollbar-gutter:stable;}
 .ph-voices-video-note{font-size:12px;color:var(--phr-text-light);text-align:center;margin:10px 0 0;font-style:italic;}
 .ph-voices-quotes{flex:1;display:flex;flex-direction:column;gap:20px;min-width:0;}
 .ph-voice-quote{
+  position:relative;
   background:var(--phr-white);
   border:1px solid var(--phr-border);
   border-radius:var(--phr-radius-md);
-  padding:24px 26px;
+  padding:26px 26px 22px;
   margin:0;
+  transition:box-shadow var(--phr-transition),border-color var(--phr-transition);
 }
+.ph-voice-quote:hover{box-shadow:var(--phr-shadow-hover);border-color:var(--phr-blue-200);}
+.ph-voice-quote-mark{color:var(--phr-blue-200);display:block;margin-bottom:10px;}
 .ph-voice-quote p{
   font-size:15px;
   color:var(--phr-text-dark);
   line-height:1.6;
-  margin:0 0 12px;
+  margin:0 0 20px;
   font-style:italic;
 }
 .ph-voice-quote footer{
-  font-size:13px;
-  font-weight:700;
-  color:var(--phr-text-mid);
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding-top:16px;
+  border-top:1px solid var(--phr-border);
   font-style:normal;
 }
+.ph-voice-avatar{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:var(--phr-blue-50);
+  color:var(--phr-blue-500);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+}
+.ph-voice-attribution{display:flex;flex-direction:column;gap:2px;}
+.ph-voice-attribution strong{font-size:13.5px;font-weight:700;color:var(--phr-text-dark);}
+.ph-voice-attribution span{font-size:12.5px;color:var(--phr-text-light);}
 @media(max-width:900px){
   .ph-voices-split{flex-direction:column;align-items:center;}
   .ph-voices-video{max-width:260px;}
@@ -424,6 +516,31 @@ html{scrollbar-gutter:stable;}
 
 /* --- 14. FAQ ---------------------------------------------------------- */
 .ph-faq-section .phr-faq-item__trigger span:first-child{flex:1;}
+
+/* --- 15. Form CTA: headline left, form (placeholder for now) right ---- */
+.ph-form-cta-section{background:var(--phr-blue-30);}
+.ph-form-cta-split{display:flex;align-items:flex-start;gap:64px;}
+.ph-form-cta-copy{flex:1;max-width:440px;padding-top:8px;}
+.ph-form-cta-form{flex:1;max-width:480px;width:100%;}
+.ph-form-placeholder{
+  width:100%;
+  min-height:420px;
+  border-radius:var(--phr-radius-lg);
+  border:1.5px dashed var(--phr-blue-200);
+  background:var(--phr-white);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:var(--phr-text-light);
+  font-size:14px;
+  font-weight:600;
+  padding:24px;
+}
+@media(max-width:900px){
+  .ph-form-cta-split{flex-direction:column;gap:32px;}
+  .ph-form-cta-copy,.ph-form-cta-form{max-width:100%;}
+}
 
 /* --- Sticky CTA (runs the whole page) --------------------------------- */
 .ph-sticky-cta{
