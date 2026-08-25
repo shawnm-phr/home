@@ -79,14 +79,57 @@ html{scrollbar-gutter:stable;}
 .ph-card__desc{font-size:14.5px;color:var(--phr-text-mid);line-height:1.6;}
 @media(max-width:640px){.ph-section{padding:52px 0;}}
 
+/* --- 4. We've Solved: 5 cards in a 3-col grid. .phr-modules is a
+   fixed 3-track grid, so the leftover 2-card row sits left-aligned.
+   Override with flex+wrap so the last row centers instead. Card
+   widths/gaps mirror phrhome.css's own .phr-modules breakpoints
+   (960px: 2/row, 640px: 1/row) so the reflow matches the rest of the
+   grid exactly. */
+.ph-solved-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:24px;}
+.ph-solved-grid .ph-card{flex:0 1 calc(33.333% - 16px);}
+@media(max-width:960px){.ph-solved-grid{gap:18px;}.ph-solved-grid .ph-card{flex:0 1 calc(50% - 9px);}}
+@media(max-width:640px){.ph-solved-grid{gap:14px;}.ph-solved-grid .ph-card{flex:0 1 100%;}}
+
 /* --- Icon color extensions (icons use stroke="currentColor"; master
    defines the icon containers but not a default icon color) ------- */
 .warn-icon{color:#ef4444;}
 
-/* --- 3. The Problem: 7-card grid (4 cols desktop) ------------------ */
-.ph-warning-grid-7{grid-template-columns:repeat(4,1fr);}
-@media(max-width:980px){.ph-warning-grid-7{grid-template-columns:repeat(2,1fr);}}
-@media(max-width:768px){.ph-warning-grid-7{grid-template-columns:1fr;}}
+/* --- 3. The Problem: auto-rotating "merry go round" carousel -------
+   7 cards live in the DOM at all times; ph-lander.js recomputes each
+   card's transform/opacity every tick based on its circular distance
+   from the current center index, so only CSS transitions do the
+   animating (see ph-carousel-card.is-center for the highlighted one). */
+.ph-carousel{position:relative;height:480px;margin-top:16px;}
+.ph-carousel-track{position:relative;width:100%;height:100%;}
+.ph-carousel-card{
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:288px;
+  min-height:363px;
+  padding:40px 33px;
+  background:var(--phr-white);
+  border:1px solid var(--phr-border);
+  border-radius:var(--phr-radius-lg);
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  transition:transform .8s cubic-bezier(.22,.61,.36,1),opacity .8s ease,box-shadow .8s ease,border-color .8s ease;
+  will-change:transform,opacity;
+}
+.ph-carousel-card .warn-num{display:block;margin-bottom:10px;}
+.ph-carousel-card .warn-icon{margin:0 auto 20px;}
+.ph-carousel-card h3{font-size:19px;margin-bottom:10px;}
+.ph-carousel-card p{font-size:15px;line-height:1.55;}
+.ph-carousel-card.is-center{
+  border-color:var(--phr-blue-200);
+  box-shadow:0 28px 56px -22px rgba(13,27,62,.28);
+}
+@media(max-width:640px){
+  .ph-carousel{height:410px;}
+  .ph-carousel-card{width:238px;min-height:313px;padding:30px 25px;}
+}
 
 /* --- 1. Hero: full viewport height + green tint + bottom fade ----- */
 .phr-hero{min-height:100vh;background:linear-gradient(160deg,#EEF6F0 0%,#F5FAF6 55%,#E9F5EC 100%);}
@@ -213,7 +256,7 @@ html{scrollbar-gutter:stable;}
 
 /* --- 2. Compliance strip (title + badge row, right after hero) ---- */
 .ph-compliance-strip{padding:56px 0;}
-.ph-compliance-strip .phr-section__title{font-size:clamp(20px,2.2vw,26px);}
+.ph-compliance-strip .phr-section__title{font-size:clamp(16px,1.4vw,19px);font-weight:700;}
 .ph-compliance-badges{justify-content:center;margin-top:28px;}
 .ph-compliance-badge{gap:8px;}
 .ph-compliance-badge-icon{flex-shrink:0;width:16px;height:16px;object-fit:contain;display:block;}
@@ -251,19 +294,20 @@ html{scrollbar-gutter:stable;}
 .ph-mod-panel{
   display:flex;
   gap:48px;
-  align-items:center;
+  align-items:flex-start;
   background:var(--phr-white);
   border:1px solid var(--phr-border);
   border-radius:var(--phr-radius-lg);
   padding:44px 48px;
-  max-width:1040px;
+  max-width:1200px;
   margin:0 auto;
 }
 .ph-mod-panel-content{flex:1;display:flex;gap:24px;align-items:flex-start;min-width:0;}
-.ph-mod-panel-media{flex:0 0 380px;max-width:380px;}
+.ph-mod-panel-media{flex:0 0 460px;max-width:460px;align-self:stretch;}
 .ph-mod-ui-placeholder{
   width:100%;
-  aspect-ratio:4/3;
+  height:100%;
+  min-height:440px;
   border-radius:var(--phr-radius-md);
   border:1.5px dashed var(--phr-blue-200);
   background:var(--phr-blue-50);
@@ -275,8 +319,8 @@ html{scrollbar-gutter:stable;}
   text-align:center;
   padding:24px;
 }
-.ph-mod-ui-placeholder-icon{width:40px;height:40px;object-fit:contain;opacity:.6;}
-.ph-mod-ui-placeholder span{font-size:13px;font-weight:600;color:var(--phr-text-light);}
+.ph-mod-ui-placeholder-icon{width:52px;height:52px;object-fit:contain;opacity:.6;}
+.ph-mod-ui-placeholder span{font-size:14px;font-weight:600;color:var(--phr-text-light);}
 .ph-mod-panel-icon{
   flex:0 0 auto;
   width:56px;
@@ -291,7 +335,10 @@ html{scrollbar-gutter:stable;}
 .ph-mod-panel-body{min-width:0;}
 .ph-mod-panel-body h3{font-size:22px;font-weight:800;color:var(--phr-text-dark);margin:0 0 8px;}
 .ph-mod-panel-desc{font-size:15px;color:var(--phr-text-mid);line-height:1.6;margin:0 0 22px;}
-.ph-mod-panel-label{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--phr-text-light);margin:0 0 12px;}
+.ph-mod-panel-label{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--phr-text-light);margin:0 0 14px;}
+.ph-mod-outcome-group{margin-bottom:20px;}
+.ph-mod-outcome-group:last-child{margin-bottom:0;}
+.ph-mod-outcome-group-title{font-size:14.5px;font-weight:800;color:var(--phr-text-dark);margin:0 0 10px;}
 .ph-mod-outcomes{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;}
 .ph-mod-outcomes li{
   position:relative;
@@ -312,34 +359,13 @@ html{scrollbar-gutter:stable;}
 @media(max-width:860px){
   .ph-mod-panel{flex-direction:column;align-items:stretch;}
   .ph-mod-panel-media{flex:none;max-width:100%;order:-1;}
+  .ph-mod-ui-placeholder{height:auto;aspect-ratio:4/3;min-height:0;}
 }
 @media(max-width:640px){
   .ph-mod-tab span{display:none;}
   .ph-mod-tab{padding:10px;border-radius:50%;}
   .ph-mod-panel{padding:28px 24px;}
   .ph-mod-panel-content{flex-direction:column;}
-}
-
-/* --- 3. Core proposition value strip ------------------------------ */
-.ph-value-strip{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:24px;
-  margin-top:52px;
-  padding-top:40px;
-  border-top:1px solid var(--phr-border);
-}
-.ph-value-item{text-align:center;}
-.ph-value-item b{
-  display:block;
-  font-size:18px;
-  font-weight:800;
-  color:var(--phr-text-dark);
-  margin-bottom:6px;
-}
-.ph-value-item span{
-  font-size:14.5px;
-  color:var(--phr-text-mid);
 }
 
 /* --- "Replaces:" line (sections 4, 5, 7) --------------------------- */
@@ -354,34 +380,106 @@ html{scrollbar-gutter:stable;}
 /* --- 4. Compliance security strip ---------------------------------- */
 .ph-security-strip{justify-content:center;margin-top:40px;}
 
-/* --- 6. Industry relevance columns --------------------------------- */
-.ph-industry-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:32px;
+/* --- 6. Industry relevance: tabs, mirroring the module tabs pattern
+   (.ph-mod-tabs) with its own classes so neither can regress the
+   other. Each panel: value list left, relevant photo/placeholder
+   right. --------------------------------------------------------- */
+.ph-ind-tabs{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+  margin-top:44px;
 }
-.ph-industry-col h3{
-  font-size:18px;
+.ph-ind-tab{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  background:var(--phr-white);
+  border:1.5px solid var(--phr-border);
+  border-radius:100px;
+  padding:10px 20px 10px 16px;
+  font-family:inherit;
+  font-size:14px;
+  font-weight:700;
+  color:var(--phr-text-mid);
+  cursor:pointer;
+  transition:border-color var(--phr-transition),color var(--phr-transition),background var(--phr-transition);
+}
+.ph-ind-tab svg{width:20px;height:20px;flex-shrink:0;}
+.ph-ind-tab:hover{border-color:var(--phr-blue-200);color:var(--phr-blue-700);}
+.ph-ind-tab.is-active{background:var(--phr-blue-700);border-color:var(--phr-blue-700);color:var(--phr-white);}
+
+.ph-ind-panels{margin-top:40px;}
+.ph-ind-panel[hidden]{display:none;}
+.ph-ind-panel{
+  display:flex;
+  gap:48px;
+  align-items:stretch;
+  background:var(--phr-white);
+  border:1px solid var(--phr-border);
+  border-radius:var(--phr-radius-lg);
+  padding:44px 48px;
+  max-width:1040px;
+  margin:0 auto;
+}
+.ph-ind-panel-content{flex:1;min-width:0;}
+.ph-ind-panel-content h3{
+  font-size:20px;
   font-weight:800;
-  margin-bottom:16px;
-  padding-bottom:12px;
+  margin-bottom:20px;
+  padding-bottom:14px;
   border-bottom:2px solid var(--phr-blue-500);
 }
-.ph-industry-col ul{display:flex;flex-direction:column;gap:10px;}
-.ph-industry-col li{
-  font-size:14.5px;
+.ph-ind-panel-content ul{display:flex;flex-direction:column;gap:12px;}
+.ph-ind-panel-content li{
+  font-size:15px;
   color:var(--phr-text-mid);
-  padding-left:22px;
+  padding-left:24px;
   position:relative;
   line-height:1.5;
 }
-.ph-industry-col li::before{
+.ph-ind-panel-content li::before{
   content:'';
   position:absolute;
   left:0;top:7px;
-  width:8px;height:8px;
+  width:9px;height:9px;
   border-radius:2px;
   background:var(--phr-blue-500);
+}
+.ph-ind-panel-media{flex:0 0 380px;max-width:380px;}
+.ph-ind-panel-media img{
+  width:100%;
+  height:100%;
+  min-height:320px;
+  object-fit:cover;
+  border-radius:var(--phr-radius-md);
+  display:block;
+}
+.ph-ind-placeholder{
+  width:100%;
+  height:100%;
+  min-height:320px;
+  border-radius:var(--phr-radius-md);
+  border:1.5px dashed var(--phr-blue-200);
+  background:var(--phr-blue-50);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  color:var(--phr-text-light);
+}
+.ph-ind-placeholder span{font-size:13px;font-weight:600;}
+@media(max-width:860px){
+  .ph-ind-panel{flex-direction:column;}
+  .ph-ind-panel-media{max-width:100%;}
+  .ph-ind-panel-media img,.ph-ind-placeholder{min-height:240px;}
+}
+@media(max-width:640px){
+  .ph-ind-tab span{display:none;}
+  .ph-ind-tab{padding:10px;border-radius:50%;}
+  .ph-ind-panel{padding:28px 24px;}
 }
 
 /* --- 7. Interactive demo: card placed right, copy left, mirroring
@@ -400,64 +498,104 @@ html{scrollbar-gutter:stable;}
   .ph-demo-split .dg-hero-demo{width:100%;}
 }
 
+/* Play button -> "Start Demo" pill on hover. Overrides the shared
+   .dg-hero-play-btn (a plain circle) with a wider hit target that
+   morphs from icon-only to icon+label, scoped via .ph-demo-play-btn
+   so the shared class's default styling elsewhere is untouched. */
+.ph-demo-play-btn{
+  padding:0 !important;
+  font-size:inherit !important;
+  color:inherit !important;
+  gap:0;
+  overflow:hidden;
+  white-space:nowrap;
+  transition:width .35s cubic-bezier(.22,.61,.36,1),padding .35s cubic-bezier(.22,.61,.36,1),background .3s ease,transform .2s,box-shadow .2s;
+}
+.ph-demo-play-btn__icon{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  font-size:20px;
+  color:#2563eb;
+  padding-left:3px;
+  transition:color .3s ease;
+}
+.ph-demo-play-btn__label{
+  max-width:0;
+  opacity:0;
+  overflow:hidden;
+  font-size:14.5px;
+  font-weight:700;
+  color:#fff;
+  white-space:nowrap;
+  transition:max-width .35s cubic-bezier(.22,.61,.36,1),opacity .2s ease,margin-left .35s cubic-bezier(.22,.61,.36,1);
+}
+.dg-hero-demo-frame:hover .ph-demo-play-btn{
+  width:auto;
+  padding:0 26px 0 22px !important;
+  background:var(--phr-blue-500);
+  box-shadow:0 12px 40px rgba(37,99,235,.35);
+}
+.dg-hero-demo-frame:hover .ph-demo-play-btn__icon{color:#fff;}
+.dg-hero-demo-frame:hover .ph-demo-play-btn__label{max-width:140px;opacity:1;margin-left:10px;}
+
 /* --- 8. Lexi AI: two cards instead of the default three ------------ */
 .ph-lexi-two .phr-lexi__items{grid-template-columns:repeat(2,1fr);gap:48px;}
 .ph-lexi-header{margin-bottom:44px;}
 @media(max-width:960px){.ph-lexi-two .phr-lexi__items{grid-template-columns:1fr;}}
 
-/* --- 10. Customer proof: 6-col grid, 2 featured (span 3) + 3 compact
-   (span 2), so the strongest stories get a bigger card. -------------- */
+/* --- 10. Customer proof: same small case-study cards as customer-page
+   (.cs-card and friends, ported from customer-page/style.css — logo/
+   thumb/headline/teaser/metrics/tags/CTA), plus a "View More Case
+   Studies" link. Two real cards (Brandix, Pyramid Wilmar) reuse their
+   actual customer-page content/thumbnails/links; the other three use
+   the anonymized-style top row (icon + name) since they don't have a
+   dedicated case-study page or logo asset yet. ---------------------- */
 .ph-stats-bar{margin:0 0 64px;}
-.ph-proof-grid{
+.ph-cs-grid{
   display:grid;
-  grid-template-columns:repeat(6,1fr);
+  grid-template-columns:repeat(3,1fr);
   gap:20px;
-  margin-bottom:56px;
 }
-.ph-proof-card{
-  grid-column:span 2;
+.cs-card{
   background:var(--phr-white);
+  border-radius:16px;
   border:1px solid var(--phr-border);
-  border-radius:var(--phr-radius-md);
-  padding:28px;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  transition:box-shadow .2s,transform .2s;
 }
-.ph-proof-card--featured{
-  grid-column:span 3;
-  padding:36px 32px;
-}
-.ph-proof-stat{
-  font-size:32px;
-  font-weight:800;
-  color:var(--phr-blue-600);
-  line-height:1;
-  margin-bottom:6px;
-}
-.ph-proof-stat-label{
-  font-size:12px;
-  font-weight:700;
-  letter-spacing:.04em;
-  text-transform:uppercase;
-  color:var(--phr-text-light);
-  margin:0 0 18px;
-}
-.ph-proof-card h3{
-  font-size:17px;
-  font-weight:800;
-  margin-bottom:6px;
-}
-.ph-proof-card--featured h3{font-size:19px;}
-.ph-proof-card p{
-  font-size:14px;
-  color:var(--phr-text-mid);
-  line-height:1.6;
-}
-.ph-proof-meta{
-  font-size:12.5px !important;
-  font-weight:700;
-  color:var(--phr-blue-600) !important;
-  margin-bottom:10px;
-}
-.ph-proof-logos{padding-bottom:0;}
+.cs-card:hover{box-shadow:0 8px 32px rgba(13,27,62,.09);transform:translateY(-2px);}
+.cs-card-thumb{width:100%;height:190px;overflow:hidden;background:var(--phr-blue-50);flex-shrink:0;}
+.cs-card-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease;}
+.cs-card:hover .cs-card-thumb img{transform:scale(1.04);}
+.ph-cs-thumb-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--phr-text-light);}
+.ph-cs-thumb-placeholder span{font-size:12px;font-weight:600;}
+.cs-card-body{padding:20px 22px 22px;flex:1;display:flex;flex-direction:column;}
+.cs-card-top{display:flex;align-items:center;margin-bottom:14px;}
+.cs-card-logo{height:32px;width:auto;display:block;}
+.cs-card-anon{justify-content:space-between;gap:10px;}
+.cs-card-anon-left{display:flex;align-items:center;gap:10px;}
+.cs-card-anon-icon{width:34px;height:34px;flex-shrink:0;border-radius:8px;background:var(--phr-blue-50);display:flex;align-items:center;justify-content:center;color:var(--phr-blue-500);}
+.cs-card-anon-icon svg{width:17px;height:17px;}
+.cs-card-anon-industry{font-size:14px;font-weight:800;color:var(--phr-text-dark);}
+.cs-card-headline{font-size:14.5px;font-weight:700;color:var(--phr-text-dark);line-height:1.42;margin-bottom:10px;}
+.cs-card-teaser{font-size:13px;color:var(--phr-text-mid);line-height:1.6;margin-bottom:16px;flex:1;}
+.cs-card-metrics{display:flex;gap:16px;padding:14px 0;border-top:1px solid var(--phr-border);margin-bottom:14px;}
+.cs-card-metric-num{font-size:19px;font-weight:800;color:var(--phr-text-dark);letter-spacing:-.5px;line-height:1;}
+.cs-card-metric-label{font-size:10px;font-weight:500;color:var(--phr-text-light);margin-top:3px;line-height:1.3;}
+.cs-card-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto;padding-top:14px;border-top:1px solid var(--phr-border);}
+.cs-card-tags{display:flex;gap:4px;flex-wrap:wrap;}
+.cs-card-tag{font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:3px 8px;border-radius:5px;background:var(--phr-blue-30);color:var(--phr-text-mid);border:1px solid var(--phr-border);}
+.cs-card-cta{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:var(--phr-blue-500);text-decoration:none;white-space:nowrap;transition:gap .14s;flex-shrink:0;}
+.cs-card-cta:hover{gap:8px;}
+.cs-card-cta svg{width:13px;height:13px;}
+.ph-cs-more{text-align:center;margin-top:44px;}
+.ph-cs-more .btn-outline{display:inline-flex;}
+@media(max-width:900px){.ph-cs-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:640px){.ph-cs-grid{grid-template-columns:1fr;}}
 
 /* --- 7. Problem -> solution table ----------------------------------- */
 .ph-solution-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
@@ -494,41 +632,59 @@ html{scrollbar-gutter:stable;}
 .ph-solution-table td:last-child{color:var(--phr-blue-700);}
 .ph-solution-table tbody tr:hover{background:var(--phr-blue-50);}
 
-/* --- 11. Filipino customer voices: video left, quotes right --------- */
-.ph-voices-split{display:flex;gap:56px;align-items:flex-start;margin-top:8px;}
+/* --- 11. Filipino customer voices: video left, quotes right as a
+   3-col grid of square-ish cards (up to 4-5 rows). Section gets its
+   own wider page-wrap so the grid has room alongside the 9:16 video
+   without cramping either. ------------------------------------------ */
+.ph-voices-section .page-wrap{max-width:1440px;}
+.ph-voices-split{display:flex;gap:48px;align-items:flex-start;margin-top:8px;}
 .ph-voices-video{flex:0 0 300px;max-width:300px;}
 .ph-voices-video .cs-vid-card{aspect-ratio:9/16;}
 .ph-voices-video-note{font-size:12px;color:var(--phr-text-light);text-align:center;margin:10px 0 0;font-style:italic;}
-.ph-voices-quotes{flex:1;display:flex;flex-direction:column;gap:20px;min-width:0;}
+.ph-voices-quotes{
+  flex:1;
+  min-width:0;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+  align-content:start;
+}
 .ph-voice-quote{
   position:relative;
   background:var(--phr-white);
   border:1px solid var(--phr-border);
   border-radius:var(--phr-radius-md);
-  padding:26px 26px 22px;
+  padding:20px 20px 18px;
   margin:0;
+  display:flex;
+  flex-direction:column;
+  aspect-ratio:1/1;
   transition:box-shadow var(--phr-transition),border-color var(--phr-transition);
 }
 .ph-voice-quote:hover{box-shadow:var(--phr-shadow-hover);border-color:var(--phr-blue-200);}
-.ph-voice-quote-mark{color:var(--phr-blue-200);display:block;margin-bottom:10px;}
+.ph-voice-quote-mark{color:var(--phr-blue-200);display:block;margin-bottom:8px;flex-shrink:0;}
 .ph-voice-quote p{
-  font-size:15px;
+  font-size:13px;
   color:var(--phr-text-dark);
-  line-height:1.6;
-  margin:0 0 20px;
+  line-height:1.5;
+  margin:0;
   font-style:italic;
+  flex:1;
+  overflow:hidden;
 }
 .ph-voice-quote footer{
   display:flex;
   align-items:center;
-  gap:12px;
-  padding-top:16px;
+  gap:10px;
+  padding-top:12px;
+  margin-top:12px;
   border-top:1px solid var(--phr-border);
   font-style:normal;
+  flex-shrink:0;
 }
 .ph-voice-avatar{
-  width:42px;
-  height:42px;
+  width:32px;
+  height:32px;
   border-radius:50%;
   background:var(--phr-blue-50);
   color:var(--phr-blue-500);
@@ -537,12 +693,19 @@ html{scrollbar-gutter:stable;}
   justify-content:center;
   flex-shrink:0;
 }
-.ph-voice-attribution{display:flex;flex-direction:column;gap:2px;}
-.ph-voice-attribution strong{font-size:13.5px;font-weight:700;color:var(--phr-text-dark);}
-.ph-voice-attribution span{font-size:12.5px;color:var(--phr-text-light);}
+.ph-voice-avatar svg{width:16px;height:16px;}
+.ph-voice-attribution{display:flex;flex-direction:column;gap:1px;min-width:0;}
+.ph-voice-attribution strong{font-size:12px;font-weight:700;color:var(--phr-text-dark);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ph-voice-attribution span{font-size:11px;color:var(--phr-text-light);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+@media(max-width:1100px){.ph-voices-quotes{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:900px){
   .ph-voices-split{flex-direction:column;align-items:center;}
   .ph-voices-video{max-width:260px;}
+  .ph-voices-quotes{width:100%;}
+}
+@media(max-width:520px){
+  .ph-voices-quotes{grid-template-columns:1fr;}
+  .ph-voice-quote{aspect-ratio:auto;}
 }
 
 /* --- Video card component + modal, ported from customer-page's
@@ -601,7 +764,7 @@ html{scrollbar-gutter:stable;}
 .wb-modal-iframe-wrap iframe{position:absolute;inset:0;width:100%;height:100%;}
 .wb-modal-title{padding:14px 20px;font-size:13px;font-weight:600;color:rgba(255,255,255,.75);background:#111;line-height:1.4;}
 
-/* --- 12/13. Timeline + Final CTA ------------------------------------- */
+/* --- 12. Implementation timeline ------------------------------------- */
 .ph-proof-line{
   font-size:14px;
   font-style:italic;
@@ -609,17 +772,11 @@ html{scrollbar-gutter:stable;}
   margin:20px auto 0;
   max-width:640px;
 }
-.ph-final-cta-section .phr-getstarted-wrapper{padding-top:64px;}
-.ph-reassurance{
-  font-size:13px;
-  color:rgba(255,255,255,.55);
-  margin-top:14px;
-}
 
-/* --- 14. FAQ ---------------------------------------------------------- */
+/* --- 13. FAQ ---------------------------------------------------------- */
 .ph-faq-section .phr-faq-item__trigger span:first-child{flex:1;}
 
-/* --- 15. Form CTA: headline left, form (placeholder for now) right ---- */
+/* --- 14. Form CTA: headline left, form (placeholder for now) right ---- */
 .ph-form-cta-section{background:var(--phr-blue-30);}
 .ph-form-cta-split{display:flex;align-items:flex-start;gap:64px;}
 .ph-form-cta-copy{flex:1;max-width:440px;padding-top:8px;}
@@ -681,8 +838,6 @@ html{scrollbar-gutter:stable;}
   .ph-proof-card,.ph-proof-card--featured{grid-column:span 1;}
 }
 @media(max-width:768px){
-  .ph-value-strip{grid-template-columns:1fr;gap:28px;}
-  .ph-industry-grid{grid-template-columns:1fr;gap:36px;}
   .ph-proof-grid{grid-template-columns:1fr;}
   .ph-proof-card,.ph-proof-card--featured{grid-column:span 1;}
 }

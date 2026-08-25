@@ -30,6 +30,50 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
      (ProductsPage.initFaq targets .phr-faq-item__trigger site-wide) —
      nothing to add here, just reusing the shared .phr-faq markup. */
 
+  /* Problem carousel — "merry go round": 7 cards stay in the DOM, this
+     just recomputes each card's transform/opacity every tick from its
+     circular distance to the current center index. Advances right to
+     left (distance decreases each tick, so a card at +1 moves to 0,
+     then to -1 and off the left edge) and pauses on hover. */
+  var carousel = document.getElementById('phProblemCarousel');
+  if(carousel){
+    var carouselCards = Array.prototype.slice.call(carousel.querySelectorAll('.ph-carousel-card'));
+    var total = carouselCards.length;
+    var current = 0;
+    var SPACING = 244;
+    var renderCarousel = function(){
+      carouselCards.forEach(function(card, i){
+        var d = i - current;
+        if(d > total / 2) d -= total;
+        if(d < -total / 2) d += total;
+        var absD = Math.abs(d);
+        var scale = absD === 0 ? 1 : absD === 1 ? 0.82 : absD === 2 ? 0.66 : 0.52;
+        var opacity = absD === 0 ? 1 : absD === 1 ? 0.55 : absD === 2 ? 0.25 : 0;
+        card.style.transform = 'translate(-50%, -50%) translateX(' + (d * SPACING) + 'px) scale(' + scale + ')';
+        card.style.opacity = opacity;
+        card.style.zIndex = 10 - absD;
+        card.style.pointerEvents = absD > 2 ? 'none' : '';
+        card.classList.toggle('is-center', d === 0);
+      });
+    };
+    renderCarousel();
+
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(!reduceMotion){
+      var carouselTimer;
+      var startCarousel = function(){
+        carouselTimer = setInterval(function(){
+          current = (current + 1) % total;
+          renderCarousel();
+        }, 3000);
+      };
+      var stopCarousel = function(){ clearInterval(carouselTimer); };
+      startCarousel();
+      carousel.addEventListener('mouseenter', stopCarousel);
+      carousel.addEventListener('mouseleave', startCarousel);
+    }
+  }
+
   /* Modules tabs — click a tab, show its panel, hide the rest. */
   var modTabs = document.querySelectorAll('.ph-mod-tab');
   modTabs.forEach(function(tab){
@@ -42,6 +86,26 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
       });
       document.querySelectorAll('.ph-mod-panel').forEach(function(panel){
         var isActive = panel.getAttribute('data-mod-panel') === target;
+        panel.classList.toggle('is-active', isActive);
+        panel.hidden = !isActive;
+      });
+    });
+  });
+
+  /* Industry tabs — same click/show/hide pattern as the modules tabs
+     above, kept as a separate block (own classes) so neither can
+     regress the other. */
+  var indTabs = document.querySelectorAll('.ph-ind-tab');
+  indTabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      var target = tab.getAttribute('data-ind-tab');
+      indTabs.forEach(function(t){
+        var isActive = t === tab;
+        t.classList.toggle('is-active', isActive);
+        t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+      document.querySelectorAll('.ph-ind-panel').forEach(function(panel){
+        var isActive = panel.getAttribute('data-ind-panel') === target;
         panel.classList.toggle('is-active', isActive);
         panel.hidden = !isActive;
       });
