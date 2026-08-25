@@ -83,7 +83,21 @@ html{scrollbar-gutter:stable;}
    defines the icon containers but not a default icon color) ------- */
 .warn-icon{color:#ef4444;}
 
-/* --- 1. Hero: text left, image right + CTA + trust strip ---------- */
+/* --- 1. Hero: green tint + bottom semicircle fade to white -------- */
+.phr-hero{background:linear-gradient(160deg,#EEF6F0 0%,#F5FAF6 55%,#E9F5EC 100%);}
+.phr-hero::after{
+  content:'';
+  position:absolute;
+  bottom:0;
+  left:50%;
+  width:1800px;
+  height:560px;
+  transform:translate(-50%,50%);
+  border-radius:50%;
+  background:radial-gradient(ellipse at center,rgba(255,255,255,.95) 0%,rgba(255,255,255,.6) 45%,rgba(255,255,255,0) 75%);
+  pointer-events:none;
+  z-index:1;
+}
 .phr-hero__split{justify-content:space-between;gap:56px;}
 .phr-hero__copy{max-width:560px;}
 .phr-hero__visual{flex:1;max-width:480px;width:100%;}
