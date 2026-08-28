@@ -150,10 +150,17 @@
 .pc-cmp-layout::before{content:"";position:absolute;top:0;bottom:0;left:calc(var(--nav-w) + 10px);border-right:1px solid var(--line)}
 .pc-right-col{min-width:0}
 /* it's a <nav> element, so it also picks up the shared boilerplate's
-   bare nav{} rule (sticky, height:64px, border-bottom, etc. — meant
-   for the old unprefixed site header) unless every property that rule
-   sets is overridden here */
-.pc-cmp-nav{position:sticky;top:120px;z-index:20;height:auto;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:2px;background:transparent;backdrop-filter:none;border-bottom:0}
+   bare nav:not(.nv-root nav){} rule (sticky, height:64px, etc. — meant
+   for the old unprefixed site header). That selector's :not() argument
+   carries a class, so its specificity (0,1,2) actually beats a plain
+   .pc-cmp-nav (0,1,0) despite the property list below trying to zero
+   every one of its properties out — height:auto and top:120px silently
+   lost that fight, leaving the real box only 64px tall with the
+   buttons rendering past it via overflow, which is what let the module
+   nav appear to drag on past the end of the table into the Enterprise
+   section. Scoping under .pc-scope adds the second class needed to
+   actually win. */
+.pc-scope .pc-cmp-nav{position:sticky;top:120px;z-index:20;height:auto;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:2px;background:transparent;backdrop-filter:none;border-bottom:0}
 /* module nav (HR, Pay, Time...) and the standout-capability nav
    (Lexi Ai, Mobile App...) share .pc-cmp-nav's sticky/layout base but
    can have independent top/bottom padding via their own ids */
@@ -173,7 +180,7 @@
 @media(max-width:900px){
   .pc-cmp-layout{grid-template-columns:1fr}
   .pc-cmp-layout::before{display:none}
-  .pc-cmp-nav{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:6px}
+  .pc-scope .pc-cmp-nav{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:6px}
   .pc-cmp-nav button{width:auto}
   /* #pcStandoutNav's 110px padding only makes sense centering a short
      nav beside a much taller sticky desktop panel — once the layout

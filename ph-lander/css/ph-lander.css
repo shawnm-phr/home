@@ -94,6 +94,149 @@ html{scrollbar-gutter:stable;}
    defines the icon containers but not a default icon color) ------- */
 .warn-icon{color:#ef4444;}
 
+/* --- 3. The Problem: intro split (copy + "payroll chaos" composition)
+   The composition is 3 real UI screenshots (dropped in later at the
+   /images/payroll-ui-*.png paths below) plus data-driven notification
+   cards (content array lives in ph-lander.js, positions/rotation/
+   timing live here per index via .ph-chaos-alert--N). All movement
+   uses one parameterised keyframe (--rot/--fx/--fy/--rd custom props
+   per element) so speed/direction differs without duplicating
+   @keyframes, and --scale lets mobile halve the travel distance by
+   just being inherited from .ph-chaos, no JS viewport checks. ------ */
+.ph-problem-intro{
+  display:flex;
+  align-items:center;
+  gap:56px;
+  margin-bottom:64px;
+}
+.ph-problem-intro-copy{flex:0 0 420px;max-width:420px;}
+.ph-problem-intro-copy .phr-section__sub{margin:16px 0 0;}
+
+.ph-chaos{
+  position:relative;
+  flex:1;
+  max-width:680px;
+  min-width:0;
+  min-height:560px;
+}
+.ph-chaos-glow{position:absolute;border-radius:50%;filter:blur(50px);pointer-events:none;z-index:0;}
+.ph-chaos-glow--main{width:70%;height:70%;top:8%;left:15%;background:radial-gradient(circle,rgba(99,102,241,.16) 0%,transparent 70%);}
+.ph-chaos-glow--error{width:220px;height:220px;top:-4%;right:4%;background:radial-gradient(circle,rgba(239,68,68,.14) 0%,transparent 70%);}
+.ph-chaos-glow--warn{width:200px;height:200px;bottom:4%;left:-2%;background:radial-gradient(circle,rgba(245,158,11,.14) 0%,transparent 70%);}
+.ph-chaos-connector{position:absolute;color:var(--phr-border);opacity:.7;pointer-events:none;z-index:1;}
+.ph-chaos-connector--1{top:4%;left:0%;width:210px;}
+.ph-chaos-connector--2{bottom:8%;right:-2%;width:170px;}
+.ph-chaos-particle{position:absolute;border-radius:50%;filter:blur(2px);pointer-events:none;z-index:1;}
+.ph-chaos-particle--1{width:8px;height:8px;background:rgba(239,68,68,.4);top:20%;right:28%;}
+.ph-chaos-particle--2{width:6px;height:6px;background:rgba(245,158,11,.5);bottom:16%;left:36%;}
+
+@keyframes ph-chaos-float{
+  0%,100%{transform:translate(0,0) rotate(var(--rot,0deg));}
+  50%{transform:translate(calc(var(--fx,6px) * var(--scale,1)),calc(var(--fy,-6px) * var(--scale,1))) rotate(calc(var(--rot,0deg) + var(--rd,.5deg)));}
+}
+.ph-chaos-ui{
+  position:absolute;
+  border-radius:12px;
+  background:var(--phr-white);
+  box-shadow:0 24px 60px rgba(20,29,48,.12),0 8px 24px rgba(20,29,48,.08);
+  overflow:hidden;
+  animation:ph-chaos-float 7s ease-in-out infinite;
+}
+.ph-chaos-ui img{display:block;width:100%;height:100%;object-fit:contain;}
+.ph-chaos-ui--secondary{
+  width:45%;aspect-ratio:16/10;top:0%;left:-4%;
+  --rot:-5deg;--fx:-8px;--fy:6px;
+  z-index:2;box-shadow:0 16px 40px rgba(20,29,48,.10);
+  animation-duration:6.5s;animation-delay:.4s;
+}
+.ph-chaos-ui--tertiary{
+  width:42%;aspect-ratio:16/10;bottom:12%;right:-3%;
+  --rot:4deg;--fx:7px;--fy:7px;
+  z-index:3;box-shadow:0 16px 40px rgba(20,29,48,.10);
+  animation-duration:7.5s;animation-delay:1s;
+}
+.ph-chaos-ui--main{
+  width:72%;aspect-ratio:16/10;top:22%;left:14%;
+  --rot:-1deg;--fx:6px;--fy:-7px;
+  z-index:5;
+  animation-duration:8s;
+}
+
+.ph-chaos-alerts{position:absolute;inset:0;}
+.ph-chaos-alert{
+  position:absolute;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:var(--phr-white);
+  border:1px solid var(--phr-border);
+  border-radius:12px;
+  box-shadow:0 24px 60px rgba(20,29,48,.12),0 8px 24px rgba(20,29,48,.08);
+  padding:9px 14px 9px 12px;
+  font-size:12.5px;
+  font-weight:600;
+  color:var(--phr-text-dark);
+  white-space:nowrap;
+  animation:ph-chaos-float 6s ease-in-out infinite;
+}
+.ph-chaos-alert--error{border-left:3px solid #ef4444;}
+.ph-chaos-alert--warn{border-left:3px solid #f59e0b;}
+.ph-chaos-alert-icon{display:flex;align-items:center;justify-content:center;flex-shrink:0;width:17px;height:17px;}
+.ph-chaos-alert-icon svg{width:16px;height:16px;}
+.ph-chaos-alert--error .ph-chaos-alert-icon svg{color:#ef4444;}
+.ph-chaos-alert--warn .ph-chaos-alert-icon svg{color:#f59e0b;}
+.ph-chaos-alert-icon--dot{width:8px;height:8px;border-radius:50%;}
+.ph-chaos-alert--error .ph-chaos-alert-icon--dot{background:#ef4444;}
+.ph-chaos-alert--warn .ph-chaos-alert-icon--dot{background:#f59e0b;}
+
+/* Per-notification position, rotation, timing (index order matches
+   the CHAOS_ALERTS array in ph-lander.js) — see the brief's suggested
+   arrangement for what each one is doing spatially. */
+.ph-chaos-alert--1{top:10%;right:6%;z-index:7;--rot:-3deg;--fx:6px;--fy:-8px;animation-duration:6.5s;}
+.ph-chaos-alert--2{top:34%;left:0%;z-index:1;--rot:2deg;--fx:-5px;--fy:6px;animation-duration:8s;animation-delay:.8s;}
+.ph-chaos-alert--3{top:4%;left:20%;z-index:6;--rot:-2deg;--fx:7px;--fy:5px;animation-duration:5.5s;animation-delay:.3s;}
+.ph-chaos-alert--4{bottom:22%;left:4%;z-index:6;--rot:3deg;--fx:-6px;--fy:-6px;animation-duration:7s;animation-delay:1.2s;}
+.ph-chaos-alert--5{top:48%;right:-6%;z-index:4;--rot:-4deg;--fx:5px;--fy:8px;animation-duration:6s;animation-delay:.5s;font-size:11.5px;padding:7px 11px 7px 10px;}
+.ph-chaos-alert--6{bottom:0%;left:36%;z-index:6;--rot:1deg;--fx:-7px;--fy:4px;animation-duration:7.5s;animation-delay:1.6s;}
+.ph-chaos-alert--7{top:-4%;left:26%;z-index:6;--rot:-1deg;--fx:4px;--fy:-6px;animation-duration:5s;animation-delay:.2s;}
+.ph-chaos-alert--8{
+  top:46%;left:40%;z-index:8;--rot:2deg;--fx:-5px;--fy:5px;animation-duration:6.8s;animation-delay:1s;
+  animation-name:ph-chaos-float,ph-chaos-pulse;animation-duration:6.8s,5s;animation-delay:1s,2.5s;animation-iteration-count:infinite,infinite;animation-timing-function:ease-in-out,ease-in-out;
+}
+@keyframes ph-chaos-pulse{
+  0%,88%,100%{box-shadow:0 24px 60px rgba(20,29,48,.12),0 8px 24px rgba(20,29,48,.08);}
+  94%{box-shadow:0 0 0 5px rgba(239,68,68,.16),0 24px 60px rgba(20,29,48,.12),0 8px 24px rgba(20,29,48,.08);}
+}
+
+.ph-chaos:hover .ph-chaos-ui,
+.ph-chaos:hover .ph-chaos-alert{animation-play-state:paused;}
+@media(prefers-reduced-motion:reduce){
+  .ph-chaos-ui,.ph-chaos-alert{animation:none;}
+}
+
+@media(max-width:900px){
+  .ph-problem-intro{flex-direction:column;align-items:stretch;gap:36px;}
+  .ph-problem-intro-copy{max-width:100%;flex:none;text-align:center;}
+  .ph-problem-intro-copy .phr-section__sub{margin-left:auto;margin-right:auto;}
+  .ph-chaos{max-width:520px;min-height:460px;margin:0 auto;width:100%;}
+  .ph-chaos-alert--5{right:0%;}
+  .ph-chaos-alert--7{top:0%;}
+}
+@media(max-width:640px){
+  .ph-chaos{--scale:.5;min-height:380px;}
+  .ph-chaos-ui--main{width:90%;left:5%;top:24%;}
+  .ph-chaos-ui--secondary{width:46%;top:0%;left:0%;}
+  .ph-chaos-ui--tertiary{width:44%;bottom:10%;right:0%;}
+  .ph-chaos-alert{font-size:11px;padding:7px 11px 7px 9px;}
+  .ph-chaos-alert--2,.ph-chaos-alert--6,.ph-chaos-alert--7{display:none;}
+  .ph-chaos-connector{display:none;}
+  .ph-chaos-alert--1{--rot:-2deg;}
+  .ph-chaos-alert--3{--rot:-1deg;top:0%;}
+  .ph-chaos-alert--4{--rot:2deg;}
+  .ph-chaos-alert--5{--rot:-2deg;right:0%;top:54%;}
+  .ph-chaos-alert--8{--rot:1deg;}
+}
+
 /* --- 3. The Problem: auto-rotating "merry go round" carousel -------
    7 cards live in the DOM at all times; ph-lander.js recomputes each
    card's transform/opacity every tick based on its circular distance

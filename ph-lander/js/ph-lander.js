@@ -74,6 +74,46 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
     }
   }
 
+  /* Payroll-chaos composition — notification content lives here as
+     data and gets rendered into DOM nodes; each alert's on-screen
+     POSITION/rotation/timing comes from its .ph-chaos-alert--N class
+     in ph-lander.css (index-based, N = array position + 1), so this
+     stays pure content rendering with no layout logic or viewport
+     checks. Motion is handled entirely by CSS (hover-pause and
+     prefers-reduced-motion both live in the stylesheet). */
+  var chaos = document.getElementById('phChaos');
+  var chaosAlertsHost = document.getElementById('phChaosAlerts');
+  if(chaos && chaosAlertsHost){
+    var CHAOS_ALERTS = [
+      {text:'Formula Error', tone:'error', icon:'circle'},
+      {text:'Calculation Mismatch', tone:'error', icon:'dot'},
+      {text:'Missing Attendance Data', tone:'warn', icon:'triangle'},
+      {text:'Manual Adjustment Required', tone:'warn', icon:'triangle'},
+      {text:'Overtime Pending Approval', tone:'warn', icon:'dot'},
+      {text:'Employee Record Incomplete', tone:'warn', icon:'triangle'},
+      {text:'Payroll Deadline: Today', tone:'error', icon:'dot'},
+      {text:'5 Calculation Errors Found', tone:'error', icon:'circle'}
+    ];
+    var ICON_SVG = {
+      triangle: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 22 20H2Z"/><path d="M12 9.5v4.5"/><circle cx="12" cy="17" r=".6" fill="currentColor" stroke="none"/></svg>',
+      circle: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><circle cx="12" cy="16" r=".6" fill="currentColor" stroke="none"/></svg>'
+    };
+    CHAOS_ALERTS.forEach(function(alert, i){
+      var el = document.createElement('div');
+      el.className = 'ph-chaos-alert ph-chaos-alert--' + (i + 1) + ' ph-chaos-alert--' + alert.tone;
+      var icon = document.createElement('span');
+      icon.setAttribute('aria-hidden', 'true');
+      icon.className = 'ph-chaos-alert-icon' + (alert.icon === 'dot' ? ' ph-chaos-alert-icon--dot' : '');
+      if(ICON_SVG[alert.icon]) icon.innerHTML = ICON_SVG[alert.icon];
+      var label = document.createElement('span');
+      label.className = 'ph-chaos-alert-text';
+      label.textContent = alert.text;
+      el.appendChild(icon);
+      el.appendChild(label);
+      chaosAlertsHost.appendChild(el);
+    });
+  }
+
   /* Modules tabs — click a tab, show its panel, hide the rest. */
   var modTabs = document.querySelectorAll('.ph-mod-tab');
   modTabs.forEach(function(tab){
