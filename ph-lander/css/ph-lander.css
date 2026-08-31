@@ -473,15 +473,6 @@ html{scrollbar-gutter:stable;}
   .ph-mod-panel-content{flex-direction:column;}
 }
 
-/* --- "Replaces:" line (sections 4, 5, 7) --------------------------- */
-.ph-replaces{
-  font-size:13px;
-  font-weight:700;
-  color:#c2410c;
-  margin:2px 0 10px;
-}
-.ph-replaces--dark{color:#fbbf24;}
-
 /* --- 4. Compliance security strip ---------------------------------- */
 .ph-security-strip{justify-content:center;margin-top:40px;}
 
@@ -770,11 +761,6 @@ html{scrollbar-gutter:stable;}
 }
 .dg-hero-demo-frame:hover .ph-demo-play-btn__icon{color:#fff;}
 .dg-hero-demo-frame:hover .ph-demo-play-btn__label{max-width:140px;opacity:1;margin-left:10px;}
-
-/* --- 8. Lexi AI: two cards instead of the default three ------------ */
-.ph-lexi-two .phr-lexi__items{grid-template-columns:repeat(2,1fr);gap:48px;}
-.ph-lexi-header{margin-bottom:44px;}
-@media(max-width:960px){.ph-lexi-two .phr-lexi__items{grid-template-columns:1fr;}}
 
 /* --- 10. Customer proof: same small case-study cards as customer-page
    (.cs-card and friends, ported from customer-page/style.css — logo/
