@@ -485,67 +485,51 @@ html{scrollbar-gutter:stable;}
 /* --- 4. Compliance security strip ---------------------------------- */
 .ph-security-strip{justify-content:center;margin-top:40px;}
 
-/* --- 6. Lexi AI Insights: tabs, mirroring the module/industry tabs
-   pattern (.ph-mod-tabs/.ph-ind-tabs) with its own classes so neither
-   can regress the other. Each panel: audience label + headline + desc
-   + checklist left, UI placeholder right. --------------------------- */
-.ph-lexi-ins-tabs{
+/* --- 6. Lexi AI Insights: deliberately NOT the tab-row-above-a-card
+   pattern used by .ph-mod-tabs/.ph-ind-tabs (this section sits right
+   under the modules section, so re-running that exact layout back to
+   back read as repetitive). Instead: a vertical numbered stepper rail
+   left, plain unboxed content right — own classes throughout so none
+   of the three tab patterns can regress each other. ------------------ */
+.ph-lexi-ins-layout{
   display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:10px;
-  margin-top:44px;
-}
-.ph-lexi-ins-tab{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  background:var(--phr-white);
-  border:1.5px solid var(--phr-border);
-  border-radius:100px;
-  padding:8px 22px 8px 8px;
-  font-family:inherit;
-  font-size:14px;
-  font-weight:700;
-  color:var(--phr-text-mid);
-  cursor:pointer;
-  transition:border-color var(--phr-transition),color var(--phr-transition),background var(--phr-transition);
-}
-.ph-lexi-ins-tab-num{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-shrink:0;
-  width:26px;height:26px;
-  border-radius:50%;
-  background:var(--phr-blue-50);
-  color:var(--phr-blue-700);
-  font-size:12px;
-  font-weight:800;
-  transition:background var(--phr-transition),color var(--phr-transition);
-}
-.ph-lexi-ins-tab:hover{border-color:var(--phr-blue-200);color:var(--phr-blue-700);}
-.ph-lexi-ins-tab.is-active{background:var(--phr-blue-700);border-color:var(--phr-blue-700);color:var(--phr-white);}
-.ph-lexi-ins-tab.is-active .ph-lexi-ins-tab-num{background:var(--phr-white);color:var(--phr-blue-700);}
-
-.ph-lexi-ins-panels{margin-top:40px;}
-.ph-lexi-ins-panel[hidden]{display:none;}
-.ph-lexi-ins-panel{
-  display:flex;
-  gap:48px;
-  align-items:center;
-  background:var(--phr-white);
-  border:1px solid var(--phr-border);
-  border-radius:var(--phr-radius-lg);
-  padding:44px 48px;
+  gap:56px;
+  align-items:flex-start;
+  margin-top:48px;
   max-width:1120px;
-  margin:0 auto;
+  margin-left:auto;
+  margin-right:auto;
 }
-.ph-lexi-ins-panel-content{flex:1;min-width:0;}
-.ph-lexi-ins-eyebrow{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--phr-blue-700);margin:0 0 12px;}
-.ph-lexi-ins-panel-content h3{font-size:24px;font-weight:800;color:var(--phr-text-dark);line-height:1.3;margin:0 0 14px;}
-.ph-lexi-ins-desc{font-size:15.5px;color:var(--phr-text-mid);line-height:1.6;margin:0 0 26px;}
-.ph-lexi-ins-checks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;}
+.ph-lexi-ins-nav{flex:0 0 300px;display:flex;flex-direction:column;}
+.ph-lexi-ins-navitem{
+  display:flex;
+  align-items:flex-start;
+  gap:16px;
+  text-align:left;
+  background:none;
+  border:none;
+  border-left:2px solid var(--phr-border);
+  padding:16px 0 16px 22px;
+  font-family:inherit;
+  cursor:pointer;
+  transition:border-color var(--phr-transition);
+}
+.ph-lexi-ins-navitem-num{flex-shrink:0;font-size:13px;font-weight:800;color:var(--phr-text-light);transition:color var(--phr-transition);}
+.ph-lexi-ins-navitem-body{display:flex;flex-direction:column;gap:4px;}
+.ph-lexi-ins-navitem-title{font-size:16px;font-weight:800;color:var(--phr-text-mid);transition:color var(--phr-transition);}
+.ph-lexi-ins-navitem-sub{font-size:13.5px;color:var(--phr-text-light);line-height:1.4;}
+.ph-lexi-ins-navitem:hover .ph-lexi-ins-navitem-title{color:var(--phr-blue-700);}
+.ph-lexi-ins-navitem.is-active{border-left-color:var(--phr-blue-700);}
+.ph-lexi-ins-navitem.is-active .ph-lexi-ins-navitem-num{color:var(--phr-blue-700);}
+.ph-lexi-ins-navitem.is-active .ph-lexi-ins-navitem-title{color:var(--phr-text-dark);}
+
+.ph-lexi-ins-panels{flex:1;min-width:0;}
+.ph-lexi-ins-panel[hidden]{display:none;}
+.ph-lexi-ins-badge{width:44px;height:44px;border-radius:12px;background:var(--phr-blue-50);display:flex;align-items:center;justify-content:center;margin-bottom:22px;}
+.ph-lexi-ins-badge img{width:22px;height:22px;object-fit:contain;}
+.ph-lexi-ins-panel h3{font-size:26px;font-weight:800;color:var(--phr-text-dark);line-height:1.3;margin:0 0 14px;max-width:560px;}
+.ph-lexi-ins-desc{font-size:16px;color:var(--phr-text-mid);line-height:1.6;margin:0 0 28px;max-width:560px;}
+.ph-lexi-ins-checks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;}
 .ph-lexi-ins-checks li{
   position:relative;
   padding-left:32px;
@@ -570,15 +554,17 @@ html{scrollbar-gutter:stable;}
   border-bottom:2px solid var(--phr-blue-700);
   transform:rotate(-45deg);
 }
-.ph-lexi-ins-panel-media{flex:0 0 420px;max-width:420px;align-self:stretch;}
 @media(max-width:860px){
-  .ph-lexi-ins-panel{flex-direction:column;align-items:stretch;}
-  .ph-lexi-ins-panel-media{flex:none;max-width:100%;order:-1;}
+  .ph-lexi-ins-layout{flex-direction:column;gap:8px;}
+  .ph-lexi-ins-nav{flex:0 0 auto;flex-direction:row;flex-wrap:wrap;width:100%;}
+  .ph-lexi-ins-navitem{border-left:none;border-bottom:2px solid var(--phr-border);padding:12px 16px;flex:1 1 auto;justify-content:center;}
+  .ph-lexi-ins-navitem.is-active{border-left-color:transparent;border-bottom-color:var(--phr-blue-700);}
+  .ph-lexi-ins-navitem-sub{display:none;}
+  .ph-lexi-ins-panels{margin-top:32px;}
 }
 @media(max-width:640px){
-  .ph-lexi-ins-tab span:not(.ph-lexi-ins-tab-num){display:none;}
-  .ph-lexi-ins-tab{padding:8px;border-radius:50%;}
-  .ph-lexi-ins-panel{padding:28px 24px;}
+  .ph-lexi-ins-panel h3{font-size:22px;}
+  .ph-lexi-ins-navitem{padding:10px 12px;gap:10px;}
 }
 
 /* --- 7. Industry relevance: tabs, mirroring the module tabs pattern

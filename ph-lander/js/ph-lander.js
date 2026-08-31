@@ -111,7 +111,7 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
   /* Lexi AI Insights tabs — same click/show/hide pattern as the modules
      and industry tabs above, kept as a separate block (own classes) so
      neither can regress the other. */
-  var lexiInsTabs = document.querySelectorAll('.ph-lexi-ins-tab');
+  var lexiInsTabs = document.querySelectorAll('.ph-lexi-ins-navitem');
   lexiInsTabs.forEach(function(tab){
     tab.addEventListener('click', function(){
       var target = tab.getAttribute('data-lexi-ins-tab');
