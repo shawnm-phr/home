@@ -120,7 +120,7 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
         t.classList.toggle('is-active', isActive);
         t.setAttribute('aria-selected', isActive ? 'true' : 'false');
       });
-      document.querySelectorAll('.ph-lexi-ins-panel').forEach(function(panel){
+      document.querySelectorAll('.ph-lexi-ins-panel, .ph-lexi-ins-video-panel').forEach(function(panel){
         var isActive = panel.getAttribute('data-lexi-ins-panel') === target;
         panel.classList.toggle('is-active', isActive);
         panel.hidden = !isActive;

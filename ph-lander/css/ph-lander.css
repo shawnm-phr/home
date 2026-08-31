@@ -525,10 +525,12 @@ html{scrollbar-gutter:stable;}
 
 .ph-lexi-ins-panels{flex:1;min-width:0;}
 .ph-lexi-ins-panel[hidden]{display:none;}
+
+.ph-lexi-ins-video-panels{max-width:1120px;margin:40px auto 0;}
+.ph-lexi-ins-video-panel[hidden]{display:none;}
 .ph-lexi-ins-video{
   position:relative;
-  max-width:640px;
-  margin:0 0 28px;
+  width:100%;
   aspect-ratio:16/9;
   border-radius:var(--phr-radius-md);
   border:1.5px dashed var(--phr-blue-200);
