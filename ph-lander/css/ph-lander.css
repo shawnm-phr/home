@@ -485,54 +485,101 @@ html{scrollbar-gutter:stable;}
 /* --- 4. Compliance security strip ---------------------------------- */
 .ph-security-strip{justify-content:center;margin-top:40px;}
 
-/* --- 6. Lexi AI Insights: deliberately NOT the tab-row-above-a-card
-   pattern used by .ph-mod-tabs/.ph-ind-tabs (this section sits right
-   under the modules section, so re-running that exact layout back to
-   back read as repetitive). Instead: a vertical numbered stepper rail
-   left, plain unboxed content right — own classes throughout so none
-   of the three tab patterns can regress each other. ------------------ */
-.ph-lexi-ins-layout{
+/* --- 6. Lexi AI Insights: tab row (mirrors .ph-mod-tabs/.ph-ind-tabs,
+   own classes so none can regress each other) above a two-up panel —
+   a vibrant blue/purple/green gradient card carries the copy (this is
+   the one AI-flavoured surface on the page, so it earns the color),
+   a UI-preview video sits alongside it at matching height. ---------- */
+.ph-lexi-ins-tabs{
   display:flex;
-  gap:56px;
-  align-items:flex-start;
-  margin-top:48px;
-  max-width:1120px;
-  margin-left:auto;
-  margin-right:auto;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+  margin-top:44px;
 }
-.ph-lexi-ins-nav{flex:0 0 300px;display:flex;flex-direction:column;}
-.ph-lexi-ins-navitem{
+.ph-lexi-ins-tab{
   display:flex;
-  align-items:flex-start;
-  gap:16px;
-  text-align:left;
-  background:none;
-  border:none;
-  border-left:2px solid var(--phr-border);
-  padding:16px 0 16px 22px;
+  align-items:center;
+  gap:10px;
+  background:var(--phr-white);
+  border:1.5px solid var(--phr-border);
+  border-radius:100px;
+  padding:8px 22px 8px 8px;
   font-family:inherit;
+  font-size:14px;
+  font-weight:700;
+  color:var(--phr-text-mid);
   cursor:pointer;
-  transition:border-color var(--phr-transition);
+  transition:border-color var(--phr-transition),color var(--phr-transition),background var(--phr-transition);
 }
-.ph-lexi-ins-navitem-num{flex-shrink:0;font-size:13px;font-weight:800;color:var(--phr-text-light);transition:color var(--phr-transition);}
-.ph-lexi-ins-navitem-body{display:flex;flex-direction:column;gap:4px;}
-.ph-lexi-ins-navitem-title{font-size:16px;font-weight:800;color:var(--phr-text-mid);transition:color var(--phr-transition);}
-.ph-lexi-ins-navitem-sub{font-size:13.5px;color:var(--phr-text-light);line-height:1.4;}
-.ph-lexi-ins-navitem:hover .ph-lexi-ins-navitem-title{color:var(--phr-blue-700);}
-.ph-lexi-ins-navitem.is-active{border-left-color:var(--phr-blue-700);}
-.ph-lexi-ins-navitem.is-active .ph-lexi-ins-navitem-num{color:var(--phr-blue-700);}
-.ph-lexi-ins-navitem.is-active .ph-lexi-ins-navitem-title{color:var(--phr-text-dark);}
+.ph-lexi-ins-tab-num{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  width:26px;height:26px;
+  border-radius:50%;
+  background:var(--phr-blue-50);
+  color:var(--phr-blue-700);
+  font-size:12px;
+  font-weight:800;
+  transition:background var(--phr-transition),color var(--phr-transition);
+}
+.ph-lexi-ins-tab:hover{border-color:var(--phr-blue-200);color:var(--phr-blue-700);}
+.ph-lexi-ins-tab.is-active{background:var(--phr-blue-700);border-color:var(--phr-blue-700);color:var(--phr-white);}
+.ph-lexi-ins-tab.is-active .ph-lexi-ins-tab-num{background:var(--phr-white);color:var(--phr-blue-700);}
 
-.ph-lexi-ins-panels{flex:1;min-width:0;}
+.ph-lexi-ins-panels{margin-top:40px;}
 .ph-lexi-ins-panel[hidden]{display:none;}
-
-.ph-lexi-ins-video-panels{max-width:1120px;margin:40px auto 0;}
-.ph-lexi-ins-video-panel[hidden]{display:none;}
+.ph-lexi-ins-panel{
+  display:flex;
+  gap:32px;
+  align-items:stretch;
+  max-width:1120px;
+  margin:0 auto;
+}
+.ph-lexi-ins-content{
+  flex:0 0 420px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:44px 40px;
+  border-radius:32px;
+  background:linear-gradient(135deg,#3B82F6 0%,#8B5CF6 55%,#10B981 100%);
+  box-shadow:0 28px 56px -24px rgba(99,102,241,.5);
+}
+.ph-lexi-ins-content h3{font-size:25px;font-weight:800;color:var(--phr-white);line-height:1.3;margin:0 0 14px;}
+.ph-lexi-ins-desc{font-size:15.5px;color:rgba(255,255,255,.88);line-height:1.6;margin:0 0 26px;}
+.ph-lexi-ins-checks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:13px;}
+.ph-lexi-ins-checks li{
+  position:relative;
+  padding-left:30px;
+  font-size:14.5px;
+  color:var(--phr-white);
+  line-height:1.5;
+}
+.ph-lexi-ins-checks li::before{
+  content:'';
+  position:absolute;
+  left:0;top:1px;
+  width:20px;height:20px;
+  border-radius:50%;
+  background:rgba(255,255,255,.22);
+}
+.ph-lexi-ins-checks li::after{
+  content:'';
+  position:absolute;
+  left:6px;top:7px;
+  width:9px;height:5px;
+  border-left:2px solid var(--phr-white);
+  border-bottom:2px solid var(--phr-white);
+  transform:rotate(-45deg);
+}
 .ph-lexi-ins-video{
   position:relative;
-  width:100%;
-  aspect-ratio:16/9;
-  border-radius:var(--phr-radius-md);
+  flex:1;
+  min-width:0;
+  border-radius:32px;
   border:1.5px dashed var(--phr-blue-200);
   background:var(--phr-blue-50);
   overflow:hidden;
@@ -551,44 +598,17 @@ html{scrollbar-gutter:stable;}
   color:var(--phr-text-light);
   pointer-events:none;
 }
-.ph-lexi-ins-panel h3{font-size:26px;font-weight:800;color:var(--phr-text-dark);line-height:1.3;margin:0 0 14px;max-width:560px;}
-.ph-lexi-ins-desc{font-size:16px;color:var(--phr-text-mid);line-height:1.6;margin:0 0 28px;max-width:560px;}
-.ph-lexi-ins-checks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;}
-.ph-lexi-ins-checks li{
-  position:relative;
-  padding-left:32px;
-  font-size:15px;
-  color:var(--phr-text-dark);
-  line-height:1.5;
-}
-.ph-lexi-ins-checks li::before{
-  content:'';
-  position:absolute;
-  left:0;top:1px;
-  width:22px;height:22px;
-  border-radius:50%;
-  background:var(--phr-blue-50);
-}
-.ph-lexi-ins-checks li::after{
-  content:'';
-  position:absolute;
-  left:7px;top:8px;
-  width:10px;height:6px;
-  border-left:2px solid var(--phr-blue-700);
-  border-bottom:2px solid var(--phr-blue-700);
-  transform:rotate(-45deg);
-}
 @media(max-width:860px){
-  .ph-lexi-ins-layout{flex-direction:column;gap:8px;}
-  .ph-lexi-ins-nav{flex:0 0 auto;flex-direction:row;flex-wrap:wrap;width:100%;}
-  .ph-lexi-ins-navitem{border-left:none;border-bottom:2px solid var(--phr-border);padding:12px 16px;flex:1 1 auto;justify-content:center;}
-  .ph-lexi-ins-navitem.is-active{border-left-color:transparent;border-bottom-color:var(--phr-blue-700);}
-  .ph-lexi-ins-navitem-sub{display:none;}
-  .ph-lexi-ins-panels{margin-top:32px;}
+  .ph-lexi-ins-panel{flex-direction:column;}
+  .ph-lexi-ins-content{flex:none;padding:36px 28px;}
+  .ph-lexi-ins-video{flex:none;width:100%;aspect-ratio:16/9;}
 }
 @media(max-width:640px){
-  .ph-lexi-ins-panel h3{font-size:22px;}
-  .ph-lexi-ins-navitem{padding:10px 12px;gap:10px;}
+  .ph-lexi-ins-tab span:not(.ph-lexi-ins-tab-num){display:none;}
+  .ph-lexi-ins-tab{padding:8px;border-radius:50%;}
+  .ph-lexi-ins-content{border-radius:24px;padding:28px 24px;}
+  .ph-lexi-ins-content h3{font-size:21px;}
+  .ph-lexi-ins-video{border-radius:24px;}
 }
 
 /* --- 7. Industry relevance: tabs, mirroring the module tabs pattern

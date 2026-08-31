@@ -757,33 +757,21 @@
           <p class="phr-section__sub" style="margin:0 auto;">Lexi AI Insights uses the information already within PeoplesHR to answer questions, uncover patterns and turn workforce data into clear next steps for HR leaders, managers and employees.</p>
         </div>
 
-        <div class="ph-lexi-ins-layout">
-          <div class="ph-lexi-ins-nav" role="tablist" aria-label="Lexi AI Insights audiences">
-            <button class="ph-lexi-ins-navitem is-active" data-lexi-ins-tab="leaders" role="tab" aria-selected="true">
-              <span class="ph-lexi-ins-navitem-num">01</span>
-              <span class="ph-lexi-ins-navitem-body">
-                <span class="ph-lexi-ins-navitem-title">For HR Leaders</span>
-                <span class="ph-lexi-ins-navitem-sub">AI-powered workforce decisions</span>
-              </span>
-            </button>
-            <button class="ph-lexi-ins-navitem" data-lexi-ins-tab="managers" role="tab" aria-selected="false">
-              <span class="ph-lexi-ins-navitem-num">02</span>
-              <span class="ph-lexi-ins-navitem-body">
-                <span class="ph-lexi-ins-navitem-title">For Managers</span>
-                <span class="ph-lexi-ins-navitem-sub">See what your team needs</span>
-              </span>
-            </button>
-            <button class="ph-lexi-ins-navitem" data-lexi-ins-tab="employees" role="tab" aria-selected="false">
-              <span class="ph-lexi-ins-navitem-num">03</span>
-              <span class="ph-lexi-ins-navitem-body">
-                <span class="ph-lexi-ins-navitem-title">For Employees</span>
-                <span class="ph-lexi-ins-navitem-sub">Understand your own information</span>
-              </span>
-            </button>
-          </div>
+        <div class="ph-lexi-ins-tabs" role="tablist" aria-label="Lexi AI Insights audiences">
+          <button class="ph-lexi-ins-tab is-active" data-lexi-ins-tab="leaders" role="tab" aria-selected="true">
+            <span class="ph-lexi-ins-tab-num">01</span><span>For HR Leaders</span>
+          </button>
+          <button class="ph-lexi-ins-tab" data-lexi-ins-tab="managers" role="tab" aria-selected="false">
+            <span class="ph-lexi-ins-tab-num">02</span><span>For Managers</span>
+          </button>
+          <button class="ph-lexi-ins-tab" data-lexi-ins-tab="employees" role="tab" aria-selected="false">
+            <span class="ph-lexi-ins-tab-num">03</span><span>For Employees</span>
+          </button>
+        </div>
 
-          <div class="ph-lexi-ins-panels">
-            <div class="ph-lexi-ins-panel is-active" data-lexi-ins-panel="leaders" role="tabpanel">
+        <div class="ph-lexi-ins-panels">
+          <div class="ph-lexi-ins-panel is-active" data-lexi-ins-panel="leaders" role="tabpanel">
+            <div class="ph-lexi-ins-content">
               <h3>Turn Workforce Questions Into AI-Powered Decisions.</h3>
               <p class="ph-lexi-ins-desc">Ask Lexi complex questions about your workforce and get immediate answers grounded in your organisation&rsquo;s PeoplesHR data.</p>
               <ul class="ph-lexi-ins-checks">
@@ -793,7 +781,15 @@
                 <li>Generate reports and drill into the underlying employee data</li>
               </ul>
             </div>
-            <div class="ph-lexi-ins-panel" data-lexi-ins-panel="managers" role="tabpanel" hidden>
+            <div class="ph-lexi-ins-video">
+              <video class="ph-lexi-ins-video-el" autoplay muted loop playsinline aria-hidden="true">
+                <!-- <source src="images/lexi-hr-leaders.mp4" type="video/mp4"> -->
+              </video>
+              <span class="ph-lexi-ins-video-label">HR leader UI video placeholder</span>
+            </div>
+          </div>
+          <div class="ph-lexi-ins-panel" data-lexi-ins-panel="managers" role="tabpanel" hidden>
+            <div class="ph-lexi-ins-content">
               <h3>Let AI Show You What Your Team Needs.</h3>
               <p class="ph-lexi-ins-desc">Ask Lexi about your team and quickly identify what needs attention, without waiting for HR to prepare another report.</p>
               <ul class="ph-lexi-ins-checks">
@@ -803,7 +799,15 @@
                 <li>Ask follow-up questions to understand what is driving the numbers</li>
               </ul>
             </div>
-            <div class="ph-lexi-ins-panel" data-lexi-ins-panel="employees" role="tabpanel" hidden>
+            <div class="ph-lexi-ins-video">
+              <video class="ph-lexi-ins-video-el" autoplay muted loop playsinline aria-hidden="true">
+                <!-- <source src="images/lexi-managers.mp4" type="video/mp4"> -->
+              </video>
+              <span class="ph-lexi-ins-video-label">Manager UI video placeholder</span>
+            </div>
+          </div>
+          <div class="ph-lexi-ins-panel" data-lexi-ins-panel="employees" role="tabpanel" hidden>
+            <div class="ph-lexi-ins-content">
               <h3>Ask AI. Understand Your Work Information.</h3>
               <p class="ph-lexi-ins-desc">Ask Lexi questions using text or voice and get clear answers based on your own information within PeoplesHR.</p>
               <ul class="ph-lexi-ins-checks">
@@ -813,27 +817,6 @@
                 <li>Access answers securely from desktop or mobile</li>
               </ul>
             </div>
-          </div>
-        </div>
-
-        <div class="ph-lexi-ins-video-panels">
-          <div class="ph-lexi-ins-video-panel is-active" data-lexi-ins-panel="leaders">
-            <div class="ph-lexi-ins-video">
-              <video class="ph-lexi-ins-video-el" autoplay muted loop playsinline aria-hidden="true">
-                <!-- <source src="images/lexi-hr-leaders.mp4" type="video/mp4"> -->
-              </video>
-              <span class="ph-lexi-ins-video-label">HR leader UI video placeholder</span>
-            </div>
-          </div>
-          <div class="ph-lexi-ins-video-panel" data-lexi-ins-panel="managers" hidden>
-            <div class="ph-lexi-ins-video">
-              <video class="ph-lexi-ins-video-el" autoplay muted loop playsinline aria-hidden="true">
-                <!-- <source src="images/lexi-managers.mp4" type="video/mp4"> -->
-              </video>
-              <span class="ph-lexi-ins-video-label">Manager UI video placeholder</span>
-            </div>
-          </div>
-          <div class="ph-lexi-ins-video-panel" data-lexi-ins-panel="employees" hidden>
             <div class="ph-lexi-ins-video">
               <video class="ph-lexi-ins-video-el" autoplay muted loop playsinline aria-hidden="true">
                 <!-- <source src="images/lexi-employees.mp4" type="video/mp4"> -->

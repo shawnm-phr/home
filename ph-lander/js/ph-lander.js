@@ -111,7 +111,7 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
   /* Lexi AI Insights tabs — same click/show/hide pattern as the modules
      and industry tabs above, kept as a separate block (own classes) so
      neither can regress the other. */
-  var lexiInsTabs = document.querySelectorAll('.ph-lexi-ins-navitem');
+  var lexiInsTabs = document.querySelectorAll('.ph-lexi-ins-tab');
   lexiInsTabs.forEach(function(tab){
     tab.addEventListener('click', function(){
       var target = tab.getAttribute('data-lexi-ins-tab');
@@ -120,7 +120,7 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
         t.classList.toggle('is-active', isActive);
         t.setAttribute('aria-selected', isActive ? 'true' : 'false');
       });
-      document.querySelectorAll('.ph-lexi-ins-panel, .ph-lexi-ins-video-panel').forEach(function(panel){
+      document.querySelectorAll('.ph-lexi-ins-panel').forEach(function(panel){
         var isActive = panel.getAttribute('data-lexi-ins-panel') === target;
         panel.classList.toggle('is-active', isActive);
         panel.hidden = !isActive;
