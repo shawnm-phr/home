@@ -485,7 +485,103 @@ html{scrollbar-gutter:stable;}
 /* --- 4. Compliance security strip ---------------------------------- */
 .ph-security-strip{justify-content:center;margin-top:40px;}
 
-/* --- 6. Industry relevance: tabs, mirroring the module tabs pattern
+/* --- 6. Lexi AI Insights: tabs, mirroring the module/industry tabs
+   pattern (.ph-mod-tabs/.ph-ind-tabs) with its own classes so neither
+   can regress the other. Each panel: audience label + headline + desc
+   + checklist left, UI placeholder right. --------------------------- */
+.ph-lexi-ins-tabs{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+  margin-top:44px;
+}
+.ph-lexi-ins-tab{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:var(--phr-white);
+  border:1.5px solid var(--phr-border);
+  border-radius:100px;
+  padding:8px 22px 8px 8px;
+  font-family:inherit;
+  font-size:14px;
+  font-weight:700;
+  color:var(--phr-text-mid);
+  cursor:pointer;
+  transition:border-color var(--phr-transition),color var(--phr-transition),background var(--phr-transition);
+}
+.ph-lexi-ins-tab-num{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  width:26px;height:26px;
+  border-radius:50%;
+  background:var(--phr-blue-50);
+  color:var(--phr-blue-700);
+  font-size:12px;
+  font-weight:800;
+  transition:background var(--phr-transition),color var(--phr-transition);
+}
+.ph-lexi-ins-tab:hover{border-color:var(--phr-blue-200);color:var(--phr-blue-700);}
+.ph-lexi-ins-tab.is-active{background:var(--phr-blue-700);border-color:var(--phr-blue-700);color:var(--phr-white);}
+.ph-lexi-ins-tab.is-active .ph-lexi-ins-tab-num{background:var(--phr-white);color:var(--phr-blue-700);}
+
+.ph-lexi-ins-panels{margin-top:40px;}
+.ph-lexi-ins-panel[hidden]{display:none;}
+.ph-lexi-ins-panel{
+  display:flex;
+  gap:48px;
+  align-items:center;
+  background:var(--phr-white);
+  border:1px solid var(--phr-border);
+  border-radius:var(--phr-radius-lg);
+  padding:44px 48px;
+  max-width:1120px;
+  margin:0 auto;
+}
+.ph-lexi-ins-panel-content{flex:1;min-width:0;}
+.ph-lexi-ins-eyebrow{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--phr-blue-700);margin:0 0 12px;}
+.ph-lexi-ins-panel-content h3{font-size:24px;font-weight:800;color:var(--phr-text-dark);line-height:1.3;margin:0 0 14px;}
+.ph-lexi-ins-desc{font-size:15.5px;color:var(--phr-text-mid);line-height:1.6;margin:0 0 26px;}
+.ph-lexi-ins-checks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;}
+.ph-lexi-ins-checks li{
+  position:relative;
+  padding-left:32px;
+  font-size:15px;
+  color:var(--phr-text-dark);
+  line-height:1.5;
+}
+.ph-lexi-ins-checks li::before{
+  content:'';
+  position:absolute;
+  left:0;top:1px;
+  width:22px;height:22px;
+  border-radius:50%;
+  background:var(--phr-blue-50);
+}
+.ph-lexi-ins-checks li::after{
+  content:'';
+  position:absolute;
+  left:7px;top:8px;
+  width:10px;height:6px;
+  border-left:2px solid var(--phr-blue-700);
+  border-bottom:2px solid var(--phr-blue-700);
+  transform:rotate(-45deg);
+}
+.ph-lexi-ins-panel-media{flex:0 0 420px;max-width:420px;align-self:stretch;}
+@media(max-width:860px){
+  .ph-lexi-ins-panel{flex-direction:column;align-items:stretch;}
+  .ph-lexi-ins-panel-media{flex:none;max-width:100%;order:-1;}
+}
+@media(max-width:640px){
+  .ph-lexi-ins-tab span:not(.ph-lexi-ins-tab-num){display:none;}
+  .ph-lexi-ins-tab{padding:8px;border-radius:50%;}
+  .ph-lexi-ins-panel{padding:28px 24px;}
+}
+
+/* --- 7. Industry relevance: tabs, mirroring the module tabs pattern
    (.ph-mod-tabs) with its own classes so neither can regress the
    other. Each panel: value list left, relevant photo/placeholder
    right. --------------------------------------------------------- */
