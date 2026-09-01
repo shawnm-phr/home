@@ -108,9 +108,12 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
     });
   });
 
-  /* Lexi AI Insights tabs — same click/show/hide pattern as the modules
-     and industry tabs above, kept as a separate block (own classes) so
-     neither can regress the other. */
+  /* Lexi AI Insights tabs — panels are grid-stacked in CSS (all three
+     occupy the same cell) rather than hidden/display:none'd, so the
+     box height stays locked to the tallest panel across tab switches.
+     That means toggling visibility here, not the `hidden` attribute
+     (which would force display:none via the browser's UA stylesheet
+     and pull the panel back out of the grid's height calculation). */
   var lexiInsTabs = document.querySelectorAll('.ph-lexi-ins-tab');
   lexiInsTabs.forEach(function(tab){
     tab.addEventListener('click', function(){
@@ -123,7 +126,7 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
       document.querySelectorAll('.ph-lexi-ins-panel').forEach(function(panel){
         var isActive = panel.getAttribute('data-lexi-ins-panel') === target;
         panel.classList.toggle('is-active', isActive);
-        panel.hidden = !isActive;
+        panel.setAttribute('aria-hidden', isActive ? 'false' : 'true');
       });
     });
   });

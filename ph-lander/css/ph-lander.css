@@ -505,19 +505,25 @@ html{scrollbar-gutter:stable;}
 .ph-lexi-ins-tab:hover{border-color:var(--phr-blue-200);color:var(--phr-blue-700);}
 .ph-lexi-ins-tab.is-active{background:var(--phr-blue-700);border-color:var(--phr-blue-700);color:var(--phr-white);}
 
-.ph-lexi-ins-panels{margin-top:40px;}
-.ph-lexi-ins-panel[hidden]{display:none;}
+/* Panels are grid-stacked into the same cell (not display:none'd) so
+   the grid row's auto height is always the tallest panel — switching
+   tabs can't change the box height, since the inactive panels are
+   still there sizing the row, just visibility:hidden. */
+.ph-lexi-ins-panels{margin-top:40px;display:grid;max-width:1120px;margin-left:auto;margin-right:auto;}
 .ph-lexi-ins-panel{
+  grid-column:1;
+  grid-row:1;
+  visibility:hidden;
+  pointer-events:none;
   display:flex;
   gap:40px;
   align-items:stretch;
-  max-width:1120px;
-  margin:0 auto;
   padding:44px;
   border-radius:36px;
   background:linear-gradient(135deg,#3B82F6 0%,#8B5CF6 55%,#10B981 100%);
   box-shadow:0 28px 56px -24px rgba(99,102,241,.5);
 }
+.ph-lexi-ins-panel.is-active{visibility:visible;pointer-events:auto;}
 .ph-lexi-ins-content{
   flex:0 0 400px;
   display:flex;
