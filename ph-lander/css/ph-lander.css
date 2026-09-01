@@ -604,21 +604,29 @@ html{scrollbar-gutter:stable;}
   .ph-lexi-ins-video{border-radius:18px;}
 }
 
-/* --- 7. Industry relevance: tabs, mirroring the module tabs pattern
-   (.ph-mod-tabs) with its own classes so neither can regress the
-   other. Each panel: value list left, relevant photo/placeholder
-   right. --------------------------------------------------------- */
-.ph-ind-tabs{
+/* --- 7. Industry selector: tab row + one dynamically-rendered card
+   (content comes from PH_INDUSTRIES in ph-lander.js — see that file).
+   Card uses grid-template-areas so the DOM order (intro, media, caps)
+   can read top-to-bottom on mobile while desktop places media as a
+   full-height right column without needing separate mobile/desktop
+   markup. ------------------------------------------------------------ */
+.ph-industry-sub{max-width:640px;}
+.ph-industry-tabs{
   display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
   gap:10px;
+  overflow-x:auto;
+  scrollbar-width:none;
+  -ms-overflow-style:none;
   margin-top:44px;
+  padding:4px 2px 6px;
 }
-.ph-ind-tab{
-  display:flex;
+.ph-industry-tabs::-webkit-scrollbar{display:none;}
+.ph-industry-tab{
+  display:inline-flex;
   align-items:center;
   gap:9px;
+  flex:0 0 auto;
+  min-height:44px;
   background:var(--phr-white);
   border:1.5px solid var(--phr-border);
   border-radius:100px;
@@ -630,80 +638,102 @@ html{scrollbar-gutter:stable;}
   cursor:pointer;
   transition:border-color var(--phr-transition),color var(--phr-transition),background var(--phr-transition);
 }
-.ph-ind-tab svg{width:20px;height:20px;flex-shrink:0;}
-.ph-ind-tab:hover{border-color:var(--phr-blue-200);color:var(--phr-blue-700);}
-.ph-ind-tab.is-active{background:var(--phr-blue-700);border-color:var(--phr-blue-700);color:var(--phr-white);}
+.ph-industry-tab svg{width:19px;height:19px;flex-shrink:0;}
+.ph-industry-tab:hover{border-color:var(--phr-blue-200);color:var(--phr-blue-700);}
+.ph-industry-tab.is-active{background:var(--phr-blue-700);border-color:var(--phr-blue-700);color:var(--phr-white);}
+.ph-industry-tab:focus-visible{outline:2px solid var(--phr-blue-500);outline-offset:2px;}
+@media(min-width:861px){
+  .ph-industry-tabs{flex-wrap:wrap;justify-content:center;overflow-x:visible;}
+}
 
-.ph-ind-panels{margin-top:40px;}
-.ph-ind-panel[hidden]{display:none;}
-.ph-ind-panel{
-  display:flex;
-  gap:48px;
-  align-items:stretch;
-  background:var(--phr-white);
+.ph-industry-panel{margin-top:40px;}
+.ph-industry-card{
+  display:grid;
+  grid-template-columns:1fr;
+  grid-template-areas:"intro" "media" "caps";
+  gap:28px;
+  background:var(--phr-blue-30);
   border:1px solid var(--phr-border);
-  border-radius:var(--phr-radius-lg);
-  padding:44px 48px;
-  max-width:1040px;
+  border-radius:32px;
+  padding:28px;
+  max-width:1120px;
   margin:0 auto;
+  min-height:0;
+  opacity:1;
+  transform:translateY(0);
+  transition:opacity .25s ease,transform .25s ease;
 }
-.ph-ind-panel-content{flex:1;min-width:0;}
-.ph-ind-panel-content h3{
-  font-size:20px;
-  font-weight:800;
-  margin-bottom:20px;
-  padding-bottom:14px;
-  border-bottom:2px solid var(--phr-blue-500);
+.ph-industry-card.is-hidden{opacity:0;transform:translateY(10px);}
+@media(prefers-reduced-motion:reduce){
+  .ph-industry-card{transition:none;}
 }
-.ph-ind-panel-content ul{display:flex;flex-direction:column;gap:12px;}
-.ph-ind-panel-content li{
-  font-size:15px;
+@media(min-width:861px){
+  .ph-industry-card{
+    grid-template-columns:58% 42%;
+    grid-template-areas:"intro media" "caps media";
+    gap:8px 44px;
+    padding:48px;
+    min-height:560px;
+  }
+}
+.ph-industry-intro{grid-area:intro;}
+.ph-industry-eyebrow{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--phr-blue-700);margin:0 0 12px;}
+.ph-industry-title{font-size:24px;font-weight:800;color:var(--phr-text-dark);line-height:1.28;margin:0 0 14px;}
+.ph-industry-desc{
+  font-size:15.5px;
   color:var(--phr-text-mid);
-  padding-left:24px;
-  position:relative;
-  line-height:1.5;
+  line-height:1.6;
+  margin:0;
 }
-.ph-ind-panel-content li::before{
-  content:'';
-  position:absolute;
-  left:0;top:7px;
-  width:9px;height:9px;
-  border-radius:2px;
-  background:var(--phr-blue-500);
+@media(min-width:861px){
+  /* The two-line cap is a desktop layout constraint (keeps the intro
+     column balanced against the image column) — mobile stacks full
+     width with room to spare, so let the copy wrap freely there
+     instead of truncating it. */
+  .ph-industry-desc{
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
+    overflow:hidden;
+  }
 }
-.ph-ind-panel-media{flex:0 0 380px;max-width:380px;}
-.ph-ind-panel-media img{
+.ph-industry-media{
+  grid-area:media;
+  border-radius:22px;
+  padding:20px;
+  background:linear-gradient(160deg,var(--phr-blue-50) 0%,#EAF1FF 55%,var(--phr-blue-30) 100%);
+  display:flex;
+}
+.ph-industry-media img{width:100%;height:100%;min-height:220px;object-fit:cover;border-radius:16px;display:block;}
+.ph-industry-media-placeholder{
   width:100%;
-  height:100%;
-  min-height:320px;
-  object-fit:cover;
-  border-radius:var(--phr-radius-md);
-  display:block;
-}
-.ph-ind-placeholder{
-  width:100%;
-  height:100%;
-  min-height:320px;
-  border-radius:var(--phr-radius-md);
+  min-height:220px;
+  border-radius:16px;
   border:1.5px dashed var(--phr-blue-200);
-  background:var(--phr-blue-50);
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  gap:12px;
+  gap:10px;
+  padding:24px;
+  text-align:center;
   color:var(--phr-text-light);
 }
-.ph-ind-placeholder span{font-size:13px;font-weight:600;}
-@media(max-width:860px){
-  .ph-ind-panel{flex-direction:column;}
-  .ph-ind-panel-media{max-width:100%;}
-  .ph-ind-panel-media img,.ph-ind-placeholder{min-height:240px;}
+.ph-industry-media-placeholder span{font-size:12.5px;font-weight:600;line-height:1.4;}
+.ph-industry-caps{grid-area:caps;margin-top:8px;}
+.ph-industry-caps-label{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--phr-text-light);margin:0 0 16px;}
+.ph-industry-cap-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr;gap:16px;}
+.ph-industry-cap-item{display:flex;align-items:flex-start;gap:12px;}
+.ph-industry-cap-check{flex:0 0 auto;width:24px;height:24px;border-radius:50%;background:var(--phr-blue-50);display:flex;align-items:center;justify-content:center;}
+.ph-industry-cap-check svg{width:13px;height:13px;color:var(--phr-blue-700);}
+.ph-industry-cap-text{font-size:14.5px;color:var(--phr-text-dark);line-height:1.5;padding-top:2px;}
+@media(min-width:861px){
+  .ph-industry-cap-list{grid-template-columns:repeat(2,1fr);gap:18px 24px;}
 }
 @media(max-width:640px){
-  .ph-ind-tab span{display:none;}
-  .ph-ind-tab{padding:10px;border-radius:50%;}
-  .ph-ind-panel{padding:28px 24px;}
+  .ph-industry-card{padding:22px;border-radius:24px;gap:22px;}
+  .ph-industry-title{font-size:21px;}
+  .ph-industry-media{padding:14px;border-radius:18px;}
 }
 
 /* --- 7. Interactive demo: card placed right, copy left, mirroring

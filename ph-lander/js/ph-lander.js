@@ -88,25 +88,285 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
     });
   });
 
-  /* Industry tabs — same click/show/hide pattern as the modules tabs
-     above, kept as a separate block (own classes) so neither can
-     regress the other. */
-  var indTabs = document.querySelectorAll('.ph-ind-tab');
-  indTabs.forEach(function(tab){
-    tab.addEventListener('click', function(){
-      var target = tab.getAttribute('data-ind-tab');
-      indTabs.forEach(function(t){
-        var isActive = t === tab;
+  /* Industry selector — six industries, one data-driven card instead of
+     six duplicated ones. PH_INDUSTRIES is the single source of truth for
+     copy/capabilities/images; renderTabs()/renderPanel() build the DOM
+     from it, selectIndustry() swaps the active one with a brief fade +
+     upward-lift transition (skipped for prefers-reduced-motion). */
+  (function(){
+    var industrySection = document.getElementById('ph-industry');
+    if(!industrySection) return;
+
+    var ICONS = {
+      factory:'<path d="M3 21V11l5 3.5V11l5 3.5V11l5 3.5V21"/><path d="M3 21h18"/><path d="M18 8V4l3 2v3"/>',
+      headset:'<path d="M4 13v-1a8 8 0 0 1 16 0v1"/><rect x="2.5" y="13" width="4" height="6" rx="1.5"/><rect x="17.5" y="13" width="4" height="6" rx="1.5"/><path d="M20 19a4 4 0 0 1-4 4h-2"/>',
+      bell:'<path d="M4 18h16"/><path d="M6 18a6 6 0 0 1 12 0"/><circle cx="12" cy="7" r="1.3"/><path d="M12 8.3V10"/>',
+      bag:'<path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>',
+      truck:'<rect x="1" y="7" width="13" height="10" rx="1"/><path d="M14 10h4l3 3v4h-2"/><circle cx="6" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/>',
+      bank:'<path d="M3 10l9-6 9 6"/><path d="M4 10v9M9 10v9M15 10v9M20 10v9"/><path d="M2.5 21h19"/>'
+    };
+    var CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>';
+
+    var PH_INDUSTRIES = [
+      {
+        id:'manufacturing',
+        tabLabel:'Manufacturing',
+        icon:'factory',
+        eyebrow:'Manufacturing',
+        title:'From The Factory Floor To Head Office, Keep Everyone In Sync.',
+        description:'Connect employee records, shifts, attendance and payroll across every plant, production line and site.',
+        capabilities:[
+          'Configure plants, departments and reporting hierarchies',
+          'Maintain one employee record across every site',
+          'Schedule shifts and manage workforce rosters',
+          'Run multiple shift patterns across teams and plants',
+          'Connect biometric attendance devices',
+          'Review and approve attendance before payroll',
+          'Capture overtime around scheduled shifts automatically',
+          'Run standard or piece-rate payroll with statutory deductions'
+        ],
+        image:'images/industry-manufacturing.webp',
+        imageAlt:'Manufacturing worker operating machinery on a modern production line'
+      },
+      {
+        id:'bpo',
+        tabLabel:'BPO',
+        icon:'headset',
+        eyebrow:'BPO',
+        title:'Keep 24/7 Teams, Shifts and Accounts Running Together.',
+        description:'Manage changing schedules, attendance, overtime and high-volume hiring across every account, site and time zone.',
+        capabilities:[
+          'Schedule teams across accounts, sites and work patterns',
+          'Manage multiple day, night and rotating shifts',
+          'Configure flexible and staggered working hours',
+          'Reassign shifts quickly when coverage changes',
+          'Enable location-verified mobile and web attendance',
+          'Monitor team attendance through real-time dashboards',
+          'Process overtime, night differentials and allowances',
+          'Accelerate hiring with bulk CV parsing and AI ranking'
+        ],
+        /* No BPO/shared-services workplace photo exists in the repo yet.
+           Needed: a modern BPO/shared-services floor with a professional
+           team at computer stations — not a dark, stereotypical
+           call-centre shot. */
+        image:null,
+        imagePlaceholderLabel:'BPO workplace photo needed',
+        imageAlt:'BPO team working across computer stations in a shared-services office'
+      },
+      {
+        id:'hospitality',
+        tabLabel:'Hospitality',
+        icon:'bell',
+        eyebrow:'Hospitality',
+        title:'Keep Every Property, Shift and Service Team Running Smoothly.',
+        description:'Coordinate frontline teams, changing rosters and payroll requirements across every hotel, property and department.',
+        capabilities:[
+          'Structure multiple properties and departments',
+          'Schedule shifts and publish employee rosters',
+          'Manage different shift patterns across service teams',
+          'Adjust and reassign shifts when coverage changes',
+          'Capture attendance through biometric or mobile devices',
+          'Configure employee breaks and grace periods',
+          'Manage location-specific holidays and overtime rules',
+          'Track staff meal entitlements, deductions and subsidies'
+        ],
+        /* No hotel/hospitality workplace photo exists in the repo yet.
+           Needed: an authentic hotel/hospitality service team at work —
+           coordinated frontline operations, not tourism/leisure imagery. */
+        image:null,
+        imagePlaceholderLabel:'Hospitality workplace photo needed',
+        imageAlt:'Hotel service team coordinating daily operations'
+      },
+      {
+        id:'retail',
+        tabLabel:'Retail',
+        icon:'bag',
+        eyebrow:'Retail',
+        title:'One Workforce View Across Every Store and Shift.',
+        description:'Manage store teams, changing schedules, attendance and payroll from one central platform.',
+        capabilities:[
+          'Structure stores, outlets, regions and reporting lines',
+          'Maintain centralised records for every store employee',
+          'Build and publish shift schedules and rosters',
+          'Run different shift patterns across stores',
+          'Adjust and reassign shifts when staffing needs change',
+          'Use geo-fenced mobile clock-in for approved locations',
+          'Monitor attendance across stores in real time',
+          'Calculate overtime and generate secure digital payslips'
+        ],
+        image:'images/industry-retail.webp',
+        imageAlt:'Retail staff in uniform working together inside a grocery store'
+      },
+      {
+        id:'transport-logistics',
+        tabLabel:'Transport & Logistics',
+        icon:'truck',
+        eyebrow:'Transport & Logistics',
+        title:'Keep Every Hub, Depot and Mobile Team Connected.',
+        description:'Coordinate distributed employees, attendance, shifts and payroll across warehouses, hubs, depots and field locations.',
+        capabilities:[
+          'Structure hubs, depots, warehouses and operating teams',
+          'Schedule round-the-clock shifts and workforce rosters',
+          'Enable geo-tagged mobile and web clock-in',
+          'Restrict attendance to approved locations with geo-fencing',
+          'Connect biometric devices at fixed sites',
+          'Monitor attendance across teams and locations in real time',
+          'Capture and approve overtime around scheduled shifts',
+          'Give mobile employees access to payslips and HR updates'
+        ],
+        image:'images/industry-logistics.webp',
+        imageAlt:'Logistics driver in company uniform at a transport hub'
+      },
+      {
+        id:'banking-financial-services',
+        tabLabel:'Banking & Financial Services',
+        icon:'bank',
+        eyebrow:'Banking & Financial Services',
+        title:'Control, Consistency and Visibility Across Every Branch.',
+        description:'Manage structured employee data, approvals, payroll and compliance across branches, business units and legal entities.',
+        capabilities:[
+          'Configure branches, business units and reporting hierarchies',
+          'Maintain secure employee and statutory records',
+          'Store employment documents in one auditable location',
+          'Manage transfers, promotions and role changes',
+          'Centralise leave, expense and team approvals',
+          'Route payroll through multi-level approval workflows',
+          'Maintain a tamper-evident audit trail of system activity',
+          'Generate workforce dashboards and scheduled reports'
+        ],
+        /* No generic banking/financial-services workplace photo exists in
+           the repo. The one banking photo available (Peoples_Bank_...webp)
+           is a client case-study shot with that bank's own signage
+           visible, so it isn't safe to reuse here without implying that
+           specific client. Needed: a generic modern bank branch/office
+           with employees at work — no money, coins, cards or
+           stock-market-chart imagery. */
+        image:null,
+        imagePlaceholderLabel:'Banking & financial services workplace photo needed',
+        imageAlt:'Banking and financial services employees working in a modern branch office'
+      }
+    ];
+
+    var tabsHost = industrySection.querySelector('.ph-industry-tabs');
+    var panelHost = industrySection.querySelector('.ph-industry-panel');
+    var activeId = PH_INDUSTRIES[0].id;
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    var findIndustry = function(id){
+      for(var i = 0; i < PH_INDUSTRIES.length; i++){
+        if(PH_INDUSTRIES[i].id === id) return PH_INDUSTRIES[i];
+      }
+      return null;
+    };
+
+    var buildCapItem = function(text){
+      return '<li class="ph-industry-cap-item">' +
+        '<span class="ph-industry-cap-check" aria-hidden="true">' + CHECK_SVG + '</span>' +
+        '<span class="ph-industry-cap-text">' + text + '</span>' +
+        '</li>';
+    };
+
+    var buildMedia = function(industry){
+      if(industry.image){
+        return '<img src="' + industry.image + '" alt="' + industry.imageAlt + '" loading="lazy">';
+      }
+      return '<div class="ph-industry-media-placeholder">' +
+        '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>' +
+        '<span>' + industry.imagePlaceholderLabel + '</span>' +
+        '</div>';
+    };
+
+    var buildCard = function(industry){
+      var caps = industry.capabilities.map(buildCapItem).join('');
+      return '<div class="ph-industry-card">' +
+        '<div class="ph-industry-intro">' +
+          '<p class="ph-industry-eyebrow">' + industry.eyebrow + '</p>' +
+          '<h3 class="ph-industry-title">' + industry.title + '</h3>' +
+          '<p class="ph-industry-desc">' + industry.description + '</p>' +
+        '</div>' +
+        '<div class="ph-industry-media">' + buildMedia(industry) + '</div>' +
+        '<div class="ph-industry-caps">' +
+          '<p class="ph-industry-caps-label">What PeoplesHR Helps You Manage</p>' +
+          '<ul class="ph-industry-cap-list">' + caps + '</ul>' +
+        '</div>' +
+      '</div>';
+    };
+
+    var renderTabs = function(){
+      tabsHost.innerHTML = PH_INDUSTRIES.map(function(industry){
+        var isActive = industry.id === activeId;
+        return '<button class="ph-industry-tab' + (isActive ? ' is-active' : '') + '"' +
+          ' role="tab"' +
+          ' id="ph-industry-tab-' + industry.id + '"' +
+          ' aria-controls="ph-industry-panel"' +
+          ' aria-selected="' + (isActive ? 'true' : 'false') + '"' +
+          ' tabindex="' + (isActive ? '0' : '-1') + '"' +
+          ' data-industry="' + industry.id + '">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ICONS[industry.icon] + '</svg>' +
+          '<span>' + industry.tabLabel + '</span>' +
+          '</button>';
+      }).join('');
+    };
+
+    var renderPanel = function(){
+      var industry = findIndustry(activeId);
+      panelHost.innerHTML = buildCard(industry);
+      panelHost.setAttribute('aria-labelledby', 'ph-industry-tab-' + industry.id);
+    };
+
+    var selectIndustry = function(id, focusTab){
+      if(id === activeId) return;
+      activeId = id;
+
+      var tabs = tabsHost.querySelectorAll('.ph-industry-tab');
+      tabs.forEach(function(t){
+        var isActive = t.getAttribute('data-industry') === id;
         t.classList.toggle('is-active', isActive);
         t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        t.setAttribute('tabindex', isActive ? '0' : '-1');
       });
-      document.querySelectorAll('.ph-ind-panel').forEach(function(panel){
-        var isActive = panel.getAttribute('data-ind-panel') === target;
-        panel.classList.toggle('is-active', isActive);
-        panel.hidden = !isActive;
-      });
+      if(focusTab){
+        var activeTabEl = tabsHost.querySelector('.ph-industry-tab[data-industry="' + id + '"]');
+        if(activeTabEl){
+          activeTabEl.focus();
+          activeTabEl.scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth', inline:'center', block:'nearest'});
+        }
+      }
+
+      var card = panelHost.querySelector('.ph-industry-card');
+      if(reduceMotion || !card){
+        renderPanel();
+        return;
+      }
+      card.classList.add('is-hidden');
+      setTimeout(renderPanel, 220);
+    };
+
+    renderTabs();
+    renderPanel();
+
+    tabsHost.addEventListener('click', function(e){
+      var tab = e.target.closest('.ph-industry-tab');
+      if(!tab) return;
+      selectIndustry(tab.getAttribute('data-industry'), false);
     });
-  });
+
+    tabsHost.addEventListener('keydown', function(e){
+      var tab = e.target.closest('.ph-industry-tab');
+      if(!tab) return;
+      var ids = PH_INDUSTRIES.map(function(industry){ return industry.id; });
+      var idx = ids.indexOf(activeId);
+      var nextIdx = null;
+      if(e.key === 'ArrowRight' || e.key === 'ArrowDown'){ nextIdx = (idx + 1) % ids.length; }
+      else if(e.key === 'ArrowLeft' || e.key === 'ArrowUp'){ nextIdx = (idx - 1 + ids.length) % ids.length; }
+      else if(e.key === 'Home'){ nextIdx = 0; }
+      else if(e.key === 'End'){ nextIdx = ids.length - 1; }
+      if(nextIdx !== null){
+        e.preventDefault();
+        selectIndustry(ids[nextIdx], true);
+      }
+    });
+  }());
 
   /* Lexi AI Insights tabs — panels are grid-stacked in CSS (all three
      occupy the same cell) rather than hidden/display:none'd, so the

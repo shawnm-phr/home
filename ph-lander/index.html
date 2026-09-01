@@ -859,77 +859,21 @@
       </div>
     </section>
 
-    <!-- ===================== 8. INDUSTRY RELEVANCE ===================== -->
-    <section class="ph-section">
+    <!-- ===================== 8. INDUSTRY RELEVANCE =====================
+         Tabs + panel are rendered by ph-industry.js from the PH_INDUSTRIES
+         data array below (see that file for the single source of truth on
+         copy/capabilities/images) — this markup is just the static shell
+         the script mounts into, so there's one card component, not six. -->
+    <section class="ph-section ph-industry-section" id="ph-industry">
       <div class="page-wrap">
         <div class="phr-section__header phr-section__header--center">
-          <h2 class="phr-section__title">Built For Workforces That Don't Operate From One Office, One Shift Or One Spreadsheet.</h2>
-        </div>
-        <div class="ph-ind-tabs" role="tablist" aria-label="Industries">
-          <button class="ph-ind-tab is-active" data-ind-tab="manufacturing" role="tab" aria-selected="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V11l5 3.5V11l5 3.5V11l5 3.5V21"/><path d="M3 21h18"/><path d="M18 8V4l3 2v3"/></svg>
-            <span>Manufacturing</span>
-          </button>
-          <button class="ph-ind-tab" data-ind-tab="bpo" role="tab" aria-selected="false">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13v-1a8 8 0 0 1 16 0v1"/><rect x="2.5" y="13" width="4" height="6" rx="1.5"/><rect x="17.5" y="13" width="4" height="6" rx="1.5"/><path d="M20 19a4 4 0 0 1-4 4h-2"/></svg>
-            <span>BPO</span>
-          </button>
-          <button class="ph-ind-tab" data-ind-tab="logistics" role="tab" aria-selected="false">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="7" width="13" height="10" rx="1"/><path d="M14 10h4l3 3v4h-2"/><circle cx="6" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg>
-            <span>Logistics</span>
-          </button>
+          <p class="phr-section__label">Built For Your Industry</p>
+          <h2 class="phr-section__title">Pick Your Industry. See What PeoplesHR Can Do For You.</h2>
+          <p class="phr-section__sub ph-industry-sub">Every workforce runs differently. Choose your industry to see how PeoplesHR handles the people, time and payroll challenges that matter most to you.</p>
         </div>
 
-        <div class="ph-ind-panels">
-          <div class="ph-ind-panel is-active" data-ind-panel="manufacturing" role="tabpanel">
-            <div class="ph-ind-panel-content">
-              <h3>Manufacturing</h3>
-              <ul>
-                <li>Multiple plants and sites</li>
-                <li>Rotational shifts</li>
-                <li>Biometric attendance</li>
-                <li>Overtime and holiday pay</li>
-                <li>Large employee populations</li>
-              </ul>
-            </div>
-            <div class="ph-ind-panel-media">
-              <img src="images/industry-manufacturing.webp" alt="Manufacturing worker operating industrial machinery">
-            </div>
-          </div>
-          <div class="ph-ind-panel" data-ind-panel="bpo" role="tabpanel" hidden>
-            <div class="ph-ind-panel-content">
-              <h3>BPO</h3>
-              <ul>
-                <li>24/7 workforce operations</li>
-                <li>Multiple sites and accounts</li>
-                <li>Complex shift structures</li>
-                <li>Fast-changing headcount</li>
-                <li>Centralised employee and payroll data</li>
-              </ul>
-            </div>
-            <div class="ph-ind-panel-media">
-              <div class="ph-ind-placeholder">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-                <span>BPO image placeholder</span>
-              </div>
-            </div>
-          </div>
-          <div class="ph-ind-panel" data-ind-panel="logistics" role="tabpanel" hidden>
-            <div class="ph-ind-panel-content">
-              <h3>Logistics</h3>
-              <ul>
-                <li>Distributed sites and teams</li>
-                <li>Mobile attendance</li>
-                <li>Shift and overtime management</li>
-                <li>Certificate and licence tracking</li>
-                <li>Multi-country workforce operations</li>
-              </ul>
-            </div>
-            <div class="ph-ind-panel-media">
-              <img src="images/industry-logistics.webp" alt="Logistics driver in company uniform">
-            </div>
-          </div>
-        </div>
+        <div class="ph-industry-tabs" role="tablist" aria-label="Industries"></div>
+        <div class="ph-industry-panel" role="tabpanel" id="ph-industry-panel" tabindex="0"></div>
       </div>
     </section>
 
