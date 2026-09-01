@@ -1164,8 +1164,8 @@ html{scrollbar-gutter:stable;}
 
 /* --- 14. Form CTA: headline left, form (placeholder for now) right ---- */
 .ph-form-cta-section{background:var(--phr-blue-30);}
-.ph-form-cta-split{display:flex;align-items:flex-start;gap:64px;}
-.ph-form-cta-copy{flex:1;max-width:440px;padding-top:8px;}
+.ph-form-cta-split{display:flex;align-items:center;gap:64px;}
+.ph-form-cta-copy{flex:1;max-width:440px;}
 .ph-form-cta-form{flex:1;max-width:480px;width:100%;}
 .ph-form-embed{
   width:100%;
