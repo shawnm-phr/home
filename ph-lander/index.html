@@ -988,27 +988,50 @@
             </div>
           </div>
         </div>
-        <div class="ph-cs-stats">
-          <div class="ph-card ph-cs-stat-card">
-            <div class="ph-cs-stat-num">3.5</div>
-            <div class="ph-cs-stat-label">Months to 90-95% Implementation</div>
-          </div>
-          <div class="ph-card ph-cs-stat-card">
-            <div class="ph-cs-stat-num">100%</div>
-            <div class="ph-cs-stat-label">Payroll Accuracy</div>
-          </div>
-          <div class="ph-card ph-cs-stat-card">
-            <div class="ph-cs-stat-num">80%</div>
-            <div class="ph-cs-stat-label">Less Paper</div>
-          </div>
-        </div>
         <div class="ph-cs-more">
           <a href="../customer-page/" class="btn-outline">View More Case Studies</a>
         </div>
       </div>
     </section>
 
-    <!-- ===================== 11. IMPLEMENTATION TIMELINE ===================== -->
+    <!-- ===================== 11. PROVEN IMPACT =====================
+         Was a 3-card stats row nested at the bottom of Customer Proof;
+         now its own section with an intro column, per the "measurable
+         impact" redesign. Figures count up once on scroll-into-view via
+         .ph-impact-count[data-target] in ph-lander.js. -->
+    <section class="ph-section ph-impact-section">
+      <div class="page-wrap">
+        <div class="ph-impact-layout">
+          <div class="ph-impact-intro">
+            <p class="phr-section__label">Proven Impact</p>
+            <h2 class="ph-impact-title">Results You Can Measure</h2>
+            <p class="ph-impact-desc">From faster implementation to accurate payroll and paperless HR processes, PeoplesHR helps organisations improve the way work gets done.</p>
+          </div>
+          <div class="ph-impact-stats">
+            <div class="ph-impact-stat">
+              <span class="ph-impact-stat-accent" aria-hidden="true"></span>
+              <div class="ph-impact-stat-num"><span class="ph-impact-count" data-target="3.5" data-decimals="1">3.5</span><span class="ph-impact-stat-unit">months</span></div>
+              <p class="ph-impact-stat-label">To Reach 90&ndash;95% Implementation</p>
+              <p class="ph-impact-stat-desc">A structured rollout that helps organisations move from setup to adoption faster.</p>
+            </div>
+            <div class="ph-impact-stat">
+              <span class="ph-impact-stat-accent" aria-hidden="true"></span>
+              <div class="ph-impact-stat-num"><span class="ph-impact-count" data-target="100" data-decimals="0" data-suffix="%">100%</span></div>
+              <p class="ph-impact-stat-label">Payroll Accuracy</p>
+              <p class="ph-impact-stat-desc">Automated calculations and built-in validations help teams process payroll accurately.</p>
+            </div>
+            <div class="ph-impact-stat">
+              <span class="ph-impact-stat-accent" aria-hidden="true"></span>
+              <div class="ph-impact-stat-num"><span class="ph-impact-count" data-target="80" data-decimals="0" data-suffix="%">80%</span></div>
+              <p class="ph-impact-stat-label">Less Paper</p>
+              <p class="ph-impact-stat-desc">Digitised HR workflows reduce forms, manual handoffs and physical record-keeping.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 12. IMPLEMENTATION TIMELINE ===================== -->
     <section class="ph-section ph-timeline-section">
       <div class="page-wrap">
         <div class="phr-section__header phr-section__header--center">
@@ -1019,7 +1042,7 @@
       </div>
     </section>
 
-    <!-- ===================== 12. FAQ ===================== -->
+    <!-- ===================== 13. FAQ ===================== -->
     <section class="ph-section ph-faq-section">
       <div class="page-wrap">
         <div class="phr-section__header phr-section__header--center">
@@ -1075,7 +1098,7 @@
       </div>
     </section>
 
-    <!-- ===================== 13. FORM CTA ===================== -->
+    <!-- ===================== 14. FORM CTA ===================== -->
     <section class="ph-section ph-form-cta-section" id="ph-final-cta">
       <div class="page-wrap">
         <div class="ph-form-cta-split">

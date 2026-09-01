@@ -723,6 +723,52 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
     refresh();
   }
 
+  /* Proven Impact stat count-up — runs once when the section first
+     scrolls into view, counting each .ph-impact-count from 0 to its
+     data-target and formatting to data-decimals/data-suffix along the
+     way. Skips straight to the final value under prefers-reduced-motion
+     or if IntersectionObserver isn't available. */
+  var impactSection = document.querySelector('.ph-impact-section');
+  var impactCounts = impactSection ? impactSection.querySelectorAll('.ph-impact-count') : null;
+  if(impactSection && impactCounts && impactCounts.length){
+    var impactReduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var formatImpactValue = function(el, value){
+      var decimals = parseInt(el.getAttribute('data-decimals'), 10) || 0;
+      var suffix = el.getAttribute('data-suffix') || '';
+      return value.toFixed(decimals) + suffix;
+    };
+    var animateImpactCount = function(el){
+      var target = parseFloat(el.getAttribute('data-target'));
+      if(isNaN(target)) return;
+      if(impactReduceMotion){
+        el.textContent = formatImpactValue(el, target);
+        return;
+      }
+      var duration = 900;
+      var start = null;
+      var step = function(ts){
+        if(start === null) start = ts;
+        var progress = Math.min((ts - start) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = formatImpactValue(el, target * eased);
+        if(progress < 1) requestAnimationFrame(step);
+        else el.textContent = formatImpactValue(el, target);
+      };
+      requestAnimationFrame(step);
+    };
+    if('IntersectionObserver' in window){
+      var impactObserver = new IntersectionObserver(function(entries, obs){
+        if(entries[0].isIntersecting){
+          impactCounts.forEach(animateImpactCount);
+          obs.disconnect();
+        }
+      }, {threshold:0.35});
+      impactObserver.observe(impactSection);
+    } else {
+      impactCounts.forEach(function(el){ el.textContent = formatImpactValue(el, parseFloat(el.getAttribute('data-target')) || 0); });
+    }
+  }
+
   /* Sticky CTA — visible once scrolled past the hero, hidden again near
      the Final CTA section so the ask isn't duplicated on top of itself.
      Dismiss persists for the tab session, same pattern as the nv-ann
