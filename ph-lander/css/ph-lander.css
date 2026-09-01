@@ -366,7 +366,6 @@ html{scrollbar-gutter:stable;}
 .ph-compliance-badges{justify-content:center;margin-top:28px;}
 .ph-compliance-badge{gap:8px;}
 .ph-compliance-badge-icon{flex-shrink:0;width:16px;height:16px;object-fit:contain;display:block;}
-.ph-credibility-line{text-align:center;margin:24px 0 0;font-size:13.5px;font-weight:600;color:var(--phr-text-light);}
 
 /* --- 5. Modules tabs: icon+label tab row, one panel visible at a time */
 .ph-mod-tabs{
