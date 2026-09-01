@@ -290,7 +290,15 @@ html{scrollbar-gutter:stable;}
 /* Once a float has a real screenshot, drop the dashed "needs an
    asset" border/padding for a finished card and let the image fill
    it edge to edge. */
-.ph-hero-float--filled{border-style:solid;border-color:var(--phr-border);padding:0;overflow:hidden;}
+.ph-hero-float--filled{
+  width:210px;
+  height:auto;
+  aspect-ratio:500/323;
+  border-style:solid;
+  border-color:var(--phr-border);
+  padding:0;
+  overflow:hidden;
+}
 .ph-hero-float--filled img{width:100%;height:100%;object-fit:cover;display:block;}
 @keyframes ph-hero-float-bob{
   0%,100%{transform:translateY(0);}
@@ -326,6 +334,7 @@ html{scrollbar-gutter:stable;}
   .ph-hero-float{width:130px;height:130px;font-size:11px;}
   .ph-hero-float--1{left:-20px;top:26%;}
   .ph-hero-float--2{right:-16px;top:46%;}
+  .ph-hero-float--filled{width:150px;height:auto;}
   .ph-hero-icon{width:46px;height:46px;}
   .ph-hero-icon svg{width:20px;height:20px;}
 }
