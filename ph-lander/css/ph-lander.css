@@ -1163,7 +1163,10 @@ html{scrollbar-gutter:stable;}
 .ph-faq-section .phr-faq-item__trigger span:first-child{flex:1;}
 
 /* --- 14. Form CTA: headline left, form (placeholder for now) right ---- */
-.ph-form-cta-section{background:var(--phr-blue-30);}
+/* Offsets the anchor-scroll target so the sticky nav bar (~52-60px)
+   doesn't cover the top of the section when "Book a Demo" CTAs jump
+   straight to the on-page form. */
+.ph-form-cta-section{background:var(--phr-blue-30);scroll-margin-top:90px;}
 .ph-form-cta-split{display:flex;align-items:center;gap:64px;}
 .ph-form-cta-copy{flex:1;max-width:440px;}
 .ph-form-cta-form{flex:1;max-width:480px;width:100%;}
