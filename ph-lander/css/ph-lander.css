@@ -501,8 +501,16 @@ html{scrollbar-gutter:stable;}
   cursor:pointer;
   transition:border-color var(--phr-transition),color var(--phr-transition),background var(--phr-transition);
 }
-.ph-lexi-ins-tab:hover{border-color:var(--phr-blue-200);color:var(--phr-blue-700);}
-.ph-lexi-ins-tab.is-active{background:var(--phr-blue-700);border-color:var(--phr-blue-700);color:var(--phr-white);}
+.ph-lexi-ins-tab.is-active{color:var(--phr-white);}
+/* Each audience gets its own color from the gradient card below (same
+   hex stops), so the tab you're on previews the card you're about to
+   see: HR Leaders = purple, Managers = blue, Employees = green. */
+.ph-lexi-ins-tab[data-lexi-ins-tab="leaders"]:hover{border-color:#C4B5FD;color:#8B5CF6;}
+.ph-lexi-ins-tab[data-lexi-ins-tab="leaders"].is-active{background:#8B5CF6;border-color:#8B5CF6;}
+.ph-lexi-ins-tab[data-lexi-ins-tab="managers"]:hover{border-color:#93C5FD;color:#3B82F6;}
+.ph-lexi-ins-tab[data-lexi-ins-tab="managers"].is-active{background:#3B82F6;border-color:#3B82F6;}
+.ph-lexi-ins-tab[data-lexi-ins-tab="employees"]:hover{border-color:#6EE7B7;color:#10B981;}
+.ph-lexi-ins-tab[data-lexi-ins-tab="employees"].is-active{background:#10B981;border-color:#10B981;}
 
 /* Panels are grid-stacked into the same cell (not display:none'd) so
    the grid row's auto height is always the tallest panel — switching
