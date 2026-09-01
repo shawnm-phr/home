@@ -764,12 +764,15 @@ html{scrollbar-gutter:stable;}
 
 /* --- 10. Customer proof: same small case-study cards as customer-page
    (.cs-card and friends, ported from customer-page/style.css — logo/
-   thumb/headline/teaser/metrics/tags/CTA), plus a "View More Case
-   Studies" link. Two real cards (Brandix, Pyramid Wilmar) reuse their
-   actual customer-page content/thumbnails/links; the other three use
-   the anonymized-style top row (icon + name) since they don't have a
-   dedicated case-study page or logo asset yet. ---------------------- */
-.ph-stats-bar{margin:0 0 64px;}
+   thumb/headline/teaser/metrics/tags/CTA) for Brandix, SMSGT and
+   Government of Uganda, plus stat cards (.ph-cs-stat-card, reusing
+   the shared .ph-card look rather than the dark full-bleed
+   .stats-bar) and a "View More Case Studies" link. -------------------- */
+.ph-cs-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px;}
+.ph-cs-stat-card{text-align:center;padding:36px 24px;}
+.ph-cs-stat-num{font-size:40px;font-weight:800;color:var(--phr-blue-700);letter-spacing:-1px;line-height:1;margin-bottom:10px;}
+.ph-cs-stat-label{font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--phr-text-light);}
+@media(max-width:640px){.ph-cs-stats{grid-template-columns:1fr;}}
 .ph-cs-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
