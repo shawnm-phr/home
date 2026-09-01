@@ -458,7 +458,7 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
     var PH_VOICES = [
       {
         id:'smsgt',
-        quote:'Implementing PeoplesHR has been a game-changer for our HR operations. The system has significantly reduced manual processes, allowing us to focus more on strategic initiatives rather than administrative tasks. Employee data is centralized and easy to access and update, saving us countless hours previously spent on paperwork. The self-service portal empowers employees to manage their information, apply for leave and access pay slips independently, which improves their experience and reduces the HR team’s workload.',
+        quote:'Implementing PeoplesHR has been a game-changer for our HR operations. The system has significantly reduced manual processes, allowing us to focus more on strategic initiatives rather than administrative tasks.',
         personName:'Kimberlyn Aguilar',
         jobTitle:'Solutions Engineer',
         companyName:'SMS Global Technologies, Inc.',
