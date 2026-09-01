@@ -311,8 +311,8 @@ html{scrollbar-gutter:stable;}
   width:210px;
   height:auto;
   aspect-ratio:500/323;
-  border-style:solid;
-  border-color:var(--phr-border);
+  border:none;
+  border-radius:0;
   padding:0;
   overflow:hidden;
 }
