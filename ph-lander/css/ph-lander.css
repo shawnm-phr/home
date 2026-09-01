@@ -491,11 +491,10 @@ html{scrollbar-gutter:stable;}
 .ph-lexi-ins-tab{
   display:flex;
   align-items:center;
-  gap:10px;
   background:var(--phr-white);
   border:1.5px solid var(--phr-border);
   border-radius:100px;
-  padding:8px 22px 8px 8px;
+  padding:11px 22px;
   font-family:inherit;
   font-size:14px;
   font-weight:700;
@@ -503,22 +502,8 @@ html{scrollbar-gutter:stable;}
   cursor:pointer;
   transition:border-color var(--phr-transition),color var(--phr-transition),background var(--phr-transition);
 }
-.ph-lexi-ins-tab-num{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-shrink:0;
-  width:26px;height:26px;
-  border-radius:50%;
-  background:var(--phr-blue-50);
-  color:var(--phr-blue-700);
-  font-size:12px;
-  font-weight:800;
-  transition:background var(--phr-transition),color var(--phr-transition);
-}
 .ph-lexi-ins-tab:hover{border-color:var(--phr-blue-200);color:var(--phr-blue-700);}
 .ph-lexi-ins-tab.is-active{background:var(--phr-blue-700);border-color:var(--phr-blue-700);color:var(--phr-white);}
-.ph-lexi-ins-tab.is-active .ph-lexi-ins-tab-num{background:var(--phr-white);color:var(--phr-blue-700);}
 
 .ph-lexi-ins-panels{margin-top:40px;}
 .ph-lexi-ins-panel[hidden]{display:none;}
@@ -595,8 +580,7 @@ html{scrollbar-gutter:stable;}
   .ph-lexi-ins-video{flex:none;width:100%;aspect-ratio:16/9;}
 }
 @media(max-width:640px){
-  .ph-lexi-ins-tab span:not(.ph-lexi-ins-tab-num){display:none;}
-  .ph-lexi-ins-tab{padding:8px;border-radius:50%;}
+  .ph-lexi-ins-tab{padding:9px 16px;font-size:13px;}
   .ph-lexi-ins-content{border-radius:24px;padding:28px 24px;}
   .ph-lexi-ins-content h3{font-size:21px;}
   .ph-lexi-ins-video{border-radius:24px;}
