@@ -425,16 +425,302 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
       document.body.style.overflow = '';
     };
     document.querySelectorAll('.cs-vid-card').forEach(function(card){
-      card.addEventListener('click', function(){
+      var trigger = function(){
         var ytId = card.getAttribute('data-youtube');
         var title = card.getAttribute('data-title') || '';
         if(!ytId) return;
         openVidModal(ytId, title);
+      };
+      card.addEventListener('click', trigger);
+      /* Cards with tabindex (e.g. the featured testimonial video) are
+         keyboard-focusable divs, not real buttons — wire up Enter/Space
+         so they behave like one. */
+      card.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          trigger();
+        }
       });
     });
     vidClose.addEventListener('click', closeVidModal);
     vidModal.addEventListener('click', function(e){ if(e.target === vidModal) closeVidModal(); });
     document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && vidModal.classList.contains('open')) closeVidModal(); });
+  }
+
+  /* Written testimonial slider — cards render from PH_VOICES (single
+     source of truth) into the empty <ul id="phVoicesTrack">. Only one
+     real, approved testimonial exists so far (SMSGT, ported verbatim
+     from its case study page); the rest are the same placeholder
+     copy the page already had, kept as-is per instructions not to
+     invent replacement quotes — see the final summary for the list. */
+  var voicesTrack = document.getElementById('phVoicesTrack');
+  if(voicesTrack){
+    var PH_VOICES = [
+      {
+        id:'smsgt',
+        quote:'Implementing PeoplesHR has been a game-changer for our HR operations. The system has significantly reduced manual processes, allowing us to focus more on strategic initiatives rather than administrative tasks. Employee data is centralized and easy to access and update, saving us countless hours previously spent on paperwork. The self-service portal empowers employees to manage their information, apply for leave and access pay slips independently, which improves their experience and reduces the HR team’s workload.',
+        personName:'Kimberlyn Aguilar',
+        jobTitle:'Solutions Engineer',
+        companyName:'SMS Global Technologies, Inc.',
+        industry:'Technology',
+        companyLogo:'images/smsgt-logo.svg',
+        companyLogoAlt:'SMS Global Technologies, Inc. logo'
+      },
+      {
+        id:'placeholder-1',
+        quote:'[Placeholder quote — swap for real testimonials] Switching payroll processes felt risky, but the rollout was smoother than expected.',
+        personName:null,
+        jobTitle:'HR Manager',
+        companyName:null,
+        industry:'Manufacturing',
+        companyLogo:null,
+        companyLogoAlt:null
+      },
+      {
+        id:'placeholder-2',
+        quote:'[Placeholder] Compliance used to eat up a full week every cut-off. Now it runs inside the system.',
+        personName:null,
+        jobTitle:'Payroll Lead',
+        companyName:null,
+        industry:'BPO',
+        companyLogo:null,
+        companyLogoAlt:null
+      },
+      {
+        id:'placeholder-3',
+        quote:'[Placeholder] Having one system across our sites meant we stopped chasing spreadsheets.',
+        personName:null,
+        jobTitle:'HR Director',
+        companyName:null,
+        industry:'Logistics',
+        companyLogo:null,
+        companyLogoAlt:null
+      },
+      {
+        id:'placeholder-4',
+        quote:'[Placeholder] Statutory filing used to be a scramble every month. Now it’s automatic.',
+        personName:null,
+        jobTitle:'Compliance Officer',
+        companyName:null,
+        industry:'Manufacturing',
+        companyLogo:null,
+        companyLogoAlt:null
+      },
+      {
+        id:'placeholder-5',
+        quote:'[Placeholder] Rolling out a new HR system across sites was easier than we expected.',
+        personName:null,
+        jobTitle:'IT Manager',
+        companyName:null,
+        industry:'BPO',
+        companyLogo:null,
+        companyLogoAlt:null
+      },
+      {
+        id:'placeholder-6',
+        quote:'[Placeholder] Attendance data finally matches payroll, every single cut-off.',
+        personName:null,
+        jobTitle:'Operations Head',
+        companyName:null,
+        industry:'Logistics',
+        companyLogo:null,
+        companyLogoAlt:null
+      },
+      {
+        id:'placeholder-7',
+        quote:'[Placeholder] Our team spends less time on admin and more time on people.',
+        personName:null,
+        jobTitle:'People Ops Lead',
+        companyName:null,
+        industry:'BPO',
+        companyLogo:null,
+        companyLogoAlt:null
+      },
+      {
+        id:'placeholder-8',
+        quote:'[Placeholder] Multi-site reporting used to take days. Now it’s instant.',
+        personName:null,
+        jobTitle:'HR Manager',
+        companyName:null,
+        industry:'Logistics',
+        companyLogo:null,
+        companyLogoAlt:null
+      },
+      {
+        id:'placeholder-9',
+        quote:'[Placeholder] Manual payroll errors are a thing of the past for us.',
+        personName:null,
+        jobTitle:'Payroll Supervisor',
+        companyName:null,
+        industry:'Manufacturing',
+        companyLogo:null,
+        companyLogoAlt:null
+      },
+      {
+        id:'placeholder-10',
+        quote:'[Placeholder] Employee self-service cut our HR helpdesk tickets significantly.',
+        personName:null,
+        jobTitle:'HR Business Partner',
+        companyName:null,
+        industry:'BPO',
+        companyLogo:null,
+        companyLogoAlt:null
+      },
+      {
+        id:'placeholder-11',
+        quote:'[Placeholder] Payroll accuracy improved the moment we moved off spreadsheets.',
+        personName:null,
+        jobTitle:'Finance Manager',
+        companyName:null,
+        industry:'Manufacturing',
+        companyLogo:null,
+        companyLogoAlt:null
+      },
+      {
+        id:'placeholder-12',
+        quote:'[Placeholder] Onboarding new hires across accounts finally feels consistent.',
+        personName:null,
+        jobTitle:'HR Director',
+        companyName:null,
+        industry:'BPO',
+        companyLogo:null,
+        companyLogoAlt:null
+      }
+    ];
+
+    var voicesPrev = document.getElementById('phVoicesPrev');
+    var voicesNext = document.getElementById('phVoicesNext');
+    var voicesDots = document.getElementById('phVoicesDots');
+    var voicesStatus = document.getElementById('phVoicesStatus');
+    var voicesReduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var VOICES_GAP = 22;
+
+    var QUOTE_MARK_SVG = '<svg class="ph-voices-card-quote-mark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.5 6C4.5 8 3 11 3 14c0 2.8 1.9 4.5 4 4.5 2 0 3.5-1.5 3.5-3.5 0-1.8-1.2-3.2-3-3.5.4-1.8 1.7-3.5 3.5-4.8L7.5 6Zm9 0c-3 2-4.5 5-4.5 8 0 2.8 1.9 4.5 4 4.5 2 0 3.5-1.5 3.5-3.5 0-1.8-1.2-3.2-3-3.5.4-1.8 1.7-3.5 3.5-4.8L16.5 6Z"/></svg>';
+
+    var buildVoiceCard = function(voice){
+      var logoHtml = voice.companyLogo
+        ? '<img class="ph-voices-card-logo" src="' + voice.companyLogo + '" alt="' + voice.companyLogoAlt + '" loading="lazy">'
+        : '<span class="ph-voices-card-logo-fallback">' + (voice.companyName || voice.industry || 'PeoplesHR Customer') + '</span>';
+      var industryPill = (voice.companyLogo && voice.industry) ? '<p class="ph-voices-card-industry">' + voice.industry + '</p>' : '';
+      var primaryName = voice.personName || voice.jobTitle;
+      var secondaryLine = voice.personName
+        ? [voice.jobTitle, voice.companyName].filter(function(v){ return v; }).join(', ')
+        : [voice.industry, 'Philippines'].filter(function(v){ return v; }).join(' — ');
+      return '<li class="ph-voices-card">' +
+        '<div class="ph-voices-card-logo-wrap">' + logoHtml + '</div>' +
+        industryPill +
+        QUOTE_MARK_SVG +
+        '<blockquote class="ph-voices-card-quote"><p>' + voice.quote + '</p></blockquote>' +
+        '<cite class="ph-voices-card-cite">' +
+          '<span class="ph-voices-card-name">' + primaryName + '</span>' +
+          '<span class="ph-voices-card-role">' + secondaryLine + '</span>' +
+        '</cite>' +
+      '</li>';
+    };
+
+    voicesTrack.innerHTML = PH_VOICES.map(buildVoiceCard).join('');
+
+    var getVisibleCount = function(){
+      var w = window.innerWidth;
+      if(w <= 640) return 1;
+      if(w <= 1024) return 2;
+      return 3;
+    };
+    var getPageCount = function(){
+      return Math.max(1, Math.ceil(PH_VOICES.length / getVisibleCount()));
+    };
+    /* currentPage is explicit state, not derived from scrollLeft on every
+       render: a smooth-scroll animation takes a few hundred ms to settle,
+       so deriving "current page" purely from scroll position made the
+       dots/arrows/status lag visibly behind a click. Nav actions set it
+       immediately; the scroll-settle listener below only exists to
+       resync it after an organic swipe/trackpad scroll. */
+    var currentPage = 0;
+    var getCurrentPageFromScroll = function(){
+      var cards = voicesTrack.querySelectorAll('.ph-voices-card');
+      if(!cards.length) return 0;
+      var cardWidth = cards[0].getBoundingClientRect().width + VOICES_GAP;
+      var visibleCount = getVisibleCount();
+      var index = Math.round(voicesTrack.scrollLeft / cardWidth);
+      return Math.min(getPageCount() - 1, Math.floor(index / visibleCount));
+    };
+    var renderDots = function(){
+      if(!voicesDots) return;
+      var pageCount = getPageCount();
+      var html = '';
+      for(var i = 0; i < pageCount; i++){
+        html += '<button type="button" class="ph-voices-dot' + (i === currentPage ? ' is-active' : '') + '" data-page="' + i + '" aria-label="Go to testimonials page ' + (i + 1) + ' of ' + pageCount + '"' + (i === currentPage ? ' aria-current="true"' : '') + '></button>';
+      }
+      voicesDots.innerHTML = html;
+      voicesDots.style.display = pageCount <= 1 ? 'none' : '';
+    };
+    var updateArrows = function(){
+      if(!voicesPrev || !voicesNext) return;
+      var pageCount = getPageCount();
+      voicesPrev.disabled = currentPage <= 0;
+      voicesNext.disabled = currentPage >= pageCount - 1;
+    };
+    var updateStatus = function(){
+      if(!voicesStatus) return;
+      var visibleCount = getVisibleCount();
+      var start = currentPage * visibleCount + 1;
+      var end = Math.min(PH_VOICES.length, start + visibleCount - 1);
+      voicesStatus.textContent = 'Showing testimonials ' + start + ' to ' + end + ' of ' + PH_VOICES.length;
+    };
+    var refresh = function(){
+      renderDots();
+      updateArrows();
+      updateStatus();
+    };
+    var scrollToPage = function(page){
+      var cards = voicesTrack.querySelectorAll('.ph-voices-card');
+      var visibleCount = getVisibleCount();
+      var index = page * visibleCount;
+      var target = cards[index];
+      if(!target) return;
+      voicesTrack.scrollTo({left: target.offsetLeft - voicesTrack.offsetLeft, behavior: voicesReduceMotion ? 'auto' : 'smooth'});
+    };
+    var goToPage = function(page){
+      var pageCount = getPageCount();
+      if(page < 0 || page >= pageCount || page === currentPage) return;
+      currentPage = page;
+      refresh();
+      scrollToPage(currentPage);
+    };
+    var goToAdjacentPage = function(dir){ goToPage(currentPage + dir); };
+
+    if(voicesPrev) voicesPrev.addEventListener('click', function(){ goToAdjacentPage(-1); });
+    if(voicesNext) voicesNext.addEventListener('click', function(){ goToAdjacentPage(1); });
+    if(voicesDots){
+      voicesDots.addEventListener('click', function(e){
+        var dot = e.target.closest('.ph-voices-dot');
+        if(!dot) return;
+        goToPage(parseInt(dot.getAttribute('data-page'), 10));
+      });
+    }
+
+    /* Resyncs currentPage after a manual swipe/trackpad scroll (nav
+       clicks already update state immediately via goToPage above, so
+       this listener is purely a safety net for organic scrolling). */
+    var voicesScrollTimer;
+    voicesTrack.addEventListener('scroll', function(){
+      clearTimeout(voicesScrollTimer);
+      voicesScrollTimer = setTimeout(function(){
+        currentPage = getCurrentPageFromScroll();
+        refresh();
+      }, 120);
+    }, {passive:true});
+
+    var voicesResizeTimer;
+    window.addEventListener('resize', function(){
+      clearTimeout(voicesResizeTimer);
+      voicesResizeTimer = setTimeout(function(){
+        currentPage = Math.min(currentPage, getPageCount() - 1);
+        refresh();
+      }, 150);
+    });
+
+    refresh();
   }
 
   /* Sticky CTA — visible once scrolled past the hero, hidden again near

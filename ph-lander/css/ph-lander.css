@@ -887,80 +887,146 @@ html{scrollbar-gutter:stable;}
 .ph-solution-table td:last-child{color:var(--phr-blue-700);}
 .ph-solution-table tbody tr:hover{background:var(--phr-blue-50);}
 
-/* --- 11. Filipino customer voices: video left, quotes right as a
-   3-col grid of square-ish cards (up to 4-5 rows). Section gets its
-   own wider page-wrap so the grid has room alongside the 9:16 video
-   without cramping either. ------------------------------------------ */
-.ph-voices-section .page-wrap{max-width:1440px;}
-.ph-voices-split{display:flex;gap:48px;align-items:flex-start;margin-top:8px;}
-.ph-voices-video{flex:0 0 300px;max-width:300px;}
-.ph-voices-video .cs-vid-card{aspect-ratio:9/16;}
-.ph-voices-video-note{font-size:12px;color:var(--phr-text-light);text-align:center;margin:10px 0 0;font-style:italic;}
-.ph-voices-quotes{
-  flex:1;
-  min-width:0;
+/* --- 11. Filipino customer voices: one featured video+quote card,
+   then a written-testimonial slider below it (3 cards/2/1 visible at
+   desktop/tablet/mobile — see PH_VOICES in ph-lander.js). Replaces the
+   old dense 3-col wall of aspect-ratio-square cards. ------------------ */
+.ph-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+.ph-voices-sub{max-width:640px;}
+
+/* -- Featured video + quote card -- */
+.ph-voices-featured{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:16px;
-  align-content:start;
-}
-.ph-voice-quote{
-  position:relative;
+  grid-template-columns:38% 1fr;
   background:var(--phr-white);
   border:1px solid var(--phr-border);
-  border-radius:var(--phr-radius-md);
-  padding:20px 20px 18px;
-  margin:0;
-  display:flex;
-  flex-direction:column;
-  aspect-ratio:1/1;
-  transition:box-shadow var(--phr-transition),border-color var(--phr-transition);
-}
-.ph-voice-quote:hover{box-shadow:var(--phr-shadow-hover);border-color:var(--phr-blue-200);}
-.ph-voice-quote-mark{color:var(--phr-blue-200);display:block;margin-bottom:8px;flex-shrink:0;}
-.ph-voice-quote p{
-  font-size:13px;
-  color:var(--phr-text-dark);
-  line-height:1.5;
-  margin:0;
-  font-style:italic;
-  flex:1;
+  border-radius:32px;
   overflow:hidden;
+  box-shadow:var(--phr-shadow-card);
+  max-width:1120px;
+  margin:44px auto 0;
 }
-.ph-voice-quote footer{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding-top:12px;
-  margin-top:12px;
-  border-top:1px solid var(--phr-border);
-  font-style:normal;
-  flex-shrink:0;
-}
-.ph-voice-avatar{
-  width:32px;
-  height:32px;
-  border-radius:50%;
-  background:var(--phr-blue-50);
-  color:var(--phr-blue-500);
+.ph-voices-featured-video{
+  padding:32px;
+  background:linear-gradient(160deg,var(--phr-blue-50) 0%,#EAF1FF 100%);
   display:flex;
   align-items:center;
   justify-content:center;
-  flex-shrink:0;
 }
-.ph-voice-avatar svg{width:16px;height:16px;}
-.ph-voice-attribution{display:flex;flex-direction:column;gap:1px;min-width:0;}
-.ph-voice-attribution strong{font-size:12px;font-weight:700;color:var(--phr-text-dark);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.ph-voice-attribution span{font-size:11px;color:var(--phr-text-light);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-@media(max-width:1100px){.ph-voices-quotes{grid-template-columns:repeat(2,1fr);}}
+.ph-voices-vid{
+  width:100%;
+  max-width:280px;
+  aspect-ratio:9/16;
+  box-shadow:0 20px 50px -20px rgba(13,27,62,.4);
+}
+.ph-voices-vid .cs-vid-play-btn{opacity:1;}
+.ph-voices-vid:hover .cs-vid-play-btn,
+.ph-voices-vid:focus-visible .cs-vid-play-btn{
+  background:var(--phr-blue-500);border-color:var(--phr-blue-500);
+  transform:translate(-50%,-50%) scale(1.08);
+}
+.ph-voices-vid:focus-visible{outline:2px solid var(--phr-blue-500);outline-offset:3px;}
+.ph-voices-watch-label{
+  position:absolute;left:0;right:0;bottom:18px;
+  text-align:center;
+  font-size:12.5px;font-weight:700;letter-spacing:.02em;
+  color:#fff;
+  pointer-events:none;
+}
+.ph-voices-featured-content{padding:48px 48px 48px 40px;display:flex;flex-direction:column;justify-content:center;min-width:0;}
+.ph-voices-featured-logo{height:36px;width:auto;max-width:170px;object-fit:contain;display:block;margin-bottom:22px;}
+.ph-voices-featured-eyebrow{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--phr-blue-700);margin:0 0 16px;}
+.ph-voices-featured-quote{margin:0;}
+.ph-voices-featured-quote>.ph-voices-quote-mark{display:block;color:var(--phr-blue-200);margin-bottom:12px;}
+.ph-voices-featured-quote>p{font-size:27px;font-weight:500;font-style:normal;color:var(--phr-text-dark);line-height:1.45;margin:0 0 28px;}
+.ph-voices-featured-cite{display:block;font-style:normal;}
+.ph-voices-featured-name{display:block;font-size:16.5px;font-weight:700;color:var(--phr-text-dark);}
+.ph-voices-featured-role{display:block;font-size:13.5px;color:var(--phr-text-light);margin-top:4px;}
 @media(max-width:900px){
-  .ph-voices-split{flex-direction:column;align-items:center;}
-  .ph-voices-video{max-width:260px;}
-  .ph-voices-quotes{width:100%;}
+  .ph-voices-featured{grid-template-columns:1fr;border-radius:24px;}
+  .ph-voices-featured-video{padding:28px 28px 0;}
+  .ph-voices-vid{max-width:220px;}
+  .ph-voices-featured-content{padding:28px;}
+  .ph-voices-featured-quote>p{font-size:22px;}
 }
-@media(max-width:520px){
-  .ph-voices-quotes{grid-template-columns:1fr;}
-  .ph-voice-quote{aspect-ratio:auto;}
+
+/* -- Written testimonial slider -- */
+.ph-voices-more{margin-top:56px;}
+.ph-voices-more-head{
+  display:flex;align-items:center;justify-content:space-between;
+  max-width:1120px;margin:0 auto 22px;
+}
+.ph-voices-more-label{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--phr-text-light);margin:0;}
+.ph-voices-nav{display:flex;gap:8px;}
+.ph-voices-arrow{
+  width:40px;height:40px;border-radius:50%;flex-shrink:0;
+  background:var(--phr-white);border:1.5px solid var(--phr-border);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--phr-text-mid);cursor:pointer;
+  transition:border-color var(--phr-transition),color var(--phr-transition);
+}
+.ph-voices-arrow svg{width:18px;height:18px;}
+.ph-voices-arrow:hover:not(:disabled){border-color:var(--phr-blue-200);color:var(--phr-blue-700);}
+.ph-voices-arrow:focus-visible{outline:2px solid var(--phr-blue-500);outline-offset:2px;}
+.ph-voices-arrow:disabled{opacity:.35;cursor:default;}
+
+.ph-voices-track{
+  display:flex;
+  align-items:flex-start;
+  gap:22px;
+  list-style:none;
+  margin:0 auto;
+  padding:2px 2px 10px;
+  max-width:1120px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  scrollbar-width:none;-ms-overflow-style:none;
+}
+.ph-voices-track::-webkit-scrollbar{display:none;}
+.ph-voices-card{
+  scroll-snap-align:start;
+  flex:0 0 calc((100% - 44px)/3);
+  min-height:320px;
+  background:var(--phr-white);
+  border:1px solid var(--phr-border);
+  border-radius:22px;
+  padding:30px;
+  display:flex;
+  flex-direction:column;
+  box-shadow:0 2px 10px rgba(13,27,62,.04);
+}
+.ph-voices-card-logo-wrap{height:48px;display:flex;align-items:center;margin-bottom:16px;}
+.ph-voices-card-logo{max-width:120px;max-height:48px;width:auto;height:auto;object-fit:contain;display:block;}
+.ph-voices-card-logo-fallback{
+  display:inline-flex;align-items:center;
+  padding:7px 14px;
+  border-radius:8px;
+  background:var(--phr-blue-50);
+  color:var(--phr-blue-700);
+  font-size:12px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;
+}
+.ph-voices-card-industry{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--phr-text-light);margin:0 0 14px;}
+.ph-voices-card-quote-mark{display:block;color:var(--phr-blue-200);width:22px;height:18px;margin-bottom:10px;}
+.ph-voices-card-quote{margin:0 0 22px;flex:1;}
+.ph-voices-card-quote p{font-size:18px;font-weight:400;font-style:normal;color:var(--phr-text-dark);line-height:1.6;margin:0;}
+.ph-voices-card-cite{display:block;font-style:normal;margin-top:auto;}
+.ph-voices-card-name{display:block;font-size:15px;font-weight:600;color:var(--phr-text-dark);}
+.ph-voices-card-role{display:block;font-size:13px;color:var(--phr-text-light);margin-top:3px;line-height:1.4;}
+
+.ph-voices-dots{display:flex;justify-content:center;gap:8px;margin-top:24px;}
+.ph-voices-dot{width:8px;height:8px;border-radius:50%;background:var(--phr-border);border:none;padding:0;cursor:pointer;transition:background .2s,transform .2s;}
+.ph-voices-dot.is-active{background:var(--phr-blue-700);transform:scale(1.3);}
+.ph-voices-dot:focus-visible{outline:2px solid var(--phr-blue-500);outline-offset:2px;}
+
+@media(max-width:1024px){
+  .ph-voices-card{flex-basis:calc((100% - 22px)/2);}
+}
+@media(max-width:640px){
+  .ph-voices-card{flex-basis:86%;min-height:0;}
+  .ph-voices-more-head{padding:0 4px;}
+}
+@media(prefers-reduced-motion:reduce){
+  .ph-voices-track{scroll-behavior:auto;}
 }
 
 /* --- Video card component + modal, ported from customer-page's
@@ -999,16 +1065,6 @@ html{scrollbar-gutter:stable;}
   transform:translate(-50%,-50%) scale(1.08);
 }
 .cs-vid-play-btn svg{width:20px;height:20px;color:#fff;margin-left:3px;}
-.cs-vid-info{position:absolute;bottom:0;left:0;right:0;padding:20px 18px;}
-.cs-vid-title{font-size:15px;font-weight:700;color:#fff;line-height:1.4;letter-spacing:-.2px;}
-.cs-vid-meta{margin-top:14px;padding:0 2px;}
-.cs-vid-name{font-size:13.5px;font-weight:700;color:var(--phr-navy);line-height:1.3;}
-.cs-vid-role{font-size:12px;font-weight:400;color:var(--phr-text-light);line-height:1.35;margin-top:2px;}
-.cs-vid-logo-below{
-  font-size:14px;font-weight:700;color:var(--phr-navy);line-height:1.3;
-  margin-top:8px;padding-top:8px;border-top:1px solid var(--phr-border);
-}
-.cs-vid-logo-below img{height:32px;width:auto;max-width:100%;display:block;object-fit:contain;object-position:left center;}
 
 .wb-modal-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:2000;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px);}
 .wb-modal-backdrop.open{display:flex;}

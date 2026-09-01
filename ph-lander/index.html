@@ -877,131 +877,60 @@
       </div>
     </section>
 
-    <!-- ===================== 9. FILIPINO CUSTOMER VOICES ===================== -->
-    <section class="ph-section ph-section--alt ph-voices-section">
+    <!-- ===================== 9. FILIPINO CUSTOMER VOICES =====================
+         Written testimonials are rendered by ph-lander.js from the
+         PH_VOICES data array (see that file) — this markup is the static
+         featured-video card plus the empty slider shell the script mounts
+         cards into. -->
+    <section class="ph-section ph-section--alt ph-voices-section" id="ph-voices">
       <div class="page-wrap">
         <div class="phr-section__header phr-section__header--center">
           <p class="phr-section__label">In Their Own Words</p>
-          <h2 class="phr-section__title">Filipino HR Teams, On Working With PeoplesHR.</h2>
+          <h2 class="phr-section__title">What Filipino HR Teams Say About PeoplesHR.</h2>
+          <p class="phr-section__sub ph-voices-sub">See how HR teams are simplifying workforce management, improving payroll accuracy and connecting employees across locations.</p>
         </div>
-        <div class="ph-voices-split">
-          <div class="ph-voices-video">
-            <div class="cs-vid-card" data-youtube="XpPC4Fbmd5c" data-title="&quot;Fragmented manual HR, now accurate, compliant and centralized across hotel properties.&quot;">
+
+        <div class="ph-voices-featured">
+          <div class="ph-voices-featured-video">
+            <div class="cs-vid-card ph-voices-vid" data-youtube="XpPC4Fbmd5c" data-title="Radine Brito, General Manager, Sunlight Hotels &amp; Resorts" role="button" tabindex="0" aria-label="Play video testimonial: Radine Brito, General Manager, Sunlight Hotels &amp; Resorts">
               <div class="cs-vid-bg"></div>
-              <img class="cs-vid-thumb-img" src="images/sunlight-testimonial.webp" alt="Customer testimonial video">
+              <img class="cs-vid-thumb-img" src="images/sunlight-testimonial.webp" alt="Radine Brito, General Manager at Sunlight Hotels &amp; Resorts">
               <div class="cs-vid-scrim"></div>
-              <div class="cs-vid-play-btn">
+              <div class="cs-vid-play-btn" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
               </div>
-              <div class="cs-vid-info">
-                <div class="cs-vid-title">&ldquo;Fragmented manual HR, now accurate, compliant and centralized across hotel properties.&rdquo;</div>
-              </div>
+              <span class="ph-voices-watch-label" aria-hidden="true">Watch Their Story</span>
             </div>
-            <div class="cs-vid-meta">
-              <div class="cs-vid-name">Radine Brito</div>
-              <div class="cs-vid-role">General Manager</div>
-              <div class="cs-vid-logo-below"><img src="images/sunlight-logo.svg" alt="Sunlight Hotels &amp; Resorts"></div>
-            </div>
-            <p class="ph-voices-video-note">Placeholder video — swap for a Philippine customer reel when available.</p>
           </div>
-          <div class="ph-voices-quotes">
-            <blockquote class="ph-voice-quote">
-              <svg class="ph-voice-quote-mark" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M7.5 6C4.5 8 3 11 3 14c0 2.8 1.9 4.5 4 4.5 2 0 3.5-1.5 3.5-3.5 0-1.8-1.2-3.2-3-3.5.4-1.8 1.7-3.5 3.5-4.8L7.5 6Zm9 0c-3 2-4.5 5-4.5 8 0 2.8 1.9 4.5 4 4.5 2 0 3.5-1.5 3.5-3.5 0-1.8-1.2-3.2-3-3.5.4-1.8 1.7-3.5 3.5-4.8L16.5 6Z"/></svg>
-              <p>&ldquo;[Placeholder quote &mdash; swap for real testimonials] Switching payroll processes felt risky, but the rollout was smoother than expected.&rdquo;</p>
-              <footer>
-                <span class="ph-voice-avatar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg></span>
-                <span class="ph-voice-attribution"><strong>HR Manager</strong><span>Manufacturing &mdash; Philippines</span></span>
-              </footer>
-            </blockquote>
-            <blockquote class="ph-voice-quote">
-              <svg class="ph-voice-quote-mark" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M7.5 6C4.5 8 3 11 3 14c0 2.8 1.9 4.5 4 4.5 2 0 3.5-1.5 3.5-3.5 0-1.8-1.2-3.2-3-3.5.4-1.8 1.7-3.5 3.5-4.8L7.5 6Zm9 0c-3 2-4.5 5-4.5 8 0 2.8 1.9 4.5 4 4.5 2 0 3.5-1.5 3.5-3.5 0-1.8-1.2-3.2-3-3.5.4-1.8 1.7-3.5 3.5-4.8L16.5 6Z"/></svg>
-              <p>&ldquo;[Placeholder] Compliance used to eat up a full week every cut-off. Now it runs inside the system.&rdquo;</p>
-              <footer>
-                <span class="ph-voice-avatar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg></span>
-                <span class="ph-voice-attribution"><strong>Payroll Lead</strong><span>BPO &mdash; Philippines</span></span>
-              </footer>
-            </blockquote>
-            <blockquote class="ph-voice-quote">
-              <svg class="ph-voice-quote-mark" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M7.5 6C4.5 8 3 11 3 14c0 2.8 1.9 4.5 4 4.5 2 0 3.5-1.5 3.5-3.5 0-1.8-1.2-3.2-3-3.5.4-1.8 1.7-3.5 3.5-4.8L7.5 6Zm9 0c-3 2-4.5 5-4.5 8 0 2.8 1.9 4.5 4 4.5 2 0 3.5-1.5 3.5-3.5 0-1.8-1.2-3.2-3-3.5.4-1.8 1.7-3.5 3.5-4.8L16.5 6Z"/></svg>
-              <p>&ldquo;[Placeholder] Having one system across our sites meant we stopped chasing spreadsheets.&rdquo;</p>
-              <footer>
-                <span class="ph-voice-avatar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg></span>
-                <span class="ph-voice-attribution"><strong>HR Director</strong><span>Logistics &mdash; Philippines</span></span>
-              </footer>
-            </blockquote>
-            <blockquote class="ph-voice-quote">
-              <svg class="ph-voice-quote-mark" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M7.5 6C4.5 8 3 11 3 14c0 2.8 1.9 4.5 4 4.5 2 0 3.5-1.5 3.5-3.5 0-1.8-1.2-3.2-3-3.5.4-1.8 1.7-3.5 3.5-4.8L7.5 6Zm9 0c-3 2-4.5 5-4.5 8 0 2.8 1.9 4.5 4 4.5 2 0 3.5-1.5 3.5-3.5 0-1.8-1.2-3.2-3-3.5.4-1.8 1.7-3.5 3.5-4.8L16.5 6Z"/></svg>
-              <p>&ldquo;[Placeholder] Statutory filing used to be a scramble every month. Now it&rsquo;s automatic.&rdquo;</p>
-              <footer>
-                <span class="ph-voice-avatar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg></span>
-                <span class="ph-voice-attribution"><strong>Compliance Officer</strong><span>Manufacturing &mdash; Philippines</span></span>
-              </footer>
-            </blockquote>
-            <blockquote class="ph-voice-quote">
-              <svg class="ph-voice-quote-mark" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M7.5 6C4.5 8 3 11 3 14c0 2.8 1.9 4.5 4 4.5 2 0 3.5-1.5 3.5-3.5 0-1.8-1.2-3.2-3-3.5.4-1.8 1.7-3.5 3.5-4.8L7.5 6Zm9 0c-3 2-4.5 5-4.5 8 0 2.8 1.9 4.5 4 4.5 2 0 3.5-1.5 3.5-3.5 0-1.8-1.2-3.2-3-3.5.4-1.8 1.7-3.5 3.5-4.8L16.5 6Z"/></svg>
-              <p>&ldquo;[Placeholder] Rolling out a new HR system across sites was easier than we expected.&rdquo;</p>
-              <footer>
-                <span class="ph-voice-avatar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg></span>
-                <span class="ph-voice-attribution"><strong>IT Manager</strong><span>BPO &mdash; Philippines</span></span>
-              </footer>
-            </blockquote>
-            <blockquote class="ph-voice-quote">
-              <svg class="ph-voice-quote-mark" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M7.5 6C4.5 8 3 11 3 14c0 2.8 1.9 4.5 4 4.5 2 0 3.5-1.5 3.5-3.5 0-1.8-1.2-3.2-3-3.5.4-1.8 1.7-3.5 3.5-4.8L7.5 6Zm9 0c-3 2-4.5 5-4.5 8 0 2.8 1.9 4.5 4 4.5 2 0 3.5-1.5 3.5-3.5 0-1.8-1.2-3.2-3-3.5.4-1.8 1.7-3.5 3.5-4.8L16.5 6Z"/></svg>
-              <p>&ldquo;[Placeholder] Attendance data finally matches payroll, every single cut-off.&rdquo;</p>
-              <footer>
-                <span class="ph-voice-avatar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg></span>
-                <span class="ph-voice-attribution"><strong>Operations Head</strong><span>Logistics &mdash; Philippines</span></span>
-              </footer>
-            </blockquote>
-            <blockquote class="ph-voice-quote">
-              <svg class="ph-voice-quote-mark" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M7.5 6C4.5 8 3 11 3 14c0 2.8 1.9 4.5 4 4.5 2 0 3.5-1.5 3.5-3.5 0-1.8-1.2-3.2-3-3.5.4-1.8 1.7-3.5 3.5-4.8L7.5 6Zm9 0c-3 2-4.5 5-4.5 8 0 2.8 1.9 4.5 4 4.5 2 0 3.5-1.5 3.5-3.5 0-1.8-1.2-3.2-3-3.5.4-1.8 1.7-3.5 3.5-4.8L16.5 6Z"/></svg>
-              <p>&ldquo;[Placeholder] Our team spends less time on admin and more time on people.&rdquo;</p>
-              <footer>
-                <span class="ph-voice-avatar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg></span>
-                <span class="ph-voice-attribution"><strong>People Ops Lead</strong><span>BPO &mdash; Philippines</span></span>
-              </footer>
-            </blockquote>
-            <blockquote class="ph-voice-quote">
-              <svg class="ph-voice-quote-mark" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M7.5 6C4.5 8 3 11 3 14c0 2.8 1.9 4.5 4 4.5 2 0 3.5-1.5 3.5-3.5 0-1.8-1.2-3.2-3-3.5.4-1.8 1.7-3.5 3.5-4.8L7.5 6Zm9 0c-3 2-4.5 5-4.5 8 0 2.8 1.9 4.5 4 4.5 2 0 3.5-1.5 3.5-3.5 0-1.8-1.2-3.2-3-3.5.4-1.8 1.7-3.5 3.5-4.8L16.5 6Z"/></svg>
-              <p>&ldquo;[Placeholder] Multi-site reporting used to take days. Now it&rsquo;s instant.&rdquo;</p>
-              <footer>
-                <span class="ph-voice-avatar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg></span>
-                <span class="ph-voice-attribution"><strong>HR Manager</strong><span>Logistics &mdash; Philippines</span></span>
-              </footer>
-            </blockquote>
-            <blockquote class="ph-voice-quote">
-              <svg class="ph-voice-quote-mark" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M7.5 6C4.5 8 3 11 3 14c0 2.8 1.9 4.5 4 4.5 2 0 3.5-1.5 3.5-3.5 0-1.8-1.2-3.2-3-3.5.4-1.8 1.7-3.5 3.5-4.8L7.5 6Zm9 0c-3 2-4.5 5-4.5 8 0 2.8 1.9 4.5 4 4.5 2 0 3.5-1.5 3.5-3.5 0-1.8-1.2-3.2-3-3.5.4-1.8 1.7-3.5 3.5-4.8L16.5 6Z"/></svg>
-              <p>&ldquo;[Placeholder] Manual payroll errors are a thing of the past for us.&rdquo;</p>
-              <footer>
-                <span class="ph-voice-avatar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg></span>
-                <span class="ph-voice-attribution"><strong>Payroll Supervisor</strong><span>Manufacturing &mdash; Philippines</span></span>
-              </footer>
-            </blockquote>
-            <blockquote class="ph-voice-quote">
-              <svg class="ph-voice-quote-mark" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M7.5 6C4.5 8 3 11 3 14c0 2.8 1.9 4.5 4 4.5 2 0 3.5-1.5 3.5-3.5 0-1.8-1.2-3.2-3-3.5.4-1.8 1.7-3.5 3.5-4.8L7.5 6Zm9 0c-3 2-4.5 5-4.5 8 0 2.8 1.9 4.5 4 4.5 2 0 3.5-1.5 3.5-3.5 0-1.8-1.2-3.2-3-3.5.4-1.8 1.7-3.5 3.5-4.8L16.5 6Z"/></svg>
-              <p>&ldquo;[Placeholder] Employee self-service cut our HR helpdesk tickets significantly.&rdquo;</p>
-              <footer>
-                <span class="ph-voice-avatar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg></span>
-                <span class="ph-voice-attribution"><strong>HR Business Partner</strong><span>BPO &mdash; Philippines</span></span>
-              </footer>
-            </blockquote>
-            <blockquote class="ph-voice-quote">
-              <svg class="ph-voice-quote-mark" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M7.5 6C4.5 8 3 11 3 14c0 2.8 1.9 4.5 4 4.5 2 0 3.5-1.5 3.5-3.5 0-1.8-1.2-3.2-3-3.5.4-1.8 1.7-3.5 3.5-4.8L7.5 6Zm9 0c-3 2-4.5 5-4.5 8 0 2.8 1.9 4.5 4 4.5 2 0 3.5-1.5 3.5-3.5 0-1.8-1.2-3.2-3-3.5.4-1.8 1.7-3.5 3.5-4.8L16.5 6Z"/></svg>
-              <p>&ldquo;[Placeholder] Payroll accuracy improved the moment we moved off spreadsheets.&rdquo;</p>
-              <footer>
-                <span class="ph-voice-avatar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg></span>
-                <span class="ph-voice-attribution"><strong>Finance Manager</strong><span>Manufacturing &mdash; Philippines</span></span>
-              </footer>
-            </blockquote>
-            <blockquote class="ph-voice-quote">
-              <svg class="ph-voice-quote-mark" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M7.5 6C4.5 8 3 11 3 14c0 2.8 1.9 4.5 4 4.5 2 0 3.5-1.5 3.5-3.5 0-1.8-1.2-3.2-3-3.5.4-1.8 1.7-3.5 3.5-4.8L7.5 6Zm9 0c-3 2-4.5 5-4.5 8 0 2.8 1.9 4.5 4 4.5 2 0 3.5-1.5 3.5-3.5 0-1.8-1.2-3.2-3-3.5.4-1.8 1.7-3.5 3.5-4.8L16.5 6Z"/></svg>
-              <p>&ldquo;[Placeholder] Onboarding new hires across accounts finally feels consistent.&rdquo;</p>
-              <footer>
-                <span class="ph-voice-avatar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg></span>
-                <span class="ph-voice-attribution"><strong>HR Director</strong><span>BPO &mdash; Philippines</span></span>
-              </footer>
+          <div class="ph-voices-featured-content">
+            <img class="ph-voices-featured-logo" src="images/sunlight-logo.svg" alt="Sunlight Hotels &amp; Resorts">
+            <p class="ph-voices-featured-eyebrow">Featured Customer Story</p>
+            <blockquote class="ph-voices-featured-quote">
+              <svg class="ph-voices-quote-mark" width="30" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.5 6C4.5 8 3 11 3 14c0 2.8 1.9 4.5 4 4.5 2 0 3.5-1.5 3.5-3.5 0-1.8-1.2-3.2-3-3.5.4-1.8 1.7-3.5 3.5-4.8L7.5 6Zm9 0c-3 2-4.5 5-4.5 8 0 2.8 1.9 4.5 4 4.5 2 0 3.5-1.5 3.5-3.5 0-1.8-1.2-3.2-3-3.5.4-1.8 1.7-3.5 3.5-4.8L16.5 6Z"/></svg>
+              <p>Fragmented manual HR, now accurate, compliant and centralized across hotel properties.</p>
+              <cite class="ph-voices-featured-cite">
+                <span class="ph-voices-featured-name">Radine Brito</span>
+                <span class="ph-voices-featured-role">General Manager, Sunlight Hotels &amp; Resorts</span>
+              </cite>
             </blockquote>
           </div>
+        </div>
+
+        <div class="ph-voices-more">
+          <div class="ph-voices-more-head">
+            <p class="ph-voices-more-label">More From Our Customers</p>
+            <div class="ph-voices-nav">
+              <button type="button" class="ph-voices-arrow" id="phVoicesPrev" aria-label="Previous testimonials">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+              </button>
+              <button type="button" class="ph-voices-arrow" id="phVoicesNext" aria-label="Next testimonials">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              </button>
+            </div>
+          </div>
+          <ul class="ph-voices-track" id="phVoicesTrack"></ul>
+          <div class="ph-voices-dots" id="phVoicesDots"></div>
+          <p class="ph-sr-only" role="status" aria-live="polite" id="phVoicesStatus"></p>
         </div>
       </div>
     </section>
