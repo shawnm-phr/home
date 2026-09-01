@@ -287,6 +287,11 @@ html{scrollbar-gutter:stable;}
 .ph-hero-float--1{top:30%;left:-54px;z-index:1;}
 /* Overlaps her arm in front — sits over the photo. */
 .ph-hero-float--2{top:48%;right:-30px;z-index:4;animation-delay:1.4s;animation-duration:6s;}
+/* Once a float has a real screenshot, drop the dashed "needs an
+   asset" border/padding for a finished card and let the image fill
+   it edge to edge. */
+.ph-hero-float--filled{border-style:solid;border-color:var(--phr-border);padding:0;overflow:hidden;}
+.ph-hero-float--filled img{width:100%;height:100%;object-fit:cover;display:block;}
 @keyframes ph-hero-float-bob{
   0%,100%{transform:translateY(0);}
   50%{transform:translateY(-14px);}
