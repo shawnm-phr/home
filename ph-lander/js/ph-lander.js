@@ -113,8 +113,22 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
      box height stays locked to the tallest panel across tab switches.
      That means toggling visibility here, not the `hidden` attribute
      (which would force display:none via the browser's UA stylesheet
-     and pull the panel back out of the grid's height calculation). */
+     and pull the panel back out of the grid's height calculation).
+
+     Because all three panels stay in the DOM, all three <video>s would
+     autoplay at once the moment real <source>s are uncommented — only
+     one is ever visible, so play/pause them in lockstep with the tab
+     switch instead of leaving the other two decoding in the background. */
   var lexiInsTabs = document.querySelectorAll('.ph-lexi-ins-tab');
+  var setLexiInsVideoPlaying = function(panel, shouldPlay){
+    var video = panel.querySelector('.ph-lexi-ins-video-el');
+    if(!video) return;
+    if(shouldPlay) video.play().catch(function(){});
+    else video.pause();
+  };
+  document.querySelectorAll('.ph-lexi-ins-panel').forEach(function(panel){
+    setLexiInsVideoPlaying(panel, panel.classList.contains('is-active'));
+  });
   lexiInsTabs.forEach(function(tab){
     tab.addEventListener('click', function(){
       var target = tab.getAttribute('data-lexi-ins-tab');
@@ -127,6 +141,7 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
         var isActive = panel.getAttribute('data-lexi-ins-panel') === target;
         panel.classList.toggle('is-active', isActive);
         panel.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+        setLexiInsVideoPlaying(panel, isActive);
       });
     });
   });

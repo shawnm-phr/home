@@ -587,7 +587,12 @@ html{scrollbar-gutter:stable;}
   color:rgba(255,255,255,.85);
   pointer-events:none;
 }
-@media(max-width:860px){
+@media(max-width:1080px){
+  /* .ph-lexi-ins-content's fixed 400px flex-basis doesn't shrink, so
+     between ~861-1024px the row used to survive just long enough to
+     squeeze .ph-lexi-ins-video into a narrow portrait sliver before
+     stacking kicked in at 860px. Stacking earlier removes that dead
+     zone outright instead of trying to tune the squeeze. */
   .ph-lexi-ins-panel{flex-direction:column;padding:32px;}
   .ph-lexi-ins-content{flex:none;}
   .ph-lexi-ins-video{flex:none;width:100%;aspect-ratio:16/9;}
