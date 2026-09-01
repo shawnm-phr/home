@@ -695,7 +695,10 @@ html{scrollbar-gutter:stable;}
 
 /* --- 7. Interactive demo: card placed right, copy left, mirroring
    the interactive-demos page hero (.dg-hero/.dg-hero-demo* classes
-   reused as-is from phrhome.css; only the split wrapper is new). --- */
+   reused as-is from phrhome.css; only the split wrapper is new).
+   Background matches .phr-hero's light green gradient so the two
+   green sections bookend the white ones between them. ------------- */
+.ph-demo-section--green{background:linear-gradient(160deg,#EEF6F0 0%,#F5FAF6 55%,#E9F5EC 100%);}
 .ph-demo-split{
   display:flex;
   align-items:center;
