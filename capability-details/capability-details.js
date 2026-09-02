@@ -28,28 +28,17 @@ var MODULES = [
     module: "HR", accent: "var(--cd-hr)",
     items: [
       {
-        id: "standard-information-fields", title: "Standard Information Fields", type: "table",
-        intro: "The default set of fields captured on every employee master record, available from day one before any custom fields are added.",
-        data: {
-          columns: ["Field", "Description"],
-          rows: [
-            ["Full legal name", "Employee's full name exactly as it appears on their statutory ID. <em>Example row — ready to use.</em>"],
-            ["[To be completed]", "[To be completed]"],
-            ["[To be completed]", "[To be completed]"],
-            ["[To be completed]", "[To be completed]"]
-          ]
-        }
-      },
-      {
         id: "standard-info-validations", title: "Standard information validations", type: "table",
         intro: "Automated checks applied to employee-submitted information and profile changes before they're accepted into the master record.",
         data: {
           columns: ["Validation", "What it checks"],
           rows: [
-            ["National ID format", "Confirms the ID number matches the expected format and checksum for the employee's country. <em>Example row — ready to use.</em>"],
-            ["[To be completed]", "[To be completed]"],
-            ["[To be completed]", "[To be completed]"],
-            ["[To be completed]", "[To be completed]"]
+            ["National ID format", "Confirms the ID number matches the expected format and checksum for the employee's country."],
+            ["Employee number generation", "Generates each employee's number automatically from your configured numbering logic, so every record has a unique, consistently formatted ID."],
+            ["Mandatory field validation", "Ensures all required fields are completed before a record can be saved, so no profile is left incomplete."],
+            ["Employment info type validation", "Checks that entered employment information matches the allowed type or category for that field (e.g. employment type, contract type)."],
+            ["Information status validation", "Verifies a record or field is in a valid status for the action being taken (e.g. active vs. inactive) before changes are accepted."],
+            ["Employment detail relational validation", "Checks that related employment details are consistent with one another (e.g. designation aligns with grade, department with location) before the record updates."]
           ]
         }
       },
@@ -57,10 +46,11 @@ var MODULES = [
         id: "lifecycle-types", title: "Employee lifecycle types", type: "list",
         intro: "The stages and event types available for tracking an employee's journey from hire through to exit.",
         data: [
-          { name: "Confirmation", desc: "Conversion from probation to permanent status. Example item — ready to use." },
-          { name: "[To be completed]", desc: "[To be completed]" },
-          { name: "[To be completed]", desc: "[To be completed]" },
-          { name: "[To be completed]", desc: "[To be completed]" }
+          { name: "Confirmation", desc: "Conversion from probation to permanent status once the probation period is successfully completed." },
+          { name: "Transfer", desc: "Movement between departments, locations, or business units, with effective dating and history retained." },
+          { name: "Promotion", desc: "Elevation to a higher grade, designation, or role, recorded against the employee's history." },
+          { name: "Resignation / exit", desc: "The employee's departure from the organisation, capturing resignation and exit details." },
+          { name: "Contract extension", desc: "Extension of a fixed-term or contract employee's engagement period, with the new dates recorded." }
         ]
       },
       {
@@ -79,22 +69,13 @@ var MODULES = [
         data: {
           columns: ["Template", "When used"],
           rows: [
-            ["Offer letter", "Sent to a candidate confirming a job offer and its terms. <em>Example row — ready to use.</em>"],
-            ["[To be completed]", "[To be completed]"],
-            ["[To be completed]", "[To be completed]"],
-            ["[To be completed]", "[To be completed]"]
+            ["Appointment letter", "Issued when a new employee is hired, confirming their appointment, role, and terms."],
+            ["Increment letter", "Issued when an employee receives a salary increment, confirming the revised pay."],
+            ["Confirmation letter", "Issued when an employee is confirmed from probation to permanent status."],
+            ["Probation extension letter", "Issued when an employee's probation is extended, stating the new confirmation date."],
+            ["Salary confirmation letter", "Issued on request to confirm an employee's current salary, typically for external verification (loans, visas, etc.)."]
           ]
         }
-      },
-      {
-        id: "standard-email-alerts", title: "Standard email alerts", type: "list",
-        intro: "Automated email notifications sent to employees and managers as key HR and approval events happen.",
-        data: [
-          { name: "Leave request submitted", desc: "Notifies the approving manager when an employee submits a leave request. Example item — ready to use." },
-          { name: "[To be completed]", desc: "[To be completed]" },
-          { name: "[To be completed]", desc: "[To be completed]" },
-          { name: "[To be completed]", desc: "[To be completed]" }
-        ]
       },
       {
         id: "audit-trail", title: "Audit trail of system activity", type: "prose",
@@ -112,7 +93,10 @@ var MODULES = [
       {
         id: "api-external-systems", title: "External systems via API", type: "prose",
         intro: "Structured API endpoints that let external systems, devices, and third-party applications securely push data into and pull data out of the platform.",
-        data: { prose: ["[To be completed] — describe supported protocols, authentication method, rate limits, and available endpoint categories (employee data, attendance, payroll, etc.)."] }
+        data: { prose: [
+          "A standard API layer lets external systems, devices, and third-party applications securely exchange data with PeoplesHR — pushing data in and pulling data out through structured endpoints across areas such as employee records, attendance, and payroll.",
+          "[To confirm] Supported protocols, authentication method, and rate limits."
+        ] }
       }
     ]
   },
@@ -131,38 +115,35 @@ var MODULES = [
       },
       {
         id: "statutory-leaves", title: "Statutory leaves", type: "list",
-        intro: "The statutory leave types pre-configured for common jurisdictions, ready to enable and adjust to local regulation.",
+        intro: "The statutory leave types pre-configured for common jurisdictions, ready to enable and adjust to local regulation. Currently configured for Sri Lanka — other jurisdictions' statutory leaves can be added the same way.",
         data: [
-          { name: "Annual leave", desc: "Statutory minimum paid annual leave entitlement. Example item — ready to use." },
-          { name: "[To be completed]", desc: "[To be completed]" },
-          { name: "[To be completed]", desc: "[To be completed]" },
-          { name: "[To be completed]", desc: "[To be completed]" }
-        ]
-      },
-      {
-        id: "org-leave-types", title: "Organisation leave types", type: "list",
-        intro: "Additional, non-statutory leave types an organisation can configure on top of statutory leave.",
-        data: [
-          { name: "Compassionate leave", desc: "Paid leave granted following a bereavement or family emergency. Example item — ready to use." },
-          { name: "[To be completed]", desc: "[To be completed]" },
-          { name: "[To be completed]", desc: "[To be completed]" },
-          { name: "[To be completed]", desc: "[To be completed]" }
+          { name: "Annual leave", desc: "Statutory paid annual leave entitlement, accrued based on length of service." },
+          { name: "Casual leave", desc: "Statutory casual leave for short-notice personal needs." },
+          { name: "Maternity leave", desc: "Statutory paid maternity leave for eligible employees." },
+          { name: "Earned leave", desc: "Leave accrued through completed service, available to take or carry forward." },
+          { name: "Sick leave", desc: "Leave for illness, in line with statutory and company policy." }
         ]
       },
       {
         id: "standard-leave-validations", title: "Standard leave validations", type: "list",
         intro: "Automated checks applied to every leave request before it reaches an approver.",
         data: [
-          { name: "Balance check", desc: "Blocks a request that exceeds the employee's remaining leave balance. Example item — ready to use." },
-          { name: "[To be completed]", desc: "[To be completed]" },
-          { name: "[To be completed]", desc: "[To be completed]" },
-          { name: "[To be completed]", desc: "[To be completed]" }
+          { name: "Balance check", desc: "Blocks a request that exceeds the employee's remaining leave balance." },
+          { name: "Holiday calendar check", desc: "Checks requested dates against the applicable holiday calendar so public holidays aren't counted as leave." },
+          { name: "Roster-based validation", desc: "Validates the request against the employee's roster/shift schedule to avoid conflicts with working days." },
+          { name: "Covering-employee validation", desc: "Checks that a covering/backup employee is assigned or available where policy requires it." },
+          { name: "Medical certificate validation", desc: "Requires a medical certificate to be attached for the leave types or durations where it's mandatory." },
+          { name: "Consecutive leave-type validation", desc: "Enforces rules on combining or taking certain leave types back-to-back." },
+          { name: "Consecutive leave-days validation", desc: "Enforces limits on the number of consecutive leave days that can be taken at once." }
         ]
       },
       {
         id: "geo-fencing", title: "Geo-fencing & map provider", type: "prose",
         intro: "Restricts clock-in to one or more approved location zones, so employees can only check in when they're physically inside a designated radius.",
-        data: { prose: ["[To be completed] — confirm supported map provider(s), maximum number of zones per site, radius configuration, and behaviour when a device reports no GPS signal."] }
+        data: { prose: [
+          "Location zones are drawn using OpenStreetMap, so no paid mapping licence is required. Employees can only clock in when their device reports a position inside an approved radius.",
+          "[To confirm] Maximum number of zones per site, radius configuration, and behaviour when a device reports no GPS signal."
+        ] }
       }
     ]
   },
@@ -173,20 +154,20 @@ var MODULES = [
         id: "benefit-types", title: "Benefit types", type: "list",
         intro: "Non-cash benefits, allowances, and entitlements that can be administered per employee, each with its own eligibility rules.",
         data: [
-          { name: "Meal allowance", desc: "Recurring allowance paid alongside salary for eligible employees. Example item — ready to use." },
-          { name: "[To be completed]", desc: "[To be completed]" },
-          { name: "[To be completed]", desc: "[To be completed]" },
-          { name: "[To be completed]", desc: "[To be completed]" }
+          { name: "Meal allowance", desc: "Recurring allowance paid alongside salary for eligible employees." },
+          { name: "Medical reimbursement", desc: "Reimbursement of eligible medical expenses, tracked and paid through payroll." },
+          { name: "Mobile reimbursement", desc: "Reimbursement of mobile/phone expenses for eligible employees." }
         ]
       },
       {
         id: "standard-integrations", title: "Standard payroll integrations", type: "list",
         intro: "Pre-built integrations for moving payroll data to and from the systems most organisations already run.",
         data: [
-          { name: "Bank file export", desc: "Generates a bank-formatted payment file for salary disbursement. Example item — ready to use." },
-          { name: "[To be completed]", desc: "[To be completed]" },
-          { name: "[To be completed]", desc: "[To be completed]" },
-          { name: "[To be completed]", desc: "[To be completed]" }
+          { name: "Bank file export", desc: "Generates a bank-formatted payment file for salary disbursement." },
+          { name: "Workday", desc: "Integration to exchange employee and payroll data with Workday." },
+          { name: "SAP", desc: "Integration to exchange employee, payroll, and finance data with SAP." },
+          { name: "IFS", desc: "Integration to exchange payroll and finance data with IFS." },
+          { name: "Hive", desc: "[To confirm] Integration with Hive." }
         ]
       }
     ]
