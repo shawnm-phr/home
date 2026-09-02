@@ -457,6 +457,29 @@ html{scrollbar-gutter:stable;}
 }
 .ph-mod-ui-placeholder-icon{width:52px;height:52px;object-fit:contain;opacity:.6;}
 .ph-mod-ui-placeholder span{font-size:14px;font-weight:600;color:var(--phr-text-light);}
+/* Real product screenshots (HR/Pay/Time/Engagement/Talent/Insights) —
+   own frame instead of the dashed "needs asset" placeholder. contain
+   (not cover) so a real screenshot's text/UI never gets cropped;
+   background mat fills the rest of the panel's height. */
+.ph-mod-media-frame{
+  width:100%;
+  height:100%;
+  min-height:440px;
+  border-radius:var(--phr-radius-md);
+  background:var(--phr-blue-50);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+}
+.ph-mod-media-frame img{
+  width:100%;
+  height:auto;
+  display:block;
+  border-radius:10px;
+  box-shadow:0 16px 40px -12px rgba(20,29,48,.25);
+}
+@media(max-width:860px){.ph-mod-media-frame{height:auto;aspect-ratio:4/3;min-height:0;}}
 .ph-mod-panel-icon{
   flex:0 0 auto;
   width:56px;
