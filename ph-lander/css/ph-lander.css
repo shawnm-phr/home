@@ -310,12 +310,17 @@ html{scrollbar-gutter:stable;}
 .ph-hero-float--filled{
   width:210px;
   height:auto;
-  aspect-ratio:500/323;
   border:none;
   border-radius:var(--phr-radius-lg);
   padding:0;
   overflow:hidden;
 }
+/* Each widget's own aspect-ratio, matching its own image file exactly
+   (attendance_widget_hero.webp is 500x492, payslip_widget_phr.webp is
+   500x323 — no longer the same shape, so this can't be one shared
+   rule without object-fit:cover cropping one of them). */
+.ph-hero-float--1.ph-hero-float--filled{aspect-ratio:500/492;}
+.ph-hero-float--2.ph-hero-float--filled{aspect-ratio:500/323;}
 .ph-hero-float--filled img{width:100%;height:100%;object-fit:cover;display:block;}
 @keyframes ph-hero-float-bob{
   0%,100%{transform:translateY(0);}
