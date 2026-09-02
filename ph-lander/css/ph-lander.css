@@ -312,7 +312,7 @@ html{scrollbar-gutter:stable;}
   height:auto;
   aspect-ratio:500/323;
   border:none;
-  border-radius:0;
+  border-radius:var(--phr-radius-lg);
   padding:0;
   overflow:hidden;
 }
@@ -340,8 +340,8 @@ html{scrollbar-gutter:stable;}
 }
 .ph-hero-icon svg{width:26px;height:26px;}
 .ph-hero-icon img{width:28px;height:28px;object-fit:contain;display:block;}
-.ph-hero-icon--hr{top:4%;left:20%;animation-duration:5.5s;}
-.ph-hero-icon--pay{top:10%;right:2%;z-index:1;animation-duration:4.5s;animation-delay:.6s;}
+.ph-hero-icon--hr{top:9%;left:20%;animation-duration:5.5s;}
+.ph-hero-icon--pay{top:15%;right:2%;z-index:1;animation-duration:4.5s;animation-delay:.6s;}
 .ph-hero-icon--time{top:64%;left:-6%;animation-duration:6.5s;animation-delay:1.1s;}
 .ph-hero-icon--talent{top:80%;right:14%;z-index:1;animation-duration:5s;animation-delay:1.9s;}
 @media(prefers-reduced-motion:reduce){.ph-hero-icon{animation:none;}}
