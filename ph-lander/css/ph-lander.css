@@ -339,6 +339,7 @@ html{scrollbar-gutter:stable;}
   animation:ph-hero-float-bob 5s ease-in-out infinite;
 }
 .ph-hero-icon svg{width:26px;height:26px;}
+.ph-hero-icon img{width:28px;height:28px;object-fit:contain;display:block;}
 .ph-hero-icon--hr{top:4%;left:20%;animation-duration:5.5s;}
 .ph-hero-icon--pay{top:10%;right:2%;z-index:1;animation-duration:4.5s;animation-delay:.6s;}
 .ph-hero-icon--time{top:64%;left:-6%;animation-duration:6.5s;animation-delay:1.1s;}
@@ -354,6 +355,7 @@ html{scrollbar-gutter:stable;}
   .ph-hero-float--filled{width:150px;height:auto;}
   .ph-hero-icon{width:46px;height:46px;}
   .ph-hero-icon svg{width:20px;height:20px;}
+  .ph-hero-icon img{width:22px;height:22px;}
 }
 
 /* .ph-hero-cta wraps a single .btn-primary <a>. The shared .btn-primary
@@ -623,7 +625,17 @@ html{scrollbar-gutter:stable;}
   background:rgba(255,255,255,.14);
   overflow:hidden;
 }
-.ph-lexi-ins-video-el{width:100%;height:100%;object-fit:cover;display:block;}
+.ph-lexi-ins-video-el{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  /* Slight overscale + center crop: hides a hairline edge artifact
+     baked into the source export (its 592x370 native size matches
+     this box's own rendered size almost exactly, so cover has near
+     nothing to crop and the video's own edge is left exposed). */
+  transform:scale(1.04);
+}
 .ph-lexi-ins-video-label{
   position:absolute;
   inset:0;
@@ -1037,7 +1049,7 @@ html{scrollbar-gutter:stable;}
   margin:44px auto 0;
 }
 .ph-voices-featured-video{
-  padding:32px;
+  padding:16px;
   background:linear-gradient(160deg,var(--phr-blue-50) 0%,#EAF1FF 100%);
   display:flex;
   align-items:center;
@@ -1045,7 +1057,7 @@ html{scrollbar-gutter:stable;}
 }
 .ph-voices-vid{
   width:100%;
-  max-width:280px;
+  max-width:360px;
   aspect-ratio:9/16;
   box-shadow:0 20px 50px -20px rgba(13,27,62,.4);
 }
@@ -1211,7 +1223,8 @@ html{scrollbar-gutter:stable;}
 /* Offsets the anchor-scroll target so the sticky nav bar (~52-60px)
    doesn't cover the top of the section when "Book a Demo" CTAs jump
    straight to the on-page form. */
-.ph-form-cta-section{background:var(--phr-blue-30);scroll-margin-top:90px;}
+.ph-form-cta-section{background:var(--phr-white);scroll-margin-top:90px;}
+.ph-faq-section{background:#F5F6F8;}
 .ph-form-cta-split{display:flex;align-items:center;gap:64px;}
 .ph-form-cta-copy{flex:1;max-width:440px;}
 .ph-form-cta-form{flex:1;max-width:480px;width:100%;}
