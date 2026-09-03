@@ -122,6 +122,14 @@
 .wb-gated-label{opacity:1;background:rgba(13,27,62,.82);}
 .wb-gated-label::before{display:none;}
 
+/* --- Recording with no video yet (Indonesia webinar, recorded but not
+   uploaded) -- reuses .wb-gated-label's always-visible pill for the
+   "coming soon" text, but the card itself isn't clickable like a gated
+   one is, so it shouldn't invite a click/hover-lift the way playable
+   cards do. */
+.wb-rec-card[data-pending]{cursor:default;}
+.wb-rec-card[data-pending]:hover{transform:none;box-shadow:none;border-color:#cbd5e1;}
+
 /* --- Upcoming-webinar card cover, mobile ------------------------------
    phrhome.css's .wb-uc-thumb is a flat 150px at every breakpoint; on
    mobile the card is nearly full-width (82vw) so a taller cover reads

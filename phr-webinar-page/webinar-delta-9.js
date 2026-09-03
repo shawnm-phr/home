@@ -21,37 +21,8 @@ if(burger)burger.addEventListener('click',openPanel);if(closeBtn)closeBtn.addEve
 if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-dismissed');try{sessionStorage.setItem(ANN_KEY,'1');}catch(e){}});}}());
 
 const WEBINAR_DATA = {
-  "featured": {
-    "title": "Why AI Reskilling Isn't Enough: A Practical Guide to Real Change",
-    "description": "Reskilling programs are multiplying, but most still miss the mark. Join Eli Harrell and Manuel Garcia-Ramos as they unpack why bolting AI training onto old workflows doesn't work, what real behavioral change requires, and how HR leaders in the Philippines can build reskilling that actually sticks.",
-    "date": "2026-09-01T15:00:00+08:00",
-    "dateLabel": "1st September, 2026",
-    "timeLabel": "3:00 PM PHT",
-    "registerUrl": "https://peopleshr.com/webinar-philippines/",
-    "language": "English",
-    "attendees": "",
-    "coverImage": "images/upcoming_cover.webp",
-    "speakers": [
-      { "initials": "EH", "name": "Eli Harrell", "role": "CEO, EmergePH", "photo": "https://peopleshr.com/wp-content/uploads/2026/08/Eli.jpg", "color": "#dbeafe", "textColor": "#2563eb" },
-      { "initials": "MG", "name": "Manuel Garcia-Ramos", "role": "Country Director – Philippines, PeoplesHR", "photo": "https://peopleshr.com/wp-content/uploads/2026/06/manuel_ramos.webp", "color": "#dbeafe", "textColor": "#2563eb" }
-    ]
-  },
-  "upcoming": [
-    {
-      "category": "HR & People",
-      "title": "AI dalam HR: Mendorong Transformasi Organisasi dalam Skala Besar",
-      "date": "3 Sep 2026",
-      "time": "11:00 AM WIB",
-      "duration": "1 hour",
-      "language": "Bahasa",
-      "registerUrl": "https://peopleshr.com/webinar-indonesia-ai-in-hr/",
-      "coverImage": "https://peopleshr.com/wp-content/uploads/2026/08/3_sep_webinar_cover.webp",
-      "gradient": 4,
-      "speakers": [
-        { "initials": "GA", "name": "Gustia R. Anasril", "role": "Chief HRGS Officer, Muliabara Group", "photo": "https://peopleshr.com/wp-content/uploads/2026/08/Gustia.jpeg", "color": "#ede9fe", "textColor": "#7c3aed" }
-      ]
-    }
-  ],
+  "featured": null,
+  "upcoming": [],
   "recordings": [
     {
       "category": "Product",
@@ -150,6 +121,34 @@ const WEBINAR_DATA = {
       "category": "HR & People",
       "categoryColor": "#be185d",
       "videos": [
+        {
+          "id": "rec-23",
+          "title": "AI dalam HR: Mendorong Transformasi Organisasi dalam Skala Besar",
+          "date": "3 Sep 2026",
+          "duration": "",
+          "views": "",
+          "language": "Bahasa",
+          "pending": true,
+          "thumbnailGradient": "linear-gradient(135deg,#4c1d95,#a855f7)",
+          "speakers": [
+            { "initials": "GA", "name": "Gustia R. Anasril", "role": "Chief HRGS Officer, Muliabara Group", "photo": "https://peopleshr.com/wp-content/uploads/2026/08/Gustia.jpeg", "color": "#ede9fe", "textColor": "#7c3aed" }
+          ]
+        },
+        {
+          "id": "rec-22",
+          "title": "Why AI Reskilling Isn't Enough: A Practical Guide to Real Change",
+          "date": "1 Sep 2026",
+          "duration": "",
+          "views": "",
+          "language": "English",
+          "youtubeId": "LV-0qpcDQ_0",
+          "thumbnailGradient": "linear-gradient(135deg,#9d174d,#ec4899)",
+          "speakers": [
+            { "initials": "EH", "name": "Eli Harrell", "role": "CEO, EmergePH", "photo": "https://peopleshr.com/wp-content/uploads/2026/08/Eli.jpg", "color": "#dbeafe", "textColor": "#2563eb" },
+            { "initials": "MG", "name": "Manuel Garcia-Ramos", "role": "Country Director – Philippines, PeoplesHR", "photo": "https://peopleshr.com/wp-content/uploads/2026/06/manuel_ramos.webp", "color": "#dbeafe", "textColor": "#2563eb" }
+          ],
+          "watchUrl": "https://youtu.be/LV-0qpcDQ_0"
+        },
         {
           "id": "rec-19",
           "title": "The Resource Triangle: Aligning Tech, Finance & People for Real HR ROI",
@@ -466,13 +465,15 @@ function renderRecordings(recordings) {
         : '';
 
       return `
-      <div class="wb-rec-card"${v.gated ? ' data-gated="1"' : ''} data-ytid="${v.youtubeId}" data-title="${v.title.replace(/"/g, '&quot;')}">
+      <div class="wb-rec-card"${v.gated ? ' data-gated="1"' : ''}${v.youtubeId ? ` data-ytid="${v.youtubeId}" data-title="${v.title.replace(/"/g, '&quot;')}"` : ' data-pending="1"'}>
         <div class="wb-rec-thumb" style="${thumbStyle}${v.gated ? 'filter:brightness(.7);' : ''}">
           ${youtubeThumb}
           ${v.gated
             ? `<span class="wb-preview-label wb-gated-label">${ICON_LOCK} Members only</span>`
-            : `<span class="wb-preview-label">Preview</span>`}
-          <div class="wb-rec-thumb-inner"><div class="wb-rec-play">${v.gated ? ICON_LOCK_LG : ICON_PLAY_LG}</div></div>
+            : v.youtubeId
+              ? `<span class="wb-preview-label">Preview</span>`
+              : `<span class="wb-preview-label wb-gated-label">Recording coming soon</span>`}
+          ${v.youtubeId ? `<div class="wb-rec-thumb-inner"><div class="wb-rec-play">${v.gated ? ICON_LOCK_LG : ICON_PLAY_LG}</div></div>` : ''}
           ${v.duration ? `<span class="wb-rec-duration">${v.duration}</span>` : ''}
           ${v.views ? `<span class="wb-rec-viewed">${ICON_EYE} ${v.views} views</span>` : ''}
         </div>
@@ -490,7 +491,9 @@ function renderRecordings(recordings) {
           <div class="wb-rec-title">${v.title}</div>
           <div class="wb-rec-footer">
             <div class="wb-rec-speakers">${speakersHTML}</div>
-            <button class="wb-watch-btn">Watch ${ICON_MINI_ARR}</button>
+            ${v.youtubeId
+              ? `<button class="wb-watch-btn">Watch ${ICON_MINI_ARR}</button>`
+              : `<span class="wb-watch-btn" style="opacity:.55;">Coming soon</span>`}
           </div>
         </div>
       </div>`;
