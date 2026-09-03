@@ -672,13 +672,14 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
     };
     var goToAdjacentPage = function(dir){ goToPage(currentPage + dir); };
 
-    if(voicesPrev) voicesPrev.addEventListener('click', function(){ goToAdjacentPage(-1); });
-    if(voicesNext) voicesNext.addEventListener('click', function(){ goToAdjacentPage(1); });
+    if(voicesPrev) voicesPrev.addEventListener('click', function(){ goToAdjacentPage(-1); startVoicesAutoplay(); });
+    if(voicesNext) voicesNext.addEventListener('click', function(){ goToAdjacentPage(1); startVoicesAutoplay(); });
     if(voicesDots){
       voicesDots.addEventListener('click', function(e){
         var dot = e.target.closest('.ph-voices-dot');
         if(!dot) return;
         goToPage(parseInt(dot.getAttribute('data-page'), 10));
+        startVoicesAutoplay();
       });
     }
 
@@ -700,10 +701,37 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
       voicesResizeTimer = setTimeout(function(){
         currentPage = Math.min(currentPage, getPageCount() - 1);
         refresh();
+        startVoicesAutoplay();
       }, 150);
     });
 
+    /* Auto-advance every 3s, looping back to page 0 after the last page.
+       Paused on hover/focus so a reader isn't fighting the slider, and
+       skipped entirely under prefers-reduced-motion like the other
+       animations on this page. */
+    var voicesAutoplayTimer = null;
+    var stopVoicesAutoplay = function(){
+      if(voicesAutoplayTimer){ clearInterval(voicesAutoplayTimer); voicesAutoplayTimer = null; }
+    };
+    var startVoicesAutoplay = function(){
+      stopVoicesAutoplay();
+      if(voicesReduceMotion || getPageCount() <= 1) return;
+      voicesAutoplayTimer = setInterval(function(){
+        currentPage = (currentPage + 1) % getPageCount();
+        refresh();
+        scrollToPage(currentPage);
+      }, 3000);
+    };
+    var voicesMore = document.querySelector('.ph-voices-more');
+    if(voicesMore){
+      voicesMore.addEventListener('mouseenter', stopVoicesAutoplay);
+      voicesMore.addEventListener('mouseleave', startVoicesAutoplay);
+      voicesMore.addEventListener('focusin', stopVoicesAutoplay);
+      voicesMore.addEventListener('focusout', startVoicesAutoplay);
+    }
+
     refresh();
+    startVoicesAutoplay();
   }
 
   /* Proven Impact stat count-up — runs once when the section first
