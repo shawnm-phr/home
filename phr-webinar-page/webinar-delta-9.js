@@ -129,6 +129,7 @@ const WEBINAR_DATA = {
           "views": "",
           "language": "Bahasa",
           "youtubeId": "a9JBUMstgHg",
+          "thumbnailQuality": "maxresdefault",
           "thumbnailGradient": "linear-gradient(135deg,#4c1d95,#a855f7)",
           "speakers": [
             { "initials": "GA", "name": "Gustia R. Anasril", "role": "Chief HRGS Officer, Muliabara Group", "photo": "https://peopleshr.com/wp-content/uploads/2026/08/Gustia.jpeg", "color": "#ede9fe", "textColor": "#7c3aed" }
@@ -462,7 +463,7 @@ function renderRecordings(recordings) {
           </div>
         </div>`).join('');
       const youtubeThumb = v.youtubeId && v.youtubeId !== 'dQw4w9WgXcQ'
-        ? `<img src="https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;" loading="lazy" alt="${v.title}">`
+        ? `<img src="https://img.youtube.com/vi/${v.youtubeId}/${v.thumbnailQuality || 'hqdefault'}.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;" loading="lazy" alt="${v.title}">`
         : '';
 
       return `
