@@ -128,11 +128,12 @@ const WEBINAR_DATA = {
           "duration": "",
           "views": "",
           "language": "Bahasa",
-          "pending": true,
+          "youtubeId": "a9JBUMstgHg",
           "thumbnailGradient": "linear-gradient(135deg,#4c1d95,#a855f7)",
           "speakers": [
             { "initials": "GA", "name": "Gustia R. Anasril", "role": "Chief HRGS Officer, Muliabara Group", "photo": "https://peopleshr.com/wp-content/uploads/2026/08/Gustia.jpeg", "color": "#ede9fe", "textColor": "#7c3aed" }
-          ]
+          ],
+          "watchUrl": "https://youtu.be/a9JBUMstgHg"
         },
         {
           "id": "rec-22",
