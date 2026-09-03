@@ -817,53 +817,58 @@ html{scrollbar-gutter:stable;}
 }
 .ph-demo-copy{flex:1;max-width:480px;}
 .ph-demo-split .dg-hero-demo{flex:1;}
+/* .dg-hero-img has no sizing rule anywhere in the shared CSS — without
+   this it renders at its native pixel size instead of filling
+   .dg-hero-demo-frame (aspect-ratio:16/10), overflowing and getting
+   cropped by the frame's own overflow:hidden on wide viewports, or
+   leaving visible gaps around it on narrower ones. */
+.dg-hero-img{width:100%;height:100%;object-fit:cover;display:block;}
 @media(max-width:1024px){
   .ph-demo-split{flex-direction:column;gap:40px;}
   .ph-demo-copy{max-width:100%;}
   .ph-demo-split .dg-hero-demo{width:100%;}
 }
 
-/* Play button -> "Start Demo" pill on hover. Overrides the shared
-   .dg-hero-play-btn (a plain circle) with a wider hit target that
-   morphs from icon-only to icon+label, scoped via .ph-demo-play-btn
-   so the shared class's default styling elsewhere is untouched. */
+/* "Start Demo" pill, visible at rest (not just on hover). Overrides
+   the shared .dg-hero-play-btn (a plain 68x68 circle) with a wider
+   auto-width hit target, scoped via .ph-demo-play-btn so the shared
+   class's default styling elsewhere is untouched. Uses a fixed-px
+   border-radius rather than the base class's 50% — 50% on a wide
+   rectangle draws elliptical corners (an "oval"), not a clean pill. */
 .ph-demo-play-btn{
-  padding:0 !important;
+  width:auto !important;
+  height:auto !important;
+  padding:14px 26px 14px 20px !important;
   font-size:inherit !important;
   color:inherit !important;
-  gap:0;
+  gap:10px;
+  border-radius:999px;
   overflow:hidden;
   white-space:nowrap;
-  transition:width .35s cubic-bezier(.22,.61,.36,1),padding .35s cubic-bezier(.22,.61,.36,1),background .3s ease,transform .2s,box-shadow .2s;
+  background:var(--phr-blue-500);
+  box-shadow:0 12px 40px rgba(37,99,235,.35);
+  transition:background .3s ease,transform .2s,box-shadow .2s;
 }
 .ph-demo-play-btn__icon{
   display:flex;
   align-items:center;
   justify-content:center;
   flex-shrink:0;
-  font-size:20px;
-  color:#2563eb;
-  padding-left:3px;
-  transition:color .3s ease;
+  font-size:18px;
+  color:#fff;
+  padding-left:2px;
 }
 .ph-demo-play-btn__label{
-  max-width:0;
-  opacity:0;
-  overflow:hidden;
   font-size:14.5px;
   font-weight:700;
   color:#fff;
   white-space:nowrap;
-  transition:max-width .35s cubic-bezier(.22,.61,.36,1),opacity .2s ease,margin-left .35s cubic-bezier(.22,.61,.36,1);
 }
 .dg-hero-demo-frame:hover .ph-demo-play-btn{
-  width:auto;
-  padding:0 26px 0 22px !important;
-  background:var(--phr-blue-500);
-  box-shadow:0 12px 40px rgba(37,99,235,.35);
+  background:var(--phr-blue-700);
+  box-shadow:0 16px 48px rgba(37,99,235,.45);
+  transform:translate(-50%,-50%) scale(1.05);
 }
-.dg-hero-demo-frame:hover .ph-demo-play-btn__icon{color:#fff;}
-.dg-hero-demo-frame:hover .ph-demo-play-btn__label{max-width:140px;opacity:1;margin-left:10px;}
 
 /* --- 10. Customer proof: same small case-study cards as customer-page
    (.cs-card and friends, ported from customer-page/style.css — logo/

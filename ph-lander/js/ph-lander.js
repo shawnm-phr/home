@@ -145,13 +145,8 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
           'Process overtime, night differentials and allowances',
           'Accelerate hiring with bulk CV parsing and AI ranking'
         ],
-        /* No BPO/shared-services workplace photo exists in the repo yet.
-           Needed: a modern BPO/shared-services floor with a professional
-           team at computer stations — not a dark, stereotypical
-           call-centre shot. */
-        image:null,
-        imagePlaceholderLabel:'BPO workplace photo needed',
-        imageAlt:'BPO team working across computer stations in a shared-services office'
+        image:'images/bpo_ph.webp',
+        imageAlt:'BPO team member wearing a headset working in a shared-services office'
       },
       {
         id:'hospitality',
@@ -170,12 +165,8 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
           'Manage location-specific holidays and overtime rules',
           'Track staff meal entitlements, deductions and subsidies'
         ],
-        /* No hotel/hospitality workplace photo exists in the repo yet.
-           Needed: an authentic hotel/hospitality service team at work —
-           coordinated frontline operations, not tourism/leisure imagery. */
-        image:null,
-        imagePlaceholderLabel:'Hospitality workplace photo needed',
-        imageAlt:'Hotel service team coordinating daily operations'
+        image:'images/hospitality_ph.webp',
+        imageAlt:'Hotel service team in uniform coordinating daily operations'
       },
       {
         id:'retail',
@@ -234,16 +225,8 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
           'Maintain a tamper-evident audit trail of system activity',
           'Generate workforce dashboards and scheduled reports'
         ],
-        /* No generic banking/financial-services workplace photo exists in
-           the repo. The one banking photo available (Peoples_Bank_...webp)
-           is a client case-study shot with that bank's own signage
-           visible, so it isn't safe to reuse here without implying that
-           specific client. Needed: a generic modern bank branch/office
-           with employees at work — no money, coins, cards or
-           stock-market-chart imagery. */
-        image:null,
-        imagePlaceholderLabel:'Banking & financial services workplace photo needed',
-        imageAlt:'Banking and financial services employees working in a modern branch office'
+        image:'images/banking_and_finance_ph.webp',
+        imageAlt:'Banking relationship manager in a suit consulting with a client in a branch office'
       }
     ];
 
