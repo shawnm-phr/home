@@ -366,7 +366,7 @@ html{scrollbar-gutter:stable;}
 /* .ph-hero-cta wraps a single .btn-primary <a>. The shared .btn-primary
    is display:flex (block-level), so without a width constraint it
    stretches to fill the wrapper instead of sizing to its content. */
-.ph-hero-cta{margin-top:8px;}
+.ph-hero-cta{margin-top:28px;}
 .ph-hero-cta .btn-primary{width:max-content;}
 
 /* G2 rating badge, reused from customer-page's .cs-hero-g2* pattern */
