@@ -538,6 +538,7 @@ html{scrollbar-gutter:stable;}
    a vibrant blue/purple/green gradient card carries the copy (this is
    the one AI-flavoured surface on the page, so it earns the color),
    a UI-preview video sits alongside it at matching height. ---------- */
+.ph-lexi-ins-eyebrow-logo{height:22px;width:auto;display:inline-block;margin-bottom:14px;}
 .ph-lexi-ins-tabs{
   display:flex;
   flex-wrap:wrap;
