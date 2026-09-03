@@ -402,7 +402,7 @@ html{scrollbar-gutter:stable;}
 .ph-compliance-strip{padding:56px 0;}
 .ph-compliance-strip .phr-section__title{font-size:clamp(16px,1.4vw,19px);font-weight:700;}
 .ph-compliance-badges{justify-content:center;margin-top:28px;}
-.ph-compliance-badge{gap:8px;}
+.ph-compliance-badge{gap:8px;font-size:14.5px;}
 .ph-compliance-badge-icon{flex-shrink:0;width:16px;height:16px;object-fit:contain;display:block;}
 
 /* --- 5. Modules tabs: icon+label tab row, one panel visible at a time */
