@@ -441,34 +441,44 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
   if(voicesTrack){
     var PH_VOICES = [
       {
-        id:'smsgt-kimberlyn',
-        quote:'PeoplesHR has improved operational efficiency & contributed to our company’s success. It has become a dependable tool in our journey towards building a more innovative workplace.',
-        personName:'Kimberlyn Aguilar',
-        jobTitle:'Solutions Engineer, Business System & Technology Architecture',
-        companyName:'SMS Global Technologies, Inc.',
-        industry:'Technology',
-        companyLogo:'images/smsgt-logo.svg',
-        companyLogoAlt:'SMS Global Technologies, Inc. logo'
-      },
-      {
-        id:'smsgt-bernice',
-        quote:'PeoplesHR has been immensely helpful in eliminating our challenges with manual payroll computation by providing us with an efficient, automated, and paperless solution. Weeks of work were effectively reduced to half the time, and corrections could be done with just a few clicks. It gave us a means to customize the system we needed, ranging from workflows to generated reports, complemented by an attentive implementation and support team and an efficient ticketing system to quickly address technical concerns.',
-        personName:'Bernice R. Novales',
-        jobTitle:'QA Tester & Support Analyst',
-        companyName:'SMS Global Technologies, Inc.',
-        industry:'Technology',
-        companyLogo:'images/smsgt-logo.svg',
-        companyLogoAlt:'SMS Global Technologies, Inc. logo'
+        id:'lavie',
+        quote:'What stands out the most is the team’s passion, commitment and willingness to listen to client feedback. As they continue innovating, learning and improving, the dedication behind the system is clearly visible and believe it will continue to grow stronger over time.',
+        personName:'Russel De Guzman',
+        jobTitle:'Senior Manager, HR',
+        companyName:'LaVie Resort & Casino',
+        industry:'Hospitality',
+        companyLogo:'images/lavie_logo.webp',
+        companyLogoAlt:'LaVie Resort & Casino logo'
       },
       {
         id:'smsgt-annamae',
-        quote:'PeoplesHR has truly transformed the way we manage our HR operations. By automating routine processes and centralizing employee data, we’ve been able to eliminate inefficiencies and focus more on strategic HR initiatives. Our partnership with PeoplesHR has been instrumental in modernizing our systems and fostering a more agile, responsive workplace. More than just a system, it has become a reliable partner in our journey.',
+        quote:'PeoplesHR has truly transformed the way we manage our HR operations. By automating routine processes and centralizing employee data, we’ve been able to eliminate inefficiencies and focus more on strategic HR initiatives. Our partnership with PeoplesHR has been instrumental in modernizing our systems and fostering a more agile, responsive workplace.',
         personName:'Anna Mae Rotoni',
         jobTitle:'HR Supervisor',
         companyName:'SMS Global Technologies, Inc.',
         industry:'Technology',
         companyLogo:'images/smsgt-logo.svg',
         companyLogoAlt:'SMS Global Technologies, Inc. logo'
+      },
+      {
+        id:'sandstone',
+        quote:'PayrollPlus by PeoplesHR has been instrumental in overcoming our payroll challenges by providing us with complete control over the process and ensuring timely completion. Its flexibility allows for last-minute changes, while the mobile app and self-service options enhance our employees’ experience by giving them easy access to view their leave balances.',
+        personName:'Gizelle Mangahas',
+        jobTitle:'Talent Acquisition Specialist',
+        companyName:'Sandstone Technology Phils., Inc.',
+        industry:'Technology',
+        companyLogo:'images/Sandstone-logo.svg',
+        companyLogoAlt:'Sandstone Technology Phils., Inc. logo'
+      },
+      {
+        id:'uy-dental',
+        quote:'PayrollPlus by PeoplesHR has made a significant impact on our operations. Prior to using the system, managing payroll manually was time-consuming and prone to errors, especially as our team continued to grow. From the initial consultation to go-live, the PeoplesHR team provided exceptional support. The system has helped us streamline salary computation and payslip distribution.',
+        personName:'Cherry',
+        jobTitle:'HR Admin',
+        companyName:'Uy Dental Clinic Group',
+        industry:'Healthcare',
+        companyLogo:'https://peopleshr.com/wp-content/uploads/2026/04/UY-Dental.webp',
+        companyLogoAlt:'Uy Dental Clinic Group logo'
       },
       {
         id:'smsgt-peaches',
@@ -481,44 +491,24 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
         companyLogoAlt:'SMS Global Technologies, Inc. logo'
       },
       {
-        id:'sandstone',
-        quote:'PayrollPlus by PeoplesHR has been instrumental in overcoming our payroll challenges by providing us with complete control over the process and ensuring timely completion. Its flexibility allows for last-minute changes, while the mobile app and self-service options enhance our employees’ experience by giving them easy access to view their leave balances. The dedicated support team has been incredibly helpful throughout this journey.',
-        personName:'Gizelle Mangahas',
-        jobTitle:'Talent Acquisition Specialist',
-        companyName:'Sandstone Technology Phils., Inc.',
-        industry:'Technology',
-        companyLogo:null,
-        companyLogoAlt:null
-      },
-      {
-        id:'uy-dental',
-        quote:'PayrollPlus by PeoplesHR has made a significant impact on our operations. Prior to using the system, managing payroll manually was time-consuming and prone to errors, especially as our team continued to grow. From the initial consultation to go-live, the PeoplesHR team provided exceptional support. The system has helped us streamline salary computation and payslip distribution. We would highly recommend PayrollPlus by PeoplesHR to any organization looking to modernize and streamline their payroll operations.',
-        personName:'Cherry',
-        jobTitle:'HR Admin',
-        companyName:'Uy Dental Clinic Group',
-        industry:'Healthcare',
-        companyLogo:null,
-        companyLogoAlt:null
-      },
-      {
         id:'area29',
         quote:'Thank you PayrollPlus by PeoplesHR, we’ve been looking for a better payroll system since our previous payroll system could not deliver an accurate and consistent output. With the help of PayrollPlus by PeoplesHR we can now enjoy the privilege of having our payroll processed within an hour.',
         personName:'Sygrid Joy Oliveros',
         jobTitle:'Vice President & CFO',
         companyName:'Area29 Construction Corporation',
         industry:'Construction',
-        companyLogo:null,
-        companyLogoAlt:null
+        companyLogo:'images/area29.svg',
+        companyLogoAlt:'Area29 Construction Corporation logo'
       },
       {
         id:'universal-canning',
-        quote:'I cannot speak highly enough of the PayrollPlus by PeoplesHR support team. Their dedication to providing timely and effective assistance is truly commendable. Whenever I’ve reached out with questions or concerns, they’ve been incredibly responsive, knowledgeable, and proactive in resolving any issues. I highly recommend PayrollPlus by PeoplesHR to anyone looking for a reliable and client-focused payroll solution!',
+        quote:'I cannot speak highly enough of the PayrollPlus by PeoplesHR support team. Their dedication to providing timely and effective assistance is truly commendable. Whenever I’ve reached out with questions or concerns, they’ve been incredibly responsive, knowledgeable, and proactive in resolving any issues.',
         personName:'Jhun Godoy',
         jobTitle:'ICT Manager',
         companyName:'Universal Canning Inc.',
         industry:'Manufacturing',
-        companyLogo:null,
-        companyLogoAlt:null
+        companyLogo:'images/universal_canning.svg',
+        companyLogoAlt:'Universal Canning Inc. logo'
       },
       {
         id:'anako',
@@ -527,8 +517,8 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
         jobTitle:'HR Supervisor',
         companyName:'Anako Philippines Corporation',
         industry:'Manufacturing',
-        companyLogo:null,
-        companyLogoAlt:null
+        companyLogo:'images/anako.svg',
+        companyLogoAlt:'Anako Philippines Corporation logo'
       },
       {
         id:'punta-baler',
@@ -537,18 +527,8 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
         jobTitle:'HR-Accounting Department',
         companyName:'Punta Baler Food Ventures Inc.',
         industry:'Food & Beverage',
-        companyLogo:null,
-        companyLogoAlt:null
-      },
-      {
-        id:'lavie',
-        quote:'What stands out the most is the team’s passion, commitment and willingness to listen to client feedback. As they continue innovating, learning and improving, the dedication behind the system is clearly visible and believe it will continue to grow stronger over time.',
-        personName:'Russel De Guzman',
-        jobTitle:'Senior Manager, HR',
-        companyName:'LaVie Resort & Casino',
-        industry:'Hospitality',
-        companyLogo:'images/lavie_logo.webp',
-        companyLogoAlt:'LaVie Resort & Casino logo'
+        companyLogo:'images/punta_baler_logo.jpg',
+        companyLogoAlt:'Punta Baler Hotel logo'
       }
     ];
 
