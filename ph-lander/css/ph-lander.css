@@ -396,6 +396,11 @@ html{scrollbar-gutter:stable;}
 .ph-trust-strip .client-logos::before,
 .ph-trust-strip .client-logos::after{display:none;}
 .ph-trust-strip .client-logos .client-logo img{height:36px !important;max-width:88px !important;}
+/* The shared .client-logo dims to 65% opacity by default (a subtle-trust-bar
+   convention elsewhere on the site), but here the strip sits right where
+   .phr-hero::after's white glow fades in — dimmed logos blend straight into
+   it. Full opacity keeps them legible regardless of what's behind them. */
+.ph-trust-strip .client-logo{opacity:1;}
 .ph-trust-strip .logo-slider-track{gap:36px;animation-duration:48s;}
 
 /* --- 2. Compliance strip (title + badge row, right after hero) ---- */
