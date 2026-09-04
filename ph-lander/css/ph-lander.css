@@ -1096,6 +1096,11 @@ html{scrollbar-gutter:stable;}
 }
 .ph-voices-featured-content{padding:48px 48px 48px 40px;display:flex;flex-direction:column;justify-content:center;min-width:0;}
 .ph-voices-featured-logo{height:36px;width:auto;max-width:170px;object-fit:contain;display:block;margin-bottom:22px;}
+/* The Sunlight wordmark's decorative "S" swash fills the file edge-to-edge
+   (no empty canvas to crop), so the visually solid part of the mark doesn't
+   start until ~30% in — reads as misaligned with the text below it. Nudge
+   left so the solid stroke lines up; the thin loop is allowed to overhang. */
+.ph-voices-featured-logo[src*="sunlight-logo"]{margin-left:-18px;}
 .ph-voices-featured-eyebrow{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--phr-blue-700);margin:0 0 16px;}
 .ph-voices-featured-quote{margin:0;}
 .ph-voices-featured-quote>.ph-voices-quote-mark{display:block;color:var(--phr-blue-200);margin-bottom:12px;}
