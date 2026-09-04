@@ -363,29 +363,51 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
      one is ever visible, so play/pause them in lockstep with the tab
      switch instead of leaving the other two decoding in the background. */
   var lexiInsTabs = document.querySelectorAll('.ph-lexi-ins-tab');
+  var lexiInsPanels = document.querySelectorAll('.ph-lexi-ins-panel');
+  var LEXI_INS_ORDER = ['leaders', 'managers', 'employees'];
   var setLexiInsVideoPlaying = function(panel, shouldPlay){
     var video = panel.querySelector('.ph-lexi-ins-video-el');
     if(!video) return;
-    if(shouldPlay) video.play().catch(function(){});
-    else video.pause();
+    if(shouldPlay){
+      video.currentTime = 0;
+      video.play().catch(function(){});
+    } else {
+      video.pause();
+    }
   };
-  document.querySelectorAll('.ph-lexi-ins-panel').forEach(function(panel){
+  var activateLexiInsTab = function(target){
+    lexiInsTabs.forEach(function(t){
+      var isActive = t.getAttribute('data-lexi-ins-tab') === target;
+      t.classList.toggle('is-active', isActive);
+      t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+    lexiInsPanels.forEach(function(panel){
+      var isActive = panel.getAttribute('data-lexi-ins-panel') === target;
+      panel.classList.toggle('is-active', isActive);
+      panel.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+      setLexiInsVideoPlaying(panel, isActive);
+    });
+  };
+  lexiInsPanels.forEach(function(panel){
     setLexiInsVideoPlaying(panel, panel.classList.contains('is-active'));
   });
   lexiInsTabs.forEach(function(tab){
     tab.addEventListener('click', function(){
-      var target = tab.getAttribute('data-lexi-ins-tab');
-      lexiInsTabs.forEach(function(t){
-        var isActive = t === tab;
-        t.classList.toggle('is-active', isActive);
-        t.setAttribute('aria-selected', isActive ? 'true' : 'false');
-      });
-      document.querySelectorAll('.ph-lexi-ins-panel').forEach(function(panel){
-        var isActive = panel.getAttribute('data-lexi-ins-panel') === target;
-        panel.classList.toggle('is-active', isActive);
-        panel.setAttribute('aria-hidden', isActive ? 'false' : 'true');
-        setLexiInsVideoPlaying(panel, isActive);
-      });
+      activateLexiInsTab(tab.getAttribute('data-lexi-ins-tab'));
+    });
+  });
+  /* Auto-advance to the next tab when its video finishes — leaders ->
+     managers -> employees -> back to leaders. Videos aren't set to loop
+     for this reason (loop would mean 'ended' never fires); a video with
+     no real <source> yet (still a placeholder) never fires 'ended' either,
+     so this is a no-op until each panel has a real clip. */
+  lexiInsPanels.forEach(function(panel){
+    var video = panel.querySelector('.ph-lexi-ins-video-el');
+    if(!video) return;
+    video.addEventListener('ended', function(){
+      var current = panel.getAttribute('data-lexi-ins-panel');
+      var nextIndex = (LEXI_INS_ORDER.indexOf(current) + 1) % LEXI_INS_ORDER.length;
+      activateLexiInsTab(LEXI_INS_ORDER[nextIndex]);
     });
   });
 
