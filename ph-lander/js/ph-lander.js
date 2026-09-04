@@ -431,143 +431,124 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
   }
 
   /* Written testimonial slider — cards render from PH_VOICES (single
-     source of truth) into the empty <ul id="phVoicesTrack">. Only one
-     real, approved testimonial exists so far (SMSGT, ported verbatim
-     from its case study page); the rest are the same placeholder
-     copy the page already had, kept as-is per instructions not to
-     invent replacement quotes — see the final summary for the list. */
+     source of truth) into the empty <ul id="phVoicesTrack">. All 11
+     entries are real, client-approved testimonials from the 2026-09-02
+     testimonial doc. Logo files only exist for SMSGT and LaVie so far
+     (companyLogo:null falls back to a text badge, per buildVoiceCard
+     above) — the rest render fine without one, just add a logo path
+     here once an asset is provided. */
   var voicesTrack = document.getElementById('phVoicesTrack');
   if(voicesTrack){
     var PH_VOICES = [
       {
-        id:'smsgt',
-        quote:'Implementing PeoplesHR has been a game-changer for our HR operations. The system has significantly reduced manual processes, allowing us to focus more on strategic initiatives rather than administrative tasks.',
+        id:'smsgt-kimberlyn',
+        quote:'PeoplesHR has improved operational efficiency & contributed to our company’s success. It has become a dependable tool in our journey towards building a more innovative workplace.',
         personName:'Kimberlyn Aguilar',
-        jobTitle:'Solutions Engineer',
+        jobTitle:'Solutions Engineer, Business System & Technology Architecture',
         companyName:'SMS Global Technologies, Inc.',
         industry:'Technology',
         companyLogo:'images/smsgt-logo.svg',
         companyLogoAlt:'SMS Global Technologies, Inc. logo'
       },
       {
-        id:'placeholder-1',
-        quote:'[Placeholder quote — swap for real testimonials] Switching payroll processes felt risky, but the rollout was smoother than expected.',
-        personName:null,
-        jobTitle:'HR Manager',
-        companyName:null,
+        id:'smsgt-bernice',
+        quote:'PeoplesHR has been immensely helpful in eliminating our challenges with manual payroll computation by providing us with an efficient, automated, and paperless solution. Weeks of work were effectively reduced to half the time, and corrections could be done with just a few clicks. It gave us a means to customize the system we needed, ranging from workflows to generated reports, complemented by an attentive implementation and support team and an efficient ticketing system to quickly address technical concerns.',
+        personName:'Bernice R. Novales',
+        jobTitle:'QA Tester & Support Analyst',
+        companyName:'SMS Global Technologies, Inc.',
+        industry:'Technology',
+        companyLogo:'images/smsgt-logo.svg',
+        companyLogoAlt:'SMS Global Technologies, Inc. logo'
+      },
+      {
+        id:'smsgt-annamae',
+        quote:'PeoplesHR has truly transformed the way we manage our HR operations. By automating routine processes and centralizing employee data, we’ve been able to eliminate inefficiencies and focus more on strategic HR initiatives. Our partnership with PeoplesHR has been instrumental in modernizing our systems and fostering a more agile, responsive workplace. More than just a system, it has become a reliable partner in our journey.',
+        personName:'Anna Mae Rotoni',
+        jobTitle:'HR Supervisor',
+        companyName:'SMS Global Technologies, Inc.',
+        industry:'Technology',
+        companyLogo:'images/smsgt-logo.svg',
+        companyLogoAlt:'SMS Global Technologies, Inc. logo'
+      },
+      {
+        id:'smsgt-peaches',
+        quote:'Our experience with PeoplesHR has been positive. The system efficiently generates attendance reports, including overtime and employee timesheets, while also simplifying the management of employee information and leave requests. The platform is user-friendly, easy to navigate, and highly customizable to our organizational needs.',
+        personName:'Peaches G. Lazatin',
+        jobTitle:'HR Practitioner',
+        companyName:'SMS Global Technologies, Inc.',
+        industry:'Technology',
+        companyLogo:'images/smsgt-logo.svg',
+        companyLogoAlt:'SMS Global Technologies, Inc. logo'
+      },
+      {
+        id:'sandstone',
+        quote:'PayrollPlus by PeoplesHR has been instrumental in overcoming our payroll challenges by providing us with complete control over the process and ensuring timely completion. Its flexibility allows for last-minute changes, while the mobile app and self-service options enhance our employees’ experience by giving them easy access to view their leave balances. The dedicated support team has been incredibly helpful throughout this journey.',
+        personName:'Gizelle Mangahas',
+        jobTitle:'Talent Acquisition Specialist',
+        companyName:'Sandstone Technology Phils., Inc.',
+        industry:'Technology',
+        companyLogo:null,
+        companyLogoAlt:null
+      },
+      {
+        id:'uy-dental',
+        quote:'PayrollPlus by PeoplesHR has made a significant impact on our operations. Prior to using the system, managing payroll manually was time-consuming and prone to errors, especially as our team continued to grow. From the initial consultation to go-live, the PeoplesHR team provided exceptional support. The system has helped us streamline salary computation and payslip distribution. We would highly recommend PayrollPlus by PeoplesHR to any organization looking to modernize and streamline their payroll operations.',
+        personName:'Cherry',
+        jobTitle:'HR Admin',
+        companyName:'Uy Dental Clinic Group',
+        industry:'Healthcare',
+        companyLogo:null,
+        companyLogoAlt:null
+      },
+      {
+        id:'area29',
+        quote:'Thank you PayrollPlus by PeoplesHR, we’ve been looking for a better payroll system since our previous payroll system could not deliver an accurate and consistent output. With the help of PayrollPlus by PeoplesHR we can now enjoy the privilege of having our payroll processed within an hour.',
+        personName:'Sygrid Joy Oliveros',
+        jobTitle:'Vice President & CFO',
+        companyName:'Area29 Construction Corporation',
+        industry:'Construction',
+        companyLogo:null,
+        companyLogoAlt:null
+      },
+      {
+        id:'universal-canning',
+        quote:'I cannot speak highly enough of the PayrollPlus by PeoplesHR support team. Their dedication to providing timely and effective assistance is truly commendable. Whenever I’ve reached out with questions or concerns, they’ve been incredibly responsive, knowledgeable, and proactive in resolving any issues. I highly recommend PayrollPlus by PeoplesHR to anyone looking for a reliable and client-focused payroll solution!',
+        personName:'Jhun Godoy',
+        jobTitle:'ICT Manager',
+        companyName:'Universal Canning Inc.',
         industry:'Manufacturing',
         companyLogo:null,
         companyLogoAlt:null
       },
       {
-        id:'placeholder-2',
-        quote:'[Placeholder] Compliance used to eat up a full week every cut-off. Now it runs inside the system.',
-        personName:null,
-        jobTitle:'Payroll Lead',
-        companyName:null,
-        industry:'BPO',
-        companyLogo:null,
-        companyLogoAlt:null
-      },
-      {
-        id:'placeholder-3',
-        quote:'[Placeholder] Having one system across our sites meant we stopped chasing spreadsheets.',
-        personName:null,
-        jobTitle:'HR Director',
-        companyName:null,
-        industry:'Logistics',
-        companyLogo:null,
-        companyLogoAlt:null
-      },
-      {
-        id:'placeholder-4',
-        quote:'[Placeholder] Statutory filing used to be a scramble every month. Now it’s automatic.',
-        personName:null,
-        jobTitle:'Compliance Officer',
-        companyName:null,
+        id:'anako',
+        quote:'Using PayrollPlus has improved our payroll workflows—it’s easy to use, produces accurate results, and has been very stable. Their customer service is responsive and consistently helpful.',
+        personName:'Jennilyn Reza',
+        jobTitle:'HR Supervisor',
+        companyName:'Anako Philippines Corporation',
         industry:'Manufacturing',
         companyLogo:null,
         companyLogoAlt:null
       },
       {
-        id:'placeholder-5',
-        quote:'[Placeholder] Rolling out a new HR system across sites was easier than we expected.',
-        personName:null,
-        jobTitle:'IT Manager',
-        companyName:null,
-        industry:'BPO',
+        id:'punta-baler',
+        quote:'Payroll Plus has transformed our payroll process with its high-tech, real-time biometric tracking, eliminating the need for manual computations. The software is user-friendly, and their support team is always accessible, making it a truly efficient and reliable system.',
+        personName:'Goldie Frenz Nazareno',
+        jobTitle:'HR-Accounting Department',
+        companyName:'Punta Baler Food Ventures Inc.',
+        industry:'Food & Beverage',
         companyLogo:null,
         companyLogoAlt:null
       },
       {
-        id:'placeholder-6',
-        quote:'[Placeholder] Attendance data finally matches payroll, every single cut-off.',
-        personName:null,
-        jobTitle:'Operations Head',
-        companyName:null,
-        industry:'Logistics',
-        companyLogo:null,
-        companyLogoAlt:null
-      },
-      {
-        id:'placeholder-7',
-        quote:'[Placeholder] Our team spends less time on admin and more time on people.',
-        personName:null,
-        jobTitle:'People Ops Lead',
-        companyName:null,
-        industry:'BPO',
-        companyLogo:null,
-        companyLogoAlt:null
-      },
-      {
-        id:'placeholder-8',
-        quote:'[Placeholder] Multi-site reporting used to take days. Now it’s instant.',
-        personName:null,
-        jobTitle:'HR Manager',
-        companyName:null,
-        industry:'Logistics',
-        companyLogo:null,
-        companyLogoAlt:null
-      },
-      {
-        id:'placeholder-9',
-        quote:'[Placeholder] Manual payroll errors are a thing of the past for us.',
-        personName:null,
-        jobTitle:'Payroll Supervisor',
-        companyName:null,
-        industry:'Manufacturing',
-        companyLogo:null,
-        companyLogoAlt:null
-      },
-      {
-        id:'placeholder-10',
-        quote:'[Placeholder] Employee self-service cut our HR helpdesk tickets significantly.',
-        personName:null,
-        jobTitle:'HR Business Partner',
-        companyName:null,
-        industry:'BPO',
-        companyLogo:null,
-        companyLogoAlt:null
-      },
-      {
-        id:'placeholder-11',
-        quote:'[Placeholder] Payroll accuracy improved the moment we moved off spreadsheets.',
-        personName:null,
-        jobTitle:'Finance Manager',
-        companyName:null,
-        industry:'Manufacturing',
-        companyLogo:null,
-        companyLogoAlt:null
-      },
-      {
-        id:'placeholder-12',
-        quote:'[Placeholder] Onboarding new hires across accounts finally feels consistent.',
-        personName:null,
-        jobTitle:'HR Director',
-        companyName:null,
-        industry:'BPO',
-        companyLogo:null,
-        companyLogoAlt:null
+        id:'lavie',
+        quote:'What stands out the most is the team’s passion, commitment and willingness to listen to client feedback. As they continue innovating, learning and improving, the dedication behind the system is clearly visible and believe it will continue to grow stronger over time.',
+        personName:'Russel De Guzman',
+        jobTitle:'Senior Manager, HR',
+        companyName:'LaVie Resort & Casino',
+        industry:'Hospitality',
+        companyLogo:'images/lavie_logo.webp',
+        companyLogoAlt:'LaVie Resort & Casino logo'
       }
     ];
 
