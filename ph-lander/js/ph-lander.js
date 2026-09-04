@@ -741,6 +741,33 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
     }
   }
 
+  /* HubSpot form embed — loaded lazily instead of a static <script> tag in
+     <head>, so a below-the-fold third-party embed isn't competing for
+     bandwidth with above-the-fold assets on initial load. rootMargin gives
+     it a head start (starts fetching ~600px before the form scrolls into
+     view) so it's ready by the time the reader actually gets there; the
+     .ph-form-loading placeholder is defined in the HTML and gets wiped out
+     when HubSpot's script replaces the container's content. */
+  var hsFormFrame = document.querySelector('.hs-form-frame[data-hs-embed-src]');
+  if(hsFormFrame){
+    var loadHsForm = function(){
+      var s = document.createElement('script');
+      s.src = hsFormFrame.getAttribute('data-hs-embed-src');
+      document.body.appendChild(s);
+    };
+    if('IntersectionObserver' in window){
+      var hsFormObserver = new IntersectionObserver(function(entries, obs){
+        if(entries[0].isIntersecting){
+          loadHsForm();
+          obs.disconnect();
+        }
+      }, {rootMargin:'600px 0px'});
+      hsFormObserver.observe(hsFormFrame);
+    } else {
+      loadHsForm();
+    }
+  }
+
   /* Sticky CTA — visible once scrolled past the hero, hidden again near
      the Final CTA section so the ask isn't duplicated on top of itself.
      Dismiss persists for the tab session, same pattern as the nv-ann

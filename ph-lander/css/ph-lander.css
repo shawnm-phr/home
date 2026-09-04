@@ -1261,11 +1261,28 @@ html{scrollbar-gutter:stable;}
 .ph-form-cta-form{flex:1;max-width:480px;width:100%;}
 .ph-form-embed{
   width:100%;
+  min-height:420px;
   border-radius:var(--phr-radius-lg);
   border:1px solid var(--phr-border);
   background:var(--phr-white);
   box-shadow:var(--phr-shadow-card);
   padding:28px;
+}
+.ph-form-loading{
+  height:100%;min-height:360px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+  color:var(--phr-text-light);font-size:14px;
+}
+.ph-form-loading-spinner{
+  width:26px;height:26px;
+  border:2.5px solid var(--phr-border);
+  border-top-color:var(--phr-blue-500);
+  border-radius:50%;
+  animation:ph-form-spin .8s linear infinite;
+}
+@keyframes ph-form-spin{to{transform:rotate(360deg);}}
+@media(prefers-reduced-motion:reduce){
+  .ph-form-loading-spinner{animation:none;}
 }
 @media(max-width:900px){
   .ph-form-cta-split{flex-direction:column;gap:32px;}

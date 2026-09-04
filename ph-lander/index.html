@@ -7,6 +7,13 @@
 <meta name="description" content="Manage employee data, attendance and payroll across every site in one system. Built for Philippine compliance and ready for multi-country payroll across 23+ countries.">
 <!-- Supademo popup embed (required for the Supademo.open() call in the interactive demo card) -->
 <script src="https://script.supademo.com/supademo.js"></script>
+<!-- Warm the connection for the HubSpot form embed (js-na2.hsforms.net loads
+     the embed script below; forms-na2.hsforms.com is where it fetches the
+     actual form definition/renders the iframe from) — the form itself loads
+     lazily near the bottom of the page (see ph-lander.js), but preconnecting
+     now means DNS/TLS is already warm by the time that kicks in. -->
+<link rel="preconnect" href="https://js-na2.hsforms.net">
+<link rel="preconnect" href="https://forms-na2.hsforms.com" crossorigin>
 <!-- Sitewide styles, shared with every other page -->
 <link rel="stylesheet" href="../phrhome.css">
 <!-- Page-only styles (nv-/ft- support + .ph- delta, see file header) -->
@@ -1093,8 +1100,12 @@
           </div>
           <div class="ph-form-cta-form">
             <div class="ph-form-embed">
-              <script src="https://js-na2.hsforms.net/forms/embed/45700506.js" defer></script>
-              <div class="hs-form-frame" data-region="na2" data-form-id="9aeb1002-d301-479a-b063-0a4767ed12d4" data-portal-id="45700506"></div>
+              <div class="hs-form-frame" data-region="na2" data-form-id="9aeb1002-d301-479a-b063-0a4767ed12d4" data-portal-id="45700506" data-hs-embed-src="https://js-na2.hsforms.net/forms/embed/45700506.js">
+                <div class="ph-form-loading" aria-hidden="true">
+                  <span class="ph-form-loading-spinner"></span>
+                  Loading form…
+                </div>
+              </div>
             </div>
           </div>
         </div>
