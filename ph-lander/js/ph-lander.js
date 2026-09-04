@@ -527,7 +527,7 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
         jobTitle:'HR-Accounting Department',
         companyName:'Punta Baler Food Ventures Inc.',
         industry:'Food & Beverage',
-        companyLogo:'images/punta_baler_logo.jpg',
+        companyLogo:'images/punta_baler_logo.svg',
         companyLogoAlt:'Punta Baler Hotel logo'
       }
     ];

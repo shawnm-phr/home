@@ -401,7 +401,7 @@ html{scrollbar-gutter:stable;}
    .phr-hero::after's white glow fades in — dimmed logos blend straight into
    it. Full opacity keeps them legible regardless of what's behind them. */
 .ph-trust-strip .client-logo{opacity:1;}
-.ph-trust-strip .logo-slider-track{gap:36px;animation-duration:48s;}
+.ph-trust-strip .logo-slider-track{gap:36px;animation-duration:43.2s;}
 
 /* --- 2. Compliance strip (title + badge row, right after hero) ---- */
 .ph-compliance-strip{padding:56px 0;}
@@ -1095,12 +1095,19 @@ html{scrollbar-gutter:stable;}
   pointer-events:none;
 }
 .ph-voices-featured-content{padding:48px 48px 48px 40px;display:flex;flex-direction:column;justify-content:center;min-width:0;}
-.ph-voices-featured-logo{height:36px;width:auto;max-width:170px;object-fit:contain;display:block;margin-bottom:22px;}
-/* The Sunlight wordmark's decorative "S" swash fills the file edge-to-edge
-   (no empty canvas to crop), so the visually solid part of the mark doesn't
-   start until ~30% in — reads as misaligned with the text below it. Nudge
-   left so the solid stroke lines up; the thin loop is allowed to overhang. */
-.ph-voices-featured-logo[src*="sunlight-logo"]{margin-left:-18px;}
+.ph-voices-featured-logo{
+  height:36px;width:auto;max-width:170px;
+  /* This is a flex column's cross-axis item with no aspect-ratio attribute
+     in its source SVG, so align-items:stretch was stretching it to the
+     full 170px max-width box; object-fit:contain then centered the actual
+     artwork inside that oversized box, leaving equal empty space on both
+     sides — reading as misaligned with the text below. object-position:left
+     anchors the artwork to the box's left edge (which already lines up with
+     the text) instead of centering it, without needing a magic-number nudge.
+  */
+  object-fit:contain;object-position:left center;
+  display:block;margin-bottom:22px;
+}
 .ph-voices-featured-eyebrow{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--phr-blue-700);margin:0 0 16px;}
 .ph-voices-featured-quote{margin:0;}
 .ph-voices-featured-quote>.ph-voices-quote-mark{display:block;color:var(--phr-blue-200);margin-bottom:12px;}
