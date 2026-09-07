@@ -398,16 +398,33 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
   });
   /* Auto-advance to the next tab when its video finishes — leaders ->
      managers -> employees -> back to leaders. Videos aren't set to loop
-     for this reason (loop would mean 'ended' never fires); a video with
-     no real <source> yet (still a placeholder) never fires 'ended' either,
-     so this is a no-op until each panel has a real clip. */
+     for this reason (loop would mean 'ended' never fires).
+
+     Not every panel has a real clip yet, so landing on a placeholder
+     would stall the cycle there forever (no video = 'ended' never
+     fires). hasRealVideo/nextTargetWithVideo walk forward past any
+     placeholder panels to the next one that can actually play and
+     continue the chain — remove this skip once every panel has a
+     real <source>, it becomes a no-op at that point anyway. */
+  var hasRealVideo = function(target){
+    var panel = document.querySelector('.ph-lexi-ins-panel[data-lexi-ins-panel="' + target + '"]');
+    var source = panel && panel.querySelector('.ph-lexi-ins-video-el source');
+    return !!(source && source.getAttribute('src'));
+  };
+  var nextTargetWithVideo = function(current){
+    var index = LEXI_INS_ORDER.indexOf(current);
+    for(var i = 1; i <= LEXI_INS_ORDER.length; i++){
+      var candidate = LEXI_INS_ORDER[(index + i) % LEXI_INS_ORDER.length];
+      if(hasRealVideo(candidate)) return candidate;
+    }
+    return null;
+  };
   lexiInsPanels.forEach(function(panel){
     var video = panel.querySelector('.ph-lexi-ins-video-el');
     if(!video) return;
     video.addEventListener('ended', function(){
-      var current = panel.getAttribute('data-lexi-ins-panel');
-      var nextIndex = (LEXI_INS_ORDER.indexOf(current) + 1) % LEXI_INS_ORDER.length;
-      activateLexiInsTab(LEXI_INS_ORDER[nextIndex]);
+      var next = nextTargetWithVideo(panel.getAttribute('data-lexi-ins-panel'));
+      if(next) activateLexiInsTab(next);
     });
   });
 
