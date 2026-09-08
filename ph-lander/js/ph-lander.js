@@ -125,7 +125,7 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
           'Capture overtime around scheduled shifts automatically',
           'Run standard or piece-rate payroll with statutory deductions'
         ],
-        image:'images/industry-manufacturing.webp',
+        image:'https://peopleshr.com/wp-content/uploads/2026/09/industry-manufacturing.webp',
         imageAlt:'Manufacturing worker operating machinery on a modern production line'
       },
       {
@@ -145,7 +145,7 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
           'Process overtime, night differentials and allowances',
           'Accelerate hiring with bulk CV parsing and AI ranking'
         ],
-        image:'images/bpo_ph.webp',
+        image:'https://peopleshr.com/wp-content/uploads/2026/09/bpo_ph.webp',
         imageAlt:'BPO team member wearing a headset working in a shared-services office'
       },
       {
@@ -165,7 +165,7 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
           'Manage location-specific holidays and overtime rules',
           'Track staff meal entitlements, deductions and subsidies'
         ],
-        image:'images/hospitality_ph.webp',
+        image:'https://peopleshr.com/wp-content/uploads/2026/09/hospitality_ph.webp',
         imageAlt:'Hotel service team in uniform coordinating daily operations'
       },
       {
@@ -185,7 +185,7 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
           'Monitor attendance across stores in real time',
           'Calculate overtime and generate secure digital payslips'
         ],
-        image:'images/industry-retail.webp',
+        image:'https://peopleshr.com/wp-content/uploads/2026/09/industry-retail.webp',
         imageAlt:'Retail staff in uniform working together inside a grocery store'
       },
       {
@@ -205,7 +205,7 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
           'Capture and approve overtime around scheduled shifts',
           'Give mobile employees access to payslips and HR updates'
         ],
-        image:'images/industry-logistics.webp',
+        image:'https://peopleshr.com/wp-content/uploads/2026/09/industry-logistics.webp',
         imageAlt:'Logistics driver in company uniform at a transport hub'
       },
       {
@@ -225,7 +225,7 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
           'Maintain a tamper-evident audit trail of system activity',
           'Generate workforce dashboards and scheduled reports'
         ],
-        image:'images/banking_and_finance_ph.webp',
+        image:'https://peopleshr.com/wp-content/uploads/2026/09/banking_and_finance_ph.webp',
         imageAlt:'Banking relationship manager in a suit consulting with a client in a branch office'
       }
     ];
@@ -486,7 +486,7 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
         jobTitle:'Senior Manager, HR',
         companyName:'LaVie Resort & Casino',
         industry:'Hospitality',
-        companyLogo:'images/lavie_logo.webp',
+        companyLogo:'https://peopleshr.com/wp-content/uploads/2026/09/lavie_logo.webp',
         companyLogoAlt:'LaVie Resort & Casino logo'
       },
       {
@@ -496,7 +496,7 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
         jobTitle:'HR Supervisor',
         companyName:'SMS Global Technologies, Inc.',
         industry:'Technology',
-        companyLogo:'images/smsgt-logo.svg',
+        companyLogo:'https://peopleshr.com/wp-content/uploads/2026/09/smsgt-logo.svg',
         companyLogoAlt:'SMS Global Technologies, Inc. logo'
       },
       {
@@ -506,7 +506,7 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
         jobTitle:'Talent Acquisition Specialist',
         companyName:'Sandstone Technology Phils., Inc.',
         industry:'Technology',
-        companyLogo:'images/Sandstone-logo.svg',
+        companyLogo:'https://peopleshr.com/wp-content/uploads/2026/09/Sandstone-logo.svg',
         companyLogoAlt:'Sandstone Technology Phils., Inc. logo'
       },
       {
@@ -526,7 +526,7 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
         jobTitle:'HR Practitioner',
         companyName:'SMS Global Technologies, Inc.',
         industry:'Technology',
-        companyLogo:'images/smsgt-logo.svg',
+        companyLogo:'https://peopleshr.com/wp-content/uploads/2026/09/smsgt-logo.svg',
         companyLogoAlt:'SMS Global Technologies, Inc. logo'
       },
       {
@@ -536,7 +536,7 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
         jobTitle:'Vice President & CFO',
         companyName:'Area29 Construction Corporation',
         industry:'Construction',
-        companyLogo:'images/area29.svg',
+        companyLogo:'https://peopleshr.com/wp-content/uploads/2026/09/area29.svg',
         companyLogoAlt:'Area29 Construction Corporation logo'
       },
       {
@@ -546,7 +546,7 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
         jobTitle:'ICT Manager',
         companyName:'Universal Canning Inc.',
         industry:'Manufacturing',
-        companyLogo:'images/universal_canning.svg',
+        companyLogo:'https://peopleshr.com/wp-content/uploads/2026/09/universal_canning.svg',
         companyLogoAlt:'Universal Canning Inc. logo'
       },
       {
@@ -556,7 +556,7 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
         jobTitle:'HR Supervisor',
         companyName:'Anako Philippines Corporation',
         industry:'Manufacturing',
-        companyLogo:'images/anako.svg',
+        companyLogo:'https://peopleshr.com/wp-content/uploads/2026/09/anako.svg',
         companyLogoAlt:'Anako Philippines Corporation logo'
       },
       {
@@ -566,7 +566,7 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
         jobTitle:'HR-Accounting Department',
         companyName:'Punta Baler Food Ventures Inc.',
         industry:'Food & Beverage',
-        companyLogo:'images/punta_baler_logo.svg',
+        companyLogo:'https://peopleshr.com/wp-content/uploads/2026/09/punta_baler_logo.svg',
         companyLogoAlt:'Punta Baler Hotel logo'
       }
     ];
