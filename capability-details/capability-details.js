@@ -107,17 +107,17 @@ var MODULES = [
         id: "standard-overtime-calculations", title: "Standard overtime calculations", type: "list",
         intro: "Overtime formulas available out of the box for converting hours worked beyond a scheduled shift into paid overtime, currently configured for the Philippines, Indonesia, and Sri Lanka. Other jurisdictions' overtime rules can be added the same way.",
         data: [
-          { name: "Regular Overtime (Philippines)", desc: "Extra hours worked past the standard 8-hour limit on a normal workday." },
-          { name: "Rest Day Overtime (Philippines)", desc: "Extra hours worked past 8 hours on an employee's scheduled day off." },
-          { name: "Special Non-Working Holiday Overtime (Philippines)", desc: "Extra hours worked past 8 hours on a declared special holiday (e.g., Ninoy Aquino Day)." },
-          { name: "Rest Day on Special Non-Working Holiday Overtime (Philippines)", desc: "Extra hours worked past 8 hours when a special non-working holiday coincides with the employee's scheduled day off." },
-          { name: "Regular Holiday Overtime (Philippines)", desc: "Extra hours worked past 8 hours on a fixed national holiday (e.g., Christmas Day, Independence Day)." },
-          { name: "Rest Day on Regular Holiday Overtime (Philippines)", desc: "Extra hours worked past 8 hours when a fixed regular holiday coincides with the employee's scheduled day off." },
-          { name: "Night Shift Differential, ND (Philippines)", desc: "Mandatory 10% premium pay added to an employee's regular hourly wage for work performed during the night." },
-          { name: "Weekday Overtime (Indonesia)", desc: "Overtime on regular working days: extra hours worked beyond the standard workday." },
-          { name: "Holiday / Rest Day Overtime (Indonesia)", desc: "Overtime worked on a public holiday or the employee's scheduled rest day." },
-          { name: "Standard Overtime, Normal Working Days (Sri Lanka)", desc: "Extra hours worked past the standard daily or weekly limits on a standard business day." },
-          { name: "Holiday / Rest Day Work, Poya Days & Statutory Holidays (Sri Lanka)", desc: "Work performed on weekly rest days (full or half days), Full Moon Poya Days, or national statutory holidays." }
+          { group: "Philippines", name: "Regular Overtime", desc: "Extra hours worked past the standard 8-hour limit on a normal workday." },
+          { group: "Philippines", name: "Rest Day Overtime", desc: "Extra hours worked past 8 hours on an employee's scheduled day off." },
+          { group: "Philippines", name: "Special Non-Working Holiday Overtime", desc: "Extra hours worked past 8 hours on a declared special holiday (e.g., Ninoy Aquino Day)." },
+          { group: "Philippines", name: "Rest Day on Special Non-Working Holiday Overtime", desc: "Extra hours worked past 8 hours when a special non-working holiday coincides with the employee's scheduled day off." },
+          { group: "Philippines", name: "Regular Holiday Overtime", desc: "Extra hours worked past 8 hours on a fixed national holiday (e.g., Christmas Day, Independence Day)." },
+          { group: "Philippines", name: "Rest Day on Regular Holiday Overtime", desc: "Extra hours worked past 8 hours when a fixed regular holiday coincides with the employee's scheduled day off." },
+          { group: "Philippines", name: "Night Shift Differential (ND)", desc: "Mandatory 10% premium pay added to an employee's regular hourly wage for work performed during the night." },
+          { group: "Indonesia", name: "Weekday Overtime", desc: "Overtime on regular working days: extra hours worked beyond the standard workday." },
+          { group: "Indonesia", name: "Holiday / Rest Day Overtime", desc: "Overtime worked on a public holiday or the employee's scheduled rest day." },
+          { group: "Sri Lanka", name: "Standard Overtime (Normal Working Days)", desc: "Extra hours worked past the standard daily or weekly limits on a standard business day." },
+          { group: "Sri Lanka", name: "Holiday / Rest Day Work (Poya Days & Statutory Holidays)", desc: "Work performed on weekly rest days (full or half days), Full Moon Poya Days, or national statutory holidays." }
         ]
       },
       {
@@ -336,7 +336,20 @@ var MODULES = [
     if (item.type === "list") {
       var ul = document.createElement("ul");
       ul.className = "cd-list";
+      var lastGroup = null;
       item.data.forEach(function (entry) {
+        /* an entry's optional `group` (e.g. a country) renders as a
+           subheading whenever it changes from the previous entry —
+           lets one list span several jurisdictions without repeating
+           the group name in every item's own label. Lists with no
+           `group` on their entries render exactly as before. */
+        if (entry.group && entry.group !== lastGroup) {
+          var groupLi = document.createElement("li");
+          groupLi.className = "cd-list-group";
+          groupLi.textContent = entry.group;
+          ul.appendChild(groupLi);
+          lastGroup = entry.group;
+        }
         var li = document.createElement("li");
         var name = document.createElement("span");
         name.className = "cd-list-name";

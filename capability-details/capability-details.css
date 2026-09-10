@@ -112,6 +112,8 @@
 .cd-list li:last-child{border-bottom:none;}
 .cd-list-name{display:block;font-weight:700;color:var(--phr-text-dark);font-size:14.5px;margin-bottom:3px;}
 .cd-list-desc{font-size:14px;color:var(--phr-text-mid);line-height:1.6;}
+.cd-list li.cd-list-group{padding:20px 0 6px;border-bottom:none;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--cd-accent,var(--phr-blue-600));}
+.cd-list li.cd-list-group:first-child{padding-top:0;}
 
 /* Prose */
 .cd-prose p{font-size:15px;color:var(--phr-text-mid);line-height:1.75;}
