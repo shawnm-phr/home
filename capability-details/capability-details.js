@@ -221,17 +221,17 @@ var MODULES = [
         data: {
           columns: ["Dashboard", "Description"],
           rows: [
-            ["Company Overview", "A high-level overview of the organisation and its workforce."],
-            ["Training Summary", "An overview of employee training and development activities."],
-            ["Requisition Dashboard", "An overview of recruitment requisitions and hiring activity."],
-            ["Attrition Summary", "An overview of employee attrition across the organisation."],
-            ["Employee Types Overview", "An overview of the different employment categories within the workforce."],
-            ["Payroll Analysis: Overview", "A high-level overview of organisational payroll information."],
-            ["Payroll Analysis: Service Period Wise", "An overview of payroll information based on employee service periods."],
-            ["Payroll Analysis: Demographic", "An overview of payroll information across workforce demographics."],
-            ["Monthly Payroll Overview", "An overview of payroll information across different months."],
-            ["ELC Movement Overview", "An overview of employee movements and life-cycle changes."],
-            ["Absenteeism Summary", "An overview of employee absence across the organisation."]
+            ["Company Overview", "A consolidated view of the organisation and its workforce."],
+            ["Training Summary", "A summary of employee training and development activities."],
+            ["Requisition Dashboard", "A snapshot of recruitment requisitions and hiring activity."],
+            ["Attrition Summary", "A summary of workforce attrition and employee turnover."],
+            ["Employee Types Overview", "A breakdown of the workforce by employment category."],
+            ["Payroll Analysis: Overview", "A consolidated view of organisational payroll information."],
+            ["Payroll Analysis: Service Period Wise", "Payroll information organised by employee service period."],
+            ["Payroll Analysis: Demographic", "Payroll information presented across workforce demographics."],
+            ["Monthly Payroll Overview", "A month-by-month view of payroll information."],
+            ["ELC Movement Overview", "A summary of employee life-cycle movements and changes."],
+            ["Absenteeism Summary", "A snapshot of employee absence across the organisation."]
           ]
         }
       }
