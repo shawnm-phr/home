@@ -125,7 +125,7 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
           'Capture overtime around scheduled shifts automatically',
           'Run standard or piece-rate payroll with statutory deductions'
         ],
-        image:'https://peopleshr.com/wp-content/uploads/2026/09/industry-manufacturing.webp',
+        image:'https://peopleshr.com/wp-content/uploads/2026/09/manufacturing_ph.webp',
         imageAlt:'Manufacturing worker operating machinery on a modern production line'
       },
       {
@@ -185,7 +185,7 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
           'Monitor attendance across stores in real time',
           'Calculate overtime and generate secure digital payslips'
         ],
-        image:'https://peopleshr.com/wp-content/uploads/2026/09/industry-retail.webp',
+        image:'https://peopleshr.com/wp-content/uploads/2026/09/retail_ph.webp',
         imageAlt:'Retail staff in uniform working together inside a grocery store'
       },
       {
@@ -205,7 +205,7 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
           'Capture and approve overtime around scheduled shifts',
           'Give mobile employees access to payslips and HR updates'
         ],
-        image:'https://peopleshr.com/wp-content/uploads/2026/09/industry-logistics.webp',
+        image:'https://peopleshr.com/wp-content/uploads/2026/09/transport_ph.webp',
         imageAlt:'Logistics driver in company uniform at a transport hub'
       },
       {
@@ -365,8 +365,10 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
   var lexiInsTabs = document.querySelectorAll('.ph-lexi-ins-tab');
   var lexiInsPanels = document.querySelectorAll('.ph-lexi-ins-panel');
   var LEXI_INS_ORDER = ['leaders', 'managers', 'employees'];
+  var LEXI_INS_IMAGE_MS = 5000;
+  var lexiInsImageTimer = null;
   var setLexiInsVideoPlaying = function(panel, shouldPlay){
-    var video = panel.querySelector('.ph-lexi-ins-video-el');
+    var video = panel.querySelector('video.ph-lexi-ins-video-el');
     if(!video) return;
     if(shouldPlay){
       video.currentTime = 0;
@@ -375,22 +377,55 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
       video.pause();
     }
   };
+  /* Not every panel has a real clip/image yet, so landing on an empty
+     placeholder would stall the cycle there forever. hasRealMedia/
+     nextTargetWithMedia walk forward past any placeholder panels to
+     the next one that can actually play or display and continue the
+     chain — remove this skip once every panel has real media, it
+     becomes a no-op at that point anyway. */
+  var hasRealMedia = function(target){
+    var panel = document.querySelector('.ph-lexi-ins-panel[data-lexi-ins-panel="' + target + '"]');
+    if(!panel) return false;
+    var source = panel.querySelector('video.ph-lexi-ins-video-el source');
+    if(source && source.getAttribute('src')) return true;
+    return !!panel.querySelector('img.ph-lexi-ins-video-el');
+  };
+  var nextTargetWithMedia = function(current){
+    var index = LEXI_INS_ORDER.indexOf(current);
+    for(var i = 1; i <= LEXI_INS_ORDER.length; i++){
+      var candidate = LEXI_INS_ORDER[(index + i) % LEXI_INS_ORDER.length];
+      if(hasRealMedia(candidate)) return candidate;
+    }
+    return null;
+  };
   var activateLexiInsTab = function(target){
     lexiInsTabs.forEach(function(t){
       var isActive = t.getAttribute('data-lexi-ins-tab') === target;
       t.classList.toggle('is-active', isActive);
       t.setAttribute('aria-selected', isActive ? 'true' : 'false');
     });
+    var activePanel = null;
     lexiInsPanels.forEach(function(panel){
       var isActive = panel.getAttribute('data-lexi-ins-panel') === target;
       panel.classList.toggle('is-active', isActive);
       panel.setAttribute('aria-hidden', isActive ? 'false' : 'true');
       setLexiInsVideoPlaying(panel, isActive);
+      if(isActive) activePanel = panel;
     });
+    if(lexiInsImageTimer){
+      clearTimeout(lexiInsImageTimer);
+      lexiInsImageTimer = null;
+    }
+    /* Images have no 'ended' event, so drive their auto-advance off a
+       fixed timer instead — mirrors how a video panel advances itself
+       below once its clip finishes playing. */
+    if(activePanel && activePanel.querySelector('img.ph-lexi-ins-video-el')){
+      lexiInsImageTimer = setTimeout(function(){
+        var next = nextTargetWithMedia(target);
+        if(next) activateLexiInsTab(next);
+      }, LEXI_INS_IMAGE_MS);
+    }
   };
-  lexiInsPanels.forEach(function(panel){
-    setLexiInsVideoPlaying(panel, panel.classList.contains('is-active'));
-  });
   lexiInsTabs.forEach(function(tab){
     tab.addEventListener('click', function(){
       activateLexiInsTab(tab.getAttribute('data-lexi-ins-tab'));
@@ -398,35 +433,20 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
   });
   /* Auto-advance to the next tab when its video finishes — leaders ->
      managers -> employees -> back to leaders. Videos aren't set to loop
-     for this reason (loop would mean 'ended' never fires).
-
-     Not every panel has a real clip yet, so landing on a placeholder
-     would stall the cycle there forever (no video = 'ended' never
-     fires). hasRealVideo/nextTargetWithVideo walk forward past any
-     placeholder panels to the next one that can actually play and
-     continue the chain — remove this skip once every panel has a
-     real <source>, it becomes a no-op at that point anyway. */
-  var hasRealVideo = function(target){
-    var panel = document.querySelector('.ph-lexi-ins-panel[data-lexi-ins-panel="' + target + '"]');
-    var source = panel && panel.querySelector('.ph-lexi-ins-video-el source');
-    return !!(source && source.getAttribute('src'));
-  };
-  var nextTargetWithVideo = function(current){
-    var index = LEXI_INS_ORDER.indexOf(current);
-    for(var i = 1; i <= LEXI_INS_ORDER.length; i++){
-      var candidate = LEXI_INS_ORDER[(index + i) % LEXI_INS_ORDER.length];
-      if(hasRealVideo(candidate)) return candidate;
-    }
-    return null;
-  };
+     for this reason (loop would mean 'ended' never fires). */
   lexiInsPanels.forEach(function(panel){
-    var video = panel.querySelector('.ph-lexi-ins-video-el');
+    var video = panel.querySelector('video.ph-lexi-ins-video-el');
     if(!video) return;
     video.addEventListener('ended', function(){
-      var next = nextTargetWithVideo(panel.getAttribute('data-lexi-ins-panel'));
+      var next = nextTargetWithMedia(panel.getAttribute('data-lexi-ins-panel'));
       if(next) activateLexiInsTab(next);
     });
   });
+  /* Route the initially-active panel through activateLexiInsTab (rather
+     than a plain play/pause loop) so it also arms the image timer when
+     that panel's media turns out to be an image, not a video. */
+  var lexiInsInitialActive = document.querySelector('.ph-lexi-ins-panel.is-active');
+  if(lexiInsInitialActive) activateLexiInsTab(lexiInsInitialActive.getAttribute('data-lexi-ins-panel'));
 
   /* Video testimonial modal — ported from customer-page/script.js's
      "2. Video Modal" IIFE, retargeted at this page's own element ids. */
