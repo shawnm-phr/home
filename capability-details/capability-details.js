@@ -85,27 +85,6 @@ var MODULES = [
             ["Salary confirmation letter", "Issued on request to confirm an employee's current salary, typically for external verification (loans, visas, etc.)."]
           ]
         }
-      },
-      {
-        id: "audit-trail", title: "Audit trail of system activity", type: "prose",
-        intro: "A complete, tamper-evident record of every data import, edit, override, and user action across the system — capturing who changed what, when, and from where.",
-        data: {
-          prose: ["Every change made in the system is logged automatically, with no way for a user to edit or delete the entry afterwards. Entries are kept for compliance, security, and dispute resolution."],
-          list: [
-            "[To be completed] — exactly what's captured, e.g. field-level before/after values",
-            "[To be completed] — retention period",
-            "[To be completed] — who can access the audit log",
-            "[To be completed] — export / reporting options"
-          ]
-        }
-      },
-      {
-        id: "api-external-systems", title: "External systems via API", type: "prose",
-        intro: "Structured API endpoints that let external systems, devices, and third-party applications securely push data into and pull data out of the platform.",
-        data: { prose: [
-          "A standard API layer lets external systems, devices, and third-party applications securely exchange data with PeoplesHR — pushing data in and pulling data out through structured endpoints across areas such as employee records, attendance, and payroll.",
-          "[To confirm] Supported protocols, authentication method, and rate limits."
-        ] }
       }
     ]
   },
