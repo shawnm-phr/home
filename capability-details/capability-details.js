@@ -105,7 +105,7 @@ var MODULES = [
     items: [
       {
         id: "standard-overtime-calculations", title: "Standard overtime calculations", type: "list",
-        intro: "Overtime formulas available out of the box for converting hours worked beyond a scheduled shift into paid overtime, currently configured for the Philippines and Indonesia. Other jurisdictions' overtime rules can be added the same way.",
+        intro: "Overtime formulas available out of the box for converting hours worked beyond a scheduled shift into paid overtime, currently configured for the Philippines, Indonesia, and Sri Lanka. Other jurisdictions' overtime rules can be added the same way.",
         data: [
           { name: "Regular Overtime (Philippines)", desc: "Extra hours worked past the standard 8-hour limit on a normal workday." },
           { name: "Rest Day Overtime (Philippines)", desc: "Extra hours worked past 8 hours on an employee's scheduled day off." },
@@ -115,7 +115,9 @@ var MODULES = [
           { name: "Rest Day on Regular Holiday Overtime (Philippines)", desc: "Extra hours worked past 8 hours when a fixed regular holiday coincides with the employee's scheduled day off." },
           { name: "Night Shift Differential, ND (Philippines)", desc: "Mandatory 10% premium pay added to an employee's regular hourly wage for work performed during the night." },
           { name: "Weekday Overtime (Indonesia)", desc: "Overtime on regular working days: extra hours worked beyond the standard workday." },
-          { name: "Holiday / Rest Day Overtime (Indonesia)", desc: "Overtime worked on a public holiday or the employee's scheduled rest day." }
+          { name: "Holiday / Rest Day Overtime (Indonesia)", desc: "Overtime worked on a public holiday or the employee's scheduled rest day." },
+          { name: "Standard Overtime, Normal Working Days (Sri Lanka)", desc: "Extra hours worked past the standard daily or weekly limits on a standard business day." },
+          { name: "Holiday / Rest Day Work, Poya Days & Statutory Holidays (Sri Lanka)", desc: "Work performed on weekly rest days (full or half days), Full Moon Poya Days, or national statutory holidays." }
         ]
       },
       {
