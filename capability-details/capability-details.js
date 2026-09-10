@@ -63,7 +63,7 @@ var MODULES = [
         ]
       },
       {
-        id: "lifecycle-validations", title: "Lifecycle validations", type: "list",
+        id: "lifecycle-validations", title: "Lifecycle validations", type: "list", hidden: true,
         intro: "Rules that run automatically at each lifecycle event to keep transfers, promotions, and exits consistent and audit-ready.",
         data: [
           { name: "Effective-date sequencing", desc: "Blocks a new lifecycle event from being back-dated before an already-processed one. Example item — ready to use." },
@@ -194,7 +194,7 @@ var MODULES = [
     module: "Insights", accent: "var(--cd-insights)",
     items: [
       {
-        id: "standard-reports", title: "Standard reports library", type: "table",
+        id: "standard-reports", title: "Standard reports library", type: "table", hidden: true,
         intro: "Pre-built reports spanning every module, available on demand so HR can pull common data views without building them from scratch.",
         data: {
           columns: ["Report", "Module", "What it shows"],
@@ -260,6 +260,7 @@ var MODULES = [
     list.style.listStyle = "none";
 
     mod.items.forEach(function (item) {
+      if (item.hidden) return; // not ready for launch yet — see capability-details.js's `hidden` items
       var li = document.createElement("li");
       var a = document.createElement("a");
       a.href = "#" + item.id;
@@ -284,6 +285,7 @@ var MODULES = [
   /* ---------- render main content ---------- */
   MODULES.forEach(function (mod) {
     mod.items.forEach(function (item) {
+      if (item.hidden) return; // not ready for launch yet — see capability-details.js's `hidden` items
       var section = document.createElement("section");
       section.className = "cd-section";
       section.id = item.id;
