@@ -221,17 +221,17 @@ var MODULES = [
         data: {
           columns: ["Dashboard", "What it shows"],
           rows: [
-            ["Company Overview", "Analysis of headcount against the company structure."],
-            ["Training Summary", "Training programs run, completion rates, and participation across the organisation."],
-            ["Requisition Dashboard", "Status of open hiring requisitions, from approval through to fill."],
-            ["Attrition Summary", "Attrition and turnover trends by department, tenure, and reason for leaving."],
-            ["Employee Types Overview", "Headcount broken down by employment type: permanent, contract, part-time, and probationary."],
-            ["Payroll Analysis - Overview", "A consolidated view of payroll cost and trends across the organisation."],
-            ["Payroll Analysis - Service Period Wise", "Payroll cost and headcount analysed by length of service."],
-            ["Payroll Analysis - Demographic", "Payroll cost and compensation analysed by demographic factors such as age, gender, and location."],
-            ["Monthly Payroll Overview", "Month-on-month payroll cost trends and variances."],
-            ["ELC Movement Overview", "Movement across employee life-cycle events, such as transfers, promotions, and role changes, over time."],
-            ["Absenteeism Summary", "Absence trends and patterns across the workforce, including unplanned leave."]
+            ["Company Overview", "A high-level overview of the organisation and its workforce."],
+            ["Training Summary", "An overview of employee training and development activities."],
+            ["Requisition Dashboard", "An overview of recruitment requisitions and hiring activity."],
+            ["Attrition Summary", "An overview of employee attrition across the organisation."],
+            ["Employee Types Overview", "An overview of the different employment categories within the workforce."],
+            ["Payroll Analysis: Overview", "A high-level overview of organisational payroll information."],
+            ["Payroll Analysis: Service Period Wise", "An overview of payroll information based on employee service periods."],
+            ["Payroll Analysis: Demographic", "An overview of payroll information across workforce demographics."],
+            ["Monthly Payroll Overview", "An overview of payroll information across different months."],
+            ["ELC Movement Overview", "An overview of employee movements and life-cycle changes."],
+            ["Absenteeism Summary", "An overview of employee absence across the organisation."]
           ]
         }
       }
