@@ -23,6 +23,15 @@ if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-d
    only; phrhome.js binds those by element id, not by class, so there's no
    collision with the ids used below). */
 
+/* flag emoji shown next to a list entry's country `group` heading
+   (see renderBody's "list" branch) — add an entry here whenever a
+   new jurisdiction is added to a grouped list. */
+var GROUP_FLAGS = {
+  "Sri Lanka": "🇱🇰",
+  "Philippines": "🇵🇭",
+  "Indonesia": "🇮🇩"
+};
+
 var MODULES = [
   {
     module: "HR", accent: "var(--cd-hr)",
@@ -357,7 +366,8 @@ var MODULES = [
         if (entry.group && entry.group !== lastGroup) {
           var groupLi = document.createElement("li");
           groupLi.className = "cd-list-group";
-          groupLi.textContent = entry.group;
+          var flag = GROUP_FLAGS[entry.group];
+          groupLi.textContent = (flag ? flag + " " : "") + entry.group;
           ul.appendChild(groupLi);
           lastGroup = entry.group;
         }
