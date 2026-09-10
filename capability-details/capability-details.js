@@ -110,7 +110,7 @@ var MODULES = [
           { name: "Regular Overtime", desc: "Extra hours worked past the standard 8-hour limit on a normal workday." },
           { name: "Rest Day Overtime", desc: "Extra hours worked past 8 hours on an employee's scheduled day off." },
           { name: "Special Non-Working Holiday Overtime", desc: "Extra hours worked past 8 hours on a declared special holiday (e.g., Ninoy Aquino Day)." },
-          { name: "Rest Day on Special Holiday Overtime", desc: "Extra hours worked past 8 hours when a special holiday coincides with the employee's scheduled day off." },
+          { name: "Rest Day on Special Non-Working Holiday Overtime", desc: "Extra hours worked past 8 hours when a special non-working holiday coincides with the employee's scheduled day off." },
           { name: "Regular Holiday Overtime", desc: "Extra hours worked past 8 hours on a fixed national holiday (e.g., Christmas Day, Independence Day)." },
           { name: "Rest Day on Regular Holiday Overtime", desc: "Extra hours worked past 8 hours when a fixed regular holiday coincides with the employee's scheduled day off." },
           { name: "Night Shift Differential (ND)", desc: "Mandatory 10% premium pay added to an employee's regular hourly wage for work performed during the night." }
