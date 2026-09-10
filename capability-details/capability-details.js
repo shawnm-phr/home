@@ -122,13 +122,24 @@ var MODULES = [
       },
       {
         id: "statutory-leaves", title: "Statutory leaves", type: "list",
-        intro: "The statutory leave types pre-configured for common jurisdictions, ready to enable and adjust to local regulation. Currently configured for Sri Lanka — other jurisdictions' statutory leaves can be added the same way.",
+        intro: "The statutory leave types pre-configured for common jurisdictions, ready to enable and adjust to local regulation. Currently configured for Sri Lanka and the Philippines. Other jurisdictions' statutory leaves can be added the same way.",
         data: [
-          { name: "Annual leave", desc: "Statutory paid annual leave entitlement, accrued based on length of service." },
-          { name: "Casual leave", desc: "Statutory casual leave for short-notice personal needs." },
-          { name: "Maternity leave", desc: "Statutory paid maternity leave for eligible employees." },
-          { name: "Earned leave", desc: "Leave accrued through completed service, available to take or carry forward." },
-          { name: "Sick leave", desc: "Leave for illness, in line with statutory and company policy." }
+          { group: "Sri Lanka", name: "Annual leave", desc: "Statutory paid annual leave entitlement, accrued based on length of service." },
+          { group: "Sri Lanka", name: "Casual leave", desc: "Statutory casual leave for short-notice personal needs." },
+          { group: "Sri Lanka", name: "Maternity leave", desc: "Statutory paid maternity leave for eligible employees." },
+          { group: "Sri Lanka", name: "Earned leave", desc: "Leave accrued through completed service, available to take or carry forward." },
+          { group: "Sri Lanka", name: "Sick leave", desc: "Leave for illness, in line with statutory and company policy." },
+          { group: "Philippines", name: "Service Incentive Leave", desc: "5 paid days annually after one year of service for covered employees. Separate vacation and sick leave are not legally required if SIL or an equivalent/better benefit is provided." },
+          { group: "Philippines", name: "Maternity Leave, Childbirth", desc: "105 calendar days with full pay, regardless of delivery method." },
+          { group: "Philippines", name: "Maternity Leave, Solo Mother", desc: "Additional 15 paid days, giving a total of 120 calendar days." },
+          { group: "Philippines", name: "Maternity Leave, Miscarriage or Emergency Termination of Pregnancy", desc: "60 calendar days with full pay." },
+          { group: "Philippines", name: "Additional Unpaid Maternity Leave", desc: "Optional extension of up to 30 calendar days without pay, subject to notice requirements." },
+          { group: "Philippines", name: "Allocated Maternity Leave Credits", desc: "The mother may allocate up to 7 days of her 105-day entitlement to the child's father or a qualified alternate caregiver. This is not a separate \"extended paternity leave.\"" },
+          { group: "Philippines", name: "Paternity Leave", desc: "7 paid days for a married male employee cohabiting with his spouse, covering the first four deliveries, including miscarriage." },
+          { group: "Philippines", name: "Solo Parent Leave", desc: "Up to 7 paid working days annually after at least 6 months of service. It is non-cumulative and requires proof of qualified solo-parent status." },
+          { group: "Philippines", name: "Special Leave for Women", desc: "Up to 2 months with full pay following surgery caused by a gynecological disorder, after at least 6 months' aggregate service during the preceding 12 months." },
+          { group: "Philippines", name: "VAWC Leave", desc: "Up to 10 paid days for qualified victim-survivors, in addition to other paid leave. It may be extended where specified in a protection order." },
+          { group: "Philippines", name: "Adoption-related Maternity/Paternity Leave", desc: "Qualified adoptive parents may access maternity and paternity leave under the applicable conditions of RA 11642." }
         ]
       },
       {
