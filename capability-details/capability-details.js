@@ -105,12 +105,15 @@ var MODULES = [
     items: [
       {
         id: "standard-overtime-calculations", title: "Standard overtime calculations", type: "list",
-        intro: "Overtime formulas available out of the box for converting hours worked beyond a scheduled shift into paid overtime.",
+        intro: "Overtime formulas available out of the box for converting hours worked beyond a scheduled shift into paid overtime, currently configured for the Philippines. Other jurisdictions' overtime rules can be added the same way.",
         data: [
-          { name: "1.5x weekday rate", desc: "Applies to approved hours worked beyond the scheduled shift on a normal working day. Example item — ready to use." },
-          { name: "[To be completed]", desc: "[To be completed]" },
-          { name: "[To be completed]", desc: "[To be completed]" },
-          { name: "[To be completed]", desc: "[To be completed]" }
+          { name: "Regular Overtime", desc: "Extra hours worked past the standard 8-hour limit on a normal workday." },
+          { name: "Rest Day Overtime", desc: "Extra hours worked past 8 hours on an employee's scheduled day off." },
+          { name: "Special Non-Working Holiday Overtime", desc: "Extra hours worked past 8 hours on a declared special holiday (e.g., Ninoy Aquino Day)." },
+          { name: "Rest Day on Special Holiday Overtime", desc: "Extra hours worked past 8 hours when a special holiday coincides with the employee's scheduled day off." },
+          { name: "Regular Holiday Overtime", desc: "Extra hours worked past 8 hours on a fixed national holiday (e.g., Christmas Day, Independence Day)." },
+          { name: "Rest Day on Regular Holiday Overtime", desc: "Extra hours worked past 8 hours when a fixed regular holiday coincides with the employee's scheduled day off." },
+          { name: "Night Shift Differential (ND)", desc: "Mandatory 10% premium pay added to an employee's regular hourly wage for work performed during the night." }
         ]
       },
       {
