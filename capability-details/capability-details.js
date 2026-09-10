@@ -219,7 +219,7 @@ var MODULES = [
         id: "standard-dashboards", title: "Standard dashboards", type: "table",
         intro: "Pre-built dashboards that connect metrics across modules and update automatically as the underlying data changes.",
         data: {
-          columns: ["Dashboard", "What it shows"],
+          columns: ["Dashboard", "Description"],
           rows: [
             ["Company Overview", "A high-level overview of the organisation and its workforce."],
             ["Training Summary", "An overview of employee training and development activities."],
