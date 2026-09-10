@@ -198,12 +198,12 @@ var MODULES = [
             ["Training Summary", "Training programs run, completion rates, and participation across the organisation."],
             ["Requisition Dashboard", "Status of open hiring requisitions, from approval through to fill."],
             ["Attrition Summary", "Attrition and turnover trends by department, tenure, and reason for leaving."],
-            ["Employee Types Overview", "Headcount broken down by employment type — permanent, contract, part-time, and probationary."],
+            ["Employee Types Overview", "Headcount broken down by employment type: permanent, contract, part-time, and probationary."],
             ["Payroll Analysis - Overview", "A consolidated view of payroll cost and trends across the organisation."],
             ["Payroll Analysis - Service Period Wise", "Payroll cost and headcount analysed by length of service."],
             ["Payroll Analysis - Demographic", "Payroll cost and compensation analysed by demographic factors such as age, gender, and location."],
             ["Monthly Payroll Overview", "Month-on-month payroll cost trends and variances."],
-            ["ELC Movement Overview", "Movement across employee life-cycle events — transfers, promotions, and role changes — over time."],
+            ["ELC Movement Overview", "Movement across employee life-cycle events, such as transfers, promotions, and role changes, over time."],
             ["Absenteeism Summary", "Absence trends and patterns across the workforce, including unplanned leave."]
           ]
         }
