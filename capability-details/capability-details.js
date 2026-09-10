@@ -110,7 +110,7 @@ var MODULES = [
       },
       {
         id: "statutory-leaves", title: "Statutory leaves", type: "list",
-        intro: "The statutory leave types pre-configured for common jurisdictions, ready to enable and adjust to local regulation. Currently configured for Sri Lanka and the Philippines. Other jurisdictions' statutory leaves can be added the same way.",
+        intro: "The statutory leave types pre-configured for common jurisdictions, ready to enable and adjust to local regulation. Currently configured for Sri Lanka, the Philippines, and Indonesia. Other jurisdictions' statutory leaves can be added the same way.",
         data: [
           { group: "Sri Lanka", name: "Annual leave", desc: "Statutory paid annual leave entitlement, accrued based on length of service." },
           { group: "Sri Lanka", name: "Casual leave", desc: "Statutory casual leave for short-notice personal needs." },
@@ -127,7 +127,22 @@ var MODULES = [
           { group: "Philippines", name: "Solo Parent Leave", desc: "Up to 7 paid working days annually after at least 6 months of service. It is non-cumulative and requires proof of qualified solo-parent status." },
           { group: "Philippines", name: "Special Leave for Women", desc: "Up to 2 months with full pay following surgery caused by a gynecological disorder, after at least 6 months' aggregate service during the preceding 12 months." },
           { group: "Philippines", name: "VAWC Leave", desc: "Up to 10 paid days for qualified victim-survivors, in addition to other paid leave. It may be extended where specified in a protection order." },
-          { group: "Philippines", name: "Adoption-related Maternity/Paternity Leave", desc: "Qualified adoptive parents may access maternity and paternity leave under the applicable conditions of RA 11642." }
+          { group: "Philippines", name: "Adoption-related Maternity/Paternity Leave", desc: "Qualified adoptive parents may access maternity and paternity leave under the applicable conditions of RA 11642." },
+          { group: "Indonesia", name: "Annual Leave", desc: "Paid time off for rest and personal purposes after completing the required period of service." },
+          { group: "Indonesia", name: "Sick Leave", desc: "Paid leave for employees who are medically unfit to work." },
+          { group: "Indonesia", name: "Menstrual Leave", desc: "Leave for female employees who are unable to work due to menstrual pain." },
+          { group: "Indonesia", name: "Maternity Leave: Childbirth", desc: "Paid leave provided to female employees before and after childbirth." },
+          { group: "Indonesia", name: "Extended Maternity Leave", desc: "Additional maternity leave for medically certified conditions affecting the mother or child." },
+          { group: "Indonesia", name: "Miscarriage Leave", desc: "Paid recovery leave following a miscarriage." },
+          { group: "Indonesia", name: "Paternity or Spousal Accompaniment Leave: Childbirth", desc: "Leave for an employee to accompany and support their wife during childbirth." },
+          { group: "Indonesia", name: "Spousal Accompaniment Leave: Miscarriage", desc: "Leave for an employee to support their wife following a miscarriage." },
+          { group: "Indonesia", name: "Employee Marriage Leave", desc: "Paid leave granted for an employee's marriage." },
+          { group: "Indonesia", name: "Employee's Child Marriage Leave", desc: "Paid leave granted for the marriage of an employee's child." },
+          { group: "Indonesia", name: "Child Circumcision Leave", desc: "Paid leave granted for an employee's child's circumcision." },
+          { group: "Indonesia", name: "Child Baptism Leave", desc: "Paid leave granted for an employee's child's baptism." },
+          { group: "Indonesia", name: "Bereavement Leave: Immediate Family", desc: "Paid leave following the death of an immediate family member." },
+          { group: "Indonesia", name: "Bereavement Leave: Household Member", desc: "Paid leave following the death of a person living in the employee's household." },
+          { group: "Indonesia", name: "Religious Obligation Leave", desc: "Paid leave for employees to fulfil legally recognised religious obligations." }
         ]
       },
       {
