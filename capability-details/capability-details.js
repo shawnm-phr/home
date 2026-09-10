@@ -162,8 +162,7 @@ var MODULES = [
         id: "geo-fencing", title: "Geo-fencing & map provider", type: "prose",
         intro: "Restricts clock-in to approved location zones, ensuring employees can only record attendance when they are physically within a designated radius.",
         data: { prose: [
-          "OpenStreetMap is the default mapping provider for this service. Alternative mapping providers can be supported upon client request, subject to availability, configuration requirements and any applicable licensing costs.",
-          "[To confirm] Maximum number of zones per site, radius configuration, and behaviour when a device reports no GPS signal."
+          "OpenStreetMap is the default mapping provider for this service. Alternative mapping providers can be supported upon client request, subject to availability, configuration requirements and any applicable licensing costs."
         ] }
       }
     ]
