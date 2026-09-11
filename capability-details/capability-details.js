@@ -37,6 +37,25 @@ var MODULES = [
     module: "HR", accent: "var(--cd-hr)",
     items: [
       {
+        id: "standard-information-fields", title: "Standard Information Fields", type: "table",
+        intro: "The default set of fields captured on every employee master record, available from day one before any custom fields are added.",
+        data: {
+          columns: ["Field", "Description"],
+          rows: [
+            ["Full legal name", "The employee's full name exactly as it appears on their statutory ID."],
+            ["Gender", "The employee's gender, used for demographic reporting and statutory compliance."],
+            ["Date of birth", "The employee's date of birth, used for age-based eligibility and statutory reporting."],
+            ["Nationality", "The employee's nationality, used for eligibility checks and statutory reporting."],
+            ["Marital status", "The employee's marital status, used for benefits administration and statutory reporting."],
+            ["Contact number", "The employee's primary phone number for contact purposes."],
+            ["Personal email address", "The employee's personal email address, used for communication outside the corporate system."],
+            ["Residential address", "The employee's current residential address."],
+            ["Emergency contact", "Name and contact details of the employee's designated emergency contact."],
+            ["Date of joining", "The employee's official start date with the organisation."]
+          ]
+        }
+      },
+      {
         id: "standard-info-validations", title: "Standard information validations", type: "table",
         intro: "Automated checks applied to employee-submitted information and profile changes before they're accepted into the master record.",
         data: {
