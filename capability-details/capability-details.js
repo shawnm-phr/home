@@ -42,16 +42,15 @@ var MODULES = [
         data: {
           columns: ["Field", "Description"],
           rows: [
-            ["Full legal name", "The employee's full name exactly as it appears on their statutory ID."],
+            ["Name", "Title, first, middle, last, and nick name, plus an auto-generated full name."],
             ["Gender", "The employee's gender, used for demographic reporting and statutory compliance."],
-            ["Date of birth", "The employee's date of birth, used for age-based eligibility and statutory reporting."],
+            ["Date of birth", "The employee's date of birth; age is calculated automatically."],
+            ["Blood type", "The employee's blood type, held for medical and emergency purposes."],
             ["Nationality", "The employee's nationality, used for eligibility checks and statutory reporting."],
-            ["Marital status", "The employee's marital status, used for benefits administration and statutory reporting."],
-            ["Contact number", "The employee's primary phone number for contact purposes."],
-            ["Personal email address", "The employee's personal email address, used for communication outside the corporate system."],
-            ["Residential address", "The employee's current residential address."],
-            ["Emergency contact", "Name and contact details of the employee's designated emergency contact."],
-            ["Date of joining", "The employee's official start date with the organisation."]
+            ["Residency status", "The employee's residency status (e.g. resident, non-resident)."],
+            ["Religion", "The employee's religion."],
+            ["Civil status", "The employee's civil/marital status, used for benefits administration and statutory reporting."],
+            ["Date of marriage", "The employee's date of marriage, captured where applicable."]
           ]
         }
       },
