@@ -50,7 +50,6 @@ var MODULES = [
             ["Residency status", "The employee's residency status (e.g. resident, non-resident)."],
             ["Religion", "The employee's religion."],
             ["Civil status", "The employee's civil/marital status, used for benefits administration and statutory reporting."],
-            ["Date of marriage", "The employee's date of marriage, captured where applicable."],
             ["Address", "House/unit number, street, subdivision or village, and postal code."],
             ["City/Municipality", "The city or municipality of the employee's address."],
             ["Province/State", "The province or state of the employee's address."],
