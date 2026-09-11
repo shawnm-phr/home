@@ -1221,28 +1221,31 @@
     if (popHandler) { window.removeEventListener('scroll', popHandler, true); window.removeEventListener('resize', popHandler); popHandler = null; }
   }
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closePop(); });
-  document.addEventListener('click', function (e) { var a = e.target.closest('.pc-cell-link'); if (a && a.getAttribute('href') === '#') e.preventDefault(); });
+
+  /* lazy-loads the HubSpot forms embed script once, shared by both
+     modals below (Contact Us and the capability-details gate) — most
+     visitors never open either, so nothing loads until they do. */
+  function ensureHsScript(cb) {
+    if (window.hbspt) { cb(); return; }
+    var existing = document.querySelector('script[src*="hsforms.net/forms/embed/v2.js"]');
+    if (existing) { existing.addEventListener('load', cb); return; }
+    var s = document.createElement('script');
+    s.src = '//js-na2.hsforms.net/forms/embed/v2.js';
+    s.charset = 'utf-8';
+    s.onload = cb;
+    document.body.appendChild(s);
+  }
 
   /* "Contact Us" modal — same .hs-modal-overlay/.hs-modal shell used
      sitewide for HubSpot-embedded lead forms (see phrhome.js), just
-     wired to this page's own form instance. The embed script and the
-     form itself are both built lazily on first open, not on page
-     load, since most visitors never click Contact Us. */
+     wired to this page's own form instance. The form itself is built
+     lazily on first open, not on page load, since most visitors never
+     click Contact Us. */
   var hsModal = document.getElementById('pcContactModal');
   if (hsModal) {
     var hsClose = document.getElementById('pcContactModalClose');
     var hsFormBuilt = false;
 
-    function ensureHsScript(cb) {
-      if (window.hbspt) { cb(); return; }
-      var existing = document.querySelector('script[src*="hsforms.net/forms/embed/v2.js"]');
-      if (existing) { existing.addEventListener('load', cb); return; }
-      var s = document.createElement('script');
-      s.src = '//js-na2.hsforms.net/forms/embed/v2.js';
-      s.charset = 'utf-8';
-      s.onload = cb;
-      document.body.appendChild(s);
-    }
     function buildHsForm() {
       if (hsFormBuilt) return;
       hsFormBuilt = true;
@@ -1273,5 +1276,64 @@
     if (hsClose) hsClose.addEventListener('click', closeHsModal);
     hsModal.addEventListener('click', function (e) { if (e.target === hsModal) closeHsModal(); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && hsModal.classList.contains('active')) closeHsModal(); });
+  }
+
+  /* capability-details gate modal — every .pc-cell-link in the
+     comparison table points at /capability-details/#..., opened in a
+     new tab. Rather than navigating straight there, intercept the
+     click, collect a lead through this form, then open the original
+     target once the form is submitted. Links that are still bare "#"
+     placeholders (e.g. on the Bahasa page, not yet wired to real
+     capability-details anchors) are left alone — there's nothing to
+     gate on the way to nowhere. */
+  var capGateModal = document.getElementById('pcCapGateModal');
+  if (capGateModal) {
+    var capGateClose = document.getElementById('pcCapGateModalClose');
+    var capGateFormBuilt = false;
+    var capGateTargetUrl = null;
+
+    function buildCapGateForm() {
+      if (capGateFormBuilt) return;
+      capGateFormBuilt = true;
+      ensureHsScript(function () {
+        hbspt.forms.create({
+          portalId: '45700506',
+          formId: '93181f13-b063-4e09-a572-345dbda4b062',
+          region: 'na2',
+          target: '#pcCapGateFormContainer',
+          onFormSubmitted: function () {
+            closeCapGateModal();
+            if (capGateTargetUrl) window.open(capGateTargetUrl, '_blank', 'noopener');
+          }
+        });
+      });
+    }
+    function openCapGateModal(url) {
+      capGateTargetUrl = url;
+      capGateModal.classList.add('active');
+      capGateModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      buildCapGateForm();
+    }
+    function closeCapGateModal() {
+      capGateModal.classList.remove('active');
+      capGateModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest('.pc-cell-link');
+      if (!a) return;
+      var href = a.getAttribute('href');
+      if (!href || href === '#') { e.preventDefault(); return; }
+      e.preventDefault();
+      openCapGateModal(href);
+    });
+    if (capGateClose) capGateClose.addEventListener('click', closeCapGateModal);
+    capGateModal.addEventListener('click', function (e) { if (e.target === capGateModal) closeCapGateModal(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && capGateModal.classList.contains('active')) closeCapGateModal(); });
+  } else {
+    /* no gate modal on this page (e.g. Bahasa) — keep the old
+       behaviour of just swallowing clicks on bare "#" placeholders. */
+    document.addEventListener('click', function (e) { var a = e.target.closest('.pc-cell-link'); if (a && a.getAttribute('href') === '#') e.preventDefault(); });
   }
 }());
