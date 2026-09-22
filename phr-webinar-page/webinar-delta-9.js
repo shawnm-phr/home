@@ -21,7 +21,19 @@ if(burger)burger.addEventListener('click',openPanel);if(closeBtn)closeBtn.addEve
 if(annClose)annClose.addEventListener('click',function(){ann.classList.add('is-dismissed');try{sessionStorage.setItem(ANN_KEY,'1');}catch(e){}});}}());
 
 const WEBINAR_DATA = {
-  "featured": null,
+  "featured": {
+    "title": "Is Your Payroll Ready for the Year-End?",
+    "description": "December does not create payroll errors, it exposes them. Join Sharon Aytona for a live look at where year-end payroll gaps usually start — annualization reconciliation, data quality issues, and taxable/non-taxable benefit classification — while there's still time to fix them.",
+    "language": "English",
+    "date": "2026-10-09T15:00:00+08:00",
+    "dateLabel": "9 Oct 2026",
+    "timeLabel": "3:00 PM PHT",
+    "registerUrl": "https://peopleshr.com/webinar-year-end-payroll-ph/",
+    "coverImage": "images/upcoming_cover.webp",
+    "speakers": [
+      { "initials": "SA", "name": "Sharon Aytona", "role": "Consultant, Bridge PayDay Solutions & President, Thinktank Professional Services Inc.", "photo": "https://peopleshr.com/uploads/2026/10/Sharon.jpg", "color": "#fef3c7", "textColor": "#92400e" }
+    ]
+  },
   "upcoming": [],
   "recordings": [
     {
