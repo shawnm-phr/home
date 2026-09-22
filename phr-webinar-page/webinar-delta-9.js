@@ -31,7 +31,7 @@ const WEBINAR_DATA = {
     "registerUrl": "https://peopleshr.com/webinar-year-end-payroll-ph/",
     "coverImage": "images/upcoming_cover.webp",
     "speakers": [
-      { "initials": "SA", "name": "Sharon Aytona", "role": "Consultant, Bridge PayDay Solutions & President, Thinktank Professional Services Inc.", "photo": "https://peopleshr.com/uploads/2026/10/Sharon.jpg", "color": "#fef3c7", "textColor": "#92400e" }
+      { "initials": "SA", "name": "Sharon Aytona", "role": "Consultant, Bridge PayDay Solutions & President, Thinktank Professional Services Inc.", "photo": "https://peopleshr.com/uploads/2026/10/sharon%201.webp", "color": "#fef3c7", "textColor": "#92400e" }
     ]
   },
   "upcoming": [],
@@ -799,7 +799,7 @@ async function init() {
     const hasUpcoming = data.upcoming && data.upcoming.length > 0;
     body.innerHTML =
       (data.featured ? renderFeatured(data.featured) : '') +
-      (hasUpcoming ? renderUpcoming(data.upcoming) : renderComingSoon()) +
+      (hasUpcoming ? renderUpcoming(data.upcoming) : (data.featured ? '' : renderComingSoon())) +
       renderRecordings(data.recordings) +
       renderCTA();
 
